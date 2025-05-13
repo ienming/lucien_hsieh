@@ -28,6 +28,8 @@
 .custom-header {
     grid-template-columns: 2fr 1fr 1fr;
     padding: $space-base;
+    max-width: 90%;
+    margin: 0 auto;
 
     .logo {
         font-size: $font-size-xl;

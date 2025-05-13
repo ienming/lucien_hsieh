@@ -1,10 +1,12 @@
 <template>
-    <footer class="d-grid custom-footer">
-        <div>
-            <span>©2025 ALL RIGHTS RESERVED</span>
-        </div>
-        <div>
-            <span>TAIPEI / TAIWAN</span>
+    <footer class="custom-footer">
+        <div class="d-grid container">
+            <div>
+                <span>©2025 ALL RIGHTS RESERVED</span>
+            </div>
+            <div>
+                <span>TAIPEI / TAIWAN</span>
+            </div>
         </div>
     </footer>
 </template>
@@ -14,9 +16,14 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    padding: $space-md;
-    grid-template-columns: 3fr 1fr;
     width: 100vw;
+    padding: $space-md;
     color: $color-text-tertiary;
+    
+    .container {
+        max-width: 90%;
+        margin: 0 auto;
+        grid-template-columns: 3fr 1fr;
+    }
 }
 </style>

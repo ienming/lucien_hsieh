@@ -1,20 +1,22 @@
 <template>
     <li
-        class="align-items-center img-list-item"
+        class="img-list-item"
         @mouseenter="$emit('mouse-enter-item')"
         @mouseleave="$emit('mouse-leave-item')">
-        <div class="info fade-right-link">
-            <span class="title">{{ title }}</span>
-            <span class="sub-title">{{ subTitle }}</span>
-        </div>
-        <div class="meta">
-            <p class="year">{{ year }}</p>
-            <template
-                v-for="(tag, idx) of tags"
-                :key="tag">
-                <span class="fade-link">{{ tag }}</span>
-                <span v-if="idx !== tags.length - 1"> / </span>
-            </template>
+        <div class="align-items-center item-container">
+            <div class="info fade-right-link">
+                <span class="title">{{ title }}</span>
+                <span class="sub-title">{{ subTitle }}</span>
+            </div>
+            <div class="meta">
+                <p class="year">{{ year }}</p>
+                <template
+                    v-for="(tag, idx) of tags"
+                    :key="tag">
+                    <span class="fade-link">{{ tag }}</span>
+                    <span v-if="idx !== tags.length - 1"> / </span>
+                </template>
+            </div>
         </div>
     </li>
 </template>
@@ -38,7 +40,8 @@ export default {
             type: String,
             default: '',
         },
-    }
+    },
+    emits: ['mouse-enter-item', 'mouse-leave-item'],
 };
 </script>
 
@@ -46,13 +49,17 @@ export default {
 .img-list-item {
     border-bottom: 1px solid $color-neutral-900;
     list-style: none;
-    display: grid;
-    grid-template-columns: auto 150px;
     cursor: pointer;
+    
+    .item-container {
+        max-width: 90%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        padding: $space-base;
+    }
 
     .info {
-        padding: $space-md;
-        
         .title {
             font-size: $font-size-xl;
             font-weight: $font-weight-700;
@@ -68,7 +75,6 @@ export default {
 
     .meta {
         font-size: $font-size-base;
-        padding: $space-md;
 
         .year {
             margin-bottom: 0;
