@@ -1,15 +1,68 @@
 @use './_variables';
 
-.fade-link {
+.fade-right-link {
+    display: inline-block;
+    transition: all 900ms cubic-bezier(0.060, 1.015, 0.805, 1.000);
+
     &:hover {
-        color: red;
+        opacity: .3;
+        transform: translateX(16px) scale(0.9875);
+    }
+}
+
+.fade-link {
+    display: inline-block;
+    transition: all 900ms cubic-bezier(0.060, 1.015, 0.805, 1.000);
+    cursor: pointer;
+
+    &:hover {
+        opacity: .3;
+        transform: scale(0.9875);
+    }
+
+    &.active {
+        text-decoration: none;
+        opacity: .3;
+        border-bottom: none;
     }
 }
 
 .cross-off-link {
-    &:hover {
-        color: blue;
+	position: relative;
+    cursor: pointer;
+
+    &::before {
+        position: absolute;
+        content: '';
+        width: 100%;
+        transform: scaleX(0%);
+        background-color: black;
+        height: 8px;
     }
+
+    &.animate, &:hover {
+        &::before {
+            animation: crossOff 1s ease-in-out 0s 2;
+        }
+    }
+}
+
+@keyframes crossOff {
+	0% {
+    	transform: scaleX(0%);
+        transform-origin: left center;
+    }
+    50% {
+		transform: scaleX(100%);
+        transform-origin: left center;
+	}
+    51% {
+		transform-origin: right center;
+	}
+    100% {
+		transform: scaleX(0%);
+        transform-origin: right center;
+	}
 }
 
 .min-100-vh {

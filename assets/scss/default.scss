@@ -1,0 +1,12 @@
+@use './variables' as vars;
+
+::selection {
+    color: vars.$color-background-container;
+	background-color: vars.$color-text-default;
+}
+
+html, body {
+    color: vars.$color-text-default;
+    background-color: vars.$color-background-container;
+    font-family: "Noto Sans Traditional Chinese", "Inter", sans-serif;
+}

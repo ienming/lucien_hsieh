@@ -1,10 +1,26 @@
 <template>
     <div class="d-grid align-items-center custom-header">
-        <NuxtLink
-            to="/"
-            class="cross-off-link logo">Header</NuxtLink>
-        <NuxtLink to="info">Info</NuxtLink>
-        <NuxtLink to="playroom">Playroom</NuxtLink>
+        <div>
+            <NuxtLink
+                to="/"
+                class="logo">
+                <span class="cross-off-link">LUCIEN</span>
+            </NuxtLink>
+        </div>
+        <div>
+            <NuxtLink
+                to="info"
+                class="link fade-right-link">
+                <span>INFO 🎐</span>
+            </NuxtLink>
+        </div>
+        <div>
+            <NuxtLink
+                to="playroom"
+                class="link fade-right-link">
+                <span>PLAYROOM 🪁</span>
+            </NuxtLink>
+        </div>
     </div>
 </template>
 
@@ -15,6 +31,11 @@
 
     .logo {
         font-size: $font-size-xl;
+        font-weight: $font-weight-800;
+    }
+
+    .link {
+        font-weight: $font-weight-500;
     }
 }
 </style>

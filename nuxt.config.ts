@@ -13,5 +13,11 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ['@nuxt/eslint', '@nuxt/content']
+  modules: ['@nuxt/eslint', '@nuxtjs/google-fonts'],
+  googleFonts: {
+    families: {
+      Inter: true,
+      'Noto Sans Traditional Chinese': true,
+    },
+  },
 })

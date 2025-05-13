@@ -1,16 +1,19 @@
 <template>
-    <ul class="img-list">
-        <ImageListItem
-            v-for="project of projects"
-            :key="project.id"
-            :id="project.id"
-            :title="project.title"
-            :tags="project.tags"
-            @mouse-enter-item="handleProjectEnter(project.id)"
-            @mouse-leave-item="handleProjectLeave(project.id)"
-            @click="" />
-    </ul>
-    <KeyImage :id="nowHoverProject"/>
+    <div>
+        <ul class="img-list">
+            <ImageListItem
+                v-for="project of projects"
+                :key="project.id"
+                :title="project.title"
+                :sub-title="project.subTitle"
+                :year="project.year"
+                :tags="project.tags"
+                @mouse-enter-item="handleProjectEnter(project.id)"
+                @mouse-leave-item="handleProjectLeave(project.id)"
+                @click="" />
+        </ul>
+        <KeyImage :id="nowHoverProject"/>
+    </div>
 </template>
 
 <script>
@@ -24,7 +27,9 @@ export default {
             projects: [
                 {
                     id: 'iroironairo',
-                    title: 'iroironairo',
+                    title: '色々な色',
+                    subTitle: 'iroironairo: A Data Visualization of Photos in Japan',
+                    year: '2023',
                     tags: [CATEGORIES.DATA_VIZ, CATEGORIES.WEB_DESIGN],
                 },
             ],

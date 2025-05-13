@@ -1,6 +1,20 @@
 // Color
-$primary: #49240F;
-$secondary: #E4A79D;
+$color-neutral-1000: #efefef;
+$color-neutral-900: #d7d7d7;
+$color-neutral-800: #bfbfbf;
+$color-neutral-700: #a7a7a7;
+$color-neutral-600: #8f8f8f;
+$color-neutral-500: #787878;
+$color-neutral-400: #606060;
+$color-neutral-300: #484848;
+$color-neutral-200: #303030;
+$color-neutral-100: #181818;
+$color-neutral-0: #000000;
+
+$color-background-container: $color-neutral-1000;
+$color-text-default: $color-neutral-200;
+$color-text-secondary: $color-neutral-600;
+$color-text-tertiary: $color-neutral-700;
 
 // Typography
 $font-size-xs: 8px;
@@ -9,6 +23,14 @@ $font-size-base: 12px;
 $font-size-md: 14px;
 $font-size-lg: 16px;
 $font-size-xl: 18px;
+$font-weight-100: 100;
+$font-weight-300: 300;
+$font-weight-400: 400;
+$font-weight-500: 500;
+$font-weight-600: 600;
+$font-weight-700: 700;
+$font-weight-800: 800;
+
 
 // Space
 $space-xxs: 2px;

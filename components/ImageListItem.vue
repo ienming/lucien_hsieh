@@ -1,10 +1,14 @@
 <template>
     <li
-        class="img-list-item"
+        class="align-items-center img-list-item"
         @mouseenter="$emit('mouse-enter-item')"
         @mouseleave="$emit('mouse-leave-item')">
-        <span class="title">{{ title }}</span>
+        <div class="info fade-right-link">
+            <span class="title">{{ title }}</span>
+            <span class="sub-title">{{ subTitle }}</span>
+        </div>
         <div class="meta">
+            <p class="year">{{ year }}</p>
             <template
                 v-for="tag of tags"
                 :key="tag">
@@ -21,9 +25,17 @@ export default {
             type: String,
             default: '',
         },
+        subTitle: {
+            type: String,
+            default: '',
+        },
         tags: {
             type: Array, 
             default: () => [],
+        },
+        year: {
+            type: String,
+            default: '',
         },
     }
 };
@@ -31,18 +43,36 @@ export default {
 
 <style scoped lang="scss">
 .img-list-item {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid $color-neutral-900;
     list-style: none;
     display: grid;
     grid-template-columns: auto 150px;
+    cursor: pointer;
 
-    .title {
+    .info {
         padding: $space-md;
+        
+        .title {
+            font-size: $font-size-xl;
+            font-weight: $font-weight-700;
+            display: block;
+        }
+    
+        .sub-title {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-500;
+        }
     }
+
 
     .meta {
         font-size: $font-size-sm;
         padding: $space-md;
+
+        .year {
+            margin-bottom: 0;
+            color: $color-text-secondary;
+        }
     }
 }
 </style>
