@@ -33,6 +33,7 @@
 
     &::before {
         position: absolute;
+        top: 50%;
         content: '';
         width: 100%;
         transform: scaleX(0%);

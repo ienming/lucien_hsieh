@@ -1,3 +1,5 @@
+import { googleFontConfig } from "./configs/system";
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
@@ -14,10 +16,5 @@ export default defineNuxtConfig({
   },
 
   modules: ['@nuxt/eslint', '@nuxtjs/google-fonts'],
-  googleFonts: {
-    families: {
-      Inter: true,
-      'Noto Sans Traditional Chinese': true,
-    },
-  },
+  googleFonts: googleFontConfig,
 })

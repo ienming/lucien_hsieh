@@ -10,9 +10,10 @@
         <div class="meta">
             <p class="year">{{ year }}</p>
             <template
-                v-for="tag of tags"
+                v-for="(tag, idx) of tags"
                 :key="tag">
-                <span class="fade-link">{{ tag }}</span> / 
+                <span class="fade-link">{{ tag }}</span>
+                <span v-if="idx !== tags.length - 1"> / </span>
             </template>
         </div>
     </li>
@@ -66,7 +67,7 @@ export default {
 
 
     .meta {
-        font-size: $font-size-sm;
+        font-size: $font-size-base;
         padding: $space-md;
 
         .year {

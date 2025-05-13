@@ -9,8 +9,7 @@
                 :year="project.year"
                 :tags="project.tags"
                 @mouse-enter-item="handleProjectEnter(project.id)"
-                @mouse-leave-item="handleProjectLeave(project.id)"
-                @click="" />
+                @mouse-leave-item="handleProjectLeave(project.id)" />
         </ul>
         <KeyImage :id="nowHoverProject"/>
     </div>
@@ -32,12 +31,18 @@ export default {
                     year: '2023',
                     tags: [CATEGORIES.DATA_VIZ, CATEGORIES.WEB_DESIGN],
                 },
+                {
+                    id: 'alishan',
+                    title: '阿里山林業鐵路',
+                    subTitle: 'Alishan Forest Railway pamphlet and flyer',
+                    year: '2021, 2024',
+                    tags: [CATEGORIES.EDITORIAL],
+                },
             ],
         };
     },
     methods: {
         handleProjectEnter(key) {
-            console.log(key);
             this.nowHoverProject = key;
         },
         handleProjectLeave(key) {
