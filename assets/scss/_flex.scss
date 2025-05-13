@@ -1,0 +1,30 @@
+@use './variables' as vars;
+
+$align-items-values: baseline, center, start, end;
+$justify-contents-values: baseline, center, start, end, space-between, space-around;
+
+@each $value in $align-items-values {
+    .align-items-#{$value} {
+        align-items: $value;
+    }
+}
+
+@each $value in $justify-contents-values {
+    .justify-contents-#{$value} {
+        justify-content: $value;
+    }
+}
+
+@each $name, $value in vars.$space-values {
+    .gap-#{$name} {
+      gap: #{$value};
+    }
+
+    .row-gap-#{$name} {
+        row-gap: #{$value};
+    }
+
+    .column-gap-#{$name} {
+        column-gap: #{$value};
+    }
+}

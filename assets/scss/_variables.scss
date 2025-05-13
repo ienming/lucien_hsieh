@@ -1,0 +1,32 @@
+// Color
+$primary: #49240F;
+$secondary: #E4A79D;
+
+// Typography
+$font-size-xs: 8px;
+$font-size-sm: 10px;
+$font-size-base: 12px;
+$font-size-md: 14px;
+$font-size-lg: 16px;
+$font-size-xl: 18px;
+
+// Space
+$space-xxs: 2px;
+$space-xs: 4px;
+$space-sm: 8px;
+$space-base: 12px;
+$space-md: 16px;
+$space-lg: 20px;
+$space-xl: 24px;
+$space-xxl: 32px;
+
+$space-values: (
+    "space-xxs": $space-xxs,
+    "space-xs": $space-xs,
+    "space-sm": $space-sm,
+    "space-base": $space-base,
+    "space-md": $space-md,
+    "space-lg": $space-lg,
+    "space-xl": $space-xl,
+    "space-xxl": $space-xxl,
+);

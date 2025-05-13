@@ -1,0 +1,17 @@
+@use './_variables';
+
+.fade-link {
+    &:hover {
+        color: red;
+    }
+}
+
+.cross-off-link {
+    &:hover {
+        color: blue;
+    }
+}
+
+.min-100-vh {
+    min-height: 100vh;
+}

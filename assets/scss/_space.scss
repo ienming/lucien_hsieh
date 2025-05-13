@@ -1,0 +1,39 @@
+@use './_variables' as vars;
+
+@each $name, $value in vars.$space-values {
+  @each $prop in (m, p) {
+    @if $prop == m {
+      .#{$prop}-#{$name} {
+        margin: #{$value};
+      }
+
+      @each $dir, $suffix in (
+        t: top,
+        r: right,
+        b: bottom,
+        l: left
+      ) {
+        .#{$prop}#{$dir}-#{$name} {
+          margin-#{$suffix}: #{$value};
+        }
+      }
+    }
+
+    @if $prop == p {
+      .#{$prop}-#{$name} {
+        padding: #{$value};
+      }
+
+      @each $dir, $suffix in (
+        t: top,
+        r: right,
+        b: bottom,
+        l: left
+      ) {
+        .#{$prop}#{$dir}-#{$name} {
+          padding-#{$suffix}: #{$value};
+        }
+      }
+    }
+  }
+}
