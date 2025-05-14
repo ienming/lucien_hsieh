@@ -15,6 +15,6 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ['@nuxt/eslint', '@nuxtjs/google-fonts'],
+  modules: ['@nuxt/eslint', '@nuxtjs/google-fonts', '@nuxt/content'],
   googleFonts: googleFontConfig,
 })

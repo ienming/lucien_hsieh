@@ -1,22 +1,25 @@
 <template>
     <div class="d-grid align-items-center custom-header">
         <div>
-            <NuxtLink
+            <!-- TODO: 移除測試 -->
+            <!-- <NuxtLink
                 to="/"
                 class="logo">
                 <span class="cross-off-link">LUCIEN</span>
-            </NuxtLink>
+            </NuxtLink> -->
+            <NuxtLink to="/project/iroironairo">Test1</NuxtLink>
+            <NuxtLink to="/project/alishan">Test2</NuxtLink>
         </div>
         <div>
             <NuxtLink
-                to="info"
+                to="/info"
                 class="link fade-right-link">
                 <span>INFO 🎐</span>
             </NuxtLink>
         </div>
         <div>
             <NuxtLink
-                to="playroom"
+                to="/playroom"
                 class="link fade-right-link">
                 <span>PLAYROOM 🪁</span>
             </NuxtLink>
