@@ -1,9 +1,7 @@
 <template>
     <div>
         <DefaultHeader />
-        <section>
-            <slot />
-        </section>
+        <slot />
         <DefaultFooter />
     </div>
 </template>
