@@ -70,6 +70,13 @@
     min-height: 100vh;
 }
 
+.container {
+    width: 90%;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: vars.$space-xl;
+}
+
 .text-muted {
     font-family: Karla;
     color: vars.$color-text-secondary;

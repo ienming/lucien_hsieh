@@ -1,5 +1,5 @@
 <template>
-    <div class="d-grid align-items-center custom-header">
+    <div class="d-grid align-items-center container custom-header">
         <div>
             <!-- TODO: 移除測試 -->
             <!-- <NuxtLink
@@ -30,9 +30,6 @@
 <style lang="scss" scoped>
 .custom-header {
     grid-template-columns: 2fr 1fr 1fr;
-    padding: $space-base;
-    max-width: 90%;
-    margin: 0 auto;
 
     .logo {
         font-size: $font-size-xl;

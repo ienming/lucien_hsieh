@@ -1,8 +1,8 @@
 <template>
-  <article class="project-article">
+  <article class="container project-article">
     <div class="d-grid gap-space-sm header">
         <div>
-            <h1>{{ doc.title }}</h1>
+            <h1 class="title">{{ doc.title }}</h1>
             <slot />
         </div>
         <ul class="info">
@@ -12,6 +12,12 @@
                 class="text-muted">
                 {{ tag.type }} / {{ tag.desc }}
             </li>
+            <a
+                v-if="doc.meta.link"
+                class="link fade-right-link"
+                :href="doc.meta.link">
+                LINK TO PROJECT
+            </a>
         </ul>
     </div>
   </article>
@@ -28,14 +34,24 @@ defineProps({
 
 <style lang="scss" scoped>
 .project-article {
-    padding: $space-xxl;
-
     .header {
         grid-template-columns: 3fr 1fr;
 
+        .title {
+            margin-bottom: $space-lg;
+        }
+
         .info {
             padding: $space-sm;
+
+            .link {
+                margin-top: $space-lg;
+            }
         }
+    }
+
+    :deep(p) {
+        margin-bottom: $space-base;
     }
 }
 </style>

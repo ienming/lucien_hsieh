@@ -21,8 +21,6 @@
     color: $color-text-tertiary;
     
     .container {
-        max-width: 90%;
-        margin: 0 auto;
         grid-template-columns: 3fr 1fr;
     }
 }
