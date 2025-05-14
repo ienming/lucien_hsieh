@@ -1,17 +1,19 @@
 <template>
-    <ContentRenderer
-        v-if="pageData"
-        :value="pageData" />
     <!-- TODO: 換 loading 效果 -->
+    <ProjectLayout
+        v-if="isPageDataReady"
+        :doc="pageData">
+        <ContentRenderer
+            :value="pageData" />
+    </ProjectLayout>
     <div v-else>Page not found</div>
 </template>
 
 <script setup>
-// definePageMeta({
-//   layout: 'custom',
-// });
+import ProjectLayout from '@/layouts/ProjectLayout';
 
-const pageData = ref();
+const pageData = ref({});
+const isPageDataReady = ref(false);
 const route = useRoute();
 
 const getPageData = async () => {
@@ -22,9 +24,9 @@ const getPageData = async () => {
 	pageData.value = data.value;
 };
 
-
 try {
     await getPageData();
+    isPageDataReady.value = true;
 } catch (error) {
     console.log(error);
 }

@@ -1,12 +1,17 @@
 ---
-date: 2020-11-11
+title: "色々な色 iroironairo"
+date: 2024
+tags:
+  - type: "Client"
+    desc: "Side project"
+  - type: "Web Design"
+    desc: "Lucien Hsieh"
+  - type: "Texts & Photos"
+    desc: "Lucien Hsieh"
 ---
 
-# Foo
+「色々な色」 這個計畫是將我在日本作為交換學生的半年間，所玩所見的照片整理起來的資料視覺化作品。
 
+「色々」 有 「很多、各式各樣」 的意思，而 「色々な色」 則是指 「各式各樣的色彩、色彩斑斕」。 起初這個詞是在神戶大學「中級會話」課程的期中考中，自我介紹時無意間講出來的詞。因為發音很有趣、有某種回文的韻味，於是有了以顏色為主題紀錄交換生活的想法。
 
-This is Foo blog post.
-
-::meta-info
-The content of the meta
-::
+透過萃取照片中的顏色並整理後，它們呈現我在那段時間生活、旅遊、第一次在異國長時間居住時，所看見與自己背景文化的差異。也代表我關注、喜歡，且一直注視的那些重複的主題和色彩，並以此構成我的經驗與記憶。

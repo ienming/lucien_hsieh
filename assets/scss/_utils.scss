@@ -1,4 +1,4 @@
-@use './_variables';
+@use './_variables' as vars;
 
 .fade-right-link {
     display: inline-block;
@@ -68,4 +68,11 @@
 
 .min-100-vh {
     min-height: 100vh;
+}
+
+.text-muted {
+    font-family: Karla;
+    color: vars.$color-text-secondary;
+    font-size: vars.$font-size-base;
+    line-height: 1.5;
 }
