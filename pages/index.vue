@@ -15,41 +15,37 @@
     </div>
 </template>
 
-<script>
-import {CATEGORIES} from '@/constants/project';
+<script setup>
+import { CATEGORIES } from '@/constants/project';
 
-export default {
-    data() {
-        return {
-            nowHoverProject: undefined,
-            // TODO: 把資料移出去
-            projects: [
-                {
-                    id: 'iroironairo',
-                    title: '色々な色',
-                    subTitle: 'iroironairo: A Data Visualization of Photos in Japan',
-                    year: '2023',
-                    tags: [CATEGORIES.DATA_VIZ, CATEGORIES.WEB_DESIGN],
-                },
-                {
-                    id: 'alishan',
-                    title: '阿里山林業鐵路',
-                    subTitle: 'Alishan Forest Railway pamphlet and flyer',
-                    year: '2021, 2024',
-                    tags: [CATEGORIES.EDITORIAL],
-                },
-            ],
-        };
-    },
-    methods: {
-        handleProjectEnter(key) {
-            this.nowHoverProject = key;
-        },
-        handleProjectLeave(key) {
-            if (this.nowHoverProject === key) {
-                this.nowHoverProject = '';
-            }
-        },
-    },
-};
+// 移除在地資料前，先用 ref 儲存
+const nowHoverProject = ref();
+
+// TODO: 把資料移出去
+const projects = ref([
+  {
+    id: 'iroironairo',
+    title: '色々な色',
+    subTitle: 'iroironairo: A Data Visualization of Photos in Japan',
+    year: '2023',
+    tags: [CATEGORIES.DATA_VIZ, CATEGORIES.WEB_DESIGN],
+  },
+  {
+    id: 'alishan',
+    title: '阿里山林業鐵路',
+    subTitle: 'Alishan Forest Railway pamphlet and flyer',
+    year: '2021, 2024',
+    tags: [CATEGORIES.EDITORIAL],
+  },
+]);
+
+function handleProjectEnter(key) {
+  nowHoverProject.value = key;
+}
+
+function handleProjectLeave(key) {
+  if (nowHoverProject.value === key) {
+    nowHoverProject.value = '';
+  }
+}
 </script>

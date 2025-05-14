@@ -6,14 +6,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import DefaultHeader from './partials/DefaultHeader';
 import DefaultFooter from './partials/DefaultFooter';
-
-export default {
-    components: {
-        DefaultHeader,
-        DefaultFooter,
-    },
-};
 </script>

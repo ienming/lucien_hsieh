@@ -21,28 +21,27 @@
     </li>
 </template>
 
-<script>
-export default {
-    props: {
-        title: {
-            type: String,
-            default: '',
-        },
-        subTitle: {
-            type: String,
-            default: '',
-        },
-        tags: {
-            type: Array, 
-            default: () => [],
-        },
-        year: {
-            type: String,
-            default: '',
-        },
-    },
-    emits: ['mouse-enter-item', 'mouse-leave-item'],
-};
+<script setup>
+defineProps({
+  title: {
+    type: String,
+    default: '',
+  },
+  subTitle: {
+    type: String,
+    default: '',
+  },
+  tags: {
+    type: Array,
+    default: () => [],
+  },
+  year: {
+    type: String,
+    default: '',
+  },
+});
+
+defineEmits(['mouse-enter-item', 'mouse-leave-item']);
 </script>
 
 <style scoped lang="scss">

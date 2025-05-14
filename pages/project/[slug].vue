@@ -6,28 +6,26 @@
     <div v-else>Page not found</div>
 </template>
 
-<script>
-export default {
-    data() {
-        return {
-            pageData: undefined,
-        };
-    },
-    async created() {
-        try {
-            await this.getPageData();      
-        } catch (error) {
-            console.log(error);
-        }
-    },
-    methods: {
-        async getPageData() {
-            const {slug} = this.$route.params;
-            const {data} = await useAsyncData(`project-${slug}`, async () => {
-                return await queryCollection('project').path(`/project/${slug}`).first();
-            });
-            this.pageData = data;
-        },
-    },
+<script setup>
+// definePageMeta({
+//   layout: 'custom',
+// });
+
+const pageData = ref();
+const route = useRoute();
+
+const getPageData = async () => {
+	const { slug } = route.params;
+	const { data } = await useAsyncData(`project-${slug}`, async () => {
+		return await queryCollection('project').path(`/project/${slug}`).first();
+	});
+	pageData.value = data.value;
 };
+
+
+try {
+    await getPageData();
+} catch (error) {
+    console.log(error);
+}
 </script>

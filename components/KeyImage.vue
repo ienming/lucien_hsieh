@@ -1,14 +1,12 @@
 <template>
-    Key image: {{ id }}
+    	Key image: {{ id }}
 </template>
 
-<script>
-export default {
-    props: {
-        id: {
-            type: String,
-            default: '',
-        },
-    },
-};
+<script setup>
+defineProps({
+	id: {
+		type: String,
+		default: '',
+	},
+});
 </script>
