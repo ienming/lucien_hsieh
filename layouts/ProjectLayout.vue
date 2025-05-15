@@ -12,12 +12,15 @@
                 class="text-muted">
                 {{ tag.type }} / {{ tag.desc }}
             </li>
-            <a
-                v-if="doc.meta.link"
-                class="link fade-right-link"
-                :href="doc.meta.link">
-                LINK TO PROJECT
-            </a>
+            <div v-if="doc.meta.links.length">
+                <a
+                    v-for="link of doc.meta.links"
+                    :key="link.url"
+                    class="link fade-right-link"
+                    :href="doc.meta.link">
+                    {{ link.label ? link.label : 'LINK TO PROJECT' }}
+                </a>
+            </div>
         </ul>
     </div>
   </article>
