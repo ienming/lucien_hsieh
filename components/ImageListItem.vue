@@ -8,6 +8,9 @@
                 <span class="title">{{ title }}</span>
                 <span class="sub-title">{{ subTitle }}</span>
             </div>
+            <NuxtImg
+                class="d-md-none cover"
+                :src="cover" />
             <div class="meta">
                 <p class="year">{{ year }}</p>
                 <template
@@ -41,6 +44,10 @@ defineProps({
     type: String,
     default: '',
   },
+  cover: {
+    type: String,
+    default: '',
+  },
 });
 
 defineEmits(['mouse-enter-item', 'mouse-leave-item', 'filter-by-tag']);
@@ -56,8 +63,16 @@ defineEmits(['mouse-enter-item', 'mouse-leave-item', 'filter-by-tag']);
         max-width: 90%;
         margin: 0 auto;
         display: grid;
-        grid-template-columns: 3fr 1fr;
+        grid-template-columns: auto;
         padding: $space-base;
+
+        @media screen and (min-width: 768px) {
+            grid-template-columns: 3fr 1fr;
+        }
+    }
+
+    .cover {
+        margin: $space-sm 0;
     }
 
     .info {
@@ -68,7 +83,7 @@ defineEmits(['mouse-enter-item', 'mouse-leave-item', 'filter-by-tag']);
         }
     
         .sub-title {
-            font-size: $font-size-lg;
+            font-size: $font-size-md;
             font-weight: $font-weight-500;
         }
     }
