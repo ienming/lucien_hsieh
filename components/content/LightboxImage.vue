@@ -2,8 +2,7 @@
     <div
         class="lightbox-image"
         :class="{'disabled': !clickable}">
-        <NuxtImg
-            sizes="sm:50vw md:70vw lg:800px"
+        <NuxtImg 
             :src="url"
             @click="isLightboxOpen = true" />
         <slot />
@@ -23,9 +22,7 @@
                 </div>
             </div>
             <div class="img-container">
-                <NuxtImg
-                    sizes="sm:50vw md:70vw lg:800px"
-                    :src="url" />
+                <NuxtImg :src="url" />
             </div>
             <div class="img-footer">
                 <p
@@ -63,15 +60,19 @@ const isLightboxOpen = ref(false);
 
 <style lang="scss" scoped>
 .lightbox-image {
-    cursor: pointer;
-    transition: opacity .3s ease-in-out;
+    margin: $space-sm 0;
+    
+    img {
+        cursor: pointer;
+        transition: opacity .3s ease-in-out;
 
-    &:hover {
-        opacity: .8;
-    }
+        &:hover {
+            opacity: .8;
+        }
 
-    &.disabled {
-        pointer-events: none;
+        &.disabled {
+            pointer-events: none;
+        }
     }
 }
 
