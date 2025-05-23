@@ -1,14 +1,11 @@
 <template>
     <div class="d-grid align-items-center container custom-header">
         <div>
-            <!-- TODO: 移除測試 -->
-            <!-- <NuxtLink
+            <NuxtLink
                 to="/"
                 class="logo">
                 <span class="cross-off-link">LUCIEN</span>
-            </NuxtLink> -->
-            <NuxtLink to="/project/iroironairo">Test1</NuxtLink>
-            <NuxtLink to="/project/alishan">Test2</NuxtLink>
+            </NuxtLink>
         </div>
         <div>
             <NuxtLink

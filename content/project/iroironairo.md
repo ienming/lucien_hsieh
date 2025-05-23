@@ -1,13 +1,17 @@
 ---
 title: "色々な色 iroironairo"
+subtitle: "iroironairo: A Data Visualization of Photos in Japan"
 date: 2024
-tags:
+infos:
   - type: "Client"
     desc: "Side project"
   - type: "Web Design"
     desc: "Lucien Hsieh"
   - type: "Texts & Photos"
     desc: "Lucien Hsieh"
+tags:
+  - "data visualization"
+  - "web design"
 links:
   - label: ""
     url: "https://ienming.github.io/iroironairo/#/"
@@ -19,6 +23,6 @@ intros: |
   透過萃取照片中的顏色並整理後，它們呈現我第一次在異國長時間居住時，所看見與自己背景的差異。也代表我所喜歡，且一直注視的那些重複的主題和色彩，構成我留學生活的記憶。
 ---
 
-::lightbox-image{url="samples/animals/reindeer.jpg", title="Title"}
+::lightbox-image{url="samples/animals/reindeer.jpg"}
 test image
 ::

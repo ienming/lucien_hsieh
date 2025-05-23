@@ -13,7 +13,9 @@
                 <template
                     v-for="(tag, idx) of tags"
                     :key="tag">
-                    <span class="fade-link">{{ tag }}</span>
+                    <span
+                        class="fade-link"
+                        @click.stop="$emit('filter-by-tag', tag)">{{ tag }}</span>
                     <span v-if="idx !== tags.length - 1"> / </span>
                 </template>
             </div>
@@ -41,7 +43,7 @@ defineProps({
   },
 });
 
-defineEmits(['mouse-enter-item', 'mouse-leave-item']);
+defineEmits(['mouse-enter-item', 'mouse-leave-item', 'filter-by-tag']);
 </script>
 
 <style scoped lang="scss">

@@ -1,10 +1,10 @@
 <template>
     <ul class="info">
         <li
-            v-for="tag of meta.tags"
-            :key="tag.type"
+            v-for="info of meta.infos"
+            :key="info.type"
             class="text-muted">
-            {{ tag.type }} / {{ tag.desc }}
+            {{ info.type }} / {{ info.desc }}
         </li>
         <div v-if="meta.links?.length">
             <a
