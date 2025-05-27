@@ -7,13 +7,9 @@
 			<div class="d-grid gap-space-sm header">
 				<div>
 					<h1 class="title">{{ pageData.title }}</h1>
-					<ProjectMeta
-						class="d-block d-md-none"
-						:meta="meta" />
 					<p v-if="meta.intros">{{ meta.intros }}</p>
 				</div>
 				<ProjectMeta
-					class="d-none d-md-block"
 					:meta="meta" />
 			</div>
 			<ContentRenderer

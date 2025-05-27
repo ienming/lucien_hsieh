@@ -26,3 +26,11 @@ defineProps({
     },
 })
 </script>
+
+<style lang="scss" scoped>
+.info {
+    .link {
+        margin: $space-sm 0;
+    }
+}
+</style>

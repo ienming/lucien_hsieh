@@ -3,14 +3,14 @@
 		<div
 			v-show="open"
 			class="lightbox-modal">
-			<div class="img-header">
-				<div class="actions">
-					<div
-						class="btn close"
-						@click="$emit('close')">
-						Close
-					</div>
-				</div>
+			<div
+				class="btn close"
+				@click="$emit('close')">
+				<ClientOnly>
+					<Icon
+						name="ant-design:close-outlined"
+						size="24" />
+				</ClientOnly>
 			</div>
 			<div class="img-container">
 				<NuxtImg :src="currentImg" />
@@ -18,10 +18,22 @@
 			<div class="controls">
 				<div
 					class="btn prev"
-					@click="handlePrevious">Previous</div>
+					@click="handlePrevious">
+					<ClientOnly>
+						<Icon
+							name="ant-design:left-outlined"
+							size="24" />
+					</ClientOnly>
+				</div>
 				<div
 					class="btn next"
-					@click="handleNext">Next</div>
+					@click="handleNext">
+					<ClientOnly>
+						<Icon
+							name="ant-design:right-outlined"
+							size="24" />
+					</ClientOnly>
+				</div>
 			</div>
 		</div>
 	</Teleport>
@@ -74,7 +86,8 @@ function handleNext() {
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: 999;
+	z-index: $z-index-common-modal;
+	overflow: auto;
 	width: 100vw;
 	height: 100vh;
 	background-color: rgba(255, 255, 255, .85);
@@ -83,25 +96,51 @@ function handleNext() {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: 20px;
+	padding: $space-lg;
 
-	.img-header {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 8px;
-		width: 100%;
+	.close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: $space-sm $space-sm 0 0;
 
+		@media screen and (min-width: 768px) {
+			padding: $space-lg $space-lg 0 0;
+		}
 	}
 
 	.btn {
 		cursor: pointer;
+		transition: background-color .3s cubic-bezier(1, 0, 0, 1);
+
+		&:hover {
+			background-color: rgba(255, 255, 255, .85);
+		}
+	}
+
+	.controls {
+		position: fixed;
+		top: 50%;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		.btn {
+			display: inline-flex;
+			align-items: center;
+			padding: $space-sm;
+
+			@media screen and (min-width: 768px) {
+				padding: $space-lg;
+			}
+		}
 	}
 
 	.img-container {
 		img {
 			width: 100%;
-			max-width: 600px;
+			max-height: 90vh;
 		}
 	}
 }

@@ -5,7 +5,9 @@ export default defineNuxtConfig({
 	nitro: {
 		preset: 'static',
 	},
-	devtools: { enabled: true },
+	devtools: {
+		enabled: true
+	},
 	vite: {
 		css: {
 			preprocessorOptions: {
@@ -20,6 +22,7 @@ export default defineNuxtConfig({
 		'@nuxtjs/google-fonts',
 		'@nuxt/content',
 		'@nuxt/image',
+		'@nuxt/icon',
 	],
 	googleFonts: {
 		families: {
