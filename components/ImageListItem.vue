@@ -66,10 +66,10 @@ defineEmits(['mouse-enter-item', 'mouse-leave-item', 'filter-by-tag']);
 		margin: 0 auto;
 		display: grid;
 		grid-template-columns: auto;
-		padding: $space-base;
 
 		@media screen and (min-width: 768px) {
 			grid-template-columns: 3fr 1fr;
+			padding: $space-base;
 		}
 	}
 
