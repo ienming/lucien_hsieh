@@ -1,8 +1,8 @@
 <template>
 	<li
 		class="img-list-item"
-		@mouseenter="$emit('mouse-enter-item')"
-		@mouseleave="$emit('mouse-leave-item')">
+		@mouseenter="isMobile ? null : $emit('mouse-enter-item')"
+		@mouseleave="isMobile ? null : $emit('mouse-leave-item')">
 		<div class="align-items-center item-container">
 			<NuxtImg
 				:src="cover"
@@ -53,6 +53,8 @@ defineProps({
 });
 
 defineEmits(['mouse-enter-item', 'mouse-leave-item', 'filter-by-tag']);
+
+const {isMobile} = useIsMobile();
 </script>
 
 <style scoped lang="scss">

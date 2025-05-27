@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="filters">
+		<div class="container filters">
 			<span>Filter by:</span>
 			<span
 				v-for="filter of filters"
@@ -26,15 +26,19 @@
 				@filter-by-tag="filterProject"
 				@click="GoToProject(project.id)" />
 		</ul>
-		<KeyImage :id="nowHoverProject"/>
+		<KeyImage
+			v-if="!isMobile"
+			:id="nowHoverProject"/>
 	</div>
 </template>
 
 <script setup>
+defineEmits(['page-load-fail']);
+
 const nowHoverProject = ref();
 const allProjects = ref([]);
 const filters = ref([]);
-defineEmits(['page-load-fail']);
+const {isMobile} = useIsMobile();
 
 const getPageData = async () => {
 	const { data } = await useAsyncData('', async () => {
