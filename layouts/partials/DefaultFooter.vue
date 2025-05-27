@@ -17,7 +17,6 @@
     bottom: 0;
     left: 0;
     width: 100vw;
-    padding: $space-md;
     color: $color-text-tertiary;
     
     .container {

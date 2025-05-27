@@ -12,6 +12,7 @@ infos:
 tags:
   - "data visualization"
   - "web design"
+cover: https://storage.googleapis.com/lucien-portfolio/reindeer.webp
 links:
   - label: ""
     url: "https://ienming.github.io/iroironairo/#/"

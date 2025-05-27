@@ -73,11 +73,13 @@ function openLightbox(src) {
 	if (index !== -1) {
 		currentImg.value = index;
 		isLightboxVisible.value = true;
+		document.body.style.overflow = 'hidden';
 	}
 }
 
 function closeLightbox() {
 	isLightboxVisible.value = false;
+	document.body.style.overflow = 'auto';
 }
 
 try {

@@ -48,6 +48,8 @@ const currentIdx = ref(startIdx);
 watch(() => startIdx, newVal => currentIdx.value = newVal);
 const currentImg = computed(() => images[currentIdx.value]);
 
+// TODO: 加上可以按方向鍵就前後換圖
+
 function handlePrevious() {
 	if (currentIdx.value === 0) {
 		currentIdx.value = images.length - 1;
@@ -98,6 +100,7 @@ function handleNext() {
 
 	.img-container {
 		img {
+			width: 100%;
 			max-width: 600px;
 		}
 	}

@@ -10,3 +10,7 @@ html, body {
     background-color: vars.$color-background-container;
     font-family: "Noto Sans Traditional Chinese", "Inter", sans-serif;
 }
+
+img {
+    border-radius: vars.$radius-xs;
+}

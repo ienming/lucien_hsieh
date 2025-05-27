@@ -11,6 +11,7 @@ infos:
     desc: "Lucien Hsieh"
 tags:
   - "editorial"
+cover: https://storage.googleapis.com/lucien-portfolio/fox.webp
 ---
 
 阿里山
