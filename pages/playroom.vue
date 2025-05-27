@@ -1,3 +1,3 @@
 <template>
-    Playroom
+	<div>Playroom</div>
 </template>

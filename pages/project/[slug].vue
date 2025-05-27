@@ -29,7 +29,8 @@
 							onPreview: src => openLightbox(src),
 						});
 					},
-				}"/>
+				}"
+			/>
 		</article>
 		<div v-else>Page not found</div>
 		<Lightbox
@@ -37,7 +38,7 @@
 			:start-idx="currentImg"
 			:images="lightboxImages"
 			@close="closeLightbox"/>
-	 </div>
+	</div>
 </template>
 
 <script setup>
