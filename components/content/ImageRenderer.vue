@@ -27,7 +27,7 @@ const {alt, src, title} = defineProps({
 });
 defineEmits(['preview']);
 const attrs = useAttrs();
-const className = attrs.class;
+const {class: className} = attrs;
 </script>
 
 <style scoped lang="scss">
