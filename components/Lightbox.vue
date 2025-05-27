@@ -4,7 +4,7 @@
             v-show="open"
             class="lightbox-modal">
             <div class="img-header">
-                <h2>{{ title }}</h2>
+                <!-- <h2>{{ title }}</h2> -->
                 <div class="actions">
                     <div
                         class="close"
@@ -16,23 +16,21 @@
             <div class="img-container">
                 {{ currentIdx }}
                 {{ images }}
-                <!-- <NuxtImg :src="url" /> -->
+                <NuxtImg :src="currentImg" />
             </div>
-            <div class="img-footer">
+            <!-- <div class="img-footer">
                 <p
                     v-if="caption"
                     class="caption">
                     {{ caption }}
                 </p>
-            </div>
+            </div> -->
         </div>
     </Teleport>
 </template>
 
 <script setup>
-import { getImg } from '~/libs/helper';
-
-defineProps({
+const {open, currentIdx, images} = defineProps({
     open: {
         type: Boolean,
         default: false,
@@ -49,21 +47,19 @@ defineProps({
     //     type: String,
     //     default: '',
     // },
-    title: {
-        type: String,
-        default: '',
-    },
-    caption: {
-        type: String,
-        default: '',
-    },
+    // title: {
+    //     type: String,
+    //     default: '',
+    // },
+    // caption: {
+    //     type: String,
+    //     default: '',
+    // },
 });
 defineEmits(['close']);
 
-// TODO: images 似乎找不到
-// console.log(images);
-// const currentImg = getImg({url: images[currentIdx]});
-// console.log(currentImg);
+const currentImg = images[currentIdx];
+console.log(currentImg);
 </script>
 
 <style scoped lang="scss">

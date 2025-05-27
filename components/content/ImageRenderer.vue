@@ -11,7 +11,7 @@
 </template>
   
 <script setup>
-defineProps({
+const {alt, src, title} = defineProps({
     alt: {
         type: String,
         default: '',

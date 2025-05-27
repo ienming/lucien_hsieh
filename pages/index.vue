@@ -31,8 +31,6 @@
 </template>
 
 <script setup>
-import { getImg } from '~/libs/helper';
-
 const nowHoverProject = ref();
 const allProjects = ref([]);
 const filters = ref([]);
@@ -50,7 +48,7 @@ const getPageData = async () => {
     subTitle: project.meta.subtitle,
     year: project.date,
     tags: project.meta.tags,
-    cover: project.meta.cover ?? getImg({url: 'reindeer.webp'}),
+    cover: project.meta.cover,
   }));
 };
 
