@@ -1,28 +1,22 @@
 <template>
-    <div
-        class="lightbox-image"
-        :class="{'disabled': !clickable}">
-        <NuxtImg 
-            :src="url"
-            @click="isLightboxOpen = true" />
-        <slot />
-    </div>
     <Teleport to="body">
         <div
-            v-show="isLightboxOpen"
+            v-show="open"
             class="lightbox-modal">
             <div class="img-header">
                 <h2>{{ title }}</h2>
                 <div class="actions">
                     <div
                         class="close"
-                        @click="isLightboxOpen = false">
+                        @click="$emit('close')">
                         Close
                     </div>
                 </div>
             </div>
             <div class="img-container">
-                <NuxtImg :src="url" />
+                {{ currentIdx }}
+                {{ images }}
+                <!-- <NuxtImg :src="url" /> -->
             </div>
             <div class="img-footer">
                 <p
@@ -36,15 +30,25 @@
 </template>
 
 <script setup>
+import { getImg } from '~/libs/helper';
+
 defineProps({
-    clickable: {
+    open: {
         type: Boolean,
-        default: true,
+        default: false,
     },
-    url: {
-        type: String,
-        default: '',
+    currentIdx: {
+        type: Number,
+        default: 0,
     },
+    images: {
+        type: Array,
+        default: () => [],
+    },
+    // url: {
+    //     type: String,
+    //     default: '',
+    // },
     title: {
         type: String,
         default: '',
@@ -54,28 +58,15 @@ defineProps({
         default: '',
     },
 });
+defineEmits(['close']);
 
-const isLightboxOpen = ref(false);
+// TODO: images 似乎找不到
+// console.log(images);
+// const currentImg = getImg({url: images[currentIdx]});
+// console.log(currentImg);
 </script>
 
-<style lang="scss" scoped>
-.lightbox-image {
-    margin: $space-sm 0;
-    
-    img {
-        cursor: pointer;
-        transition: opacity .3s ease-in-out;
-
-        &:hover {
-            opacity: .8;
-        }
-
-        &.disabled {
-            pointer-events: none;
-        }
-    }
-}
-
+<style scoped lang="scss">
 .lightbox-modal {
     position: fixed;
     top: 0;
@@ -103,10 +94,10 @@ const isLightboxOpen = ref(false);
         }
     }
 
-    // .img-container {
-    //     img {
-    //         max-width: 600px;
-    //     }
-    // }
+    .img-container {
+        img {
+            max-width: 600px;
+        }
+    }
 }
 </style>

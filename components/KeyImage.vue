@@ -2,13 +2,15 @@
 	<div class="key-image">
 		<!-- TODO: 移除 -->
     	Key image: {{ id }}
-		<NuxtImg
+		<!-- <NuxtImg
 			v-show="id"
-			:src="'samples/animals/reindeer.jpg'" />
+			:src="getImg({url: 'reindeer.webp'})" /> -->
 	</div>
 </template>
 
 <script setup>
+import { getImg } from '~/libs/helper';
+
 defineProps({
 	id: {
 		type: String,

@@ -1,3 +1,5 @@
+import { imgDomain } from "./constants/system"
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
@@ -21,9 +23,6 @@ export default defineNuxtConfig({
     },
   },
   image: {
-    provider: 'cloudinary',
-    cloudinary: {
-      baseURL: 'https://res.cloudinary.com/dxu48xzzo/image/upload/',
-    },
+    domains: [imgDomain],
   },
 })

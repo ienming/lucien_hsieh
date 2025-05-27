@@ -4,13 +4,15 @@
         @mouseenter="$emit('mouse-enter-item')"
         @mouseleave="$emit('mouse-leave-item')">
         <div class="align-items-center item-container">
+            <NuxtImg
+                :src="cover"
+                class="d-md-none cover"
+                loading="lazy"
+                placeholder />
             <div class="info fade-right-link">
                 <span class="title">{{ title }}</span>
                 <span class="sub-title">{{ subTitle }}</span>
             </div>
-            <NuxtImg
-                class="d-md-none cover"
-                :src="cover" />
             <div class="meta">
                 <p class="year">{{ year }}</p>
                 <template
