@@ -18,9 +18,20 @@
     left: 0;
     width: 100vw;
     color: $color-text-tertiary;
+    background-color: $color-background-container;
     
     .container {
-        grid-template-columns: 3fr 1fr;
+        grid-template-rows: repeat(2, 1fr);
+        padding: $space-sm;
+    }
+
+    @media screen and (min-width: 768px) {
+        background-color: unset;
+        
+        .container {
+            grid-template-columns: 3fr 1fr;
+            grid-template-rows: unset;
+        }
     }
 }
 </style>

@@ -3,7 +3,7 @@
 	<div>
 		<article
 			v-if="isPageDataReady"
-			class="container project-article">
+			class="project-article">
 			<div class="d-grid gap-space-sm header">
 				<div>
 					<h1 class="title">{{ pageData.title }}</h1>
@@ -88,6 +88,15 @@ try {
 
 <style lang="scss" scoped>
 .project-article {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 $space-base;
+	margin-top: $space-base;
+
+	@media screen and (min-width: 768px) {
+		margin-top: $space-xxl;
+	}
+
 	.header {
 		grid-template-columns: auto;
 

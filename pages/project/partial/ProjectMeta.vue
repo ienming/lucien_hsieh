@@ -12,7 +12,12 @@
                 :key="link.url"
                 class="link fade-right-link"
                 :href="link.url">
-                {{ link.label ? link.label : 'LINK TO PROJECT' }}
+                <ClientOnly>
+                    <Icon
+                        name="ant-design:global-outlined"
+                        size="24"/>
+                </ClientOnly>
+                <span>{{ link.label ? link.label : 'LINK TO PROJECT' }}</span>
             </a>
         </div>
     </ul>
@@ -29,8 +34,15 @@ defineProps({
 
 <style lang="scss" scoped>
 .info {
+    .text-muted {
+        margin-bottom: $space-xxs;
+    }
+
     .link {
-        margin: $space-sm 0;
+        display: inline-flex;
+        align-items: center;
+        gap: $space-sm;
+        margin: $space-base 0;
     }
 }
 </style>

@@ -64,7 +64,7 @@ const {isMobile} = useIsMobile();
 	cursor: pointer;
 		
 	.item-container {
-		max-width: 90%;
+		max-width: 1200px;
 		margin: 0 auto;
 		display: grid;
 		grid-template-columns: auto;

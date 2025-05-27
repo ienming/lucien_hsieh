@@ -26,7 +26,12 @@
 
 <style lang="scss" scoped>
 .custom-header {
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+
+    @media screen and (min-width: 768px) {
+        grid-template-columns: 2fr 1fr 1fr;
+        grid-template-rows: unset;
+    }
 
     .logo {
         font-size: $font-size-xl;

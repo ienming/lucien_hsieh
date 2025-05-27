@@ -133,4 +133,8 @@ function GoToProject(id) {
 		}
 	}
 }
+
+.img-list {
+	padding: 0 $space-xs;
+}
 </style>

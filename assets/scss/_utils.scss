@@ -71,10 +71,10 @@
 }
 
 .container {
-    width: 90%;
-    max-width: 920px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: vars.$space-md 0;
+    padding: vars.$space-base;
 }
 
 .text-muted {
