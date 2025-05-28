@@ -30,26 +30,26 @@
 
 <script setup>
 defineProps({
-  title: {
-	type: String,
-	default: '',
-  },
-  subTitle: {
-	type: String,
-	default: '',
-  },
-  tags: {
-	type: Array,
-	default: () => [],
-  },
-  year: {
-	type: String,
-	default: '',
-  },
-  cover: {
-	type: String,
-	default: '',
-  },
+	title: {
+		type: String,
+		default: '',
+	},
+	subTitle: {
+		type: String,
+		default: '',
+	},
+	tags: {
+		type: Array,
+		default: () => [],
+	},
+	year: {
+		type: String,
+		default: '',
+	},
+	cover: {
+		type: String,
+		default: '',
+	},
 });
 
 defineEmits(['mouse-enter-item', 'mouse-leave-item', 'filter-by-tag']);
