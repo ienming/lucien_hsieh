@@ -35,9 +35,7 @@
 			v-else
 			class="project-article loading">
 			<!-- TODO: 加上 Loading 元件 -->
-			<span>
-				Loading...
-			</span>
+			<Skeleton />
 		</article>
 		<Lightbox
 			:open="isLightboxVisible"
@@ -87,7 +85,11 @@ function closeLightbox() {
 
 try {
 	await getPageData();
-	isPageDataReady.value = true;
+
+	// TODO: 移除 loading 元件測試用
+	setTimeout(() => {
+		isPageDataReady.value = true;
+	}, 1500);
 } catch (error) {
 	throw createError(error);
 }
