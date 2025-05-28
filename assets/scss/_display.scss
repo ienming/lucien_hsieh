@@ -1,4 +1,5 @@
-@use './variables' as vars;
+@use './variables' as *;
+@use './breakpoints' as *;
 $display-types: none, block, inline-block, inline, flex, inline-flex, grid;
 
 @each $type in $display-types {
@@ -7,7 +8,7 @@ $display-types: none, block, inline-block, inline, flex, inline-flex, grid;
     }
 }
 
-@each $breakpoint, $size in vars.$breakpoints {
+@each $breakpoint, $size in $breakpoints {
   @media (min-width: #{$size}) {
     @each $type in $display-types {
       .d-#{$breakpoint}-#{$type} {

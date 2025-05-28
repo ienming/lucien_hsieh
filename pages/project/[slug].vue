@@ -93,14 +93,14 @@ try {
 	padding: 0 $space-base;
 	margin-top: $space-base;
 
-	@media screen and (min-width: 768px) {
-		margin-top: $space-xxl;
-	}
+    @include response(md) {
+        margin-top: $space-xxl;
+    }
 
 	.header {
 		grid-template-columns: auto;
 
-		@media screen and (min-width: 768px) {
+		@include response(md) {
 			grid-template-columns: 3fr 1fr;
 			gap: $space-md;
 		}

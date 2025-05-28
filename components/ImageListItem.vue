@@ -69,7 +69,7 @@ const {isMobile} = useIsMobile();
 		display: grid;
 		grid-template-columns: auto;
 
-		@media screen and (min-width: 768px) {
+		@include response(md) {
 			grid-template-columns: 3fr 1fr;
 			padding: $space-base;
 		}

@@ -106,7 +106,7 @@ function handleNext() {
 		right: 0;
 		padding: $space-sm $space-sm 0 0;
 
-		@media screen and (min-width: 768px) {
+		@include response(md) {
 			padding: $space-lg $space-lg 0 0;
 		}
 	}
@@ -133,7 +133,7 @@ function handleNext() {
 			align-items: center;
 			padding: $space-sm;
 
-			@media screen and (min-width: 768px) {
+			@include response(md) {
 				padding: $space-lg;
 			}
 		}

@@ -1,4 +1,4 @@
-@use './_variables' as vars;
+@use './_variables' as *;
 /* 基本 Reset */
 *,
 *::before,
@@ -14,7 +14,7 @@ body {
   height: 100%;
   width: 100%;
   font-family: sans-serif;
-  font-size: vars.$font-size-md;
+  font-size: $font-size-md;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;

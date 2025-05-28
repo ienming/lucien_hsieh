@@ -28,7 +28,7 @@
 .custom-header {
     grid-template-rows: repeat(3, 1fr);
 
-    @media screen and (min-width: 768px) {
+    @include response(md) {
         grid-template-columns: 2fr 1fr 1fr;
         grid-template-rows: unset;
     }

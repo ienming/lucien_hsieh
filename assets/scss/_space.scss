@@ -1,6 +1,6 @@
-@use './_variables' as vars;
+@use './_variables' as *;
 
-@each $name, $value in vars.$space-values {
+@each $name, $value in $space-values {
   @each $prop in (m, p) {
     @if $prop == m {
       .#{$prop}-#{$name} {

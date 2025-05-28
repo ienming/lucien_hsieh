@@ -1,8 +1,9 @@
-@use 'scss/reset.scss';
-@use 'scss/_variables';
-@use 'scss/_display';
-@use 'scss/_flex';
-@use 'scss/_space';
-@use 'scss/_utils';
-@use 'scss/transition';
-@use 'scss/default';
+@forward 'scss/reset';
+@forward 'scss/_variables';
+@forward 'scss/_breakpoints';
+@forward 'scss/_display';
+@forward 'scss/_flex';
+@forward 'scss/_space';
+@forward 'scss/_utils';
+@forward 'scss/_transition';
+@forward 'scss/default';

@@ -1,16 +1,16 @@
-@use './variables' as vars;
+@use './variables' as *;
 
 ::selection {
-    color: vars.$color-background-container;
-	background-color: vars.$color-text-default;
+    color: $color-background-container;
+	background-color: $color-text-default;
 }
 
 html, body {
-    color: vars.$color-text-default;
-    background-color: vars.$color-background-container;
+    color: $color-text-default;
+    background-color: $color-background-container;
     font-family: "Noto Sans Traditional Chinese", "Inter", sans-serif;
 }
 
 img {
-    border-radius: vars.$radius-xs;
+    border-radius: $radius-xs;
 }

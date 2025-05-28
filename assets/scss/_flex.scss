@@ -1,4 +1,4 @@
-@use './variables' as vars;
+@use './variables' as *;
 
 $align-items-values: baseline, center, start, end;
 $justify-contents-values: baseline, center, start, end, space-between, space-around;
@@ -15,7 +15,7 @@ $justify-contents-values: baseline, center, start, end, space-between, space-aro
     }
 }
 
-@each $name, $value in vars.$space-values {
+@each $name, $value in $space-values {
     .gap-#{$name} {
       gap: #{$value};
     }

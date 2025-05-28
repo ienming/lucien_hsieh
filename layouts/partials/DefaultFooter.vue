@@ -25,7 +25,7 @@
         padding: $space-sm;
     }
 
-    @media screen and (min-width: 768px) {
+    @include response(md) {
         background-color: unset;
         
         .container {
