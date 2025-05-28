@@ -1,5 +1,5 @@
 <template>
-    <footer class="custom-footer">
+    <footer class="custom-footer text-muted">
         <div class="d-grid container">
             <div>
                 <span>©2025 ALL RIGHTS RESERVED</span>

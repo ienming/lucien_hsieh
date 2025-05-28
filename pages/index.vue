@@ -27,13 +27,13 @@
 				@click="GoToProject(project.id)" />
 		</ul>
 		<KeyImage
-			v-if="!isMobile"
+			v-if="!isMobile && nowHoverProject"
 			:id="nowHoverProject"/>
 	</div>
 </template>
 
 <script setup>
-const nowHoverProject = ref();
+const nowHoverProject = ref('');
 const allProjects = ref([]);
 const filters = ref([]);
 const {isMobile} = useIsMobile();
@@ -43,7 +43,6 @@ const getPageData = async () => {
 		return await queryCollection('project').all();
 	});
 
-	// TODO: 調整照片資料
 	allProjects.value = data.value.map(project => ({
 		id: project.path,
 		title: project.title,

@@ -59,6 +59,8 @@ const {isMobile} = useIsMobile();
 
 <style scoped lang="scss">
 .img-list-item {
+	position: relative;
+	z-index: 1;
 	border-bottom: 1px solid $color-neutral-900;
 	list-style: none;
 	cursor: pointer;
