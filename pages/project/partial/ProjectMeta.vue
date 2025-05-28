@@ -52,7 +52,7 @@ defineProps({
         display: inline-flex;
         align-items: center;
         gap: $space-sm;
-        margin: $space-base 0;
+        margin: $space-base 0 0 0;
     }
 }
 </style>
