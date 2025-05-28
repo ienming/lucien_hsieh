@@ -31,6 +31,8 @@
     @include response(md) {
         grid-template-columns: 2fr 1fr 1fr;
         grid-template-rows: unset;
+        margin-bottom: $space-xxl;
+        padding-top: $space-xxl;
     }
 
     .logo {

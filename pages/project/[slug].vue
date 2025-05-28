@@ -102,10 +102,6 @@ try {
 	padding: 0 $space-base;
 	margin-top: $space-base;
 
-    @include response(md) {
-        margin-top: $space-xxl;
-    }
-
 	.header {
 		grid-template-columns: auto;
 
