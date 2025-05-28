@@ -2,7 +2,7 @@
     <div class="skeleton">
         <div class="bar" />
         <div class="bar" />
-        <div class="bar" />
+        <div class="bar short" />
     </div>
 </template>
 
@@ -15,9 +15,24 @@
 
     .bar {
         border-radius: $radius-xxs;
-        max-width: 300px;
+        max-width: 600px;
         height: 16px;
-        background-color: $color-neutral-800;
+        background: linear-gradient(90deg, $color-neutral-900, $color-neutral-1000, $color-neutral-900);
+        animation: loading 3s infinite;
+
+        &.short {
+            max-width: 300px;
+        }
+    }
+
+    @keyframes loading {
+        from {
+            background-position-x: 0px;
+        }
+
+        to {
+            background-position-x: 1200px;
+        }
     }
 }
 </style>

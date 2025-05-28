@@ -34,7 +34,7 @@
 		<article
 			v-else
 			class="project-article loading">
-			<!-- TODO: 加上 Loading 元件 -->
+			<Skeleton class="mb-space-xxl" />
 			<Skeleton />
 		</article>
 		<Lightbox
