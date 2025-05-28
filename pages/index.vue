@@ -33,8 +33,6 @@
 </template>
 
 <script setup>
-defineEmits(['page-load-fail']);
-
 const nowHoverProject = ref();
 const allProjects = ref([]);
 const filters = ref([]);
@@ -58,10 +56,8 @@ const getPageData = async () => {
 
 try {
 	await getPageData();
-} catch (error) {
-	console.log(error);
-	// TODO: 希望可以統一處理錯誤
-	emit('page-load-fail');
+} catch(error) {
+	throw createError(error);
 }
 
 const projects = computed(() => {

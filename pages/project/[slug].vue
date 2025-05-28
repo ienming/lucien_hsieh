@@ -31,7 +31,14 @@
 				}"
 			/>
 		</article>
-		<div v-else>Page not found</div>
+		<article
+			v-else
+			class="project-article loading">
+			<!-- TODO: 加上 Loading 元件 -->
+			<span>
+				Loading...
+			</span>
+		</article>
 		<Lightbox
 			:open="isLightboxVisible"
 			:start-idx="currentImg"
@@ -82,7 +89,7 @@ try {
 	await getPageData();
 	isPageDataReady.value = true;
 } catch (error) {
-	console.log(error);
+	throw createError(error);
 }
 </script>
 
@@ -124,6 +131,10 @@ try {
 
 	:deep(p) {
 		margin-bottom: $space-base;
+	}
+
+	&.loading {
+		min-height: 60vh;
 	}
 }
 </style>
