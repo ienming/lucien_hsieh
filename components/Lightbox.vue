@@ -1,41 +1,43 @@
 <template>
 	<Teleport to="body">
-		<div
-			v-show="open"
-			class="lightbox-modal">
+		<Transition name="fade">
 			<div
-				class="btn close"
-				@click="$emit('close')">
-				<ClientOnly>
-					<Icon
-						name="ant-design:close-outlined"
-						size="24" />
-				</ClientOnly>
-			</div>
-			<div class="img-container">
-				<NuxtImg :src="currentImg" />
-			</div>
-			<div class="controls">
+				v-show="open"
+				class="lightbox-modal">
 				<div
-					class="btn prev"
-					@click="handlePrevious">
+					class="btn close"
+					@click="$emit('close')">
 					<ClientOnly>
 						<Icon
-							name="ant-design:left-outlined"
+							name="ant-design:close-outlined"
 							size="24" />
 					</ClientOnly>
 				</div>
-				<div
-					class="btn next"
-					@click="handleNext">
-					<ClientOnly>
-						<Icon
-							name="ant-design:right-outlined"
-							size="24" />
-					</ClientOnly>
+				<div class="img-container">
+					<NuxtImg :src="currentImg" />
+				</div>
+				<div class="controls">
+					<div
+						class="btn prev"
+						@click="handlePrevious">
+						<ClientOnly>
+							<Icon
+								name="ant-design:left-outlined"
+								size="24" />
+						</ClientOnly>
+					</div>
+					<div
+						class="btn next"
+						@click="handleNext">
+						<ClientOnly>
+							<Icon
+								name="ant-design:right-outlined"
+								size="24" />
+						</ClientOnly>
+					</div>
 				</div>
 			</div>
-		</div>
+		</Transition>
 	</Teleport>
 </template>
 

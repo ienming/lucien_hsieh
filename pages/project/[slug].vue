@@ -1,5 +1,4 @@
 <template>
-	<!-- TODO: 換 loading 效果 -->
 	<div>
 		<article
 			v-if="isPageDataReady"
