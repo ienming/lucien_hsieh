@@ -1,5 +1,5 @@
 <template>
-	<div class="empty">
+	<div class="to-be-continue">
 		<ClientOnly v-if="icon">
 			<Icon
 				:name="icon"
@@ -23,7 +23,7 @@ defineProps({
 </script>
 
 <style lang="scss" scoped>
-.empty {
+.to-be-continue {
 	display: flex;
 	align-items: center;
 	gap: $space-sm;
