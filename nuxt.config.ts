@@ -2,9 +2,6 @@ import { imgDomain } from "./constants/system"
 
 export default defineNuxtConfig({
 	ssr: true,
-	nitro: {
-		preset: 'static',
-	},
 	devtools: {
 		enabled: true
 	},
