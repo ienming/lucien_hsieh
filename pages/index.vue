@@ -47,7 +47,7 @@ const getPageData = async () => {
 		id: project.path,
 		title: project.title,
 		subTitle: project.meta.subtitle,
-		year: project.date,
+		year: project.meta.date,
 		tags: project.meta.tags,
 		cover: project.meta.cover,
 	}));

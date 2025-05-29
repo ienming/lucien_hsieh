@@ -1,3 +1,5 @@
 <template>
-	<div>Playroom</div>
+	<div class="container">
+		<Empty />
+	</div>
 </template>
