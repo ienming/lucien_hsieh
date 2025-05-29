@@ -5,12 +5,6 @@ export default defineNuxtConfig({
 	devtools: {
 		enabled: true
 	},
-	app: {
-		pageTransition: {
-			name: 'page',
-			mode: 'out-in',
-		},
-	},
 	vite: {
 		css: {
 			preprocessorOptions: {
@@ -27,6 +21,12 @@ export default defineNuxtConfig({
 		'@nuxt/image',
 		'@nuxt/icon',
 	],
+	app: {
+		pageTransition: {
+			name: 'page',
+			mode: 'out-in',
+		},
+	},
 	googleFonts: {
 		families: {
 			Inter: true,
