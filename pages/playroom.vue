@@ -2,13 +2,14 @@
 	<div class="container">
 		<div v-if="isDataReady">
 			<!-- TODO: 測試 -->
-			<ul>
+			<!-- <ul>
 				<li
 					v-for="work of works"
 					:key="work.title">
 					{{ work.title }}
 				</li>
-			</ul>
+			</ul> -->
+			<ToBeContinue />
 		</div>
 		<div v-else>
 			<Skeleton class="mb-space-xxl" />
@@ -38,6 +39,7 @@ const getData = async () => {
 try {
 	await getData();
 
+	// TODO: loading 測試用
 	setTimeout(() => {
 		isDataReady.value = true;
 	}, 1500);

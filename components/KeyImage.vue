@@ -1,10 +1,10 @@
 <template>
 	<div class="key-image">
 		<!-- TODO: 移除 -->
-		Key image: {{ id }}
+		Key image: {{ url }}
 		<NuxtImg
-			v-show="id"
-			:src="getImg(id.includes('alishan') ? 'fox.webp' : 'reindeer.webp')" />
+			v-show="url"
+			:src="getImg(url.includes('alishan') ? 'fox.webp' : 'reindeer.webp')" />
 	</div>
 </template>
 
@@ -12,7 +12,7 @@
 import { getImg } from '~/libs/helper';
 
 defineProps({
-	id: {
+	url: {
 		type: String,
 		default: '',
 	},

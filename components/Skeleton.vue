@@ -18,10 +18,11 @@
 		max-width: 600px;
 		height: 16px;
 		background: linear-gradient(90deg, $color-neutral-900, $color-neutral-1000, $color-neutral-900);
-		animation: loading 3s infinite;
+		animation: loading 6s infinite;
 
 		&.short {
 			max-width: 300px;
+			width: 50vw;
 		}
 	}
 
