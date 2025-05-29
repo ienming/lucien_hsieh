@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <DefaultHeader />
-        <main>
-            <slot />
-        </main>
-        <DefaultFooter />
-    </div>
+	<div>
+		<DefaultHeader />
+		<main>
+			<slot />
+		</main>
+		<DefaultFooter />
+	</div>
 </template>
 
 <script setup>
@@ -15,7 +15,7 @@ import DefaultFooter from './partials/DefaultFooter';
 
 <style lang="scss">
 main {
-    // 因為 footer fixed bottom，所以要預留一個可以捲動的範圍
-    padding-bottom: 90px;
+	// 因為 footer fixed bottom，所以要預留一個可以捲動的範圍
+	padding-bottom: 90px;
 }
 </style>

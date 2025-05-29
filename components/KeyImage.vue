@@ -1,7 +1,7 @@
 <template>
 	<div class="key-image">
 		<!-- TODO: 移除 -->
-    	Key image: {{ id }}
+		Key image: {{ id }}
 		<NuxtImg
 			v-show="id"
 			:src="getImg({url: id.includes('alishan') ? 'fox.webp' : 'reindeer.webp'})" />

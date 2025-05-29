@@ -24,10 +24,10 @@ import DefaultHeader from '~/layouts/partials/DefaultHeader';
 import DefaultFooter from '~/layouts/partials/DefaultFooter';
 
 defineProps({
-		error: {
-			type: Object,
-			required: true
-		}
+	error: {
+		type: Object,
+		required: true
+	}
 });
 
 const handleError = () => clearError({ redirect: '/' });
