@@ -5,6 +5,7 @@ export default withNuxt(
 	{
 		rules: {
 			indent: ['error', 'tab'],
+			'vue/multi-word-component-names': 'off',
 		},
 	},
 );
