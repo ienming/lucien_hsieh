@@ -4,7 +4,7 @@
 		Key image: {{ id }}
 		<NuxtImg
 			v-show="id"
-			:src="getImg({url: id.includes('alishan') ? 'fox.webp' : 'reindeer.webp'})" />
+			:src="getImg(id.includes('alishan') ? 'fox.webp' : 'reindeer.webp')" />
 	</div>
 </template>
 
