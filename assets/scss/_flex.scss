@@ -28,3 +28,8 @@ $justify-contents-values: baseline, center, start, end, space-between, space-aro
         column-gap: #{$value};
     }
 }
+
+//TODO: 補上RWD 和flex-row
+.flex-column {
+	flex-direction: column;
+}

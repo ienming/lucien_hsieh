@@ -21,6 +21,11 @@ export default defineNuxtConfig({
 		'@nuxt/image',
 		'@nuxt/icon',
 	],
+	runtimeConfig: {
+		public: {
+			maintenanceMode: process.env.MAINTENANCE_MODE,
+		},
+	},
 	app: {
 		pageTransition: {
 			name: 'page',
