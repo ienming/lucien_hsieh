@@ -150,7 +150,7 @@ try {
 	}
 
 	.back-to-index {
-		margin-top: $space-lg;
+		margin-top: $space-3xl;
 		font-size: $font-size-xl;
 
 		.fade-right-link {
