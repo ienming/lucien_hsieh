@@ -1,16 +1,14 @@
 <template>
 	<div>
-		<div class="container filters">
-			<span>Filter by:</span>
-			<span
+		<div
+			v-if="filters.length"
+			class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container">
+			<span class="text-muted">Filter by</span>
+			<Chip
 				v-for="filter of filters"
 				:key="filter"
-				class="d-flex align-items-center gap-space-xs filter-item">
-				<span>{{ filter }}</span>
-				<span
-					class="close"
-					@click="removeFilter(filter)">X</span>
-			</span>
+				:label="filter" 
+				@close="removeFilter(filter)" />
 		</div>
 		<ul class="img-list">
 			<ImageListItem
@@ -47,7 +45,7 @@ const getPageData = async () => {
 		id: project.path,
 		title: project.title,
 		subTitle: project.meta.subtitle,
-		year: project.meta.date,
+		year: String(project.meta.date),
 		tags: project.meta.tags,
 		cover: project.meta.cover,
 	}));
@@ -111,24 +109,6 @@ function GoToProject(id) {
 </script>
 
 <style lang="scss" scoped>
-.filters {
-	display: flex;
-	align-items: center;
-	gap: $space-sm;
-
-	.filter-item{
-		border: 1px solid $color-text-secondary;
-		padding: $space-xxs $space-sm;
-
-		.close {
-			cursor: pointer;
-			font-size: $font-size-sm;
-			border-radius: 50%;
-			border-radius: 1px solid $color-text-secondary;
-		}
-	}
-}
-
 .img-list {
 	padding: 0 $space-xs;
 }
