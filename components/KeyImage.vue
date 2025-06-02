@@ -25,6 +25,8 @@ defineProps({
 
 	img {
 		max-width: 800px;
+		aspect-ratio: 4/3;
+		object-fit: cover;
 	}
 }
 </style>

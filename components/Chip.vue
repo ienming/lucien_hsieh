@@ -1,6 +1,6 @@
 <template>
 	<span
-		class="d-flex align-items-center gap-space-xs chip"
+		class="d-flex align-items-center gap-space-xxs chip"
 		@click="$emit('close')">
 		<span>{{ label }}</span>
 		<ClientOnly class="close">

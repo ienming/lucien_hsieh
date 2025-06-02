@@ -30,6 +30,16 @@
 					},
 				}"
 			/>
+			<div class="back-to-index">
+				<NuxtLink
+					to="/"
+					class="link fade-right-link">
+					<ClientOnly>
+						<Icon name="ant-design:arrow-right-outlined" />
+					</ClientOnly>
+					INDEX
+				</NuxtLink>
+			</div>
 		</article>
 		<article
 			v-else
@@ -137,6 +147,17 @@ try {
 
 	&.loading {
 		min-height: 60vh;
+	}
+
+	.back-to-index {
+		margin-top: $space-lg;
+		font-size: $font-size-xl;
+
+		.fade-right-link {
+			display: inline-flex;
+			align-items: center;
+			gap: $space-xs;
+		}
 	}
 }
 </style>

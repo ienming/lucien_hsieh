@@ -68,29 +68,37 @@ const {isMobile} = useIsMobile();
 	.item-container {
 		max-width: 1200px;
 		margin: 0 auto;
+		margin-bottom: $space-base;
 		display: grid;
 		grid-template-columns: auto;
+		row-gap: $space-sm;
 
 		@include response(md) {
 			grid-template-columns: 3fr 1fr;
 			padding: $space-base;
+			margin-bottom: 0;
+		}
+
+		.cover {
+			aspect-ratio: 4/3;
+			object-fit: cover;
 		}
 	}
 
-	.cover {
-		margin: $space-sm 0;
-	}
-
 	.info {
+		margin-bottom: $space-lg;
+
+		@include response(md) {
+			margin-bottom: 0;
+		}
+
 		.title {
-			font-size: $font-size-xl;
-			font-weight: $font-weight-700;
 			display: block;
+			font-weight: $font-weight-500;
 		}
 		
 		.sub-title {
 			font-size: $font-size-md;
-			font-weight: $font-weight-500;
 		}
 	}
 
