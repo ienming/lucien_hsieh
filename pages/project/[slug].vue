@@ -152,11 +152,17 @@ try {
 	.back-to-index {
 		margin-top: $space-3xl;
 		font-size: $font-size-xl;
+		
+		@include response(md) {
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+		}
 
 		.fade-right-link {
 			display: inline-flex;
 			align-items: center;
 			gap: $space-xs;
+			grid-column-start: 4;
 		}
 	}
 }
