@@ -62,7 +62,21 @@ const currentIdx = ref(startIdx);
 watch(() => startIdx, newVal => currentIdx.value = newVal);
 const currentImg = computed(() => images[currentIdx.value]);
 
-// TODO: 加上可以按方向鍵就前後換圖
+watch(() => open, newVal => {
+	if (newVal) {
+		document.addEventListener('keydown', handleKeydown);
+	} else {
+		document.removeEventListener('keydown', handleKeydown);
+	}
+});
+
+function handleKeydown(e) {
+	if (e.code === 'ArrowLeft') {
+		handlePrevious();
+	} else if (e.code === 'ArrowRight') {
+		handleNext();
+	}
+}
 
 function handlePrevious() {
 	if (currentIdx.value === 0) {
