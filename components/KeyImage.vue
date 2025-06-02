@@ -1,16 +1,12 @@
 <template>
 	<div class="key-image">
-		<!-- TODO: 移除 -->
-		Key image: {{ url }}
 		<NuxtImg
 			v-show="url"
-			:src="getImg(url.includes('alishan') ? 'fox.webp' : 'reindeer.webp')" />
+			:src="url" />
 	</div>
 </template>
 
 <script setup>
-import { getImg } from '~/libs/helper';
-
 defineProps({
 	url: {
 		type: String,

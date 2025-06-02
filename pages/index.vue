@@ -19,19 +19,19 @@
 				:cover="project.cover"
 				:year="project.year"
 				:tags="project.tags"
-				@mouse-enter-item="handleProjectEnter(project.id)"
-				@mouse-leave-item="handleProjectLeave(project.id)"
+				@mouse-enter-item="handleImgEnter(project.cover)"
+				@mouse-leave-item="handleImgLeave(project.cover)"
 				@filter-by-tag="filterProject"
 				@click="GoToProject(project.id)" />
 		</ul>
 		<KeyImage
-			v-if="!isMobile && nowHoverProject"
-			:id="nowHoverProject"/>
+			v-if="!isMobile && nowHoverImg"
+			:url="nowHoverImg"/>
 	</div>
 </template>
 
 <script setup>
-const nowHoverProject = ref('');
+const nowHoverImg = ref('');
 const allProjects = ref([]);
 const filters = ref([]);
 const {isMobile} = useIsMobile();
@@ -79,13 +79,13 @@ const projects = computed(() => {
 	return results;
 });
 
-function handleProjectEnter(key) {
-	nowHoverProject.value = key;
+function handleImgEnter(imgUrl) {
+	nowHoverImg.value = imgUrl;
 }
 
-function handleProjectLeave(key) {
-	if (nowHoverProject.value === key) {
-		nowHoverProject.value = '';
+function handleImgLeave(imgUrl) {
+	if (nowHoverImg.value === imgUrl) {
+		nowHoverImg.value = '';
 	}
 }
 

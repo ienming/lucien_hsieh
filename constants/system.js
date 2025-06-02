@@ -1,1 +1,0 @@
-export const imgDomain = 'https://storage.googleapis.com';

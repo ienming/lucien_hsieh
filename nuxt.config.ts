@@ -1,5 +1,3 @@
-import { imgDomain } from "./constants/system"
-
 export default defineNuxtConfig({
 	ssr: true,
 	devtools: {
@@ -39,6 +37,9 @@ export default defineNuxtConfig({
 		},
 	},
 	image: {
-		domains: [imgDomain],
+		provider: 'cloudinary',
+		cloudinary: {
+			baseURL: 'https://res.cloudinary.com/dxu48xzzo/image/upload/',
+		},
 	},
 })
