@@ -11,18 +11,20 @@
 				@close="removeFilter(filter)" />
 		</div>
 		<ul class="img-list">
-			<ImageListItem
-				v-for="project of projects"
-				:key="project.id"
-				:title="project.title"
-				:sub-title="project.subTitle"
-				:cover="project.cover"
-				:year="project.year"
-				:tags="project.tags"
-				@mouse-enter-item="handleImgEnter(project.cover)"
-				@mouse-leave-item="handleImgLeave(project.cover)"
-				@filter-by-tag="filterProject"
-				@click="GoToProject(project.id)" />
+			<TransitionGroup name="fade">
+				<ImageListItem
+					v-for="project of projects"
+					:key="project.id"
+					:title="project.title"
+					:sub-title="project.subTitle"
+					:cover="project.cover"
+					:year="project.year"
+					:tags="project.tags"
+					@mouse-enter-item="handleImgEnter(project.cover)"
+					@mouse-leave-item="handleImgLeave(project.cover)"
+					@filter-by-tag="filterProject"
+					@click="GoToProject(project.id)" />
+			</TransitionGroup>
 		</ul>
 		<KeyImage
 			v-if="!isMobile && nowHoverImg"

@@ -21,11 +21,9 @@ defineEmits(['close']);
 
 <style lang="scss" scoped>
 .chip{
-	border: 1px solid $color-text-secondary;
 	padding: $space-xxs $space-sm;
 	cursor: pointer;
 	transition: opacity .3s ease-in-out;
-	border-radius: $radius-xs;
 
 	&:hover {
 		opacity: 0.5;
