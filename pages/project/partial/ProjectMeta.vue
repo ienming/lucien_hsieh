@@ -34,16 +34,6 @@ defineProps({
 
 <style lang="scss" scoped>
 .info {
-	background: linear-gradient(90deg, transparent, $color-neutral-900, transparent);
-	padding: $space-base;
-	border-radius: $radius-xs;
-
-	@include response(md) {
-		background: unset;
-		padding: 0;
-		border-radius: 0;
-	}
-
 	.text-muted {
 		margin-bottom: $space-xxs;
 	}

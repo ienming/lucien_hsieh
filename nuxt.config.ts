@@ -33,6 +33,7 @@ export default defineNuxtConfig({
 	googleFonts: {
 		families: {
 			Inter: true,
+			Karla: true,
 			'Noto Sans Traditional Chinese': true,
 		},
 	},
