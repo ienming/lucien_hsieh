@@ -5,7 +5,7 @@
 				:name="icon"
 				size="24" />
 		</ClientOnly>
-		<p>{{ msg }}</p>
+		<h2>{{ msg }}</h2>
 	</div>
 </template>
 
