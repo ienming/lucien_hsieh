@@ -61,11 +61,15 @@ const isLightboxVisible = ref(false);
 const getPageData = async () => {
 	const route = useRoute();
 	const { slug } = route.params;
+
+	if (!slug) return;
+
 	const { data } = await useAsyncData(`project-${slug}`, async () => {
 		return await queryCollection('project').path(`/project/${slug}`).first();
 	});
+	
 	pageData.value = data.value;
-	meta.value = data.value.meta;
+	meta.value = data.value?.meta;
 };
 
 function openLightbox(src) {

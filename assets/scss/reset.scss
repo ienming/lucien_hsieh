@@ -3,66 +3,70 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 /* HTML 和 body */
 html,
 body {
-  height: 100%;
-  width: 100%;
-  font-family: sans-serif;
-  font-size: $font-size-md;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.5;
-  background-color: #fff;
-  color: #000;
+	height: 100%;
+	width: 100%;
+	font-family: sans-serif;
+	font-size: $font-size-md;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	line-height: 1.5;
+	background-color: #fff;
+	color: #000;
 }
 
 /* 基本元素 */
 h1, h2, h3, h4, h5, h6,
 p, blockquote, pre,
 figure, hr {
-  margin: 0;
+	margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: unset;
 }
 
 ul, ol {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+	list-style: none;
+	padding: 0;
+	margin: 0;
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
+	text-decoration: none;
+	color: inherit;
+	cursor: pointer;
 }
 
 img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
+	display: block;
+	max-width: 100%;
+	height: auto;
 }
 
 /* 表單元素 */
 button, input, textarea, select {
-  font: inherit;
-  background: none;
-  border: none;
-  outline: none;
-  padding: 0;
-  margin: 0;
+	font: inherit;
+	background: none;
+	border: none;
+	outline: none;
+	padding: 0;
+	margin: 0;
 }
 
 button {
-  cursor: pointer;
-  background-color: transparent;
+	cursor: pointer;
+	background-color: transparent;
 }
 
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
+	border-collapse: collapse;
+	border-spacing: 0;
 }
