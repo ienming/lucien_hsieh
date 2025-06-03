@@ -18,14 +18,13 @@ defineProps({
 <style scoped lang="scss">
 .key-image {
 	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+	top: 0;
+	left: 0;
 	z-index: 0;
 
 	img {
-		max-width: 800px;
-		aspect-ratio: 4/3;
+		width: 100vw;
+		height: 100vh;
 		object-fit: cover;
 	}
 }

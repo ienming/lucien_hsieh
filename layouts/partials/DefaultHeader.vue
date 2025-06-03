@@ -1,5 +1,5 @@
 <template>
-	<div class="d-grid align-items-center container custom-header">
+	<div class="d-grid align-items-center container text-difference custom-header">
 		<div>
 			<NuxtLink
 				to="/"
@@ -11,12 +11,12 @@
 			<NuxtLink
 				to="/info"
 				class="link fade-right-link">
-				<span>INFO 🎐</span>
+				<span>INFO</span>
 			</NuxtLink>
 			<NuxtLink
 				to="/playroom"
 				class="link fade-right-link">
-				<span>PLAYROOM 🪁</span>
+				<span>PLAYROOM</span>
 			</NuxtLink>
 		</div>
 	</div>
@@ -24,6 +24,8 @@
 
 <style lang="scss" scoped>
 .custom-header {
+	position: relative;
+	z-index: 1;
 	grid-template-columns: repeat(2, 1fr);
 	row-gap: $space-xs;
 	align-items: flex-start;

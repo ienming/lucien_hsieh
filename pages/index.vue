@@ -27,7 +27,7 @@
 			</TransitionGroup>
 		</ul>
 		<KeyImage
-			v-if="!isMobile && nowHoverImg"
+			v-if="!isMobile"
 			:url="nowHoverImg"/>
 	</div>
 </template>

@@ -1,6 +1,6 @@
 <template>
 	<li
-		class="img-list-item"
+		class="img-list-item text-difference"
 		@mouseenter="isMobile ? null : $emit('mouse-enter-item')"
 		@mouseleave="isMobile ? null : $emit('mouse-leave-item')">
 		<div class="align-items-center item-container">
@@ -61,7 +61,7 @@ const {isMobile} = useIsMobile();
 .img-list-item {
 	position: relative;
 	z-index: 1;
-	border-bottom: 1px solid $color-neutral-900;
+	border-bottom: 1px solid $color-neutral-100;
 	list-style: none;
 	cursor: pointer;
 		
