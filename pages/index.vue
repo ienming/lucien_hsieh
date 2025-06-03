@@ -2,7 +2,7 @@
 	<div>
 		<div
 			v-if="filters.length"
-			class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container">
+			class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container text-difference filter-container">
 			<span class="text-muted">Filter by</span>
 			<Chip
 				v-for="filter of filters"
@@ -111,6 +111,11 @@ function GoToProject(id) {
 </script>
 
 <style lang="scss" scoped>
+.filter-container {
+	position: relative;
+	z-index: 1;
+}
+
 .img-list {
 	padding: 0 $space-xs;
 }
