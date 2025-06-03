@@ -1,8 +1,13 @@
 <template>
 	<div class="key-image">
-		<NuxtImg
-			v-show="url"
-			:src="url" />
+		<Transition
+			name="fade"
+			mode="out-in">
+			<NuxtImg
+				v-if="url"
+				:key="url"
+				:src="url" />
+		</Transition>
 	</div>
 </template>
 
@@ -26,6 +31,7 @@ defineProps({
 		width: 100vw;
 		height: 100vh;
 		object-fit: cover;
+		border-radius: 0;
 	}
 }
 </style>

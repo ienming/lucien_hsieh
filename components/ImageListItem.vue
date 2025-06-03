@@ -61,9 +61,15 @@ const {isMobile} = useIsMobile();
 .img-list-item {
 	position: relative;
 	z-index: 1;
-	border-bottom: 1px solid $color-neutral-100;
+	border-bottom: 1px solid $color-neutral-900;
 	list-style: none;
 	cursor: pointer;
+
+	&.text-difference {
+		@include response(md) {
+			border-color: $color-neutral-100;
+		}
+	}
 		
 	.item-container {
 		max-width: 1200px;
