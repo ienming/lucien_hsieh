@@ -1,17 +1,20 @@
 <template>
-	<div class="content-img">
+	<div
+		class="content-img"
+		:class="{'disabled': !className?.includes(LIGHTBOX_CLASS_NAME)}">
 		<NuxtImg
 			placeholder
 			:src="src"
 			:alt="alt"
 			:title="title"
-			:class="{'disabled': !className.includes('lightbox')}"
 			@click="$emit('preview', src)"
 		/>
 	</div>
 </template>
 
 <script setup>
+import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
+
 const {alt, src, title} = defineProps({
 	alt: {
 		type: String,

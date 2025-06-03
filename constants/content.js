@@ -1,0 +1,1 @@
+export const LIGHTBOX_CLASS_NAME = 'lightbox';

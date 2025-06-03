@@ -15,9 +15,11 @@
 				:value="pageData"
 				:components="{
 					img: (props) =>{
-						const {src, alt, title} = props;
-		
-						if (src && !lightboxImages.includes(src)) {
+						const {src, alt, title, class: className} = props;
+						
+						if (src &&
+							className?.includes(LIGHTBOX_CLASS_NAME) &&
+							!lightboxImages.includes(src)) {
 							lightboxImages.push(src);
 						}
 		
@@ -59,6 +61,7 @@
 import ProjectMeta from './partial/ProjectMeta.vue';
 import ImageRenderer from '~/components/content/ImageRenderer.vue'
 import Lightbox from '~/components/Lightbox.vue';
+import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
 
 const pageData = ref({});
 const isPageDataReady = ref(false);
