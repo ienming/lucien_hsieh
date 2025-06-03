@@ -22,6 +22,7 @@ const classes = computed(() => {
 	const arr = [];
 	
 	if (singleOnMobile) {
+		arr.push(`grid-template-columns-1`);
 		arr.push(`md:grid-template-columns-${column}`);
 	} else {
 		arr.push(`grid-template-columns-${column}`);
