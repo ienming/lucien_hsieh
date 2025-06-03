@@ -3,17 +3,17 @@
 $display-types: none, block, inline-block, inline, flex, inline-flex, grid;
 
 @each $type in $display-types {
-    .d-#{$type} {
-      display: $type;
-    }
+	.d-#{$type} {
+		display: $type;
+	}
 }
 
 @each $breakpoint, $size in $breakpoints {
-  @media (min-width: #{$size}) {
-    @each $type in $display-types {
-      .d-#{$breakpoint}-#{$type} {
-        display: $type;
-      }
-    }
-  }
+	@media (min-width: #{$size}) {
+		@each $type in $display-types {
+			.d-#{$breakpoint}-#{$type} {
+				display: $type;
+			}
+		}
+	}
 }

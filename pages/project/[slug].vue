@@ -142,7 +142,8 @@ try {
 	}
 
 	:deep(p) {
-		margin-bottom: $space-base;
+		margin-top: $space-sm;
+		margin-bottom: $space-sm;
 	}
 
 	&.loading {

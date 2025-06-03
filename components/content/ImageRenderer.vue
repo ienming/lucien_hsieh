@@ -1,13 +1,14 @@
 <template>
-	<NuxtImg
-		class="content-img"
-		placeholder
-		:src="src"
-		:alt="alt"
-		:title="title"
-		:class="{'disabled': !className.includes('lightbox')}"
-		@click="$emit('preview', src)"
-	/>
+	<div class="content-img">
+		<NuxtImg
+			placeholder
+			:src="src"
+			:alt="alt"
+			:title="title"
+			:class="{'disabled': !className.includes('lightbox')}"
+			@click="$emit('preview', src)"
+		/>
+	</div>
 </template>
 
 <script setup>
@@ -32,9 +33,12 @@ const {class: className} = attrs;
 
 <style scoped lang="scss">
 .content-img {
-	margin: $space-sm 0;
 	transition: opacity .3s ease-in-out;
 	cursor: pointer;
+
+	img {
+		width: 100%;
+	}
 
 	&:hover {
 		opacity: .8;
