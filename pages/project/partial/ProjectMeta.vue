@@ -6,7 +6,9 @@
 			class="text-muted">
 			{{ info.type }} / {{ info.desc }}
 		</li>
-		<div v-if="meta.links?.length">
+		<div
+			v-if="meta.links?.length"
+			class="d-flex flex-wrap gap-space-base link-container">
 			<a
 				v-for="link of meta.links"
 				:key="link.url"
@@ -39,11 +41,14 @@ defineProps({
 		margin-bottom: $space-xxs;
 	}
 
+	.link-container {
+		margin: $space-lg 0 0 0;
+	}
+
 	.link {
 		display: inline-flex;
 		align-items: center;
 		gap: $space-sm;
-		margin: $space-base 0 0 0;
 	}
 }
 </style>

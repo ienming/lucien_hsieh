@@ -24,11 +24,11 @@ defineProps({
 .key-image {
 	position: fixed;
 	top: 0;
-	left: 0;
+	right: 0;
 	z-index: 0;
 
 	img {
-		width: 100vw;
+		width: 50vw;
 		height: 100vh;
 		object-fit: cover;
 		border-radius: 0;
