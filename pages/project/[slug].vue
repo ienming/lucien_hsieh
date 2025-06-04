@@ -17,22 +17,7 @@
 			<ContentRenderer
 				:value="pageData"
 				:components="{
-					img: (props) =>{
-						const {src, alt, title, class: className} = props;
-						
-						if (src &&
-							className?.includes(LIGHTBOX_CLASS_NAME) &&
-							!lightboxImages.includes(src)) {
-							lightboxImages.push(src);
-						}
-		
-						return h(ImageRenderer, {
-							src,
-							alt,
-							title,
-							onPreview: src => openLightbox(src),
-						});
-					},
+					img: prepareContentImages,
 				}"
 			/>
 			<div class="back-to-index">
@@ -87,6 +72,23 @@ const getPageData = async () => {
 	pageData.value = data.value;
 	meta.value = data.value?.meta;
 };
+
+function prepareContentImages(props) {
+	const {src, alt, title, class: className} = props;
+						
+	if (src &&
+		className?.includes(LIGHTBOX_CLASS_NAME) &&
+		!lightboxImages.value.includes(src)) {
+		lightboxImages.value.push(src);
+	}
+		
+	return h(ImageRenderer, {
+		src,
+		alt,
+		title,
+		onPreview: src => openLightbox(src),
+	});
+}
 
 function openLightbox(src) {
 	const index = lightboxImages.value.indexOf(src);

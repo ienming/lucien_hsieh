@@ -1,39 +1,61 @@
 <template>
 	<div class="container">
 		<div v-if="isDataReady">
-			<!-- TODO: 測試 -->
-			<!-- <ul>
-				<li
+			<ColumnWrapper
+				column="4"
+				class="images-container sm:grid-template-columns-2">
+				<ImageRenderer
 					v-for="work of works"
-					:key="work.title">
-					{{ work.title }}
-				</li>
-			</ul> -->
-			<ToBeContinue />
+					:key="work.image"
+					class="lightbox"
+					:alt="work.title"
+					:title="work.title"
+					:src="work.image"
+					@preview="openLightbox(work.image)" />
+			</ColumnWrapper>
 		</div>
 		<div v-else>
 			<Skeleton class="mb-space-xxl" />
 			<Skeleton />
 		</div>
+		<Lightbox
+			:open="isLightboxVisible"
+			:start-idx="currentImg"
+			:images="lightboxImages"
+			@close="closeLightbox"/>
 	</div>
 </template>
 
 <script setup>
 const isDataReady = ref(false);
 const works = ref([]);
+const currentImg = ref(0);
+const lightboxImages = ref([]);
+const isLightboxVisible = ref(false);
 
 const getData = async () => {
 	const { data } = await useAsyncData('playroom', async () => {
 		return queryCollection('playroom').all();
 	});
 
-	works.value = data.value.map(item => ({
-		title: item.title,
-		image: item.image,
-		caption: item.caption,
-		tags: item.tags,
-		date: item.date,
-	}));
+	data.value.forEach(d => {
+		const {title, image, caption, tags, date} = d;
+
+		if (image &&
+			!lightboxImages.value.includes(image)) {
+			lightboxImages.value.push(image);
+		}
+
+		const result = {
+			title,
+			image,
+			caption,
+			tags,
+			date,
+		};
+		
+		works.value.push(result);
+	})
 }
 
 try {
@@ -46,4 +68,29 @@ try {
 } catch (error) {
 	throw createError(error);
 }
+
+function openLightbox(src) {
+	const index = lightboxImages.value.indexOf(src);
+
+	if (index !== -1) {
+		currentImg.value = index;
+		isLightboxVisible.value = true;
+		document.body.style.overflow = 'hidden';
+	}
+}
+
+function closeLightbox() {
+	isLightboxVisible.value = false;
+	document.body.style.overflow = 'auto';
+}
 </script>
+
+<style lang="scss" scoped>
+.images-container {
+	:deep(img) {
+		aspect-ratio: 3 / 4;
+		object-fit: cover;
+
+	}
+}
+</style>
