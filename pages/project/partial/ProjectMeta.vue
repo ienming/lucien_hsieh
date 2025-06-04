@@ -11,6 +11,7 @@
 				v-for="link of meta.links"
 				:key="link.url"
 				class="link fade-right-link"
+				target="_blank"
 				:href="link.url">
 				<ClientOnly>
 					<Icon

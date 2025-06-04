@@ -5,7 +5,10 @@
 			class="project-article">
 			<div class="d-grid gap-space-sm header">
 				<div>
-					<h1 class="title">{{ pageData.title }}</h1>
+					<div class="title">
+						<h1>{{ pageData.title }}</h1>
+						<h2>{{ meta.subtitle }}</h2>
+					</div>
 					<p v-if="meta.intros">{{ meta.intros }}</p>
 				</div>
 				<ProjectMeta
