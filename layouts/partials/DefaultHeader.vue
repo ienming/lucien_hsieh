@@ -24,8 +24,11 @@
 
 <style lang="scss" scoped>
 .custom-header {
-	position: relative;
-	z-index: 1;
+	position: fixed;
+	top: 0;
+	background-color: $color-background-container;
+	border-radius: 0 0 $radius-lg $radius-lg;
+	z-index: $z-index-common-fixed;
 	grid-template-columns: repeat(2, 1fr);
 	row-gap: $space-xs;
 	align-items: flex-start;
