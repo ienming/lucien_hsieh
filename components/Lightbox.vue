@@ -106,13 +106,13 @@ function handleNext() {
 	overflow: auto;
 	width: 100vw;
 	height: 100vh;
-	background-color: rgba(255, 255, 255, .85);
+	background-color: rgba(255, 255, 255, .95);
 	backdrop-filter: blur(4px);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: $space-lg;
+	padding: $space-sm;
 
 	.close {
 		position: absolute;
@@ -128,15 +128,12 @@ function handleNext() {
 	.btn {
 		cursor: pointer;
 		transition: background-color .3s cubic-bezier(1, 0, 0, 1);
-
-		&:hover {
-			background-color: rgba(255, 255, 255, .85);
-		}
 	}
 
 	.controls {
 		position: fixed;
 		top: 50%;
+		transform: translateY(-50%);
 		width: 100%;
 		display: flex;
 		justify-content: space-between;

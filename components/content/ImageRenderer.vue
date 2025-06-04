@@ -7,6 +7,7 @@
 			:src="src"
 			:alt="alt"
 			:title="title"
+			loading="lazy"
 			@click="$emit('preview', src)"
 		/>
 	</div>

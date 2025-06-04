@@ -16,6 +16,7 @@
 	position: fixed;
 	bottom: 0;
 	left: 0;
+	z-index: $z-index-common-fixed;
 	width: 100vw;
 	color: $color-text-tertiary;
 	background-color: $color-background-container;
