@@ -8,7 +8,7 @@
 					<div class="d-flex flex-column gap-space-2xl info-card">
 						<!-- TODO: 補上 Avatar -->
 						<div class="d-flex align-items-center justify-contents-space-between">
-							<div class="avatar">AVATAR</div>
+							<Avatar />
 							<ClientOnly>
 								<Icon
 									name="ant-design:close-outlined"
