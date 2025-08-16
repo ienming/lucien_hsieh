@@ -1,24 +1,29 @@
 <template>
 	<header
-		class="d-grid align-items-center container text-difference custom-header"
+		class="d-grid align-items-center container custom-header"
 		:class="{hide: direction === SCROLL_DIRECTION.DOWN}">
 		<div>
 			<NuxtLink
 				to="/"
 				class="logo">
-				<span class="cross-off-link">LUCIEN</span>
+				<span class="cross-off-link">LUUUUUCIEN</span>
 			</NuxtLink>
 		</div>
 		<nav class="nav">
 			<NuxtLink
-				to="/info"
+				to="/"
 				class="link fade-right-link">
-				<span>INFO</span>
+				<span>WORKS</span>
 			</NuxtLink>
 			<NuxtLink
 				to="/playroom"
 				class="link fade-right-link">
-				<span>PLAYROOM</span>
+				<span>PLAYGROUND</span>
+			</NuxtLink>
+			<NuxtLink
+				to="/info"
+				class="link fade-right-link">
+				<span>(Creator)</span>
 			</NuxtLink>
 		</nav>
 	</header>
@@ -39,21 +44,19 @@ const {direction} = useScrollDirection();
 	z-index: $z-index-common-fixed;
 	transition: transform .3s ease-in-out;
 	grid-template-columns: repeat(2, 1fr);
-	row-gap: $space-xs;
+	row-gap: $space-lg;
 	align-items: flex-start;
 
 	@include response(md) {
-		margin-bottom: $space-xxl;
-		padding-top: $space-xxl;
+		padding: $space-md $space-4xl;
 	}
 
 	.logo {
-		font-size: $font-size-xl;
-		font-weight: $font-weight-800;
+		font-size: $font-size-lg;
 	}
 
 	.link {
-		font-weight: $font-weight-500;
+		font-size: $font-size-lg;
 	}
 
 	.nav {
@@ -61,7 +64,7 @@ const {direction} = useScrollDirection();
 		grid-template-rows: repeat(2, 1fr);
 
 		@include response(md) {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(3, 1fr);
 			grid-template-rows: unset;
 		}
 	}

@@ -2,7 +2,7 @@
 	<div>
 		<div
 			v-if="filters.length"
-			class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container text-difference filter-container">
+			class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container filter-container">
 			<span class="text-muted">Filter by</span>
 			<Chip
 				v-for="filter of filters"

@@ -1,53 +1,56 @@
 <template>
-	<footer
-		class="text-muted text-difference custom-footer"
-		:class="{hide: direction === SCROLL_DIRECTION.DOWN}">
-		<div class="d-grid container">
-			<div>
-				<span>©{{ thisYear }} ALL RIGHTS RESERVED</span>
-			</div>
-			<div>
-				<span>TAIPEI / TAIWAN</span>
-			</div>
+	<footer class="custom-footer">
+		<div class="contact-footer">
+			<span class="find-me">Find me</span>
+			<span class="email">hsieh.alan.0726@gmail.com</span>
+		</div>
+		<div class="d-flex justify-contents-space-between copyright-footer">
+			<span>©{{ thisYear }} all rights reserved</span>
+			<span>taipei / taiwan</span>
 		</div>
 	</footer>
 </template>
 
 <script setup>
-import {SCROLL_DIRECTION} from '~/constants/interaction';
-
 const thisYear = new Date().getFullYear();
-const {direction} = useScrollDirection();
 </script>
 
 <style lang="scss" scoped>
 .custom-footer {
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	z-index: $z-index-common-fixed;
 	width: 100vw;
-	color: $color-text-tertiary;
-	background-color: $color-background-container;
-	transform: translateY(0);
-	transition: transform .3s ease-in-out;
-	
-	.container {
-		grid-template-rows: repeat(2, 1fr);
-		padding: $space-sm;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	.contact-footer {
+		height: 235px;
+		padding: $space-5xl $space-md;
+		border-radius: $radius-lg;
+		background-color: $color-neutral-850;
+		color: $color-neutral-200;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+
+		.find-me {
+			font-size: 72px;
+		}
+
+		.email {
+			font-size: 65px;
+		}
+	}
+
+	.copyright-footer {
+		width: 95%;
+		font-size: $font-size-base;
+		background: $color-neutral-200;
+		color: $color-neutral-850;
+		padding: $space-lg $space-md;
+		border-radius: $radius-md;
 	}
 
 	@include response(md) {
 		background-color: unset;
-		
-		.container {
-			grid-template-columns: 3fr 1fr;
-			grid-template-rows: unset;
-		}
-	}
-
-	&.hide {
-		transform: translateY(100%);
 	}
 }
 </style>

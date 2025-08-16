@@ -119,7 +119,7 @@ try {
 
 <style lang="scss" scoped>
 .project-article {
-	max-width: 1200px;
+	max-width: $content-max-width;
 	margin: 0 auto;
 	padding: 0 $space-base;
 	margin-top: $space-base;

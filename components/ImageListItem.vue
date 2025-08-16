@@ -1,6 +1,6 @@
 <template>
 	<li
-		class="img-list-item text-difference"
+		class="img-list-item"
 		@mouseenter="isMobile ? null : $emit('mouse-enter-item')"
 		@mouseleave="isMobile ? null : $emit('mouse-leave-item')">
 		<div class="align-items-center item-container">
@@ -9,20 +9,19 @@
 				class="d-md-none cover"
 				loading="lazy"
 				placeholder />
-			<div class="info fade-right-link">
+			<div class="info d-md-flex">
 				<span class="title">{{ title }}</span>
 				<span class="sub-title">{{ subTitle }}</span>
 			</div>
 			<div class="meta">
 				<p class="year">{{ year }}</p>
-				<template
-					v-for="(tag, idx) of tags"
-					:key="tag">
-					<span
-						class="fade-link"
-						@click.stop="$emit('filter-by-tag', tag)">{{ tag }}</span>
-					<span v-if="idx !== tags.length - 1"> / </span>
-				</template>
+				<div class="types d-flex gap-space-sm">
+					<WorkTypeChip
+						v-for="tag of tags"
+						:key="tag"
+						:type="tag"
+						@click.stop="$emit('filter-by-tag', tag)" />
+				</div>
 			</div>
 		</div>
 	</li>
@@ -61,18 +60,16 @@ const {isMobile} = useIsMobile();
 .img-list-item {
 	position: relative;
 	z-index: 1;
-	border-bottom: 1px solid $color-neutral-900;
+	max-width: $content-max-width;
+	padding: $space-md;
+	background-color: $color-white;
+	border: 1px solid $color-neutral-900;
+	border-radius: $radius-base;
+	margin-bottom: -1px;
 	list-style: none;
 	cursor: pointer;
-
-	&.text-difference {
-		@include response(md) {
-			border-color: $color-neutral-100;
-		}
-	}
 		
 	.item-container {
-		max-width: 1200px;
 		margin: 0 auto;
 		margin-bottom: $space-base;
 		display: grid;
@@ -80,8 +77,7 @@ const {isMobile} = useIsMobile();
 		row-gap: $space-sm;
 
 		@include response(md) {
-			grid-template-columns: 3fr 1fr;
-			padding: $space-base;
+			grid-template-columns: repeat(2, 1fr);
 			margin-bottom: 0;
 		}
 
@@ -94,27 +90,40 @@ const {isMobile} = useIsMobile();
 	.info {
 		margin-bottom: $space-lg;
 
-		@include response(md) {
-			margin-bottom: 0;
-		}
-
 		.title {
 			display: block;
-			font-weight: $font-weight-500;
+			font-size: $font-size-md;
 		}
 		
 		.sub-title {
-			font-size: $font-size-md;
+			font-size: $font-size-base;
+		}
+
+		@include response(md) {
+			margin-bottom: 0;
+			align-items: end;
+			gap: $space-base;
 		}
 	}
 
 
 	.meta {
+		display: grid;
 		font-size: $font-size-base;
 
 		.year {
+			display: inline-flex;
+			align-items: center;
 			margin-bottom: 0;
-			color: $color-text-secondary;
+			opacity: $opacity-50;
+		}
+
+		.types {
+			grid-column: 2 / -1;
+		}
+
+		@include response(md) {
+			grid-template-columns: repeat(3, 1fr);
 		}
 	}
 }
