@@ -21,11 +21,14 @@
 				<span>PLAYGROUND</span>
 			</NuxtLink>
 			<NuxtLink
-				to="/info"
-				class="link fade-right-link">
+				class="link fade-right-link"
+				@click="isAboutModalOpen = true">
 				<span>(Creator)</span>
 			</NuxtLink>
 		</nav>
+		<AboutModal
+			:open="isAboutModalOpen"
+			@close="isAboutModalOpen = false" />
 	</header>
 </template>
 
@@ -33,6 +36,7 @@
 import {SCROLL_DIRECTION} from '~/constants/interaction';
 
 const {direction} = useScrollDirection();
+const isAboutModalOpen = ref(false);
 </script>
 
 <style lang="scss" scoped>

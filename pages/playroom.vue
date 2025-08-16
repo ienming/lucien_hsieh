@@ -15,7 +15,7 @@
 			</ColumnWrapper>
 		</div>
 		<div v-else>
-			<Skeleton class="mb-space-xxl" />
+			<Skeleton class="mb-space-2xl" />
 			<Skeleton />
 		</div>
 		<Lightbox

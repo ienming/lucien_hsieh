@@ -30,7 +30,7 @@ $font-size-base: 16px;
 $font-size-md: 20px;
 $font-size-lg: 24px;
 $font-size-xl: 28px;
-$font-size-xxl: 32px;
+$font-size-2xl: 32px;
 $font-size-3xl: 36px;
 $font-size-4xl: 40px;
 
@@ -51,7 +51,7 @@ $space-base: 12px;
 $space-md: 16px;
 $space-lg: 20px;
 $space-xl: 24px;
-$space-xxl: 28px;
+$space-2xl: 28px;
 $space-3xl: 32px;
 $space-4xl: 36px;
 $space-5xl: 40px;
@@ -65,7 +65,7 @@ $space-values: (
     "space-md": $space-md,
     "space-lg": $space-lg,
     "space-xl": $space-xl,
-    "space-xxl": $space-xxl,
+    "space-2xl": $space-2xl,
 	"space-3xl": $space-3xl,
 	"space-4xl": $space-4xl,
 	"space-5xl": $space-5xl,
@@ -76,14 +76,19 @@ $space-values: (
 $radius-xxs: 2px;
 $radius-xs: 4px;
 $radius-sm: 8px;
-$radius-base: 10px;
-$radius-md: 12px;
+$radius-base: 12px;
+$radius-md: 16px;
 $radius-lg: 24px;
 $radius-round: 999px;
 
 // Opacity
 $opacity-50: 0.5;
+$opacity-20: 0.2;
 
 // ZIndex
 $z-index-common-modal: 999;
 $z-index-common-fixed: 900;
+
+// Components Tokens
+// Card
+$card-radius: $radius-base;

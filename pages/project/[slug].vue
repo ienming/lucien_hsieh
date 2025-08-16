@@ -34,7 +34,7 @@
 		<article
 			v-else
 			class="project-article loading">
-			<Skeleton class="mb-space-xxl" />
+			<Skeleton class="mb-space-2xl" />
 			<Skeleton />
 		</article>
 		<Lightbox

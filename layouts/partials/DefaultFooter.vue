@@ -2,7 +2,9 @@
 	<footer class="custom-footer">
 		<div class="contact-footer">
 			<span class="find-me">Find me</span>
-			<span class="email">hsieh.alan.0726@gmail.com</span>
+			<a 
+				href="mailto:hsieh.alan.0726@gmail.com"
+				class="email">hsieh.alan.0726@gmail.com</a>
 		</div>
 		<div class="d-flex justify-contents-space-between copyright-footer">
 			<span>©{{ thisYear }} all rights reserved</span>
@@ -23,6 +25,7 @@ const thisYear = new Date().getFullYear();
 	align-items: center;
 
 	.contact-footer {
+		width: 100%;
 		height: 235px;
 		padding: $space-5xl $space-md;
 		border-radius: $radius-lg;
@@ -32,11 +35,13 @@ const thisYear = new Date().getFullYear();
 		grid-template-columns: repeat(2, 1fr);
 
 		.find-me {
-			font-size: 72px;
+			font-size: 60px;
 		}
 
 		.email {
-			font-size: 65px;
+			font-size: 48px;
+			text-align: right;
+			// TODO: 調整 link 的下底線，還有這整個 footer 高度造成的 height 問題
 		}
 	}
 
