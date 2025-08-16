@@ -43,11 +43,16 @@ const classes = computed(() => {
 	align-items: center;
 	gap: $space-xs;
 	padding: $space-sm;
-	border-radius: $radius-md;
+	border-radius: $radius-sm;
 
 	&.filled {
 		background-color: $color-neutral-100;
 		color: $color-white;
+		transition: .3s ease-out;
+
+		&:hover {
+			opacity: $opacity-80;
+		}
 	}
 
 	&.outlined {
