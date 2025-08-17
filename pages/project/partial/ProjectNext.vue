@@ -1,5 +1,7 @@
 <template>
-	<div class="project-next">
+	<div
+		class="project-next"
+		@click="goToNextProject">
 		<div class="d-flex justify-contents-space-between align-items-center header">
 			<span class="title">
 				Next
@@ -35,11 +37,21 @@ const {meta} = defineProps({
 })
 
 const {tags} = meta;
+
+function goToNextProject() {
+	console.log('Go to next project');
+}
 </script>
 
 <style scoped lang="scss">
 .project-next{
 	width: 90vw;
+	transition: opacity .3s ease-out;
+
+	&:hover {
+		opacity: $opacity-50;
+		cursor: pointer;
+	}
 
 	.header, .content {
 		border-radius: $radius-base;
@@ -65,7 +77,7 @@ const {tags} = meta;
 		background-color: $color-neutral-800;
 		height: 100%;
 		max-width: 550px;
-		aspect-ratio: 6 / 4;
+		aspect-ratio: 9 / 4;
 	}
 
 	.next-info {

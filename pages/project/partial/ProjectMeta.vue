@@ -3,9 +3,9 @@
 		class="project-meta"
 		:class="{'align-top': direction === SCROLL_DIRECTION.DOWN}">
 		<div class="header">
-			<div class="d-flex flex-column gap-space-xs project-title">
-				<p class="title">Project Title</p>
-				<p class="tagline">Tagline (info message)</p>
+			<div class="d-flex flex-column gap-space-xxs project-title">
+				<p class="title">色々な色 iroironairo</p>
+				<p class="tagline">Colors I’ve seen in my last student year</p>
 			</div>
 			<div class="d-flex gap-space-xs justify-contents-space-between actions">
 				<Button class="w-full d-flex justify-contents-space-between">

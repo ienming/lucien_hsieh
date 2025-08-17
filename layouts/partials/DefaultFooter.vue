@@ -42,7 +42,8 @@ const thisYear = new Date().getFullYear();
 		.email {
 			font-size: 48px;
 			text-align: right;
-			// TODO: 調整 link 的下底線，還有這整個 footer 高度造成的 height 問題
+			border-bottom: 3px solid $color-neutral-200;
+			justify-self: end;
 		}
 	}
 

@@ -2,7 +2,7 @@
 	<div>
 		<article
 			v-if="isPageDataReady"
-			class="common-paragraph project-article">
+			class="project-article">
 			<section class="d-grid header">
 				<div class="project-intro">
 					<p v-if="meta.intros">{{ meta.intros }}</p>
@@ -16,11 +16,11 @@
 				}"
 			/>
 			<!-- Footer Area -->
-			<!-- TEST -->
 			<section class="d-flex justify-contents-end credit-container">
 				<ProjectCredit />
 			</section>
 			<section class="d-flex justify-contents-center align-items-center next-container">
+				<!-- TODO: meta 要換成下一個 project 的資料 -->
 				<ProjectNext :meta="meta" />
 			</section>
 		</article>
@@ -129,6 +129,7 @@ try {
 		.project-intro {
 			white-space: pre-wrap;
 			grid-column: 1 / 4;
+			margin-bottom: $space-xl;
 		}
 	}
 
