@@ -3,30 +3,26 @@
 		<article
 			v-if="isPageDataReady"
 			class="common-paragraph project-article">
-			<div class="d-grid header">
+			<section class="d-grid header">
 				<div class="project-intro">
 					<p v-if="meta.intros">{{ meta.intros }}</p>
-					<!-- TEST -->
-					<ProjectCredit />
 				</div>
 				<ProjectMeta :meta="meta" />
-			</div>
+			</section>
 			<ContentRenderer
 				:value="pageData"
 				:components="{
 					img: prepareContentImages,
 				}"
 			/>
-			<div class="back-to-index">
-				<NuxtLink
-					to="/"
-					class="link fade-right-link">
-					<ClientOnly>
-						<Icon name="ant-design:arrow-right-outlined" />
-					</ClientOnly>
-					INDEX
-				</NuxtLink>
-			</div>
+			<!-- Footer Area -->
+			<!-- TEST -->
+			<section class="d-flex justify-contents-end credit-container">
+				<ProjectCredit />
+			</section>
+			<section class="d-flex justify-contents-center align-items-center next-container">
+				<ProjectNext :meta="meta" />
+			</section>
 		</article>
 		<article
 			v-else
@@ -45,6 +41,7 @@
 <script setup>
 import ProjectMeta from './partial/ProjectMeta.vue';
 import ProjectCredit from './partial/ProjectCredit.vue';
+import ProjectNext from './partial/ProjectNext.vue';
 import ImageRenderer from '~/components/content/ImageRenderer.vue'
 import Lightbox from '~/components/Lightbox.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
@@ -139,21 +136,14 @@ try {
 		min-height: 60vh;
 	}
 
-	.back-to-index {
-		margin-top: $space-3xl;
-		font-size: $font-size-xl;
-		
-		@include response(md) {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-		}
+	.credit-container {
+		padding-right: $space-lg;
+		margin-top: 130px;
+		margin-bottom: 272px;
+	}
 
-		.fade-right-link {
-			display: inline-flex;
-			align-items: center;
-			gap: $space-xs;
-			grid-column-start: 4;
-		}
+	.next-container {
+		margin-bottom: 46px;
 	}
 }
 </style>

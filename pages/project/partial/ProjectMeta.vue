@@ -1,5 +1,7 @@
 <template>
-	<div class="project-meta">
+	<div
+		class="project-meta"
+		:class="{'align-top': direction === SCROLL_DIRECTION.DOWN}">
 		<div class="header">
 			<div class="d-flex flex-column gap-space-xs project-title">
 				<p class="title">Project Title</p>
@@ -77,6 +79,8 @@
 </template>
 
 <script setup>
+import {SCROLL_DIRECTION} from '~/constants/interaction';
+
 const {meta} = defineProps({
 	meta: {
 		type: Object,
@@ -84,6 +88,7 @@ const {meta} = defineProps({
 	},
 })
 
+const {direction} = useScrollDirection();
 const {date, tags} = meta;
 const isContentShow = ref(false);
 
@@ -106,6 +111,7 @@ function toggleContent() {
 	padding: $space-sm $space-base;
 	border-radius: $radius-base;
 	border: 1px solid $color-neutral-900;
+	transition: top .3s ease-out;
 
 	.header {
 		.project-title {
@@ -141,6 +147,10 @@ function toggleContent() {
 			padding: $space-sm 0;
 			font-size: $font-size-sm;
 		}
+	}
+
+	&.align-top {
+		top: $space-lg;
 	}
 }
 </style>

@@ -21,15 +21,11 @@
 		background-color: $color-white;
 		padding: $space-base $space-sm;
 		border-radius: $radius-base;
-		border: 1px solid $color-neutral-900;
 	}
 
 	.header {
 		font-size: $font-size-lg;
-	}
-
-	.content {
-		margin-top: -1px;
+		border: 1px solid $color-neutral-900;
 	}
 	
 	.credit-item {
