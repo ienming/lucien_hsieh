@@ -1,6 +1,6 @@
 <template>
 	<div
-		:style="{'background-image': img}"
+		:style="{'background-image': `url(${img})`}"
 		class="avatar" />
 </template>
 
@@ -20,5 +20,6 @@ defineProps({
 	border-radius: $radius-round;
 	border: 1px solid $color-neutral-900;
 	background-color: $color-neutral-900;
+	background-position: center;
 }
 </style>
