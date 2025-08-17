@@ -65,13 +65,17 @@ const {isMobile} = useIsMobile();
 	position: relative;
 	z-index: 1;
 	max-width: $content-max-width;
-	padding: $space-md $space-xl;
+	padding: $space-xs;
 	background-color: $color-white;
 	border: 1px solid $color-neutral-900;
 	border-radius: $radius-base;
 	margin-bottom: -1px;
 	list-style: none;
 	cursor: pointer;
+
+	@include response(md) {
+		padding: $space-md $space-xl;
+	}
 		
 	.item-container {
 		margin: 0 auto;
@@ -92,7 +96,7 @@ const {isMobile} = useIsMobile();
 	}
 
 	.info {
-		margin-bottom: $space-lg;
+		margin-bottom: $space-base;
 
 		.title {
 			display: block;
@@ -100,7 +104,13 @@ const {isMobile} = useIsMobile();
 		}
 		
 		.sub-title {
-			font-size: $font-size-base;
+			display: inline-block;
+			font-size: $font-size-sm;
+			line-height: 1.13;
+
+			@include response(md) {
+				font-size: $font-size-base;
+			}
 		}
 
 		@include response(md) {
@@ -110,7 +120,6 @@ const {isMobile} = useIsMobile();
 		}
 	}
 
-
 	.meta {
 		display: grid;
 		font-size: $font-size-base;
@@ -118,8 +127,14 @@ const {isMobile} = useIsMobile();
 		.year {
 			display: inline-flex;
 			align-items: center;
-			margin-bottom: 0;
+			margin-bottom: $space-sm;
 			opacity: $opacity-50;
+			font-size: $font-size-xs;
+
+			@include response(md) {
+				margin-bottom: 0;
+				font-size: $font-size-base;
+			}
 		}
 
 		.types {

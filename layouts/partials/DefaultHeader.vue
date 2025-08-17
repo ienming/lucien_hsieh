@@ -9,7 +9,8 @@
 				<span class="cross-off-link">LUUUUUCIEN</span>
 			</NuxtLink>
 		</div>
-		<nav class="nav">
+		<!-- TODO: 區分手機版的 -->
+		<nav class="d-none d-md-grid nav">
 			<NuxtLink
 				to="/"
 				class="link fade-right-link">
@@ -26,9 +27,20 @@
 				<span>(Creator)</span>
 			</NuxtLink>
 		</nav>
+		<div class="d-md-none mobile-menu">
+			<ClientOnly>
+				<Icon
+					name="iconoir:menu"
+					class="d-block"
+					@click="isMobileMenuOpen = true" />
+			</ClientOnly>
+		</div>
 		<AboutModal
 			:open="isAboutModalOpen"
 			@close="isAboutModalOpen = false" />
+		<MobileMenu
+			:open="isMobileMenuOpen"
+			@close="isMobileMenuOpen = false" />
 	</header>
 </template>
 
@@ -37,6 +49,7 @@ import {SCROLL_DIRECTION} from '~/constants/interaction';
 
 const {direction} = useScrollDirection();
 const isAboutModalOpen = ref(false);
+const isMobileMenuOpen = ref(false);
 </script>
 
 <style lang="scss" scoped>
@@ -47,6 +60,7 @@ const isAboutModalOpen = ref(false);
 	transform: translateX(-50%) translateY(0);
 	z-index: $z-index-common-fixed;
 	transition: transform .3s ease-in-out;
+	padding: $space-sm;
 	grid-template-columns: repeat(2, 1fr);
 	row-gap: $space-lg;
 	align-items: flex-start;
@@ -56,25 +70,28 @@ const isAboutModalOpen = ref(false);
 	}
 
 	.logo {
-		font-size: $font-size-lg;
-	}
+		font-size: $font-size-base;
 
-	.link {
-		font-size: $font-size-lg;
+		@include response(md) {
+			font-size: $font-size-lg;
+		}
 	}
 
 	.nav {
-		display: grid;
-		grid-template-rows: repeat(2, 1fr);
-
-		@include response(md) {
-			grid-template-columns: repeat(3, 1fr);
-			grid-template-rows: unset;
-		}
+		grid-template-columns: repeat(3, 1fr);
+		font-size: $font-size-lg;
 	}
 
 	&.hide {
 		transform: translateX(-50%) translateY(-100%);
+	}
+
+	.mobile-menu {
+		justify-self: end;
+		background-color: $color-white;
+		padding: $space-xs;
+		border-radius: $radius-xs;
+		border: 1px solid $color-neutral-900;
 	}
 }
 </style>

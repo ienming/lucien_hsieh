@@ -13,7 +13,7 @@
 				@close="removeFilter(filter)" />
 		</div>
 		<div @mouseleave="handleProjectHoverEnd">
-			<ul>
+			<ul class="d-flex flex-column project-list">
 				<TransitionGroup name="fade">
 					<ImageListItem
 						v-for="project of projects"
@@ -122,11 +122,25 @@ function GoToProject(id) {
 
 <style lang="scss" scoped>
 .work-list-h1 {
-	padding-left: $space-xl;
+	font-size: $font-size-2xl;
+	padding-left: $space-base;
+
+	@include response(md) {
+		font-size: $font-size-4xl;
+		padding-left: $space-xl;
+	}
 }
 
 .filter-container {
 	position: relative;
 	z-index: 1;
+}
+
+.project-list {
+	gap: $space-xs;
+
+	@include response(md) {
+		gap: 0;
+	}
 }
 </style>

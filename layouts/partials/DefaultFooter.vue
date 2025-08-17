@@ -26,34 +26,58 @@ const thisYear = new Date().getFullYear();
 
 	.contact-footer {
 		width: 100%;
-		height: 235px;
-		padding: $space-5xl $space-md;
+		height: 50vh;
+		padding: $space-lg $space-base;
 		border-radius: $radius-lg;
 		background-color: $color-neutral-850;
 		color: $color-neutral-200;
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(2, 1fr);
 		align-items: start;
 
 		.find-me {
-			font-size: 60px;
+			font-size: $font-size-4xl;
+
+			@include response(md) {
+				font-size: 60px;
+			}
 		}
 
 		.email {
-			font-size: 48px;
 			text-align: right;
-			border-bottom: 3px solid $color-neutral-200;
-			justify-self: end;
+			border-bottom: 1px solid $color-neutral-200;
+			align-self: end;
+
+			@include response(md) {
+				font-size: 48px;
+				align-self: start;
+				justify-self: end;
+				border-width: 3px;
+			}
+		}
+
+		@include response(md) {
+			grid-template-rows: unset;
+			grid-template-columns: repeat(2, 1fr);
+			padding: $space-5xl $space-md;
+			height: 235px;
 		}
 	}
 
 	.copyright-footer {
-		width: 95%;
-		font-size: $font-size-base;
+		width: 100%;
+		font-size: $font-size-sm;
 		background: $color-neutral-200;
 		color: $color-neutral-850;
 		padding: $space-lg $space-md;
 		border-radius: $radius-md;
+		flex-direction: column;
+
+		@include response(md) {
+			width: 95%;
+			font-size: $font-size-base;
+			flex-direction: row;
+		}
 	}
 
 	@include response(md) {
