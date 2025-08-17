@@ -2,17 +2,12 @@
 	<div>
 		<article
 			v-if="isPageDataReady"
-			class="project-article">
-			<div class="d-grid gap-space-sm header">
-				<div>
-					<div class="title">
-						<h1>{{ pageData.title }}</h1>
-						<h2>{{ meta.subtitle }}</h2>
-					</div>
+			class="common-paragraph project-article">
+			<div class="d-grid header">
+				<div class="project-intro">
 					<p v-if="meta.intros">{{ meta.intros }}</p>
 				</div>
-				<ProjectMeta
-					:meta="meta" />
+				<ProjectMeta :meta="meta" />
 			</div>
 			<ContentRenderer
 				:value="pageData"
@@ -121,37 +116,20 @@ try {
 .project-article {
 	max-width: $content-max-width;
 	margin: 0 auto;
-	padding: 0 $space-base;
-	margin-top: $space-base;
+	padding-top: $space-5xl;
 
 	.header {
 		grid-template-columns: auto;
 
 		@include response(md) {
-			grid-template-columns: 3fr 1fr;
-			gap: $space-md;
+			grid-template-columns: repeat(6, 1fr);
+			padding: 0 $space-xl;
 		}
-
-		.title {
-			margin-bottom: $space-lg;
-		}
-
-		.info {
-			margin-bottom: $space-lg;
-			
-			.link {
-				margin-top: $space-lg;
-			}
-		}
-
-		p {
+		
+		.project-intro {
 			white-space: pre-wrap;
+			grid-column: 1 / 4;
 		}
-	}
-
-	:deep(p) {
-		margin-top: $space-sm;
-		margin-bottom: $space-sm;
 	}
 
 	&.loading {

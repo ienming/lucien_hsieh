@@ -1,8 +1,11 @@
 <template>
 	<div class="key-image">
-		<NuxtImg
-			:key="url"
-			:src="url" />
+		<Transition name="fade">
+			<NuxtImg
+				v-if="url"
+				:key="url"
+				:src="url" />
+		</Transition>
 		<div class="d-flex justify-contents-end align-items-center gap-space-sm hint">
 			<span>Find out the process...</span>
 			<ClientOnly>
