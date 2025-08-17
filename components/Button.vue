@@ -44,6 +44,7 @@ const classes = computed(() => {
 	gap: $space-xs;
 	padding: $space-sm;
 	border-radius: $radius-sm;
+	font-size: $font-size-base;
 
 	&.filled {
 		background-color: $color-neutral-100;
@@ -61,6 +62,7 @@ const classes = computed(() => {
 
 	&.large {
 		padding: $space-base $space-md;
+		font-size: $font-size-md;
 	}
 }
 </style>

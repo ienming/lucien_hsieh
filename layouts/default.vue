@@ -15,7 +15,7 @@ import DefaultFooter from './partials/DefaultFooter';
 
 <style lang="scss">
 main {
-	--header-height: 90px;
+	--header-height: 68px;
 	margin-top: var(--header-height); //要把 fixed top 的 header 推上去
 	min-height: calc(100vh - var(--header-height));
 }

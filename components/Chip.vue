@@ -7,7 +7,7 @@
 		<ClientOnly
 			v-if="closable"
 			class="close">
-			<Icon name="ant-design:close-outlined" />
+			<Icon name="iconoir:xmark" />
 		</ClientOnly>
 	</span>
 </template>

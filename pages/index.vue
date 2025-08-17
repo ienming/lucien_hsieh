@@ -1,39 +1,44 @@
 <template>
 	<div>
+		<h1 class="work-list-h1">work list</h1>
 		<div
 			v-if="filters.length"
 			class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container filter-container">
-			<span class="text-muted">Filter by</span>
+			<span class="text-muted">Tagged with</span>
 			<Chip
 				v-for="filter of filters"
 				:key="filter"
 				:label="filter" 
+				:closable="true"
 				@close="removeFilter(filter)" />
 		</div>
-		<ul class="img-list">
-			<TransitionGroup name="fade">
-				<ImageListItem
-					v-for="project of projects"
-					:key="project.id"
-					:title="project.title"
-					:sub-title="project.subTitle"
-					:cover="project.cover"
-					:year="project.year"
-					:tags="project.tags"
-					@mouse-enter-item="handleImgEnter(project.cover)"
-					@mouse-leave-item="handleImgLeave(project.cover)"
-					@filter-by-tag="filterProject"
-					@click="GoToProject(project.id)" />
-			</TransitionGroup>
-		</ul>
-		<KeyImage
-			v-if="!isMobile"
-			:url="nowHoverImg"/>
+		<div @mouseleave="handleProjectHoverEnd">
+			<ul>
+				<TransitionGroup name="fade">
+					<ImageListItem
+						v-for="project of projects"
+						:key="project.id"
+						:title="project.title"
+						:sub-title="project.subTitle"
+						:cover="project.cover"
+						:year="project.year"
+						:tags="project.tags"
+						@mouse-enter-item="handleProjectHoverStart(project.id)"
+						@filter-by-tag="filterProject"
+						@click="GoToProject(project.id)" />
+				</TransitionGroup>
+			</ul>
+			<KeyImage
+				v-if="!isMobile && nowImgUrl"
+				:url="nowImgUrl"
+				@click="GoToProject(nowProjectId)" />
+		</div>
 	</div>
 </template>
 
 <script setup>
-const nowHoverImg = ref('');
+const nowProjectId = ref('');
+const nowImgUrl = ref('');
 const allProjects = ref([]);
 const filters = ref([]);
 const {isMobile} = useIsMobile();
@@ -44,7 +49,7 @@ const getPageData = async () => {
 	});
 
 	allProjects.value = data.value.map(project => ({
-		id: project.path,
+		id: project.path.split('/')[2],
 		title: project.title,
 		subTitle: project.meta.subtitle,
 		year: String(project.meta.date),
@@ -81,14 +86,19 @@ const projects = computed(() => {
 	return results;
 });
 
-function handleImgEnter(imgUrl) {
-	nowHoverImg.value = imgUrl;
+function handleProjectHoverStart(id) {
+	const targetProject = findTargetProject(id);
+	nowImgUrl.value = targetProject.cover;
+	nowProjectId.value = id;
 }
 
-function handleImgLeave(imgUrl) {
-	if (nowHoverImg.value === imgUrl) {
-		nowHoverImg.value = '';
-	}
+function handleProjectHoverEnd() {
+	nowProjectId.value = '';
+	nowImgUrl.value = '';
+}
+
+function findTargetProject(id) {
+	return projects.value.find(project => project.id === id);
 }
 
 function filterProject(tag) {
@@ -106,17 +116,17 @@ function removeFilter(tag) {
 
 function GoToProject(id) {
 	const router = useRouter();
-	router.push(id);
+	router.push(`/project/${id}`);
 }
 </script>
 
 <style lang="scss" scoped>
+.work-list-h1 {
+	padding-left: $space-md;
+}
+
 .filter-container {
 	position: relative;
 	z-index: 1;
-}
-
-.img-list {
-	padding: 0 $space-xs;
 }
 </style>

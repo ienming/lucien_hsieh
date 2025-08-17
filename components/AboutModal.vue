@@ -7,11 +7,11 @@
 				<div class="about-modal">
 					<div class="d-flex flex-column gap-space-2xl info-card">
 						<!-- TODO: 補上 Avatar -->
-						<div class="d-flex align-items-center justify-contents-space-between">
+						<div class="d-flex align-items-start justify-contents-space-between">
 							<Avatar />
 							<ClientOnly>
 								<Icon
-									name="ant-design:close-outlined"
+									name="iconoir:xmark"
 									class="close"
 									@click="$emit('close')" />
 							</ClientOnly>
@@ -29,7 +29,7 @@
 						<Button class="w-full d-flex justify-contents-space-between">
 							<span>@luclucxn</span>
 							<ClientOnly>
-								<Icon name="ant-design:instagram-outlined" />
+								<Icon name="iconoir:instagram" />
 							</ClientOnly>
 						</Button>
 					</div>

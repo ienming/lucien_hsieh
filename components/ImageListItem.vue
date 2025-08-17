@@ -1,15 +1,16 @@
 <template>
 	<li
-		class="img-list-item"
-		@mouseenter="isMobile ? null : $emit('mouse-enter-item')"
-		@mouseleave="isMobile ? null : $emit('mouse-leave-item')">
+		ref="img-list-item"
+		class="img-list-item">
 		<div class="align-items-center item-container">
 			<NuxtImg
 				:src="cover"
 				class="d-md-none cover"
 				loading="lazy"
 				placeholder />
-			<div class="info d-md-flex">
+			<div
+				class="info d-md-flex"
+				@mouseenter="isMobile ? null : $emit('mouse-enter-item')">
 				<span class="title">{{ title }}</span>
 				<span class="sub-title">{{ subTitle }}</span>
 			</div>
@@ -51,7 +52,10 @@ defineProps({
 	},
 });
 
-defineEmits(['mouse-enter-item', 'mouse-leave-item', 'filter-by-tag']);
+defineEmits(['mouse-enter-item', 'filter-by-tag']);
+
+const listItemRef = useTemplateRef('img-list-item');
+defineExpose({el: listItemRef});
 
 const {isMobile} = useIsMobile();
 </script>
