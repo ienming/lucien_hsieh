@@ -92,6 +92,7 @@ const isMobileMenuOpen = ref(false);
 		padding: $space-xs;
 		border-radius: $radius-xs;
 		border: 1px solid $color-neutral-900;
+		font-size: $font-size-xl;
 	}
 }
 </style>

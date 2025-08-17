@@ -1,5 +1,7 @@
 <template>
-	<Chip :label="typeLabel">
+	<Chip
+		:label="typeLabel"
+		class="work-type-chip">
 		<template #prefixIcon>
 			<div
 				:style="{'background-color': typeColorStyle}"
@@ -51,9 +53,24 @@ const typeColorStyle = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.type-color {
-	width: 8px;
-	height: 8px;
-	border-radius: $radius-round;
+// TODO: 把這個 small 的樣式改到 Chip 元件
+.work-type-chip {
+	padding: $space-xxs $space-sm;
+	gap: $space-xs;
+	font-size: $font-size-sm;
+	background-color: $color-neutral-950;
+	border: none;
+
+	.type-color {
+		width: 6px;
+		height: 6px;
+		border-radius: $radius-round;
+		
+		@include response(md) {
+			width: 8px;
+			height: 8px;
+		}
+	}
 }
+
 </style>
