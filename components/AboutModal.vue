@@ -6,9 +6,8 @@
 				class="common-modal-overlay d-flex justify-contents-end">
 				<div class="about-modal">
 					<div class="d-flex flex-column gap-space-2xl info-card">
-						<!-- TODO: 補上 Avatar -->
 						<div class="d-flex align-items-start justify-contents-space-between">
-							<Avatar />
+							<Avatar :img="'/avatar.jpg'" />
 							<ClientOnly>
 								<Icon
 									name="iconoir:xmark"
@@ -18,10 +17,10 @@
 						</div>
 						<div class="d-flex flex-column gap-space-sm common-paragraph">
 							<p>
-								Lucien Hsieh 謝明倫 喜歡結合網頁前端與設計、插畫、資料視覺化方面的興趣。希望能將不同的內容轉譯成有趣的敘事作品。
+								Lucien Hsieh 謝明倫 專注在使用者前端體驗，有約 3 年UIUX 設計及前端開發經驗。喜歡結合網頁前端與設計、資料視覺化方面的興趣。希望能將不同的內容轉譯成有趣的敘事作品。
 							</p>
 							<p>
-								I use web frontend technologies to express my interests in design, illustration, story, and data visualization.
+								Have three years experiences in UIUX design and frontend development. I use web frontend technologies to express my interests in design, illustration, story, and data visualization.
 							</p>
 						</div>
 					</div>

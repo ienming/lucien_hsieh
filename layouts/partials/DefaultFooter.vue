@@ -33,6 +33,7 @@ const thisYear = new Date().getFullYear();
 		color: $color-neutral-200;
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
+		align-items: start;
 
 		.find-me {
 			font-size: 60px;

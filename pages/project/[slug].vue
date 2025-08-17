@@ -2,34 +2,27 @@
 	<div>
 		<article
 			v-if="isPageDataReady"
-			class="project-article">
-			<div class="d-grid gap-space-sm header">
-				<div>
-					<div class="title">
-						<h1>{{ pageData.title }}</h1>
-						<h2>{{ meta.subtitle }}</h2>
-					</div>
+			class="common-paragraph project-article">
+			<section class="d-grid header">
+				<div class="project-intro">
 					<p v-if="meta.intros">{{ meta.intros }}</p>
 				</div>
-				<ProjectMeta
-					:meta="meta" />
-			</div>
+				<ProjectMeta :meta="meta" />
+			</section>
 			<ContentRenderer
 				:value="pageData"
 				:components="{
 					img: prepareContentImages,
 				}"
 			/>
-			<div class="back-to-index">
-				<NuxtLink
-					to="/"
-					class="link fade-right-link">
-					<ClientOnly>
-						<Icon name="ant-design:arrow-right-outlined" />
-					</ClientOnly>
-					INDEX
-				</NuxtLink>
-			</div>
+			<!-- Footer Area -->
+			<!-- TEST -->
+			<section class="d-flex justify-contents-end credit-container">
+				<ProjectCredit />
+			</section>
+			<section class="d-flex justify-contents-center align-items-center next-container">
+				<ProjectNext :meta="meta" />
+			</section>
 		</article>
 		<article
 			v-else
@@ -47,6 +40,8 @@
 
 <script setup>
 import ProjectMeta from './partial/ProjectMeta.vue';
+import ProjectCredit from './partial/ProjectCredit.vue';
+import ProjectNext from './partial/ProjectNext.vue';
 import ImageRenderer from '~/components/content/ImageRenderer.vue'
 import Lightbox from '~/components/Lightbox.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
@@ -121,58 +116,34 @@ try {
 .project-article {
 	max-width: $content-max-width;
 	margin: 0 auto;
-	padding: 0 $space-base;
-	margin-top: $space-base;
+	padding-top: $space-5xl;
 
 	.header {
 		grid-template-columns: auto;
 
 		@include response(md) {
-			grid-template-columns: 3fr 1fr;
-			gap: $space-md;
+			grid-template-columns: repeat(6, 1fr);
+			padding: 0 $space-xl;
 		}
-
-		.title {
-			margin-bottom: $space-lg;
-		}
-
-		.info {
-			margin-bottom: $space-lg;
-			
-			.link {
-				margin-top: $space-lg;
-			}
-		}
-
-		p {
+		
+		.project-intro {
 			white-space: pre-wrap;
+			grid-column: 1 / 4;
 		}
-	}
-
-	:deep(p) {
-		margin-top: $space-sm;
-		margin-bottom: $space-sm;
 	}
 
 	&.loading {
 		min-height: 60vh;
 	}
 
-	.back-to-index {
-		margin-top: $space-3xl;
-		font-size: $font-size-xl;
-		
-		@include response(md) {
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-		}
+	.credit-container {
+		padding-right: $space-lg;
+		margin-top: 130px;
+		margin-bottom: 272px;
+	}
 
-		.fade-right-link {
-			display: inline-flex;
-			align-items: center;
-			gap: $space-xs;
-			grid-column-start: 4;
-		}
+	.next-container {
+		margin-bottom: 46px;
 	}
 }
 </style>
