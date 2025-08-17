@@ -6,6 +6,8 @@
 			<div class="d-grid header">
 				<div class="project-intro">
 					<p v-if="meta.intros">{{ meta.intros }}</p>
+					<!-- TEST -->
+					<ProjectCredit />
 				</div>
 				<ProjectMeta :meta="meta" />
 			</div>
@@ -42,6 +44,7 @@
 
 <script setup>
 import ProjectMeta from './partial/ProjectMeta.vue';
+import ProjectCredit from './partial/ProjectCredit.vue';
 import ImageRenderer from '~/components/content/ImageRenderer.vue'
 import Lightbox from '~/components/Lightbox.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
