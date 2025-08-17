@@ -52,7 +52,7 @@ const getPageData = async () => {
 		id: project.path.split('/')[2],
 		title: project.title,
 		subTitle: project.meta.subtitle,
-		year: String(project.meta.date),
+		year: String(project.meta.year),
 		tags: project.meta.tags,
 		cover: project.meta.cover,
 	}));
@@ -122,7 +122,7 @@ function GoToProject(id) {
 
 <style lang="scss" scoped>
 .work-list-h1 {
-	padding-left: $space-md;
+	padding-left: $space-xl;
 }
 
 .filter-container {

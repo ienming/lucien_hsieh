@@ -3,14 +3,26 @@
 		<div class="header">Credit</div>
 		<div class="content">
 			<ul class="d-flex flex-column gap-space-base credits">
-				<li class="d-grid credit-item">
-					<span class="credit-cate">Type</span>
-					<span class="credit-to">Side Project</span>
+				<li
+					v-for="credit of credits"
+					:key="credit.cate"
+					class="d-grid credit-item">
+					<span class="credit-cate">{{ credit.cate }}</span>
+					<span class="credit-to">{{ credit.to }}</span>
 				</li>
 			</ul>
 		</div>
 	</div>
 </template>
+
+<script setup>
+defineProps({
+	credits: {
+		type: Array,
+		default:() => [],
+	},
+});
+</script>
 
 <style lang="scss" scoped>
 .project-credit {
@@ -32,7 +44,7 @@
 		grid-template-columns: minmax(auto, 140px) auto;
 		padding-bottom: $space-sm;
 		border-bottom: 1px solid $color-neutral-900;
-		font-size: $font-size-md;
+		font-size: $font-size-base;
 
 		.credit-cate {
 			color: $color-text-secondary;

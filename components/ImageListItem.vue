@@ -65,7 +65,7 @@ const {isMobile} = useIsMobile();
 	position: relative;
 	z-index: 1;
 	max-width: $content-max-width;
-	padding: $space-md;
+	padding: $space-md $space-xl;
 	background-color: $color-white;
 	border: 1px solid $color-neutral-900;
 	border-radius: $radius-base;

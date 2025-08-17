@@ -7,7 +7,9 @@
 				<div class="project-intro">
 					<p v-if="meta.intros">{{ meta.intros }}</p>
 				</div>
-				<ProjectMeta :meta="meta" />
+				<ProjectMeta
+					:title="pageData.title"
+					:meta="meta" />
 			</section>
 			<ContentRenderer
 				:value="pageData"
@@ -17,7 +19,7 @@
 			/>
 			<!-- Footer Area -->
 			<section class="d-flex justify-contents-end credit-container">
-				<ProjectCredit />
+				<ProjectCredit :credits="meta.credits" />
 			</section>
 			<section class="d-flex justify-contents-center align-items-center next-container">
 				<!-- TODO: meta 要換成下一個 project 的資料 -->

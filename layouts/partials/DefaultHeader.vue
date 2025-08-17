@@ -52,7 +52,7 @@ const isAboutModalOpen = ref(false);
 	align-items: flex-start;
 
 	@include response(md) {
-		padding: $space-md $space-4xl;
+		padding: $space-md $space-xl;
 	}
 
 	.logo {

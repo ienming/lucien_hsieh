@@ -4,8 +4,8 @@
 		:class="{'align-top': direction === SCROLL_DIRECTION.DOWN}">
 		<div class="header">
 			<div class="d-flex flex-column gap-space-xxs project-title">
-				<p class="title">色々な色 iroironairo</p>
-				<p class="tagline">Colors I’ve seen in my last student year</p>
+				<p class="title">{{ title }}</p>
+				<p class="tagline">{{ tagline }}</p>
 			</div>
 			<div class="d-flex gap-space-xs justify-contents-space-between actions">
 				<Button class="w-full d-flex justify-contents-space-between">
@@ -34,7 +34,7 @@
 			<div class="d-flex justify-contents-space-between flex-wrap meta">
 				<div class="year">
 					<span class="mr-space-sm">&lt;Year&gt;</span>
-					<span>{{ date }}</span>
+					<span>{{ year }}</span>
 				</div>
 				<div class="d-flex gap-space-xs flex-wrap align-items-start types">
 					<span class="mr-space-sm">&lt;Type&gt;</span>
@@ -47,41 +47,20 @@
 			</div>
 			<div class="common-paragraph content">
 				<!-- TODO: 換資料結構 -->
-				{{ meta.intros }}
+				{{ about }}
 			</div>
 		</div>
 	</div>
-	<!-- <ul class="info">
-		<li
-			v-for="info of meta.infos"
-			:key="info.type"
-			class="text-muted">
-			{{ info.type }} / {{ info.desc }}
-		</li>
-		<div
-			v-if="meta.links?.length"
-			class="d-flex flex-wrap gap-space-base link-container">
-			<a
-				v-for="link of meta.links"
-				:key="link.url"
-				class="link fade-right-link"
-				target="_blank"
-				:href="link.url">
-				<ClientOnly>
-					<Icon
-						name="ant-design:global-outlined"
-						size="24"/>
-				</ClientOnly>
-				<span>{{ link.label ? link.label : 'LINK TO PROJECT' }}</span>
-			</a>
-		</div>
-	</ul> -->
 </template>
 
 <script setup>
 import {SCROLL_DIRECTION} from '~/constants/interaction';
 
 const {meta} = defineProps({
+	title: {
+		type: String,
+		default: 'Project Title',
+	},
 	meta: {
 		type: Object,
 		default: () => {},
@@ -89,7 +68,7 @@ const {meta} = defineProps({
 })
 
 const {direction} = useScrollDirection();
-const {date, tags} = meta;
+const {tagline, year, tags, about} = meta;
 const isContentShow = ref(false);
 
 function toggleContent() {
