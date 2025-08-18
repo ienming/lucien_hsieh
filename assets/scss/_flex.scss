@@ -1,7 +1,9 @@
 @use './variables' as *;
+@use './breakpoints' as *;
 
 $align-items-values: baseline, center, start, end;
 $justify-contents-values: baseline, center, start, end, space-between, space-around;
+$flex-directions: column, row;
 
 @each $value in $align-items-values {
     .align-items-#{$value} {
@@ -29,9 +31,20 @@ $justify-contents-values: baseline, center, start, end, space-between, space-aro
     }
 }
 
-//TODO: 補上RWD 和flex-row
-.flex-column {
-	flex-direction: column;
+@each $direction in $flex-directions {
+	.flex-#{$direction} {
+		flex-direction: $direction;
+	}
+}
+
+@each $breakpoint, $size in $breakpoints {
+	@media (min-width: #{$size}) {
+		@each $direction in $flex-directions {
+			.flex-#{$breakpoint}-#{$direction} {
+				flex-direction: $direction;
+			}
+		}
+	}
 }
 
 .flex-wrap {

@@ -137,7 +137,7 @@ function GoToProject(id) {
 }
 
 .project-list {
-	gap: $space-xs;
+	gap: $space-sm;
 
 	@include response(md) {
 		gap: 0;

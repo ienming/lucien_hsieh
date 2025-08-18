@@ -10,7 +10,7 @@
 				<Icon name="iconoir:arrow-right" />
 			</ClientOnly>
 		</div>
-		<div class="d-flex gap-space-lg align-items-center content">
+		<div class="d-flex flex-column flex-md-row gap-space-lg content">
 			<!-- NuxtImage -->
 			<div class="next-cover" />
 			<!-- TEST -->
@@ -69,15 +69,25 @@ function goToNextProject() {
 
 	.content {
 		padding: $space-sm;
-		height: 280px;
+
+		@include response(md) {
+			height: 280px;
+			align-items: center;
+		}
 	}
 
 	.next-cover {
 		border-radius: $radius-sm;
 		background-color: $color-neutral-800;
-		height: 100%;
+		width: 100%;
 		max-width: 550px;
-		aspect-ratio: 9 / 4;
+		aspect-ratio: 1 / 1.25;
+
+		@include response(md) {
+			width: unset;
+			height: 100%;
+			aspect-ratio: 9 / 4;
+		}
 	}
 
 	.next-info {

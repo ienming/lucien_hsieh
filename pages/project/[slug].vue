@@ -3,11 +3,18 @@
 		<article
 			v-if="isPageDataReady"
 			class="project-article">
+			<!-- ProjectMeta for mobile in order to sticky at top -->
+			<ProjectMeta
+				v-if="isMobile"
+				:title="pageData.title"
+				:meta="meta"
+				class="project-meta-mobile" />
 			<section class="d-grid header">
 				<div class="project-intro">
 					<p v-if="meta.intros">{{ meta.intros }}</p>
 				</div>
 				<ProjectMeta
+					v-if="!isMobile"
 					:title="pageData.title"
 					:meta="meta" />
 			</section>
@@ -18,7 +25,7 @@
 				}"
 			/>
 			<!-- Footer Area -->
-			<section class="d-flex justify-contents-end credit-container">
+			<section class="d-flex credit-container">
 				<ProjectCredit :credits="meta.credits" />
 			</section>
 			<section class="d-flex justify-contents-center align-items-center next-container">
@@ -51,6 +58,7 @@ import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
 const pageData = ref({});
 const isPageDataReady = ref(false);
 const meta = ref({});
+const {isMobile} = useIsMobile();
 
 const currentImg = ref(0);
 const lightboxImages = ref([]);
@@ -120,6 +128,11 @@ try {
 	margin: 0 auto;
 	padding-top: $space-5xl;
 
+	.project-meta-mobile {
+		position: sticky;
+		margin-bottom: $space-base;
+	}
+
 	.header {
 		grid-template-columns: auto;
 
@@ -140,9 +153,15 @@ try {
 	}
 
 	.credit-container {
-		padding-right: $space-lg;
 		margin-top: 130px;
-		margin-bottom: 272px;
+		margin-bottom: $space-3xl;
+		justify-content: center;
+
+		@include response(md) {
+			margin-bottom: 272px;
+			justify-content: end;
+			padding-right: $space-lg;
+		}
 	}
 
 	.next-container {

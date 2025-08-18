@@ -82,15 +82,21 @@ function toggleContent() {
 	//TODO: 把 header 高度統一變共用
 	--header-height: 68px;
 	top: calc(var(--header-height) + $space-lg);
-	right: $space-lg;
+	left: 0;
 	z-index: $z-index-common-fixed;
-	width: 30vw;
+	width: 100vw;
 	max-width: 695px;
 	background-color: $color-white;
 	padding: $space-sm $space-base;
 	border-radius: $radius-base;
 	border: 1px solid $color-neutral-900;
 	transition: top .3s ease-out;
+
+	@include response(md) {
+		width: 30vw;
+		left: auto;
+		right: $space-lg;
+	}
 
 	.header {
 		.project-title {
@@ -129,7 +135,11 @@ function toggleContent() {
 	}
 
 	&.align-top {
-		top: $space-lg;
+		top: 0;
+
+		@include response(md) {
+			top: $space-lg;
+		}
 	}
 }
 </style>

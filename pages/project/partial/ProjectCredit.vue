@@ -26,8 +26,12 @@ defineProps({
 
 <style lang="scss" scoped>
 .project-credit {
-	width: 30vw;
+	width: 90vw;
 	max-width: 695px;
+
+	@include response(md) {
+		width: 30vw;
+	}
 
 	.header, .content {
 		background-color: $color-white;

@@ -115,7 +115,7 @@ const {isMobile} = useIsMobile();
 
 		@include response(md) {
 			margin-bottom: 0;
-			align-items: end;
+			align-items: baseline;
 			gap: $space-base;
 		}
 	}

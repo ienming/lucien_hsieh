@@ -70,7 +70,7 @@ const isMobileMenuOpen = ref(false);
 	}
 
 	.logo {
-		font-size: $font-size-base;
+		font-size: $font-size-2xl;
 
 		@include response(md) {
 			font-size: $font-size-lg;
@@ -92,7 +92,7 @@ const isMobileMenuOpen = ref(false);
 		padding: $space-xs;
 		border-radius: $radius-xs;
 		border: 1px solid $color-neutral-900;
-		font-size: $font-size-xl;
+		font-size: $font-size-2xl;
 	}
 }
 </style>
