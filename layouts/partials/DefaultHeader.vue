@@ -64,8 +64,10 @@ const isMobileMenuOpen = ref(false);
 	grid-template-columns: repeat(2, 1fr);
 	row-gap: $space-lg;
 	align-items: flex-start;
+	background-color: $color-background-container;
 
 	@include response(md) {
+		background-color: transparent;
 		padding: $space-md $space-xl;
 	}
 

@@ -7,7 +7,7 @@
 				<p class="title">{{ title }}</p>
 				<p class="tagline">{{ tagline }}</p>
 			</div>
-			<div class="d-flex gap-space-xs justify-contents-space-between actions">
+			<div class="d-flex flex-column flex-md-row gap-space-xs justify-contents-space-between actions">
 				<Button class="w-full d-flex justify-contents-space-between">
 					<span>Link To Webpage</span>
 					<ClientOnly>
@@ -81,7 +81,8 @@ function toggleContent() {
 	position: fixed;
 	//TODO: 把 header 高度統一變共用
 	--header-height: 68px;
-	top: calc(var(--header-height) + $space-lg);
+	--space-between-header: calc(-1 * #{$space-base});
+	top: calc(var(--header-height) + var(--space-between-header));
 	left: 0;
 	z-index: $z-index-common-fixed;
 	width: 100vw;
@@ -93,6 +94,7 @@ function toggleContent() {
 	transition: top .3s ease-out;
 
 	@include response(md) {
+		--space-between-header: #{$space-lg};
 		width: 30vw;
 		left: auto;
 		right: $space-lg;
@@ -105,11 +107,13 @@ function toggleContent() {
 	
 			.title {
 				font-size: $font-size-lg;
+				transition: font-size .3s ease-out;
 			}
 	
 			.tagline {
 				font-size: $font-size-md;
 				color: $color-text-secondary;
+				transition: font-size .3s ease-out;
 			}
 		}
 	
@@ -136,6 +140,16 @@ function toggleContent() {
 
 	&.align-top {
 		top: 0;
+
+		.project-title {
+			.title {
+				font-size: $font-size-md;
+			}
+
+			.tagline {
+				font-size: $font-size-sm;
+			}
+		}
 
 		@include response(md) {
 			top: $space-lg;
