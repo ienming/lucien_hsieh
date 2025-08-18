@@ -45,7 +45,6 @@
 			:start-idx="currentImg"
 			:images="lightboxImages"
 			@close="closeLightbox"/>
-		<!-- TODO: bottom sheet for project meta -->
 		<MetaBottomSheet
 			v-model="isBottomSheetOpen"
 			:title="pageData.title"
