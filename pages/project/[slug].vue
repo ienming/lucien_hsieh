@@ -8,7 +8,8 @@
 				v-if="isMobile"
 				:title="pageData.title"
 				:meta="meta"
-				class="project-meta-mobile" />
+				class="project-meta-mobile"
+				@open-btm-sheet="console.log('hi')" />
 			<section class="d-grid header">
 				<div class="project-intro">
 					<p v-if="meta.intros">{{ meta.intros }}</p>
@@ -44,6 +45,7 @@
 			:start-idx="currentImg"
 			:images="lightboxImages"
 			@close="closeLightbox"/>
+		<!-- TODO: bottom sheet for project meta -->
 	</div>
 </template>
 

@@ -17,11 +17,11 @@
 				<Button
 					type="outlined"
 					class="w-full d-flex justify-contents-space-between"
-					@click="toggleContent">
+					@click="isMobile ? $emit('open-btm-sheet') : toggleContent()">
 					<span>About the project</span>
 					<ClientOnly>
 						<Icon
-							name="iconoir:nav-arrow-up"
+							:name="isMobile ? 'iconoir:plus' : 'iconoir:nav-arrow-up'"
 							class="toggle-btn"
 							:class="{'downward': isContentShow}" />
 					</ClientOnly>
@@ -67,7 +67,10 @@ const {meta} = defineProps({
 	},
 })
 
+defineEmits(['open-btm-sheet']);
+
 const {direction} = useScrollDirection();
+const {isMobile} = useIsMobile();
 const {tagline, year, tags, about} = meta;
 const isContentShow = ref(false);
 
