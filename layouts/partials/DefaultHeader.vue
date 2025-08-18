@@ -72,11 +72,7 @@ const isMobileMenuOpen = ref(false);
 	}
 
 	.logo {
-		font-size: $font-size-2xl;
-
-		@include response(md) {
-			font-size: $font-size-lg;
-		}
+		font-size: $font-size-lg;
 	}
 
 	.nav {

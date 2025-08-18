@@ -9,7 +9,7 @@
 				:title="pageData.title"
 				:meta="meta"
 				class="project-meta-mobile"
-				@open-btm-sheet="console.log('hi')" />
+				@open-btm-sheet="isBottomSheetOpen = true" />
 			<section class="d-grid header">
 				<div class="project-intro">
 					<p v-if="meta.intros">{{ meta.intros }}</p>
@@ -46,6 +46,10 @@
 			:images="lightboxImages"
 			@close="closeLightbox"/>
 		<!-- TODO: bottom sheet for project meta -->
+		<MetaBottomSheet
+			v-model="isBottomSheetOpen"
+			:title="pageData.title"
+			:meta="meta" />
 	</div>
 </template>
 
@@ -53,6 +57,7 @@
 import ProjectMeta from './partial/ProjectMeta.vue';
 import ProjectCredit from './partial/ProjectCredit.vue';
 import ProjectNext from './partial/ProjectNext.vue';
+import MetaBottomSheet from './partial/MetaBottomSheet.vue';
 import ImageRenderer from '~/components/content/ImageRenderer.vue'
 import Lightbox from '~/components/Lightbox.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
@@ -65,6 +70,7 @@ const {isMobile} = useIsMobile();
 const currentImg = ref(0);
 const lightboxImages = ref([]);
 const isLightboxVisible = ref(false);
+const isBottomSheetOpen = ref(false);
 
 const getPageData = async () => {
 	const route = useRoute();
@@ -137,6 +143,7 @@ try {
 
 	.header {
 		grid-template-columns: auto;
+		padding: 0 $space-base;
 
 		@include response(md) {
 			grid-template-columns: repeat(6, 1fr);

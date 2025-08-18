@@ -56,7 +56,7 @@
 <script setup>
 import {SCROLL_DIRECTION} from '~/constants/interaction';
 
-const {meta} = defineProps({
+const {title, meta} = defineProps({
 	title: {
 		type: String,
 		default: 'Project Title',

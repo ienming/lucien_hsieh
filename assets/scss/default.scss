@@ -11,6 +11,11 @@ html, body {
     font-family: "Noto Sans Traditional Chinese", "Urbanist", sans-serif;
 }
 
+// 避免 BottomSheet 展開時 overflow:hidden，造成 sticky 的元素跑版
+body.reset-overflow {
+	overflow: unset !important;
+}
+
 img {
     border-radius: $radius-xs;
 }
