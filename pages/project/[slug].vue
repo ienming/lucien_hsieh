@@ -133,7 +133,10 @@ try {
 .project-article {
 	max-width: $content-max-width;
 	margin: 0 auto;
-	padding-top: $space-5xl;
+
+	@include response(md) {
+		padding-top: $space-5xl;
+	}
 
 	.project-meta-mobile {
 		position: sticky;

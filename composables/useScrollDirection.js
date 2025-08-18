@@ -1,7 +1,7 @@
 import { ref, onMounted, onUnmounted } from 'vue';
 import { SCROLL_DIRECTION } from '~/constants/interaction';
 
-function throttle(fn, delay = 400) {
+function throttle(fn, delay = 350) {
 	let lastCall = 0;
 
 	return function (...args) {

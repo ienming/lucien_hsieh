@@ -7,7 +7,8 @@
 			:snap-points="['95%', '60%']"
 			header-class="meta-title"
 			content-class="meta-content"
-			@opening-started="resetOverflow">
+			@opening-started="resetOverflow"
+			@closed="resetBody">
 			<template #header>
 				{{ title }}
 			</template>
@@ -56,6 +57,10 @@ const isSheetOpen = defineModel({
 
 function resetOverflow() {
 	document.body.classList.add('reset-overflow');
+}
+
+function resetBody() {
+	document.body.classList.remove('reset-overflow');
 }
 </script>
 

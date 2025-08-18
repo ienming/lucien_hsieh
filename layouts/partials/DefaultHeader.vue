@@ -9,7 +9,7 @@
 				<span class="cross-off-link">LUUUUUCIEN</span>
 			</NuxtLink>
 		</div>
-		<!-- TODO: 區分手機版的 -->
+		<!-- Desktop -->
 		<nav class="d-none d-md-grid nav">
 			<NuxtLink
 				to="/"
@@ -27,6 +27,7 @@
 				<span>(Creator)</span>
 			</NuxtLink>
 		</nav>
+		<!-- Mobile -->
 		<div class="d-md-none mobile-menu">
 			<ClientOnly>
 				<Icon
