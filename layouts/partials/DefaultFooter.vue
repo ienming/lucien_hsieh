@@ -44,12 +44,14 @@ const thisYear = new Date().getFullYear();
 		}
 
 		.email {
-			text-align: right;
-			border-bottom: 1px solid $color-neutral-200;
+			border-bottom: 2px solid $color-neutral-200;
 			align-self: end;
+			font-size: $font-size-4xl;
+			word-break: break-word;
 
 			@include response(md) {
 				font-size: 48px;
+				text-align: right;
 				align-self: start;
 				justify-self: end;
 				border-width: 3px;

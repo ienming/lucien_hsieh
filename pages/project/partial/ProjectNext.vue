@@ -11,12 +11,13 @@
 			</ClientOnly>
 		</div>
 		<div class="d-flex flex-column flex-md-row gap-space-lg content">
+			<!-- TODO -->
 			<!-- NuxtImage -->
 			<div class="next-cover" />
 			<!-- TEST -->
 			<div class="d-flex flex-column gap-space-base next-info">
-				<div class="title">WHPC</div>
-				<div class="subtitle">WHPC: Taiwan Chapter</div>
+				<div class="title">{{ title }}</div>
+				<div class="subtitle">{{ subtitle }}</div>
 				<div class="d-flex gap-space-sm tags">
 					<WorkTypeChip
 						v-for="tag of tags"
@@ -36,8 +37,9 @@ const {meta} = defineProps({
 	},
 })
 
-const {tags} = meta;
+const {title, subtitle, tags} = meta;
 
+// TODO: 切換 project
 function goToNextProject() {
 	console.log('Go to next project');
 }

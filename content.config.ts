@@ -5,6 +5,24 @@ export default defineContentConfig({
 		project: defineCollection({
 			type: 'page',
 			source: 'project/*.md',
+			schema: z.object({
+				title: z.string(),
+				subtitle: z.string(),
+				tagline: z.string(),
+				year: z.string(),
+				credits: z.array(z.object({
+					cate: z.string(),
+					to: z.string(),
+				})),
+				tags: z.array(z.string()),
+				cover: z.string(),
+				links: z.array(z.object({
+					label: z.string(),
+					url: z.string(),
+				})),
+				about: z.string(),
+				intros: z.string(),
+			}),
 		}),
 		
 		playroom: defineCollection({

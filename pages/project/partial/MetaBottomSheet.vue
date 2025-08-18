@@ -66,7 +66,7 @@ function resetBody() {
 
 <style lang="scss" scoped>
 :deep(.meta-title) {
-	text-align: center;
+	font-size: $font-size-xl;
 }
 
 .meta-content {

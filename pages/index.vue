@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h1 class="work-list-h1">work list</h1>
+		<h1 class="container work-list-h1">work list</h1>
 		<div
 			v-if="filters.length"
 			class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container filter-container">
@@ -13,7 +13,7 @@
 				@close="removeFilter(filter)" />
 		</div>
 		<div @mouseleave="handleProjectHoverEnd">
-			<ul class="d-flex flex-column project-list">
+			<ul class="d-flex flex-column align-items-center project-list">
 				<TransitionGroup name="fade">
 					<ImageListItem
 						v-for="project of projects"
@@ -23,6 +23,7 @@
 						:cover="project.cover"
 						:year="project.year"
 						:tags="project.tags"
+						class="w-full"
 						@mouse-enter-item="handleProjectHoverStart(project.id)"
 						@filter-by-tag="filterProject"
 						@click="GoToProject(project.id)" />
@@ -51,10 +52,10 @@ const getPageData = async () => {
 	allProjects.value = data.value.map(project => ({
 		id: project.path.split('/')[2],
 		title: project.title,
-		subTitle: project.meta.subtitle,
-		year: String(project.meta.year),
-		tags: project.meta.tags,
-		cover: project.meta.cover,
+		subTitle: project.subtitle,
+		year: String(project.year),
+		tags: project.tags,
+		cover: project.cover,
 	}));
 };
 

@@ -17,7 +17,7 @@
 		border-radius: $radius-xxs;
 		max-width: 600px;
 		height: 16px;
-		background: linear-gradient(90deg, $color-neutral-900, $color-neutral-950, $color-neutral-900);
+		background: linear-gradient(90deg, $color-neutral-800, $color-neutral-900, $color-neutral-800);
 		animation: loading 6s infinite;
 
 		&.short {

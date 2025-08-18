@@ -6,39 +6,40 @@
 			<!-- ProjectMeta for mobile in order to sticky at top -->
 			<ProjectMeta
 				v-if="isMobile"
-				:title="pageData.title"
-				:meta="meta"
+				:title="projectData.title"
+				:meta="projectData"
 				class="project-meta-mobile"
 				@open-btm-sheet="isBottomSheetOpen = true" />
 			<section class="d-grid header">
 				<div class="project-intro">
-					<p v-if="meta.intros">{{ meta.intros }}</p>
+					<p v-if="projectData.intros">{{ projectData.intros }}</p>
 				</div>
 				<ProjectMeta
 					v-if="!isMobile"
-					:title="pageData.title"
-					:meta="meta" />
+					:title="projectData.title"
+					:meta="projectData" />
 			</section>
 			<ContentRenderer
-				:value="pageData"
+				:value="projectData"
 				:components="{
 					img: prepareContentImages,
 				}"
 			/>
 			<!-- Footer Area -->
 			<section class="d-flex credit-container">
-				<ProjectCredit :credits="meta.credits" />
+				<ProjectCredit :credits="projectData.credits" />
 			</section>
 			<section class="d-flex justify-contents-center align-items-center next-container">
-				<!-- TODO: meta 要換成下一個 project 的資料 -->
-				<ProjectNext :meta="meta" />
+				<ProjectNext :meta="nextProjectData" />
 			</section>
 		</article>
 		<article
 			v-else
 			class="project-article loading">
-			<Skeleton class="mb-space-2xl" />
-			<Skeleton />
+			<div class="p-space-xl">
+				<Skeleton class="mb-space-2xl" />
+				<Skeleton />
+			</div>
 		</article>
 		<Lightbox
 			:open="isLightboxVisible"
@@ -46,9 +47,10 @@
 			:images="lightboxImages"
 			@close="closeLightbox"/>
 		<MetaBottomSheet
+			v-if="isPageDataReady"
 			v-model="isBottomSheetOpen"
-			:title="pageData.title"
-			:meta="meta" />
+			:title="projectData.title"
+			:meta="projectData" />
 	</div>
 </template>
 
@@ -61,9 +63,9 @@ import ImageRenderer from '~/components/content/ImageRenderer.vue'
 import Lightbox from '~/components/Lightbox.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
 
-const pageData = ref({});
+const projectData = ref({});
+const nextProjectData = ref({});
 const isPageDataReady = ref(false);
-const meta = ref({});
 const {isMobile} = useIsMobile();
 
 const currentImg = ref(0);
@@ -78,11 +80,24 @@ const getPageData = async () => {
 	if (!slug) return;
 
 	const { data } = await useAsyncData(`project-${slug}`, async () => {
-		return await queryCollection('project').path(`/project/${slug}`).first();
-	});
+		const project = await queryCollection('project')
+			.path(`/project/${slug}`)
+			.select('title', 'tagline', 'year', 'credits', 'tags', 'links', 'about', 'intros', 'body')
+			.first();
+
+		const projects = await queryCollection('project')
+			.order('year', 'DESC')
+			.select('title', 'subtitle', 'path', 'tags', 'cover')
+			.all();
+
+		const index = projects.findIndex(p => p.path === `/project/${slug}`);
+		const nextProject = projects[index + 1] ?? projects[0];
+
+		return { project, nextProject };
+	})
 	
-	pageData.value = data.value;
-	meta.value = data.value?.meta;
+	projectData.value = data.value.project;
+	nextProjectData.value = data.value.nextProject;
 };
 
 function prepareContentImages(props) {
@@ -123,7 +138,7 @@ try {
 	// TODO: 移除 loading 元件測試用
 	setTimeout(() => {
 		isPageDataReady.value = true;
-	}, 1500);
+	}, 300);
 } catch (error) {
 	throw createError(error);
 }
