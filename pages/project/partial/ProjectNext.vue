@@ -11,10 +11,11 @@
 			</ClientOnly>
 		</div>
 		<div class="d-flex flex-column flex-md-row gap-space-lg content">
-			<!-- TODO -->
-			<!-- NuxtImage -->
-			<div class="next-cover" />
-			<!-- TEST -->
+			<NuxtImg
+				:src="cover"
+				class="next-cover"
+				loading="lazy"
+				placeholder />
 			<div class="d-flex flex-column gap-space-base next-info">
 				<div class="title">{{ title }}</div>
 				<div class="subtitle">{{ subtitle }}</div>
@@ -37,7 +38,7 @@ const {meta} = defineProps({
 	},
 })
 
-const {title, subtitle, tags} = meta;
+const {title, subtitle, tags, cover} = meta;
 
 // TODO: 切換 project
 function goToNextProject() {
@@ -84,6 +85,7 @@ function goToNextProject() {
 		width: 100%;
 		max-width: 550px;
 		aspect-ratio: 1 / 1.25;
+		object-fit: cover;
 
 		@include response(md) {
 			width: unset;
