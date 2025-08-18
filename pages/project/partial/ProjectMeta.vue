@@ -6,8 +6,16 @@
 			<div class="d-flex flex-column gap-space-xxs project-title">
 				<p class="title">{{ title }}</p>
 				<p class="tagline">{{ tagline }}</p>
+				<!-- TODO: 檢查 bug，點擊時會觸發向上滾動 document.documentElement.scrollTop -->
+				<div
+					class="d-md-none collapsed-btn"
+					@click="isActionShow = !isActionShow">
+					{{ isActionShow ? 'Hide' : 'Show'}}
+				</div>
 			</div>
-			<div class="d-flex flex-column flex-md-row gap-space-xs justify-contents-space-between actions">
+			<div
+				v-show="isActionShow"
+				class="d-flex flex-column flex-md-row gap-space-xs justify-contents-space-between actions">
 				<Button class="w-full d-flex justify-contents-space-between">
 					<span>Link To Webpage</span>
 					<ClientOnly>
@@ -73,6 +81,7 @@ const {direction} = useScrollDirection();
 const {isMobile} = useIsMobile();
 const {tagline, year, tags, about} = meta;
 const isContentShow = ref(false);
+const isActionShow = ref(true);
 
 function toggleContent() {
 	isContentShow.value = !isContentShow.value;
@@ -117,6 +126,13 @@ function toggleContent() {
 				font-size: $font-size-md;
 				color: $color-text-secondary;
 				transition: font-size .3s ease-out;
+			}
+
+			.collapsed-btn {
+				position: absolute;
+				top: $space-sm;
+				right: $space-sm;
+				font-size: $font-size-sm;
 			}
 		}
 	
