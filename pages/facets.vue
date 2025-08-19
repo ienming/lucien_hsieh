@@ -41,7 +41,13 @@
 					</div>
 				</div>
 				<!-- TODO: 加上 v-for 抓真資料 -->
-				<FacetCard />
+				<FacetCard
+					v-for="facet of facets"
+					:key="facet.id"
+					:title="facet.title"
+					:desc="facet.desc"
+					:types="facet.tags"
+					:images="facet.images" />
 			</section>
 		</div>
 		<div v-else>
@@ -57,6 +63,7 @@
 
 <script setup>
 const isDataReady = ref(false);
+const facets = ref([]);
 const isFacetSelectorOpen = ref(false);
 // TODO: 抓到資料後用 Set 過濾
 const facetsOptions = ref(['UIUX', 'FE', 'LANDING_PAGE']);
@@ -70,7 +77,7 @@ const getData = async () => {
 		return queryCollection('facets').all();
 	});
 
-	console.log(data);
+	facets.value = data.value;
 }
 
 function updateFacets(facets) {
@@ -94,14 +101,19 @@ try {
 .facets-container {
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
+	gap: $space-xs;
+
+	@include response(sm) {
+		grid-template-columns: repeat(2, 1fr);
+	}
 
 	@include response(md) {
 		grid-template-columns: repeat(3, 1fr);
 	}
 
-	@include response(lg) {
+	@include response(xl) {
 		grid-template-columns: repeat(4, 1fr);
-		column-gap: $space-sm;
+		gap: $space-sm;
 	}
 
 	.facet-intro {

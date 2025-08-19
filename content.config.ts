@@ -43,8 +43,8 @@ export default defineContentConfig({
 			source: 'facets/*.json',
 			schema: z.object({
 				title: z.string(),
-				image: z.string().url(),
-				caption: z.string(),
+				images: z.array(z.string().url()),
+				desc: z.string(),
 				tags: z.array(z.string()),
 				date: z.string(),
 			}),

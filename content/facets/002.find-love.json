@@ -1,7 +1,7 @@
 {
 	"title": "Find love",
-	"image": "find_love_terj1j",
-	"caption": "finding love caption",
-	"tags": ["illustration"],
+	"images": ["find_love_terj1j"],
+	"desc": "finding love caption",
+	"tags": ["ILLUSTRATION"],
 	"date": "2021"
 }

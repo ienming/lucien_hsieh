@@ -1,5 +1,6 @@
 <template>
 	<div
+		ref="facetCard"
 		class="facet-card"
 		:class="{'hovering': isCardHovering}"
 		@mouseenter="isCardHovering = true"
@@ -7,18 +8,24 @@
 		<div
 			class="facet-cover-container"
 			@click="isLightboxOpen = true">
-			<!-- TODO: 換成 NuxtImg -->
-			<div class="facet-cover" />
+			<div class="facet-cover">
+				<NuxtImg :src="images[0]"/>
+			</div>
 			<span class="d-flex gap-space-xs align-items-center expand-btn">
 				<ClientOnly>
 					<Icon name="iconoir:enlarge" />
 				</ClientOnly>
 				<span>Expand</span>
 			</span>
-			<div class="d-flex align-items-center gap-space-xs imgs-indicator">
+			<div
+				v-if="images.length > 1"
+				class="d-flex align-items-center gap-space-xs imgs-indicator">
 				<div class="d-flex items">
-					<div class="indicator-item" />
-					<div class="indicator-item" />
+					<NuxtImg
+						v-for="img of images"
+						:key="img"
+						:src="img"
+						class="indicator-item" />
 				</div>
 				<span class="d-flex align-items-center text">
 					{{ images.length }} +
@@ -30,7 +37,12 @@
 			:class="{'expand': isCardHovering}">
 			<div class="d-flex justify-contents-space-between align-items-center header">
 				<span class="title">{{ title }}</span>
-				<WorkTypeChip />
+				<WorkTypeChip
+					v-for="type of types"
+					:key="type"
+					:type="type"
+					:clickable="false"
+					size="sm" />
 			</div>
 			<div>
 				<p class="content">{{ desc }}</p>
@@ -65,12 +77,20 @@ defineProps({
 
 const isCardHovering = ref(false);
 const isLightboxOpen = ref(false);
+const facetCard = ref(null);
+
+onMounted(() => {
+	const el = facetCard.value;
+	const descContentHeight = el.querySelector('.content')?.getBoundingClientRect().height;
+	el.style.setProperty('--desc-content-height', `${descContentHeight}px`);
+})
 </script>
 
 <style lang="scss" scoped>
 .facet-card {
 	--indicator-avatar-size: 28px;
 	--facet-card-max-width: 393px;
+	--desc-content-height: 0px;
 	background-color: $color-white;
 	padding: $space-sm;
 	border-radius: $radius-sm;
@@ -91,6 +111,9 @@ const isLightboxOpen = ref(false);
 			display: block;
 			width: 100%;
 			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
 			background-color: rgba(0, 0, 0, .35);
 			opacity: 0;
 			transition: opacity .1s ease-in;
@@ -115,13 +138,11 @@ const isLightboxOpen = ref(false);
 
 		.expand-btn {
 			position: absolute;
-			top: 50%;
+			top: 40%;
 			left: 50%;
+			color: $color-white;
+			font-size: $font-size-base;
 			transform: translate(-50%, -50%);
-			padding: $space-xxs $space-base;
-			border-radius: $radius-round;
-			font-size: $font-size-sm;
-			background-color: $color-white;
 			opacity: 0;
 		}
 
@@ -151,7 +172,6 @@ const isLightboxOpen = ref(false);
 
 			.text {
 				font-size: $font-size-sm;
-				color: $color-text-secondary;
 			}
 		}
 	}
@@ -162,12 +182,10 @@ const isLightboxOpen = ref(false);
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		max-height: 90px;
-		overflow-y: scroll;
 		background-color: $color-white;
 		outline: 1px solid $color-neutral-900;
 		border-radius: $radius-sm $radius-sm 0 0;
-		transform: translateY(40px);
+		transform: translateY(var(--desc-content-height));
 		transition: .2s ease-in-out;
 
 		.header {
@@ -178,6 +196,8 @@ const isLightboxOpen = ref(false);
 		.content {
 			padding: 0 $space-sm $space-lg $space-sm;
 			font-size: $font-size-base;
+			max-height: 90px;
+			overflow-y: scroll;
 		}
 
 		&.expand {

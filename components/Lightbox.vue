@@ -20,13 +20,19 @@
 					<div class="title">Title</div>
 					<div class="common-paragraph desc">desc...</div>
 				</div>
-				<ul class="d-flex gap-space-md indicators">
+				<ul
+					v-if="images.length > 1"
+					class="d-flex gap-space-md indicators">
 					<li
 						v-for="(indicator, idx) of images"
 						:key="indicator"
-						class="indicator"
-						:class="{'active': currentIdx === idx}"
-						@click="showImgByIdx(idx)" />
+						@click="showImgByIdx(idx)">
+						<!-- TODO: 實作切換的功能 -->
+						<NuxtImg
+							class="indicator"
+							:src="indicator"
+							:class="{'active': currentIdx === idx}" />
+					</li>
 				</ul>
 				<!-- <div class="controls">
 					<div

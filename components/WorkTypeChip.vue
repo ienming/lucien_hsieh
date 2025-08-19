@@ -37,6 +37,10 @@ const typeLabel = computed(() => {
 		return 'Landing Page';
 	}else if (props.type === WORKLIST_TYPES.DATA_VIZ) {
 		return 'Data Visualization';
+	}else if (props.type === WORKLIST_TYPES.ILLUSTRATION) {
+		return 'Illustration';
+	}else if (props.type === WORKLIST_TYPES.GRAPHIC) {
+		return 'Editorial / Graphic';
 	}
 
 	return '?';
@@ -52,6 +56,10 @@ const typeColorStyle = computed(() => {
 		return '#AA6AF9';
 	}else if (props.type === WORKLIST_TYPES.LANDING_PAGE) {
 		return '#E4EC4A';
+	}else if (props.type === WORKLIST_TYPES.ILLUSTRATION) {
+		return '#EC4AA0';
+	}else if (props.type === WORKLIST_TYPES.GRAPHIC) {
+		return '#2E7BF7';
 	}
 
 	return 'black';

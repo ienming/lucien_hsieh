@@ -1,7 +1,7 @@
 {
 	"title": "On The Hill",
-	"image": "on_the_hill_buipix",
-	"caption": "",
-	"tags": ["illustration"],
+	"images": ["on_the_hill_buipix"],
+	"desc": "",
+	"tags": ["ILLUSTRATION"],
 	"date": "2021"
 }

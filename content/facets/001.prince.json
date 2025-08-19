@@ -1,7 +1,7 @@
 {
 	"title": "Prince",
-	"image": "prince_dphsvl",
-	"caption": "",
-	"tags": ["illustration"],
+	"images": ["prince_dphsvl", "prince_dphsvl", "prince_dphsvl"],
+	"desc": "",
+	"tags": ["ILLUSTRATION"],
 	"date": "2021"
 }
