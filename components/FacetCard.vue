@@ -22,13 +22,13 @@
 				class="d-flex align-items-center gap-space-xs imgs-indicator">
 				<div class="d-flex items">
 					<NuxtImg
-						v-for="img of images"
+						v-for="img of images.slice(0, 5)"
 						:key="img.title"
 						:src="img.url"
 						class="indicator-item" />
 				</div>
 				<span class="d-flex align-items-center text">
-					{{ images.length }} +
+					{{ images.length }}+
 				</span>
 			</div>
 		</div>
@@ -172,6 +172,7 @@ onMounted(() => {
 
 			.text {
 				font-size: $font-size-sm;
+				padding-right: $space-xs;
 			}
 		}
 	}

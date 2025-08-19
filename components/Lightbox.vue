@@ -173,10 +173,6 @@ function showImgByIdx(idx) {
 			top: unset;
 			left: $space-6xl;
 			bottom: $space-6xl;
-
-			.title {
-				font-size: $font-size-4xl;
-			}
 		}
 	}
 
