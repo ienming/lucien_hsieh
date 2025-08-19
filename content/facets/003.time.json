@@ -1,6 +1,12 @@
 {
 	"title": "Time",
-	"images": ["time_sxtloz"],
+	"images": [
+		{
+			"title": "Time",
+			"desc": "",
+			"url": "time_sxtloz"
+		}
+	],
 	"desc": "",
 	"tags": ["ILLUSTRATION"],
 	"date": "2021"

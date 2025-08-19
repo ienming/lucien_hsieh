@@ -1,6 +1,12 @@
 {
 	"title": "Main In The Rain",
-	"images": ["man_in_the_rain_ptmwss"],
+	"images": [
+		{
+			"title": "Main In The Rain",
+			"desc": "",
+			"url": "man_in_the_rain_ptmwss"
+		}
+	],
 	"desc": "",
 	"tags": ["ILLUSTRATION"],
 	"date": "2021"

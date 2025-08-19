@@ -6,7 +6,7 @@
 					<div class="d-flex flex-column gap-space-md intro">
 						<p class="title">Place for my other facets</p>
 						<div class="tagline">
-							<p>主軸之外的創作延伸，我其他面向的片段</p>
+							<p>關於數位設計之外的創作延伸，其他面向的片段</p>
 							<p>Documenting extensions of my work beyond the main focus, presenting fragments of different facets.</p>
 						</div>
 					</div>
@@ -15,7 +15,7 @@
 						@click="isFacetSelectorOpen = true">
 						<div class="d-flex align-items-center justify-contents-space-between header">
 							<div class="d-flex gap-space-xs">
-								<span class="title-zh">選擇切面</span>
+								<span class="title-zh">查看切面</span>
 								<span>View different angles</span>
 							</div>
 							<ClientOnly>

@@ -8,17 +8,15 @@
 					class="btn close"
 					@click="$emit('close')">
 					<ClientOnly>
-						<Icon
-							name="ant-design:close-outlined"
-							size="32" />
+						<Icon name="iconoir:xmark"/>
 					</ClientOnly>
 				</div>
 				<div class="img-container">
-					<NuxtImg :src="currentImg" />
+					<NuxtImg :src="currentImg.url" />
 				</div>
 				<div class="d-flex flex-column gap-space-sm info">
-					<div class="title">Title</div>
-					<div class="common-paragraph desc">desc...</div>
+					<div class="title">{{ currentImg.title }}</div>
+					<div class="common-paragraph desc">{{ currentImg.desc }}</div>
 				</div>
 				<ul
 					v-if="images.length > 1"
@@ -30,7 +28,7 @@
 						<!-- TODO: 實作切換的功能 -->
 						<NuxtImg
 							class="indicator"
-							:src="indicator"
+							:src="indicator.url"
 							:class="{'active': currentIdx === idx}" />
 					</li>
 				</ul>
@@ -121,7 +119,7 @@ function showImgByIdx(idx) {
 
 <style scoped lang="scss">
 .lightbox-modal {
-	--indicator-size: 40px;
+	--indicator-size: 32px;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -136,12 +134,17 @@ function showImgByIdx(idx) {
 	align-items: center;
 	justify-content: center;
 
+	@include response(md) {
+		--indicator-size: 40px;
+	}
+
 	.close {
 		position: absolute;
 		top: 0;
 		right: 0;
 		padding: $space-sm $space-sm 0 0;
 		color: $color-neutral-950;
+		font-size: $font-size-xl;
 
 		@include response(md) {
 			padding: $space-4xl $space-5xl 0 0;
@@ -174,22 +177,39 @@ function showImgByIdx(idx) {
 	// }
 	.info {
 		position: absolute;
-		left: $space-6xl;
-		bottom: $space-6xl;
+		left: $space-base;
+		top: $space-base;
 		color: $color-white;
 
 		.title {
-			font-size: $font-size-4xl;
+			font-size: $font-size-xl;
+		}
+
+		@include response(md) {
+			top: unset;
+			left: $space-6xl;
+			bottom: $space-6xl;
+
+			.title {
+				font-size: $font-size-4xl;
+			}
 		}
 	}
 
 	.indicators {
 		position: absolute;
-		bottom: $space-6xl;
-		right: $space-6xl;
+		bottom: $space-base;
+		right: 50%;
 		padding: $space-md $space-lg;
 		border-radius: $radius-base;
 		background-color: $color-neutral-100;
+		transform: translateX(50%);
+
+		@include response(md) {
+			right: $space-6xl;
+			bottom: $space-6xl;
+			transform: unset;
+		}
 
 		.indicator {
 			width: var(--indicator-size);

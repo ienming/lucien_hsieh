@@ -9,7 +9,7 @@
 			class="facet-cover-container"
 			@click="isLightboxOpen = true">
 			<div class="facet-cover">
-				<NuxtImg :src="images[0]"/>
+				<NuxtImg :src="images[0].url"/>
 			</div>
 			<span class="d-flex gap-space-xs align-items-center expand-btn">
 				<ClientOnly>
@@ -23,8 +23,8 @@
 				<div class="d-flex items">
 					<NuxtImg
 						v-for="img of images"
-						:key="img"
-						:src="img"
+						:key="img.title"
+						:src="img.url"
 						class="indicator-item" />
 				</div>
 				<span class="d-flex align-items-center text">

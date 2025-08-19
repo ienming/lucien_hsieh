@@ -18,12 +18,17 @@
 					<section class="d-flex flex-column align-items-center gap-space-base">
 						<ClientOnly>
 							<Icon
+								v-show="isFacetsSelected"
 								size="48"
-								:name="isFacetsSelected ? 'iconoir:cube-dots-solid' : 'iconoir:cube-dots'"
-								:class="{'facets-active': isFacetsSelected}" />
+								name="iconoir:cube-dots-solid"
+								class="facets-active" />
+							<Icon
+								v-show="!isFacetsSelected"
+								size="48"
+								name="iconoir:cube-dots" />
 						</ClientOnly>
 						<div class="title">
-							<p class="title-zh">選擇切面</p>
+							<p class="title-zh">查看切面</p>
 							<p class="title-en mt-space-xs">View different angles</p>
 						</div>
 					</section>

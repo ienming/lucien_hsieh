@@ -1,6 +1,22 @@
 {
 	"title": "Prince",
-	"images": ["prince_dphsvl", "prince_dphsvl", "prince_dphsvl"],
+	"images": [
+		{
+			"title": "Prince",
+			"desc": "prince desc",
+			"url": "prince_dphsvl"
+		},
+		{
+			"title": "Prince",
+			"desc": "prince desc",
+			"url": "prince_dphsvl"
+		},
+		{
+			"title": "Prince",
+			"desc": "prince desc",
+			"url": "prince_dphsvl"
+		}
+	],
 	"desc": "",
 	"tags": ["ILLUSTRATION"],
 	"date": "2021"
