@@ -3,14 +3,8 @@
 		<Transition name="fade">
 			<div
 				v-show="open"
-				class="lightbox-modal">
-				<div
-					class="btn close"
-					@click="$emit('close')">
-					<ClientOnly>
-						<Icon name="iconoir:xmark"/>
-					</ClientOnly>
-				</div>
+				class="lightbox-modal"
+				@click.self="$emit('close')">
 				<div class="img-container">
 					<NuxtImg :src="currentImg.url" />
 				</div>
@@ -72,7 +66,7 @@ const {open, startIdx, images} = defineProps({
 		default: () => [],
 	},
 });
-defineEmits(['close']);
+const emits = defineEmits(['close']);
 
 const currentIdx = ref(startIdx);
 watch(() => startIdx, newVal => currentIdx.value = newVal);
@@ -87,10 +81,13 @@ watch(() => open, newVal => {
 });
 
 function handleKeydown(e) {
+	console.log(e);
 	if (e.code === 'ArrowLeft') {
 		handlePrevious();
 	} else if (e.code === 'ArrowRight') {
 		handleNext();
+	} else if (e.code === 'Escape') {
+		emits('close');
 	}
 }
 
@@ -136,19 +133,6 @@ function showImgByIdx(idx) {
 
 	@include response(md) {
 		--indicator-size: 40px;
-	}
-
-	.close {
-		position: absolute;
-		top: 0;
-		right: 0;
-		padding: $space-sm $space-sm 0 0;
-		color: $color-neutral-950;
-		font-size: $font-size-xl;
-
-		@include response(md) {
-			padding: $space-4xl $space-5xl 0 0;
-		}
 	}
 
 	.btn {
