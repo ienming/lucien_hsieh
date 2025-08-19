@@ -100,7 +100,6 @@ onMounted(() => {
 
 	.facet-cover {
 		border-radius: $radius-xs;
-		aspect-ratio: 1 / 1;
 		object-fit: cover;
 		overflow: hidden;
 		max-width: var(--facet-card-max-width);

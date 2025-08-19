@@ -1,54 +1,60 @@
 <template>
 	<div class="container">
 		<div v-if="isDataReady">
-			<section class="facets-container">
-				<div class="facet-intro">
-					<div class="d-flex flex-column gap-space-md intro">
-						<p class="title">Place for my other facets</p>
-						<div class="tagline">
-							<p>關於數位設計之外的創作延伸，其他面向的片段</p>
-							<p>Documenting extensions of my work beyond the main focus, presenting fragments of different facets.</p>
-						</div>
-					</div>
+			<masonry-wall
+				:items="facets"
+				:ssr-columns="1"
+				:column-width="300"
+				:gap="16"
+				class="facets-container">
+				<template #default="{ item: facet, index }">
 					<div
-						class="d-flex flex-column gap-space-xs facet-selector"
-						@click="isFacetSelectorOpen = true">
-						<div class="d-flex align-items-center justify-contents-space-between header">
-							<div class="d-flex gap-space-xs">
-								<span class="title-zh">查看切面</span>
-								<span>View different angles</span>
+						v-if="index === 0"
+						class="facet-intro">
+						<div class="d-flex flex-column gap-space-md intro">
+							<p class="title">Place for my other facets</p>
+							<div class="tagline">
+								<p>關於數位設計之外的創作延伸，其他面向的片段</p>
+								<p>Documenting extensions of my work beyond the main focus, presenting fragments of different facets.</p>
 							</div>
-							<ClientOnly>
-								<Icon
-									size="24"
-									:name="isFacetsSelected ? 'iconoir:cube-dots-solid' : 'iconoir:cube-dots'"
-									:class="{'facets-active': isFacetsSelected}" />
-							</ClientOnly>
 						</div>
-						<div class="text-muted now-selects">
-							<span v-if="!selectingFacets.length || selectingFacets.length === facetsOptions.length">
-								全部
-							</span>
-							<p v-else>
-								<span
-									v-for="(facet, idx) of selectingFacets"
-									:key="facet">
-									{{ facet }}
-									<span v-if="idx !== selectingFacets.length - 1">, </span>
+						<div
+							class="d-flex flex-column gap-space-xs facet-selector"
+							@click="isFacetSelectorOpen = true">
+							<div class="d-flex align-items-center justify-contents-space-between header">
+								<div class="d-flex gap-space-xs">
+									<span class="title-zh">查看切面</span>
+									<span>View different angles</span>
+								</div>
+								<ClientOnly>
+									<Icon
+										size="24"
+										:name="isFacetsSelected ? 'iconoir:cube-dots-solid' : 'iconoir:cube-dots'"
+										:class="{'facets-active': isFacetsSelected}" />
+								</ClientOnly>
+							</div>
+							<div class="text-muted now-selects">
+								<span v-if="!selectingFacets.length || selectingFacets.length === facetsOptions.length">
+									全部
 								</span>
-							</p>
+								<p v-else>
+									<span
+										v-for="(facet, idx) of selectingFacets"
+										:key="facet">
+										{{ facet }}
+										<span v-if="idx !== selectingFacets.length - 1">, </span>
+									</span>
+								</p>
+							</div>
 						</div>
 					</div>
-				</div>
-				<!-- TODO: 加上 v-for 抓真資料 -->
-				<FacetCard
-					v-for="facet of facets"
-					:key="facet.id"
-					:title="facet.title"
-					:desc="facet.desc"
-					:types="facet.tags"
-					:images="facet.images" />
-			</section>
+					<FacetCard
+						:title="facet.title"
+						:desc="facet.desc"
+						:types="facet.tags"
+						:images="facet.images" />
+				</template>
+			</masonry-wall>
 		</div>
 		<div v-else>
 			<Skeleton class="mb-space-2xl" />
@@ -99,28 +105,12 @@ try {
 
 <style lang="scss" scoped>
 .facets-container {
-	display: grid;
-	grid-template-columns: repeat(1, 1fr);
-	gap: $space-xs;
-
-	@include response(sm) {
-		grid-template-columns: repeat(2, 1fr);
-	}
-
-	@include response(md) {
-		grid-template-columns: repeat(3, 1fr);
-	}
-
-	@include response(xl) {
-		grid-template-columns: repeat(4, 1fr);
-		gap: $space-sm;
-	}
-
 	.facet-intro {
 		background-color: $color-white;
 		border-radius: $radius-sm;
 		padding: $space-base $space-md;
 		border: 1px solid $color-neutral-900;
+		margin-bottom: $space-md; //Hack the first masonry item
 
 		.intro {
 			padding-bottom: $space-sm;
