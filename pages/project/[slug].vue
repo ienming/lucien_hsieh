@@ -55,10 +55,10 @@
 </template>
 
 <script setup>
-import ProjectMeta from './partial/ProjectMeta.vue';
-import ProjectCredit from './partial/ProjectCredit.vue';
-import ProjectNext from './partial/ProjectNext.vue';
-import MetaBottomSheet from './partial/MetaBottomSheet.vue';
+import ProjectMeta from '~/components/project/ProjectMeta.vue';
+import ProjectCredit from '~/components/project/ProjectCredit.vue';
+import ProjectNext from '~/components/project/ProjectNext.vue';
+import MetaBottomSheet from '~/components/project/MetaBottomSheet.vue';
 import ImageRenderer from '~/components/content/ImageRenderer.vue'
 import Lightbox from '~/components/Lightbox.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
