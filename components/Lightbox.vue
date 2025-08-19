@@ -1,5 +1,4 @@
 <template>
-	<!-- TODO: 修改樣式 -->
 	<Teleport to="body">
 		<Transition name="fade">
 			<div
@@ -11,13 +10,25 @@
 					<ClientOnly>
 						<Icon
 							name="ant-design:close-outlined"
-							size="24" />
+							size="32" />
 					</ClientOnly>
 				</div>
 				<div class="img-container">
 					<NuxtImg :src="currentImg" />
 				</div>
-				<div class="controls">
+				<div class="d-flex flex-column gap-space-sm info">
+					<div class="title">Title</div>
+					<div class="common-paragraph desc">desc...</div>
+				</div>
+				<ul class="d-flex gap-space-md indicators">
+					<li
+						v-for="(indicator, idx) of images"
+						:key="indicator"
+						class="indicator"
+						:class="{'active': currentIdx === idx}"
+						@click="showImgByIdx(idx)" />
+				</ul>
+				<!-- <div class="controls">
 					<div
 						class="btn prev"
 						@click="handlePrevious">
@@ -36,7 +47,7 @@
 								size="24" />
 						</ClientOnly>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</Transition>
 	</Teleport>
@@ -96,10 +107,15 @@ function handleNext() {
 
 	currentIdx.value += 1;
 }
+
+function showImgByIdx(idx) {
+	console.log(`Show img ${idx}`);
+}
 </script>
 
 <style scoped lang="scss">
 .lightbox-modal {
+	--indicator-size: 40px;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -107,22 +123,22 @@ function handleNext() {
 	overflow: auto;
 	width: 100vw;
 	height: 100vh;
-	background-color: rgba(255, 255, 255, .95);
+	background-color: rgba(0, 0, 0, .75);
 	backdrop-filter: blur(4px);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: $space-sm;
 
 	.close {
 		position: absolute;
 		top: 0;
 		right: 0;
 		padding: $space-sm $space-sm 0 0;
+		color: $color-neutral-950;
 
 		@include response(md) {
-			padding: $space-lg $space-lg 0 0;
+			padding: $space-4xl $space-5xl 0 0;
 		}
 	}
 
@@ -131,22 +147,60 @@ function handleNext() {
 		transition: background-color .3s cubic-bezier(1, 0, 0, 1);
 	}
 
-	.controls {
-		position: fixed;
-		top: 50%;
-		transform: translateY(-50%);
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
+	// .controls {
+	// 	position: fixed;
+	// 	top: 50%;
+	// 	transform: translateY(-50%);
+	// 	width: 100%;
+	// 	display: flex;
+	// 	justify-content: space-between;
+	// 	align-items: center;
 
-		.btn {
-			display: inline-flex;
-			align-items: center;
-			padding: $space-sm;
+	// 	.btn {
+	// 		display: inline-flex;
+	// 		align-items: center;
+	// 		padding: $space-sm;
 
-			@include response(md) {
-				padding: $space-lg;
+	// 		@include response(md) {
+	// 			padding: $space-lg;
+	// 		}
+	// 	}
+	// }
+	.info {
+		position: absolute;
+		left: $space-6xl;
+		bottom: $space-6xl;
+		color: $color-white;
+
+		.title {
+			font-size: $font-size-4xl;
+		}
+	}
+
+	.indicators {
+		position: absolute;
+		bottom: $space-6xl;
+		right: $space-6xl;
+		padding: $space-md $space-lg;
+		border-radius: $radius-base;
+		background-color: $color-neutral-100;
+
+		.indicator {
+			width: var(--indicator-size);
+			height: var(--indicator-size);
+			background-color: $color-neutral-900;
+			aspect-ratio: 1 / 1;
+			object-fit: cover;
+			border-radius: $radius-xs;
+			opacity: $opacity-50;
+
+			&:hover {
+				opacity: 1;
+			}
+
+			&.active {
+				opacity: 1;
+				box-shadow:  0 0 0 5px $color-neutral-100, 0 0 0 8px $color-neutral-950;
 			}
 		}
 	}

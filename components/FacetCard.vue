@@ -21,22 +21,19 @@
 					<div class="indicator-item" />
 				</div>
 				<span class="d-flex align-items-center text">
-					<!-- TODO: 數字 -->
-					<ClientOnly>
-						<Icon name="iconoir:plus" />
-					</ClientOnly>
+					{{ images.length }} +
 				</span>
 			</div>
 		</div>
-		<div class="d-flex flex-column gap-space-sm info-card">
+		<div
+			class="d-flex flex-column gap-space-sm info-card"
+			:class="{'expand': isCardHovering}">
 			<div class="d-flex justify-contents-space-between align-items-center header">
-				<span class="title">Facet title</span>
+				<span class="title">{{ title }}</span>
 				<WorkTypeChip />
 			</div>
 			<div>
-				<p
-					v-show="isCardHovering"
-					class="content">content...</p>
+				<p class="content">{{ desc }}</p>
 			</div>
 		</div>
 	</div>
@@ -48,6 +45,18 @@
 
 <script setup>
 defineProps({
+	title: {
+		type: String,
+		default: 'FacetCard',
+	},
+	desc: {
+		type: String,
+		default: 'Description...',
+	},
+	types: {
+		type: Array,
+		default: () => [],
+	},
 	images: {
 		type: Array,
 		default: () => [],
@@ -84,7 +93,7 @@ const isLightboxOpen = ref(false);
 			height: 100%;
 			background-color: rgba(0, 0, 0, .35);
 			opacity: 0;
-			transition: opacity .3s ease-in-out;
+			transition: opacity .1s ease-in;
 		}
 	}
 
@@ -153,11 +162,13 @@ const isLightboxOpen = ref(false);
 		bottom: 0;
 		left: 0;
 		width: 100%;
-		max-height: 180px;
+		max-height: 90px;
 		overflow-y: scroll;
 		background-color: $color-white;
 		outline: 1px solid $color-neutral-900;
 		border-radius: $radius-sm $radius-sm 0 0;
+		transform: translateY(40px);
+		transition: .2s ease-in-out;
 
 		.header {
 			padding: $space-base $space-sm 0 $space-sm;
@@ -167,6 +178,10 @@ const isLightboxOpen = ref(false);
 		.content {
 			padding: 0 $space-sm $space-lg $space-sm;
 			font-size: $font-size-base;
+		}
+
+		&.expand {
+			transform: translateY(0);
 		}
 	}
 }
