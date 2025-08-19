@@ -35,14 +35,15 @@
 		<div
 			class="d-flex flex-column gap-space-sm info-card"
 			:class="{'expand': isCardHovering}">
-			<div class="d-flex justify-contents-space-between align-items-center header">
+			<div class="d-flex justify-contents-space-between align-items-start header">
 				<span class="title">{{ title }}</span>
 				<WorkTypeChip
 					v-for="type of types"
 					:key="type"
 					:type="type"
 					:clickable="false"
-					size="sm" />
+					size="sm"
+					class="work-type" />
 			</div>
 			<div>
 				<p class="content">{{ desc }}</p>
@@ -190,6 +191,10 @@ onMounted(() => {
 		.header {
 			padding: $space-base $space-sm 0 $space-sm;
 			font-size: $font-size-md;
+
+			.work-type {
+				flex-shrink: 0;
+			}
 		}
 
 		.content {
