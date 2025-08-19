@@ -1,6 +1,8 @@
 <template>
 	<Chip
 		:label="typeLabel"
+		:value="type"
+		:size
 		class="work-type-chip">
 		<template #prefixIcon>
 			<div
@@ -17,6 +19,10 @@ const props = defineProps({
 	type: {
 		type: String,
 		default: '',
+	},
+	size: {
+		type: String,
+		default: 'sm',
 	},
 });
 
@@ -53,14 +59,7 @@ const typeColorStyle = computed(() => {
 </script>
 
 <style scoped lang="scss">
-// TODO: 把這個 small 的樣式改到 Chip 元件
 .work-type-chip {
-	padding: $space-xxs $space-sm;
-	gap: $space-xs;
-	font-size: $font-size-sm;
-	background-color: $color-neutral-950;
-	border: none;
-
 	.type-color {
 		width: 6px;
 		height: 6px;

@@ -1,13 +1,18 @@
 <template>
 	<span
 		class="d-flex align-items-center gap-space-xs chip"
-		:class="{'clickable': clickable}"
-		@click="closable ? $emit('close') : null">
+		:class="{
+			'clickable': clickable,
+			'active': selected,
+			'small': size === 'sm'
+		}"
+		@click="$emit('toggle', value)">
 		<slot name="prefixIcon" />
 		<span>{{ label }}</span>
 		<ClientOnly
 			v-if="closable"
-			class="close">
+			class="close"
+			@click="$emit('close')">
 			<Icon name="iconoir:xmark" />
 		</ClientOnly>
 	</span>
@@ -19,6 +24,18 @@ defineProps({
 		type: String,
 		default: '',
 	},
+	value: {
+		type: String,
+		default: '',
+	},
+	size: {
+		type: String,
+		default: 'md',
+	},
+	selected: {
+		type: Boolean,
+		default: false,
+	},
 	clickable: {
 		type: Boolean,
 		default: true,
@@ -28,7 +45,7 @@ defineProps({
 		default: false,
 	},
 });
-defineEmits(['close']);
+defineEmits(['close', 'toggle']);
 </script>
 
 <style lang="scss" scoped>
@@ -37,6 +54,17 @@ defineEmits(['close']);
 	transition: opacity .3s ease-in-out;
 	border: 1px solid $color-neutral-900;
 	border-radius: $radius-round;
+
+	&.small {
+		padding: $space-xxs $space-sm;
+		gap: $space-xs;
+		font-size: $font-size-sm;
+	}
+
+	&.active {
+		background-color: $color-neutral-950;
+		border: none;
+	}
 
 	&.clickable:hover {
 		cursor: pointer;
