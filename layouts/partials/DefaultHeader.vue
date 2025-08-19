@@ -17,9 +17,9 @@
 				<span>WORKS</span>
 			</NuxtLink>
 			<NuxtLink
-				to="/playroom"
+				to="/facets"
 				class="link fade-right-link">
-				<span>PLAYGROUND</span>
+				<span>FACETS</span>
 			</NuxtLink>
 			<NuxtLink
 				class="link fade-right-link"

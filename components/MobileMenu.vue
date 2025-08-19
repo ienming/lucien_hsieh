@@ -29,9 +29,9 @@
 							</li>
 							<li class="nav-link">
 								<NuxtLink
-									to="/playroom"
+									to="/facets"
 									class="fade-right-link">
-									<span>PLAYGROUND</span>
+									<span>FACETS</span>
 								</NuxtLink>
 							</li>
 						</ul>

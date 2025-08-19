@@ -25,9 +25,22 @@ export default defineContentConfig({
 			}),
 		}),
 		
+		// TODO: 移除
 		playroom: defineCollection({
 			type: 'data',
 			source: 'playroom/*.json',
+			schema: z.object({
+				title: z.string(),
+				image: z.string().url(),
+				caption: z.string(),
+				tags: z.array(z.string()),
+				date: z.string(),
+			}),
+		}),
+
+		facets: defineCollection({
+			type: 'data',
+			source: 'facets/*.json',
 			schema: z.object({
 				title: z.string(),
 				image: z.string().url(),
