@@ -4,17 +4,29 @@
 		:class="{'hovering': isCardHovering}"
 		@mouseenter="isCardHovering = true"
 		@mouseleave="isCardHovering = false">
-		<div class="facet-cover-container">
+		<div
+			class="facet-cover-container"
+			@click="isLightboxOpen = true">
 			<!-- TODO: 換成 NuxtImg -->
 			<div class="facet-cover" />
-			<span
-				class="d-flex gap-space-xs align-items-center expand-btn"
-				@click="isLightboxOpen = true">
+			<span class="d-flex gap-space-xs align-items-center expand-btn">
 				<ClientOnly>
 					<Icon name="iconoir:enlarge" />
 				</ClientOnly>
 				<span>Expand</span>
 			</span>
+			<div class="d-flex align-items-center gap-space-xs imgs-indicator">
+				<div class="d-flex items">
+					<div class="indicator-item" />
+					<div class="indicator-item" />
+				</div>
+				<span class="d-flex align-items-center text">
+					<!-- TODO: 數字 -->
+					<ClientOnly>
+						<Icon name="iconoir:plus" />
+					</ClientOnly>
+				</span>
+			</div>
 		</div>
 		<div class="d-flex flex-column gap-space-sm info-card">
 			<div class="d-flex justify-contents-space-between align-items-center header">
@@ -30,16 +42,26 @@
 	</div>
 	<Lightbox
 		:open="isLightboxOpen"
+		:images="images"
 		@close="isLightboxOpen = false" />
 </template>
 
 <script setup>
+defineProps({
+	images: {
+		type: Array,
+		default: () => [],
+	},
+});
+
 const isCardHovering = ref(false);
 const isLightboxOpen = ref(false);
 </script>
 
 <style lang="scss" scoped>
 .facet-card {
+	--indicator-avatar-size: 28px;
+	--facet-card-max-width: 393px;
 	background-color: $color-white;
 	padding: $space-sm;
 	border-radius: $radius-sm;
@@ -52,7 +74,7 @@ const isLightboxOpen = ref(false);
 		aspect-ratio: 1 / 1;
 		object-fit: cover;
 		overflow: hidden;
-		max-width: 393px;
+		max-width: var(--facet-card-max-width);
 		background-color: $color-neutral-900;
 
 		&::after {
@@ -80,6 +102,7 @@ const isLightboxOpen = ref(false);
 
 	.facet-cover-container {
 		position: relative;
+		cursor: pointer;
 
 		.expand-btn {
 			position: absolute;
@@ -91,7 +114,36 @@ const isLightboxOpen = ref(false);
 			font-size: $font-size-sm;
 			background-color: $color-white;
 			opacity: 0;
-			cursor: pointer;
+		}
+
+		.imgs-indicator {
+			position: absolute;
+			right: $space-sm;
+			top: $space-sm;
+			padding: $space-xxs;
+			background-color: $color-white;
+			border-radius: $radius-round;
+			border: 1px solid $color-neutral-900;
+
+			.items {
+				.indicator-item {
+					border-radius: $radius-round;
+					border: 1px solid $color-white;
+					background-color: $color-neutral-900;
+					width: var(--indicator-avatar-size);
+					height: var(--indicator-avatar-size);
+
+					&:not(:first-child) {
+						margin-left: calc($space-sm * -1);
+					}
+				}
+			}
+
+
+			.text {
+				font-size: $font-size-sm;
+				color: $color-text-secondary;
+			}
 		}
 	}
 

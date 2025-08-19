@@ -3,6 +3,7 @@
 		<div v-if="isDataReady">
 			<section class="facets-container">
 				<div class="facet-intro"></div>
+				<!-- TODO: 加上 v-for 抓真資料 -->
 				<FacetCard />
 			</section>
 		</div>
@@ -39,6 +40,14 @@ try {
 <style lang="scss" scoped>
 .facets-container {
 	display: grid;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(1, 1fr);
+
+	@include response(md) {
+		grid-template-columns: repeat(3, 1fr);
+	}
+
+	@include response(lg) {
+		grid-template-columns: repeat(4, 1fr);
+	}
 }
 </style>
