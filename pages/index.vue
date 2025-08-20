@@ -32,13 +32,14 @@
 			<KeyImage
 				v-if="!isMobile && nowImgUrl"
 				:url="nowImgUrl"
-				@click="GoToProject(nowProjectId)" />
+				:tagline="nowProject.tagline ? nowProject.tagline : 'Find out the process...'"
+				@click="GoToProject(nowProject.id)" />
 		</div>
 	</div>
 </template>
 
 <script setup>
-const nowProjectId = ref('');
+const nowProject = ref({});
 const nowImgUrl = ref('');
 const allProjects = ref([]);
 const filters = ref([]);
@@ -53,6 +54,7 @@ const getPageData = async () => {
 		id: project.path.split('/')[2],
 		title: project.title,
 		subTitle: project.subtitle,
+		tagline: project.tagline,
 		year: String(project.year),
 		tags: project.tags,
 		cover: project.cover,
@@ -90,11 +92,11 @@ const projects = computed(() => {
 function handleProjectHoverStart(id) {
 	const targetProject = findTargetProject(id);
 	nowImgUrl.value = targetProject.cover;
-	nowProjectId.value = id;
+	nowProject.value = targetProject;
 }
 
 function handleProjectHoverEnd() {
-	nowProjectId.value = '';
+	nowProject.value = {};
 	nowImgUrl.value = '';
 }
 

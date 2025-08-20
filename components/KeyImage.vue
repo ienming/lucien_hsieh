@@ -7,7 +7,7 @@
 				:src="url" />
 		</Transition>
 		<div class="d-flex justify-contents-end align-items-center gap-space-sm hint">
-			<span>Find out the process...</span>
+			<span>{{ tagline }}</span>
 			<ClientOnly>
 				<Icon name="iconoir:arrow-right-circle-solid" />
 			</ClientOnly>
@@ -18,6 +18,10 @@
 <script setup>
 defineProps({
 	url: {
+		type: String,
+		default: '',
+	},
+	tagline: {
 		type: String,
 		default: '',
 	},
