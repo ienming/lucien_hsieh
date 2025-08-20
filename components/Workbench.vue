@@ -1,18 +1,29 @@
 <template>
-	<div style="position: fixed; right: 30px; top: 30px;">
-		{{ nowHoverProject }}
-	</div>
+	<!-- TODO: remove testing -->
 	<div class="w-full workbench">
+		<div
+			ref="workTooltipRef"
+			class="d-flex flex-column gap-space-sm work-tooltip">
+			<div class="info-card">
+				<div class="title">Project title: {{ nowHoverProject }}</div>
+				<div class="tagline">tagline</div>
+				<div class="tags">tags</div>
+			</div>
+			<div class="d-flex gap-space-xs align-items-center hint">
+				<span class="shortcut">I</span>
+				<span>查看作品 Investigate work</span>
+			</div>
+		</div>
 		<canvas ref="canvasRef"/>
 	</div>
 </template>
 
 <script setup>
-const canvasRef = ref(null);
-const nowHoverProject = ref('');
-// TODO: 整理這三個變數
-let engine, runner, render;
+import { openBoundingWireFrame } from '~/libs/matterHelper';
 
+const canvasRef = ref(null);
+const workTooltipRef = ref(null);
+const nowHoverProject = ref('');
 const {isMobile} = useIsMobile();
 
 onMounted(async () => {
@@ -20,17 +31,18 @@ onMounted(async () => {
 
 	// Matter Start
 	const Matter = await import('matter-js');
-	const { Engine, Render, Runner, Bodies, Body, Composite, Mouse, MouseConstraint, Events, Query } = Matter;
+	const { Engine, Render, Runner, Bodies, Body, Composite, Mouse,
+		MouseConstraint, Events, Query } = Matter;
 
-	engine = Engine.create();
-	const world = engine.world;
-
+	// Setting initial
 	const canvasContainer = canvasRef.value.parentElement;
 	const { width: canvasWidth, height: canvasHeight } = canvasContainer.getBoundingClientRect();
-	render = Render.create({
-		element: canvasContainer, // Render into the parent element of the canvas
+	const engine = Engine.create();
+	const world = engine.world;
+	const render = Render.create({
+		element: canvasContainer,
 		canvas: canvasRef.value,
-		engine: engine,
+		engine,
 		options: {
 			width: canvasWidth,
 			height: canvasHeight,
@@ -38,9 +50,7 @@ onMounted(async () => {
 			background: '#E5E5E5',
 		}
 	});
-
-	// CHECK: matter 機制
-	runner = Runner.create();
+	const runner = Runner.create();
 	Runner.run(runner, engine);
 	Render.run(render);
 
@@ -102,7 +112,7 @@ onMounted(async () => {
 	});
 	Body.scale(rock, rockScale, rockScale);
 
-	const rubberBall = Bodies.circle(rockStartX, 100, rockSize, {
+	const rock2 = Bodies.circle(rockStartX, 100, rockSize, {
 		restitution: 0.2,
 		friction: 0.05,
 		density: 0.01,
@@ -114,7 +124,7 @@ onMounted(async () => {
 			},
 		},
 	});
-	// Body.scale(rubberBall, rockScale, rockScale);
+	// Body.scale(rock2, rockScale, rockScale);
 
 	const rock3 = Bodies.circle(rockStartX, 100, rockSize, {
 		restitution: 0.3,
@@ -208,6 +218,7 @@ onMounted(async () => {
 		if (bodiesUnderMouse.length > 0) {
 			const currentHoveredBody = bodiesUnderMouse[0];
 			if (currentHoveredBody !== hoveredBody) {
+				// TODO: 地板不要 hover
 				hoveredBody = currentHoveredBody;
 				nowHoverProject.value = hoveredBody.id;
 				console.log('Apply hover effect', hoveredBody);
@@ -220,43 +231,23 @@ onMounted(async () => {
 		}
 	});
 
-	Events.on(mouseConstraint, 'startdrag', e => {
-		const draggedBody = e.body;
-		console.log('關掉 tooltip', draggedBody);
+	Events.on(mouseConstraint, 'startdrag', () => {
+		nowHoverProject.value = '';
 	});
-
-	// TEST
-	function openRedWireframe() {
-		Events.on(render, 'afterRender', function() {
-			const ctx = render.context;
-	
-			ctx.strokeStyle = 'red';
-			ctx.lineWidth = 2;
-	
-			world.bodies.forEach(body => {
-				// 畫多邊形碰撞範圍
-				ctx.beginPath();
-				ctx.moveTo(body.vertices[0].x, body.vertices[0].y);
-				for (let i = 1; i < body.vertices.length; i++) {
-					ctx.lineTo(body.vertices[i].x, body.vertices[i].y);
-				}
-				ctx.closePath();
-				ctx.stroke();
-			});
-		});
-	}
-	openRedWireframe();
 
 	// Reset canvas wheel event
 	mouseConstraint.mouse.element.removeEventListener('wheel', mouseConstraint.mouse.mousewheel);
 
 	Composite.add(world, [
 		rock,
-		rubberBall,
+		rock2,
 		rock3,
 		rock4,
 		floor,
 	]);
+
+	// TODO: remote TEST
+	// openBoundingWireFrame(world, render);
 });
 
 onUnmounted(() => {
@@ -274,5 +265,56 @@ onUnmounted(() => {
 	border-radius: $radius-sm;
 	border: 1px solid $color-neutral-800;
 	overflow: hidden;
+	position: relative;
+}
+
+.work-tooltip{
+	--shortcut-size: 24px;
+	position: absolute;
+	right: $space-sm;
+	top: $space-sm;
+	align-items: flex-start;
+	transition: opacity .3s ease-in;
+	
+	.info-card {
+		min-width: 430px;
+		background-color: $color-white;
+		padding: $space-sm;
+		border-radius: $radius-sm;
+		border: 1px solid $color-neutral-900;
+
+		.title {
+			font-size: $font-size-lg;
+		}
+
+		.tagline {
+			font-size: $font-size-md;
+			color: $color-text-secondary;
+		}
+	}
+
+	.hint {
+		padding: $space-sm;
+		border-radius: $radius-round;
+		background-color: $color-neutral-50;
+		color: $color-white;
+		font-size: $font-size-sm;
+		box-shadow: 0 4px 20px 5px rgba(0, 0, 0, .15);
+
+		.shortcut {
+			display: inline-block;
+			background-color: $color-white;
+			color: $color-neutral-50;
+			border-radius: $radius-round;
+			width: var(--shortcut-size);
+			height: var(--shortcut-size);
+			text-align: center;
+			line-height: var(--shortcut-size);
+		}
+	}
+
+	&.hide {
+		opacity: 0;
+	}
 }
 </style>
