@@ -105,8 +105,11 @@ function prepareContentImages(props) {
 						
 	if (src &&
 		className?.includes(LIGHTBOX_CLASS_NAME) &&
-		!lightboxImages.value.includes(src)) {
-		lightboxImages.value.push(src);
+		!lightboxImages.value.filter(img => img.url === src).length) {
+		lightboxImages.value.push({
+			title: title ?? '',
+			url: src,
+		});
 	}
 		
 	return h(ImageRenderer, {
@@ -118,7 +121,7 @@ function prepareContentImages(props) {
 }
 
 function openLightbox(src) {
-	const index = lightboxImages.value.indexOf(src);
+	const index = lightboxImages.value.findIndex(img => img.url === src);
 
 	if (index !== -1) {
 		currentImg.value = index;

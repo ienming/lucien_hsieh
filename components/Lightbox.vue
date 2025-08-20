@@ -2,7 +2,7 @@
 	<Teleport to="body">
 		<Transition name="fade">
 			<div
-				v-show="open"
+				v-if="open"
 				class="lightbox-modal"
 				@click.self="$emit('close')">
 				<div class="img-container">
