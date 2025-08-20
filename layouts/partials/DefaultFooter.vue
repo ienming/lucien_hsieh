@@ -1,7 +1,7 @@
 <template>
 	<footer class="custom-footer">
 		<div class="contact-footer">
-			<span class="find-me">Find me</span>
+			<span class="send-signal">Send a Signal</span>
 			<a 
 				href="mailto:hsieh.alan.0726@gmail.com"
 				class="email">hsieh.alan.0726@gmail.com</a>
@@ -35,7 +35,7 @@ const thisYear = new Date().getFullYear();
 		grid-template-rows: repeat(2, 1fr);
 		align-items: start;
 
-		.find-me {
+		.send-signal {
 			font-size: $font-size-4xl;
 
 			@include response(md) {

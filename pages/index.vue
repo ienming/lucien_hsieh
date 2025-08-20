@@ -1,10 +1,11 @@
 <template>
 	<div>
-		<h1 class="container work-list-h1">work list</h1>
+		<h1 class="container work-list-h1">core works</h1>
 		<div
 			v-if="filters.length"
 			class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container filter-container">
 			<span class="text-muted">Tagged with</span>
+			<!-- TODO: filter 好像壞掉了 -->
 			<Chip
 				v-for="filter of filters"
 				:key="filter"

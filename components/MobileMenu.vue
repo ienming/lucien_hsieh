@@ -24,7 +24,7 @@
 								<NuxtLink
 									to="/"
 									class="fade-right-link">
-									<span>WORKS</span>
+									<span>CORE WORKS</span>
 								</NuxtLink>
 							</li>
 							<li class="nav-link">

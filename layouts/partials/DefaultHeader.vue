@@ -14,7 +14,7 @@
 			<NuxtLink
 				to="/"
 				class="link fade-right-link">
-				<span>WORKS</span>
+				<span>CORE WORKS</span>
 			</NuxtLink>
 			<NuxtLink
 				to="/facets"
@@ -24,7 +24,7 @@
 			<NuxtLink
 				class="link fade-right-link"
 				@click="isAboutModalOpen = true">
-				<span>(Creator)</span>
+				<span>(curator)</span>
 			</NuxtLink>
 		</nav>
 		<!-- Mobile -->
