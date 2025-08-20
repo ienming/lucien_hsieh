@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<section class="p-space-sm">
+		<section class="p-space-sm pb-0">
 			<Workbench />
 		</section>
 		<!-- TODO: 把這塊搬到 COREWORKS -->

@@ -37,6 +37,7 @@ const thisYear = new Date().getFullYear();
 
 		.send-signal {
 			font-size: $font-size-4xl;
+			line-height: 1;
 
 			@include response(md) {
 				font-size: 60px;
