@@ -46,6 +46,7 @@
 </template>
 
 <script setup>
+import Workbench from '~/components/workbench/Workbench.vue';
 // const nowProject = ref({});
 // const nowImgUrl = ref('');
 const allProjects = ref([]);

@@ -1,9 +1,9 @@
 <template>
 	<div class="w-full workbench">
+		<WorkbenchIntro />
 		<Transition name="fade">
 			<div
 				v-if="nowHoverProject"
-				ref="workTooltipRef"
 				class="d-flex flex-column gap-space-sm work-tooltip">
 				<div class="info-card">
 					<div class="title">{{ nowHoverProject.title }}</div>
@@ -12,7 +12,8 @@
 						<WorkTypeChip
 							v-for="tag of nowHoverProject.tags"
 							:key="tag"
-							:type="tag" />
+							:type="tag"
+							:clickable="false" />
 					</div>
 				</div>
 				<div class="d-flex gap-space-xs align-items-center hint">
@@ -34,8 +35,9 @@
 </template>
 
 <script setup>
-import { BODY_TYPES } from '~/constants/matter';
-import { mineralsConfig, getMineralBody, openBoundingWireFrame } from '~/libs/matterHelper';
+import { MINERALS_CONFIG, BODY_TYPES } from '~/constants/matter';
+import { getMineralBody, openBoundingWireFrame } from '~/libs/matterHelper';
+import WorkbenchIntro from '~/components/workbench/WorkbenchIntro.vue';
 
 const { projects } = defineProps({
 	projects: {
@@ -45,13 +47,23 @@ const { projects } = defineProps({
 });
 
 const canvasRef = ref(null);
-const workTooltipRef = ref(null);
 const nowHoverProjectId = ref('');
 const {isMobile} = useIsMobile();
 
 const nowHoverProject = computed(() => {
 	return projects.find(project => project.mineral === nowHoverProjectId.value);
 });
+
+let engine, render, runner;
+
+// function listenOnInvestigate(projectId) {
+// 	document.addEventListener('keydown', e => {
+// 		console.log(e);
+// 		if (e.code === 'i') {
+// 			alert(`Go to ${projectId}`);
+// 		}
+// 	});
+// }
 
 onMounted(async () => {
 	if (!import.meta.client) return;
@@ -64,9 +76,9 @@ onMounted(async () => {
 	// Setting initial
 	const canvasContainer = canvasRef.value.parentElement;
 	const { width: canvasWidth, height: canvasHeight } = canvasContainer.getBoundingClientRect();
-	const engine = Engine.create();
+	engine = Engine.create();
 	const world = engine.world;
-	const render = Render.create({
+	render = Render.create({
 		element: canvasContainer,
 		canvas: canvasRef.value,
 		engine,
@@ -77,7 +89,7 @@ onMounted(async () => {
 			background: '#E5E5E5',
 		}
 	});
-	const runner = Runner.create();
+	runner = Runner.create();
 	Runner.run(runner, engine);
 	Render.run(render);
 
@@ -120,7 +132,7 @@ onMounted(async () => {
 
 	const projectBodies = [];
 	projects.forEach(project => {
-		const targetConfig = mineralsConfig.find(config => config.id === project.mineral);
+		const targetConfig = MINERALS_CONFIG.find(config => config.id === project.mineral);
 		if (!targetConfig) return;
 
 		// Override
@@ -217,8 +229,10 @@ onMounted(async () => {
 	// openBoundingWireFrame(world, render);
 });
 
-onUnmounted(() => {
+onUnmounted(async() => {
 	if (import.meta.client && engine) {
+		const Matter = await import('matter-js');
+		const { Engine, Render, Runner} = Matter;
 		Render.stop(render);
 		Runner.stop(runner);
 		Engine.clear(engine);
@@ -257,7 +271,7 @@ onUnmounted(() => {
 	align-items: flex-end;
 
 	@include response(md) {
-		max-width: 430px;
+		max-width: 330px;
 	}
 	
 	.info-card {
@@ -268,11 +282,11 @@ onUnmounted(() => {
 		border: 1px solid $color-neutral-900;
 
 		.title {
-			font-size: $font-size-lg;
+			font-size: $font-size-md;
 		}
 
 		.tagline {
-			font-size: $font-size-md;
+			font-size: $font-size-base;
 			color: $color-text-secondary;
 		}
 	}
