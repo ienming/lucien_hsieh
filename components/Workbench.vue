@@ -1,11 +1,15 @@
 <template>
 	<!-- TODO: remove testing -->
+	<div>
+		{{ nowHoverProject }}
+	</div>
 	<div class="w-full workbench">
 		<div
 			ref="workTooltipRef"
-			class="d-flex flex-column gap-space-sm work-tooltip">
+			class="d-flex flex-column gap-space-sm work-tooltip"
+			:class="{'show': nowHoverProjectId}">
 			<div class="info-card">
-				<div class="title">Project title: {{ nowHoverProject }}</div>
+				<div class="title">Project title: {{ nowHoverProjectId }}</div>
 				<div class="tagline">tagline</div>
 				<div class="tags">tags</div>
 			</div>
@@ -15,16 +19,36 @@
 			</div>
 		</div>
 		<canvas ref="canvasRef"/>
+		<Button
+			:type="isMobile ? 'filled' : 'outlined'"
+			class="link-to-core-works">
+			Find core works in list
+			<ClientOnly>
+				<Icon name="iconoir:arrow-right" />
+			</ClientOnly>
+		</Button>
 	</div>
 </template>
 
 <script setup>
-import { openBoundingWireFrame } from '~/libs/matterHelper';
+import { BODY_TYPES } from '~/constants/matter';
+import { mineralsConfig, getMineralBody, openBoundingWireFrame } from '~/libs/matterHelper';
+
+const { projects } = defineProps({
+	projects: {
+		type: Array,
+		default: () => [],
+	},
+});
 
 const canvasRef = ref(null);
 const workTooltipRef = ref(null);
-const nowHoverProject = ref('');
+const nowHoverProjectId = ref('');
 const {isMobile} = useIsMobile();
+
+const nowHoverProject = computed(() => {
+	return projects.find(project => project.id === nowHoverProjectId.value);
+});
 
 onMounted(async () => {
 	if (!import.meta.client) return;
@@ -87,77 +111,99 @@ onMounted(async () => {
 	Composite.add(world, walls);
 
 	// Add bodies to the world
-	const rockSize = 40;
+	const rockSize = 46;
 	const rockStartX = canvasWidth / 2 - rockSize / 2;
 	const rockScale = isMobile.value ? 0.3 : 0.45;
 
-	const vertices1 = [
-		{ x: -130, y: -114 },
-		{ x: -130, y: -114 },
-		{ x: 130, y: -114 },
-		{ x: 130, y: 114 },
-		{ x: -130, y: 114 }
-	];
-	const rock = Bodies.fromVertices(rockStartX, 300, vertices1, {
-		id: 'my-unique-id-1',
-		restitution: 0.2,
-		friction: 0.8,
-		render: {
-			sprite: {
-				texture: '/rock-1.png',
-				xScale: rockScale,
-				yScale: rockScale,
-			},
-		},
-	});
-	Body.scale(rock, rockScale, rockScale);
+	const projectBodies = [];
+	projects.forEach(project => {
+		const targetConfig = mineralsConfig.find(config => config.id === project.mineral);
+		if (!targetConfig) return;
 
-	const rock2 = Bodies.circle(rockStartX, 100, rockSize, {
-		restitution: 0.2,
-		friction: 0.05,
-		density: 0.01,
-		render: {
-			sprite: {
-				texture: '/rock-2.png',
-				xScale: rockScale,
-				yScale: rockScale,
-			},
-		},
-	});
-	// Body.scale(rock2, rockScale, rockScale);
+		// Override
+		console.log(targetConfig);
+		targetConfig.startX = rockStartX;
+		targetConfig.xScale = rockScale;
+		targetConfig.yScale = rockScale;
+		if (targetConfig.type === BODY_TYPES.CIRCLE) {
+			targetConfig.radius = rockSize;
+		}
 
-	const rock3 = Bodies.circle(rockStartX, 100, rockSize, {
-		restitution: 0.3,
-		friction: 0.3,
-		render: {
-			sprite: {
-				texture: '/rock-3.png',
-				xScale: rockScale,
-				yScale: rockScale,
-			},
-		},
-	});
-	// Body.scale(rock3, rockScale, rockScale);
+		const body = getMineralBody(targetConfig);
+		if (!body) return;
+		
+		projectBodies.push(body);
 
-	const vertices4 = [
-		{ x: -189, y: -95 },
-		{ x: 94, y: -95 },
-		{ x: 189, y: 0},
-		{ x: 94, y: 95 },
-		{ x: -189, y: 95 }
-	];
-	const rock4 = Bodies.fromVertices(rockStartX, 200, vertices4, {
-		restitution: 0.3,
-		friction: 0.3,
-		render: {
-			sprite: {
-				texture: '/rock-4.png',
-				xScale: rockScale,
-				yScale: rockScale,
-			},
-		},
+		if (targetConfig.type === BODY_TYPES.VERTEX) {
+			Body.scale(body, rockScale, rockScale)
+		};
 	});
-	Body.scale(rock4, rockScale, rockScale);
+
+	// const vertices1 = [
+	// 	{ x: -130, y: -114 },
+	// 	{ x: -130, y: -114 },
+	// 	{ x: 130, y: -114 },
+	// 	{ x: 130, y: 114 },
+	// 	{ x: -130, y: 114 }
+	// ];
+	// const rock = Bodies.fromVertices(rockStartX, 300, vertices1, {
+	// 	id: 'iroironairo',
+	// 	restitution: 0.2,
+	// 	friction: 0.8,
+	// 	render: {
+	// 		sprite: {
+	// 			texture: '/rock-1.png',
+	// 			xScale: rockScale,
+	// 			yScale: rockScale,
+	// 		},
+	// 	},
+	// });
+	// Body.scale(rock, rockScale, rockScale);
+
+	// const rock2 = Bodies.circle(rockStartX, 100, rockSize, {
+	// 	restitution: 0.2,
+	// 	friction: 0.05,
+	// 	density: 0.01,
+	// 	render: {
+	// 		sprite: {
+	// 			texture: '/rock-2.png',
+	// 			xScale: rockScale,
+	// 			yScale: rockScale,
+	// 		},
+	// 	},
+	// });
+
+	// const rock3 = Bodies.circle(rockStartX, 100, rockSize, {
+	// 	restitution: 0.3,
+	// 	friction: 0.3,
+	// 	render: {
+	// 		sprite: {
+	// 			texture: '/rock-3.png',
+	// 			xScale: rockScale,
+	// 			yScale: rockScale,
+	// 		},
+	// 	},
+	// });
+
+	// const vertices4 = [
+	// 	{ x: -189, y: -95 },
+	// 	{ x: 94, y: -95 },
+	// 	{ x: 189, y: 0},
+	// 	{ x: 94, y: 95 },
+	// 	{ x: -189, y: 95 }
+	// ];
+	// const rock4 = Bodies.fromVertices(rockStartX, 200, vertices4, {
+	// 	restitution: 0.3,
+	// 	friction: 0.3,
+	// 	render: {
+	// 		sprite: {
+	// 			texture: '/rock-4.png',
+	// 			xScale: rockScale,
+	// 			yScale: rockScale,
+	// 		},
+	// 	},
+	// });
+	// Body.scale(rock4, rockScale, rockScale);
 
 	// Draw the floor
 	// CHECK: Events
@@ -209,45 +255,30 @@ onMounted(async () => {
 		const mousePosition = e.mouse.position;
 		const bodiesUnderMouse = Query.point(world.bodies, mousePosition);
 
-		// Reset previous hover state (if any)
-		if (hoveredBody && hoveredBody !== bodiesUnderMouse[0]) {
-			console.log(`Revert previous body's appearance`);
-		}
-
 		// Apply hover state to the new body (if found)
-		if (bodiesUnderMouse.length > 0) {
-			const currentHoveredBody = bodiesUnderMouse[0];
-			if (currentHoveredBody !== hoveredBody) {
-				// TODO: 地板不要 hover
-				hoveredBody = currentHoveredBody;
-				nowHoverProject.value = hoveredBody.id;
-				console.log('Apply hover effect', hoveredBody);
-				// TODO: 加上縮小的漸變效果
-			}
-		} else {
-			hoveredBody = null;
-			nowHoverProject.value = '';
-			console.log('No body is currently hovered');
+		if (bodiesUnderMouse.length <= 0) return;
+		
+		const currentHoveredBody = bodiesUnderMouse[0];
+		if (currentHoveredBody !== hoveredBody) {
+			// TODO: 地板不要 hover
+			hoveredBody = currentHoveredBody;
+			nowHoverProjectId.value = hoveredBody.id;
+			console.log('Apply hover effect', hoveredBody);
+			// TODO: 加上縮小的漸變效果
 		}
 	});
 
 	Events.on(mouseConstraint, 'startdrag', () => {
-		nowHoverProject.value = '';
+		nowHoverProjectId.value = '';
 	});
 
 	// Reset canvas wheel event
 	mouseConstraint.mouse.element.removeEventListener('wheel', mouseConstraint.mouse.mousewheel);
 
-	Composite.add(world, [
-		rock,
-		rock2,
-		rock3,
-		rock4,
-		floor,
-	]);
+	Composite.add(world, [...projectBodies.filter(pj => pj), floor]);
 
 	// TODO: remote TEST
-	// openBoundingWireFrame(world, render);
+	openBoundingWireFrame(world, render);
 });
 
 onUnmounted(() => {
@@ -266,6 +297,19 @@ onUnmounted(() => {
 	border: 1px solid $color-neutral-800;
 	overflow: hidden;
 	position: relative;
+
+	.link-to-core-works {
+		position: absolute;
+		width: max-content;
+		right: 50%;
+		bottom: $space-sm;
+		transform: translateX(50%);
+
+		@include response(md) {
+			right: $space-sm;
+			transform: unset;
+		}
+	}
 }
 
 .work-tooltip{
@@ -273,11 +317,17 @@ onUnmounted(() => {
 	position: absolute;
 	right: $space-sm;
 	top: $space-sm;
-	align-items: flex-start;
+	width: calc(100% - ($space-sm * 2));
+	align-items: flex-end;
+	opacity: 0;
 	transition: opacity .3s ease-in;
+
+	@include response(md) {
+		max-width: 430px;
+	}
 	
 	.info-card {
-		min-width: 430px;
+		width: 100%;
 		background-color: $color-white;
 		padding: $space-sm;
 		border-radius: $radius-sm;
@@ -313,8 +363,8 @@ onUnmounted(() => {
 		}
 	}
 
-	&.hide {
-		opacity: 0;
+	&.show {
+		opacity: 1;
 	}
 }
 </style>

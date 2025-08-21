@@ -45,11 +45,11 @@ const classes = computed(() => {
 	padding: $space-sm;
 	border-radius: $radius-sm;
 	font-size: $font-size-base;
+	transition: .3s ease-out;
 
 	&.filled {
 		background-color: $color-neutral-100;
 		color: $color-white;
-		transition: .3s ease-out;
 
 		&:hover {
 			opacity: $opacity-80;
@@ -58,6 +58,10 @@ const classes = computed(() => {
 
 	&.outlined {
 		border: 1px solid $color-neutral-800;
+
+		&:hover {
+			background-color: $color-neutral-950;
+		}
 	}
 
 	&.large {

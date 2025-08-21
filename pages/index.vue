@@ -1,7 +1,8 @@
 <template>
 	<div>
 		<section class="p-space-sm pb-0">
-			<Workbench />
+			<Workbench
+				:projects="allProjects" />
 		</section>
 		<!-- TODO: 把這塊搬到 COREWORKS -->
 		<!-- <section class="mb-space-6xl">
@@ -64,6 +65,7 @@ const getPageData = async () => {
 		year: String(project.year),
 		tags: project.tags,
 		cover: project.cover,
+		mineral: project.mineral,
 	}));
 };
 
