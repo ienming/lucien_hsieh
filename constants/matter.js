@@ -40,6 +40,7 @@ export const MINERALS_CONFIG = [
 		yScale: undefined,
 	},
 	{
+		// TODO: 把邊界做得更精準
 		id: 'labradorite-oval',
 		startX: undefined,
 		startY: 100,

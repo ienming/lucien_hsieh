@@ -19,10 +19,9 @@
 					</div>
 					<nav>
 						<ul class="d-flex flex-column gap-space-md">
-							<!-- TODO: 關掉 modal -->
 							<li class="nav-link">
 								<NuxtLink
-									to="/"
+									to="/works"
 									class="fade-right-link">
 									<span>CORE WORKS</span>
 								</NuxtLink>
@@ -65,7 +64,20 @@ defineProps({
 	},
 });
 
-defineEmits(['close']);
+const emits = defineEmits(['close']);
+
+const router = useRouter();
+let closeAfterNavigate = null;
+
+onMounted(() => {
+	closeAfterNavigate = router.afterEach(() => {
+		emits('close');
+	});
+});
+
+onUnmounted(() => {
+	if (closeAfterNavigate) closeAfterNavigate();
+})
 </script>
 
 <style lang="scss" scoped>

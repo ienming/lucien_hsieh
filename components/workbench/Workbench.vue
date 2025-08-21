@@ -19,11 +19,12 @@
 								:clickable="false" />
 						</div>
 					</div>
-					<div class="d-flex gap-space-xs align-items-center hint">
-						<!-- TODO: 加上 eventlistener keydown -->
+					<NuxtLink
+						:to="`/project/${nowHoverProject.id}`"
+						class="d-flex gap-space-xs align-items-center hint">
 						<span class="shortcut">I</span>
 						<span>查看作品 Investigate work</span>
-					</div>
+					</NuxtLink>
 				</div>
 			</Transition>
 		</div>
@@ -62,14 +63,9 @@ const nowHoverProject = computed(() => {
 
 let engine, render, runner;
 
-// function listenOnInvestigate(projectId) {
-// 	document.addEventListener('keydown', e => {
-// 		console.log(e);
-// 		if (e.code === 'i') {
-// 			alert(`Go to ${projectId}`);
-// 		}
-// 	});
-// }
+async function listenOnInvestigate() {
+	await navigateTo(`/project/${nowHoverProject.value.id}`)
+}
 
 onMounted(async () => {
 	if (!import.meta.client) return;
@@ -160,7 +156,6 @@ onMounted(async () => {
 	});
 
 	// Draw the floor
-	// CHECK: Events
 	Events.on(render, 'afterRender', () => {
 		const ctx = render.context;
 		const { position, bounds } = floor;
@@ -188,7 +183,6 @@ onMounted(async () => {
 	});
 
 	// Mouse
-	// CHECK: mouse 機制
 	const mouse = Mouse.create(render.canvas);
 	const mouseConstraint = MouseConstraint.create(engine, {
 		mouse,
@@ -203,7 +197,6 @@ onMounted(async () => {
 	render.mouse = mouse;
 
 	// Mouse hover
-	// CHECK: mouseConstraint
 	let hoveredBody;
 
 	if (isMobile.value) {
@@ -238,8 +231,12 @@ onMounted(async () => {
 
 	Composite.add(world, [...projectBodies, floor]);
 
-	// TODO: remote TEST
-	// openBoundingWireFrame(world, render);
+	// Keydown for navigation
+	document.addEventListener('keydown', e => {
+		if (e.code === 'KeyI' && nowHoverProject.value?.title) {
+			listenOnInvestigate();
+		}
+	});
 });
 
 onUnmounted(async() => {

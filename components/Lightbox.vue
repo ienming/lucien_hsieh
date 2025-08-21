@@ -20,7 +20,7 @@
 						:key="indicator"
 						@click="showImgByIdx(idx)">
 						<!-- TODO: 實作切換的功能 -->
-						<!-- TODO: 也要左手機版可以 swipe right/left -->
+						<!-- TODO: 也要做手機版可以 swipe right/left -->
 						<NuxtImg
 							class="indicator"
 							:src="indicator.url"
