@@ -87,7 +87,7 @@ defineEmits(['close']);
 	}
 
 	.nav-link {
-		font-size: $font-size-4xl;
+		font-size: $font-size-xl;
 		padding: 0 $space-sm;
 		border-bottom: 1px solid $color-neutral-300;
 	}

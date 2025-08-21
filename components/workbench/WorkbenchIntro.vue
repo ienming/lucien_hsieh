@@ -30,6 +30,7 @@
 			<p>這裡就像我的工作調查台，收藏著我在沿途探索與挖掘出的作品。</p>
 		</div>
 		<Button
+			to="/facets"
 			type="outlined"
 			class="core-work-btn">
 			Find core works in List

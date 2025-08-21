@@ -1,17 +1,18 @@
 <template>
-	<button
-		class="me-button"
-		:class="classes">
+	<component
+		:is="renderAs"
+		:to="to"
+		:target="target"
+		:class="classes"
+		class="me-button">
 		<slot />
-	</button>
+	</component>
 </template>
 
 <script setup>
+import { NuxtLink } from '#components';
+
 const props = defineProps({
-	label: {
-		type: String,
-		default: 'Me Button',
-	},
 	type: {
 		type: String,
 		default: 'filled',
@@ -20,7 +21,20 @@ const props = defineProps({
 		type: String,
 		default: 'md',
 	},
+	to: {
+		type: String,
+		default: '',
+	},
+	target: {
+		type: String,
+		default: '_self',
+	},
 });
+
+const renderAs = computed(() => {
+	if (props.to) return NuxtLink;
+	return 'button';
+})
 
 const classes = computed(() => {
 	const results = [];

@@ -29,6 +29,7 @@
 		</div>
 		<canvas ref="canvasRef"/>
 		<Button
+			to="/facets"
 			:type="isMobile ? 'filled' : 'outlined'"
 			class="link-to-core-works">
 			Find core works in list
@@ -261,7 +262,7 @@ onUnmounted(async() => {
 	position: relative;
 
 	@include response(md) {
-		height: 77vh;
+		height: 85vh;
 	}
 
 	.link-to-core-works {

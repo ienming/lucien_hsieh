@@ -42,7 +42,7 @@ export default defineNuxtConfig({
 	},
 	googleFonts: {
 		families: {
-			Urbanist: true,
+			'Urbanist': true,
 			'Noto Sans Traditional Chinese': true,
 		},
 	},
