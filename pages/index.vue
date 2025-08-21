@@ -48,9 +48,6 @@
 <script setup>
 import Workbench from '~/components/workbench/Workbench.vue';
 
-definePageMeta({
-	layout: 'no-header',
-});
 // const nowProject = ref({});
 // const nowImgUrl = ref('');
 const allProjects = ref([]);
