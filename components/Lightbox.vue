@@ -18,9 +18,7 @@
 					class="d-flex gap-space-md indicators">
 					<li
 						v-for="(indicator, idx) of images"
-						:key="indicator"
-						@click="showImgByIdx(idx)">
-						<!-- TODO: 也要做手機版可以 swipe right/left -->
+						:key="indicator">
 						<NuxtImg
 							class="indicator"
 							:src="indicator.url"
@@ -28,32 +26,14 @@
 							@click="currentIdx = idx" />
 					</li>
 				</ul>
-				<!-- <div class="controls">
-					<div
-						class="btn prev"
-						@click="handlePrevious">
-						<ClientOnly>
-							<Icon
-								name="ant-design:left-outlined"
-								size="24" />
-						</ClientOnly>
-					</div>
-					<div
-						class="btn next"
-						@click="handleNext">
-						<ClientOnly>
-							<Icon
-								name="ant-design:right-outlined"
-								size="24" />
-						</ClientOnly>
-					</div>
-				</div> -->
 			</div>
 		</Transition>
 	</Teleport>
 </template>
 
 <script setup>
+import { GESTURE_DIRECTION } from '~/constants/interaction';
+
 const {open, startIdx, images} = defineProps({
 	open: {
 		type: Boolean,
@@ -72,7 +52,7 @@ const emits = defineEmits(['close']);
 
 const currentIdx = ref(startIdx);
 const lightboxRef = ref(null);
-const { swipeDirection, bindEvents, unbindEvents } = useSwipe(lightboxRef)
+const { swipeDirection, bindEvents, unbindEvents } = useSwipe()
 
 watch(() => open, async (newVal) => {
 	if (newVal) {
@@ -90,8 +70,13 @@ watch(() => startIdx, newVal => currentIdx.value = newVal);
 const currentImg = computed(() => images[currentIdx.value]);
 
 watch(swipeDirection, dir => {
-	// TODO: 加上切換圖片和關閉 lightbox
-	console.log('User swiped', dir);
+	if (dir === GESTURE_DIRECTION.LEFT) {
+		handlePrevious();
+	} else if (dir === GESTURE_DIRECTION.RIGHT) {
+		handleNext();
+	} else if (dir === GESTURE_DIRECTION.DOWN) {
+		emits('close');
+	}
 });
 
 function handleKeydown(e) {
@@ -122,10 +107,6 @@ function handleNext() {
 
 	currentIdx.value += 1;
 }
-
-function showImgByIdx(idx) {
-	console.log(`Show img ${idx}`);
-}
 </script>
 
 <style scoped lang="scss">
@@ -154,25 +135,6 @@ function showImgByIdx(idx) {
 		transition: background-color .3s cubic-bezier(1, 0, 0, 1);
 	}
 
-	// .controls {
-	// 	position: fixed;
-	// 	top: 50%;
-	// 	transform: translateY(-50%);
-	// 	width: 100%;
-	// 	display: flex;
-	// 	justify-content: space-between;
-	// 	align-items: center;
-
-	// 	.btn {
-	// 		display: inline-flex;
-	// 		align-items: center;
-	// 		padding: $space-sm;
-
-	// 		@include response(md) {
-	// 			padding: $space-lg;
-	// 		}
-	// 	}
-	// }
 	.info {
 		position: absolute;
 		left: 0;
