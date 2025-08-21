@@ -42,10 +42,9 @@
 			</div>
 		</article>
 		<Lightbox
-			:open="isLightboxVisible"
+			v-model:open="isLightboxVisible"
 			:start-idx="currentImg"
-			:images="lightboxImages"
-			@close="closeLightbox"/>
+			:images="lightboxImages" />
 		<MetaBottomSheet
 			v-if="isPageDataReady"
 			v-model="isBottomSheetOpen"
@@ -126,13 +125,7 @@ function openLightbox(src) {
 	if (index !== -1) {
 		currentImg.value = index;
 		isLightboxVisible.value = true;
-		document.body.style.overflow = 'hidden';
 	}
-}
-
-function closeLightbox() {
-	isLightboxVisible.value = false;
-	document.body.style.overflow = 'auto';
 }
 
 try {

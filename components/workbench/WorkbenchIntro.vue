@@ -12,7 +12,7 @@
 		<div class="d-flex gap-space-lg justify-contents-space-between align-items-start">
 			<p class="title">Hi👋 I'm Lucien, a designer focused on UI/UX and front-end development.</p>
 			<div
-				class="switch"
+				class="micro-interactable-btn"
 				@click="showContent = !showContent">
 				<ClientOnly v-if="showContent">
 					<Icon name="iconoir:switch-on" />

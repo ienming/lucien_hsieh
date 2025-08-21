@@ -13,7 +13,7 @@
 						<ClientOnly>
 							<Icon
 								name="iconoir:xmark"
-								@click="$emit('close')" />
+								@click="$emit('update:open', false)" />
 						</ClientOnly>
 						</div>
 					</div>
@@ -64,14 +64,14 @@ defineProps({
 	},
 });
 
-const emits = defineEmits(['close']);
+const emits = defineEmits(['update:open']);
 
 const router = useRouter();
 let closeAfterNavigate = null;
 
 onMounted(() => {
 	closeAfterNavigate = router.afterEach(() => {
-		emits('close');
+		emits('update:open', false);
 	});
 });
 

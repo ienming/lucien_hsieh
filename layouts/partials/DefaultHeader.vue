@@ -36,12 +36,8 @@
 					@click="isMobileMenuOpen = true" />
 			</ClientOnly>
 		</div>
-		<AboutModal
-			:open="isAboutModalOpen"
-			@close="isAboutModalOpen = false" />
-		<MobileMenu
-			:open="isMobileMenuOpen"
-			@close="isMobileMenuOpen = false" />
+		<AboutModal v-model:open="isAboutModalOpen" />
+		<MobileMenu v-model:open="isMobileMenuOpen"/>
 	</header>
 </template>
 

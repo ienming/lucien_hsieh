@@ -4,15 +4,17 @@
 			<div
 				v-if="open"
 				class="common-modal-overlay d-flex justify-contents-end">
-				<div class="about-modal">
+				<div
+					class="about-modal"
+					@click.self="$emit('update:open', false)">
 					<div class="d-flex flex-column gap-space-2xl info-card">
 						<div class="d-flex align-items-start justify-contents-space-between">
 							<Avatar :img="'/avatar.jpg'" />
 							<ClientOnly>
 								<Icon
 									name="iconoir:xmark"
-									class="close"
-									@click="$emit('close')" />
+									class="close micro-interactable-btn"
+									@click="$emit('update:open', false)" />
 							</ClientOnly>
 						</div>
 						<div class="d-flex flex-column gap-space-sm common-paragraph">
@@ -39,7 +41,7 @@ defineProps({
 		default: false,
 	},
 });
-defineEmits(['close']);
+defineEmits(['update:open']);
 </script>
 
 <style scoped lang="scss">

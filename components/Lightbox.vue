@@ -5,7 +5,7 @@
 				v-if="open"
 				ref="lightboxRef"
 				class="lightbox-modal"
-				@click.self="$emit('close')">
+				@click.self="$emit('update:open', false)">
 				<div class="img-container">
 					<NuxtImg :src="currentImg.url" />
 				</div>
@@ -48,7 +48,7 @@ const {open, startIdx, images} = defineProps({
 		default: () => [],
 	},
 });
-const emits = defineEmits(['close']);
+const emits = defineEmits(['update:open']);
 
 const currentIdx = ref(startIdx);
 const lightboxRef = ref(null);
@@ -75,7 +75,7 @@ watch(swipeDirection, dir => {
 	} else if (dir === GESTURE_DIRECTION.RIGHT) {
 		handlePrevious();
 	} else if (dir === GESTURE_DIRECTION.DOWN) {
-		emits('close');
+		emits('update:open', false);
 	}
 });
 
@@ -86,7 +86,7 @@ function handleKeydown(e) {
 	} else if (e.code === 'ArrowRight') {
 		handleNext();
 	} else if (e.code === 'Escape') {
-		emits('close');
+		emits('update:open', false);
 	}
 }
 

@@ -10,7 +10,7 @@
 				</div>
 				<!-- TODO: 檢查 bug，點擊時會觸發向上滾動 document.documentElement.scrollTop -->
 				<div
-					class="d-md-none switch"
+					class="d-md-none micro-interactable-btn"
 					@click="isActionShow = !isActionShow">
 					<ClientOnly v-if="isActionShow">
 						<Icon name="iconoir:switch-on" />

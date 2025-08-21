@@ -51,9 +51,8 @@
 		</div>
 	</div>
 	<Lightbox
-		:open="isLightboxOpen"
-		:images="images"
-		@close="isLightboxOpen = false" />
+		v-model:open="isLightboxOpen"
+		:images="images" />
 </template>
 
 <script setup>
