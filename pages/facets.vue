@@ -18,7 +18,7 @@
 								<p>Documenting extensions of my work beyond the main focus, presenting fragments of different facets.</p>
 							</div>
 						</div>
-						<div
+						<!-- <div
 							class="d-flex flex-column gap-space-xs facet-selector"
 							@click="isFacetSelectorOpen = true">
 							<div class="d-flex align-items-center justify-contents-space-between header">
@@ -46,7 +46,7 @@
 									</span>
 								</p>
 							</div>
-						</div>
+						</div> -->
 					</div>
 					<FacetCard
 						:title="facet.title"
@@ -60,23 +60,23 @@
 			<Skeleton class="mb-space-2xl" />
 			<Skeleton />
 		</div>
-		<FacetSelector
+		<!-- <FacetSelector
 			v-model:open="isFacetSelectorOpen"
 			:facets="facetsOptions"
-			@update-facets="updateFacets" />
+			@update-facets="updateFacets" /> -->
 	</div>
 </template>
 
 <script setup>
 const isDataReady = ref(false);
 const facets = ref([]);
-const isFacetSelectorOpen = ref(false);
+// const isFacetSelectorOpen = ref(false);
 // TODO: 抓到資料後用 Set 過濾
-const facetsOptions = ref(['UIUX', 'FE', 'LANDING_PAGE']);
-const selectingFacets = ref([]);
-const isFacetsSelected = computed(() => {
-	return !!selectingFacets.value.length;
-})
+// const facetsOptions = ref(['UIUX', 'FE', 'LANDING_PAGE']);
+// const selectingFacets = ref([]);
+// const isFacetsSelected = computed(() => {
+// 	return !!selectingFacets.value.length;
+// })
 
 const getData = async () => {
 	const { data } = await useAsyncData('facets', async () => {
@@ -86,10 +86,10 @@ const getData = async () => {
 	facets.value = data.value;
 }
 
-function updateFacets(facets) {
-	console.log(facets);
-	selectingFacets.value = facets;
-}
+// function updateFacets(facets) {
+// 	console.log(facets);
+// 	selectingFacets.value = facets;
+// }
 
 try {
 	await getData();
@@ -115,7 +115,7 @@ try {
 		.intro {
 			padding-bottom: $space-sm;
 			margin-bottom: $space-sm;
-			border-bottom: 1px solid $color-neutral-900;
+			// border-bottom: 1px solid $color-neutral-900;
 
 			.title {
 				font-size: $font-size-lg;
@@ -129,27 +129,27 @@ try {
 		}
 
 
-		.facet-selector {
-			padding-bottom: $space-base;
-			border-bottom: 1px solid $color-neutral-900;
-			cursor: pointer;
+		// .facet-selector {
+		// 	padding-bottom: $space-base;
+		// 	border-bottom: 1px solid $color-neutral-900;
+		// 	cursor: pointer;
 
-			.header {
-				font-size: $font-size-base;
+		// 	.header {
+		// 		font-size: $font-size-base;
 
-				.title-zh {
-					font-weight: bold;
-				}
-			}
+		// 		.title-zh {
+		// 			font-weight: bold;
+		// 		}
+		// 	}
 
-			.now-selects {
-				font-size: $font-size-sm;
-			}
-		}
+		// 	.now-selects {
+		// 		font-size: $font-size-sm;
+		// 	}
+		// }
 	}
 
-	:global(.facets-active) {
-		background: linear-gradient(45deg, #E356FF, #5CD6FF, #FFEC5F);
-	}
+	// :global(.facets-active) {
+	// 	background: linear-gradient(45deg, #E356FF, #5CD6FF, #FFEC5F);
+	// }
 }
 </style>

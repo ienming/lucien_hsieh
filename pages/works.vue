@@ -1,7 +1,6 @@
 <template>
 	<section class="mb-space-6xl">
 		<h1 class="container work-list-h1">core works</h1>
-		<!-- TODO: filters 好像壞掉了 -->
 		<div
 			v-if="filters.length"
 			class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container filter-container">
@@ -11,7 +10,7 @@
 				:key="filter"
 				:label="filter" 
 				:closable="true"
-				@close="removeFilter(filter)" />
+				@click="removeFilter(filter)" />
 		</div>
 		<div @mouseleave="handleProjectHoverEnd">
 			<ul class="d-flex flex-column align-items-center project-list">

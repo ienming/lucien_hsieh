@@ -71,9 +71,9 @@ const currentImg = computed(() => images[currentIdx.value]);
 
 watch(swipeDirection, dir => {
 	if (dir === GESTURE_DIRECTION.LEFT) {
-		handlePrevious();
-	} else if (dir === GESTURE_DIRECTION.RIGHT) {
 		handleNext();
+	} else if (dir === GESTURE_DIRECTION.RIGHT) {
+		handlePrevious();
 	} else if (dir === GESTURE_DIRECTION.DOWN) {
 		emits('close');
 	}
