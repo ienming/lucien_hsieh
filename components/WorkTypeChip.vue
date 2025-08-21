@@ -27,6 +27,7 @@ const props = defineProps({
 });
 
 const typeLabel = computed(() => {
+	// TODO: 修改分類方式
 	if (props.type === WORKLIST_TYPES.UIUX) {
 		return 'UIUX';
 	}else if (props.type === WORKLIST_TYPES.FE) {

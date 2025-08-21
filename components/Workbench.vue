@@ -1,23 +1,26 @@
 <template>
-	<!-- TODO: remove testing -->
-	<div>
-		{{ nowHoverProject }}
-	</div>
 	<div class="w-full workbench">
-		<div
-			ref="workTooltipRef"
-			class="d-flex flex-column gap-space-sm work-tooltip"
-			:class="{'show': nowHoverProjectId}">
-			<div class="info-card">
-				<div class="title">Project title: {{ nowHoverProjectId }}</div>
-				<div class="tagline">tagline</div>
-				<div class="tags">tags</div>
+		<Transition name="fade">
+			<div
+				v-if="nowHoverProject"
+				ref="workTooltipRef"
+				class="d-flex flex-column gap-space-sm work-tooltip">
+				<div class="info-card">
+					<div class="title">{{ nowHoverProject.title }}</div>
+					<div class="tagline">{{ nowHoverProject.tagline }}</div>
+					<div class="d-flex gap-space-sm align-items-center justify-contents-end tags">
+						<WorkTypeChip
+							v-for="tag of nowHoverProject.tags"
+							:key="tag"
+							:type="tag" />
+					</div>
+				</div>
+				<div class="d-flex gap-space-xs align-items-center hint">
+					<span class="shortcut">I</span>
+					<span>查看作品 Investigate work</span>
+				</div>
 			</div>
-			<div class="d-flex gap-space-xs align-items-center hint">
-				<span class="shortcut">I</span>
-				<span>查看作品 Investigate work</span>
-			</div>
-		</div>
+		</Transition>
 		<canvas ref="canvasRef"/>
 		<Button
 			:type="isMobile ? 'filled' : 'outlined'"
@@ -47,7 +50,7 @@ const nowHoverProjectId = ref('');
 const {isMobile} = useIsMobile();
 
 const nowHoverProject = computed(() => {
-	return projects.find(project => project.id === nowHoverProjectId.value);
+	return projects.find(project => project.mineral === nowHoverProjectId.value);
 });
 
 onMounted(async () => {
@@ -121,7 +124,6 @@ onMounted(async () => {
 		if (!targetConfig) return;
 
 		// Override
-		console.log(targetConfig);
 		targetConfig.startX = rockStartX;
 		targetConfig.xScale = rockScale;
 		targetConfig.yScale = rockScale;
@@ -138,72 +140,6 @@ onMounted(async () => {
 			Body.scale(body, rockScale, rockScale)
 		};
 	});
-
-	// const vertices1 = [
-	// 	{ x: -130, y: -114 },
-	// 	{ x: -130, y: -114 },
-	// 	{ x: 130, y: -114 },
-	// 	{ x: 130, y: 114 },
-	// 	{ x: -130, y: 114 }
-	// ];
-	// const rock = Bodies.fromVertices(rockStartX, 300, vertices1, {
-	// 	id: 'iroironairo',
-	// 	restitution: 0.2,
-	// 	friction: 0.8,
-	// 	render: {
-	// 		sprite: {
-	// 			texture: '/rock-1.png',
-	// 			xScale: rockScale,
-	// 			yScale: rockScale,
-	// 		},
-	// 	},
-	// });
-	// Body.scale(rock, rockScale, rockScale);
-
-	// const rock2 = Bodies.circle(rockStartX, 100, rockSize, {
-	// 	restitution: 0.2,
-	// 	friction: 0.05,
-	// 	density: 0.01,
-	// 	render: {
-	// 		sprite: {
-	// 			texture: '/rock-2.png',
-	// 			xScale: rockScale,
-	// 			yScale: rockScale,
-	// 		},
-	// 	},
-	// });
-
-	// const rock3 = Bodies.circle(rockStartX, 100, rockSize, {
-	// 	restitution: 0.3,
-	// 	friction: 0.3,
-	// 	render: {
-	// 		sprite: {
-	// 			texture: '/rock-3.png',
-	// 			xScale: rockScale,
-	// 			yScale: rockScale,
-	// 		},
-	// 	},
-	// });
-
-	// const vertices4 = [
-	// 	{ x: -189, y: -95 },
-	// 	{ x: 94, y: -95 },
-	// 	{ x: 189, y: 0},
-	// 	{ x: 94, y: 95 },
-	// 	{ x: -189, y: 95 }
-	// ];
-	// const rock4 = Bodies.fromVertices(rockStartX, 200, vertices4, {
-	// 	restitution: 0.3,
-	// 	friction: 0.3,
-	// 	render: {
-	// 		sprite: {
-	// 			texture: '/rock-4.png',
-	// 			xScale: rockScale,
-	// 			yScale: rockScale,
-	// 		},
-	// 	},
-	// });
-	// Body.scale(rock4, rockScale, rockScale);
 
 	// Draw the floor
 	// CHECK: Events
@@ -275,10 +211,10 @@ onMounted(async () => {
 	// Reset canvas wheel event
 	mouseConstraint.mouse.element.removeEventListener('wheel', mouseConstraint.mouse.mousewheel);
 
-	Composite.add(world, [...projectBodies.filter(pj => pj), floor]);
+	Composite.add(world, [...projectBodies, floor]);
 
 	// TODO: remote TEST
-	openBoundingWireFrame(world, render);
+	// openBoundingWireFrame(world, render);
 });
 
 onUnmounted(() => {
@@ -319,8 +255,6 @@ onUnmounted(() => {
 	top: $space-sm;
 	width: calc(100% - ($space-sm * 2));
 	align-items: flex-end;
-	opacity: 0;
-	transition: opacity .3s ease-in;
 
 	@include response(md) {
 		max-width: 430px;
@@ -361,10 +295,6 @@ onUnmounted(() => {
 			text-align: center;
 			line-height: var(--shortcut-size);
 		}
-	}
-
-	&.show {
-		opacity: 1;
 	}
 }
 </style>
