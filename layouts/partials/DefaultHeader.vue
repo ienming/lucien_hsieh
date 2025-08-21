@@ -12,7 +12,7 @@
 		<!-- Desktop -->
 		<nav class="d-none d-md-grid nav">
 			<NuxtLink
-				to="/"
+				to="/works"
 				class="link fade-right-link">
 				<span>CORE WORKS</span>
 			</NuxtLink>

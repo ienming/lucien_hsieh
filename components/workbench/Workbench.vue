@@ -29,7 +29,7 @@
 		</div>
 		<canvas ref="canvasRef"/>
 		<Button
-			to="/facets"
+			to="/works"
 			:type="isMobile ? 'filled' : 'outlined'"
 			class="link-to-core-works">
 			Find core works in list
