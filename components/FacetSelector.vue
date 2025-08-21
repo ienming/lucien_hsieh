@@ -1,6 +1,7 @@
 <template>
 	<Teleport to="body">
 		<!-- TODO: 考慮把 modal overlay 改成元件，這樣做 global 變數可以控制 modal 展開時是不是都要鎖住 body scroll -->
+		<!-- TODO: 讓手機版也變成 bottomSheet -->
 		<section
 			v-if="open"
 			class="common-modal-overlay">

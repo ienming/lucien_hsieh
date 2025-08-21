@@ -1,10 +1,8 @@
 <template>
-	<div>
-		<section class="p-space-sm pb-0">
-			<Workbench
-				:projects="allProjects" />
-		</section>
-	</div>
+	<section class="p-space-sm pb-0">
+		<Workbench
+			:projects="allProjects" />
+	</section>
 </template>
 
 <script setup>

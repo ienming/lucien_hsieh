@@ -1,5 +1,5 @@
 import { ref, onMounted, onUnmounted } from 'vue';
-import { SCROLL_DIRECTION } from '~/constants/interaction';
+import { GESTURE_DIRECTION } from '~/constants/interaction';
 
 function throttle(fn, delay = 150) {
 	let lastCall = 0;
@@ -22,9 +22,9 @@ export function useScrollDirection() {
 		const currentTop = window.pageYOffset || document.documentElement.scrollTop;
 
 		if (currentTop > lastScrollTop) {
-			direction.value = SCROLL_DIRECTION.DOWN;
+			direction.value = GESTURE_DIRECTION.DOWN;
 		} else {
-			direction.value = SCROLL_DIRECTION.UP;
+			direction.value = GESTURE_DIRECTION.UP;
 		}
 		
 		lastScrollTop = currentTop <= 0 ? 0 : currentTop;

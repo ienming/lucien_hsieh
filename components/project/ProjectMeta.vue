@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="project-meta"
-		:class="{'align-top': direction === SCROLL_DIRECTION.DOWN}">
+		:class="{'align-top': direction === GESTURE_DIRECTION.DOWN}">
 		<div class="header">
 			<div class="d-flex flex-column gap-space-xxs project-title">
 				<p class="title">{{ title }}</p>
@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import {SCROLL_DIRECTION} from '~/constants/interaction';
+import {GESTURE_DIRECTION} from '~/constants/interaction';
 
 const {title, meta} = defineProps({
 	title: {

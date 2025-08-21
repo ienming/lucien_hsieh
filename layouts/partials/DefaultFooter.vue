@@ -6,6 +6,7 @@
 				href="mailto:hsieh.alan.0726@gmail.com"
 				class="email">hsieh.alan.0726@gmail.com</a>
 		</div>
+		<!-- TODO: 在首頁時加上自介，因為這時候沒有 header 的 (creator) 入口 -->
 		<div class="d-flex justify-contents-space-between copyright-footer">
 			<span>©{{ thisYear }} all rights reserved</span>
 			<span>taipei / taiwan</span>

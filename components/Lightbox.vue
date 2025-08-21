@@ -3,6 +3,7 @@
 		<Transition name="fade">
 			<div
 				v-if="open"
+				ref="lightboxRef"
 				class="lightbox-modal"
 				@click.self="$emit('close')">
 				<div class="img-container">
@@ -19,12 +20,12 @@
 						v-for="(indicator, idx) of images"
 						:key="indicator"
 						@click="showImgByIdx(idx)">
-						<!-- TODO: 實作切換的功能 -->
 						<!-- TODO: 也要做手機版可以 swipe right/left -->
 						<NuxtImg
 							class="indicator"
 							:src="indicator.url"
-							:class="{'active': currentIdx === idx}" />
+							:class="{'active': currentIdx === idx}"
+							@click="currentIdx = idx" />
 					</li>
 				</ul>
 				<!-- <div class="controls">
@@ -70,15 +71,27 @@ const {open, startIdx, images} = defineProps({
 const emits = defineEmits(['close']);
 
 const currentIdx = ref(startIdx);
+const lightboxRef = ref(null);
+const { swipeDirection, bindEvents, unbindEvents } = useSwipe(lightboxRef)
+
+watch(() => open, async (newVal) => {
+	if (newVal) {
+		document.addEventListener('keydown', handleKeydown);
+
+		await nextTick();
+		bindEvents(lightboxRef.value);
+	} else {
+		document.removeEventListener('keydown', handleKeydown);
+		unbindEvents(lightboxRef.value);
+	}
+});
+
 watch(() => startIdx, newVal => currentIdx.value = newVal);
 const currentImg = computed(() => images[currentIdx.value]);
 
-watch(() => open, newVal => {
-	if (newVal) {
-		document.addEventListener('keydown', handleKeydown);
-	} else {
-		document.removeEventListener('keydown', handleKeydown);
-	}
+watch(swipeDirection, dir => {
+	// TODO: 加上切換圖片和關閉 lightbox
+	console.log('User swiped', dir);
 });
 
 function handleKeydown(e) {
@@ -117,7 +130,7 @@ function showImgByIdx(idx) {
 
 <style scoped lang="scss">
 .lightbox-modal {
-	--indicator-size: 32px;
+	--indicator-size: 24px;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -133,7 +146,7 @@ function showImgByIdx(idx) {
 	justify-content: center;
 
 	@include response(md) {
-		--indicator-size: 40px;
+		--indicator-size: 32px;
 	}
 
 	.btn {
@@ -162,12 +175,18 @@ function showImgByIdx(idx) {
 	// }
 	.info {
 		position: absolute;
-		left: $space-base;
-		top: $space-base;
+		left: 0;
+		top: 0;
 		color: $color-white;
+		padding: $space-sm;
 
 		.title {
-			font-size: $font-size-xl;
+			font-size: $font-size-md;
+			line-height: 1.2;
+
+			@include response(md) {
+				font-size: $font-size-lg;
+			}
 		}
 
 		@include response(md) {
@@ -179,17 +198,21 @@ function showImgByIdx(idx) {
 
 	.indicators {
 		position: absolute;
-		bottom: $space-base;
 		right: 50%;
-		padding: $space-md $space-lg;
-		border-radius: $radius-base;
+		bottom: 0;
+		padding: $space-sm;
+		border-radius: $radius-sm;
 		background-color: $color-neutral-100;
 		transform: translateX(50%);
+		width: 100%;
 
 		@include response(md) {
 			right: $space-6xl;
 			bottom: $space-6xl;
 			transform: unset;
+			width: auto;
+			padding: $space-md $space-lg;
+			border-radius: $radius-base;
 		}
 
 		.indicator {

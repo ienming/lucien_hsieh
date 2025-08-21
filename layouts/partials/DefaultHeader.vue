@@ -1,7 +1,7 @@
 <template>
 	<header
 		class="d-grid align-items-center container custom-header"
-		:class="{hide: direction === SCROLL_DIRECTION.DOWN}">
+		:class="{hide: direction === GESTURE_DIRECTION.DOWN}">
 		<div>
 			<NuxtLink
 				to="/"
@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import {SCROLL_DIRECTION} from '~/constants/interaction';
+import {GESTURE_DIRECTION} from '~/constants/interaction';
 
 const {direction} = useScrollDirection();
 const isAboutModalOpen = ref(false);

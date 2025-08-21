@@ -43,7 +43,7 @@
 
 <script setup>
 import { MINERALS_CONFIG, BODY_TYPES } from '~/constants/matter';
-import { getMineralBody, openBoundingWireFrame } from '~/libs/matterHelper';
+import { getMineralBody } from '~/libs/matterHelper';
 import WorkbenchIntro from '~/components/workbench/WorkbenchIntro.vue';
 
 const { projects } = defineProps({
@@ -252,15 +252,11 @@ onUnmounted(async() => {
 
 <style lang="scss" scoped>
 .workbench {
-	height: 90vh;
+	height: 85vh;
 	border-radius: $radius-sm;
 	border: 1px solid $color-neutral-800;
 	overflow: hidden;
 	position: relative;
-
-	@include response(md) {
-		height: 85vh;
-	}
 
 	.link-to-core-works {
 		position: absolute;
@@ -329,6 +325,10 @@ onUnmounted(async() => {
 			color: $color-white;
 			font-size: $font-size-sm;
 			box-shadow: 0 4px 20px 5px rgba(0, 0, 0, .15);
+
+			&:hover {
+				opacity: $opacity-80;
+			}
 	
 			.shortcut {
 				display: inline-block;
