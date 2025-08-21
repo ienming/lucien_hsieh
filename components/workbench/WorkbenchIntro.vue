@@ -11,16 +11,14 @@
 		class="d-flex flex-column gap-space-sm workbench-intro">
 		<div class="d-flex gap-space-lg justify-contents-space-between align-items-start">
 			<p class="title">Hi👋 I'm Lucien, a designer focused on UI/UX and front-end development.</p>
-			<div class="switch">
+			<div
+				class="switch"
+				@click="showContent = !showContent">
 				<ClientOnly v-if="showContent">
-					<Icon
-						name="iconoir:switch-on"
-						@click="showContent = !showContent" />
+					<Icon name="iconoir:switch-on" />
 				</ClientOnly>
 				<ClientOnly v-if="!showContent">
-					<Icon
-						name="iconoir:switch-off"
-						@click="showContent = !showContent" />
+					<Icon name="iconoir:switch-off" />
 				</ClientOnly>
 			</div>
 		</div>
@@ -61,16 +59,6 @@ const { isMobile } = useIsMobile();
 
 		@include response(md) {
 			font-size: $font-size-lg;
-		}
-	}
-
-	.switch {
-		font-size: $font-size-md;
-		color: $color-text-secondary;
-		cursor: pointer;
-
-		&:hover {
-			color: $color-text-default;
 		}
 	}
 }

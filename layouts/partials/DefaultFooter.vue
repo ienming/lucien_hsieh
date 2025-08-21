@@ -49,7 +49,7 @@ const thisYear = new Date().getFullYear();
 		.email {
 			border-bottom: 2px solid $color-neutral-200;
 			align-self: end;
-			font-size: $font-size-4xl;
+			font-size: 7.5vw;
 			word-break: break-word;
 
 			@include response(md) {

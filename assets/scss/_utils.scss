@@ -85,15 +85,14 @@
     line-height: 1.5;
 }
 
-.custom-btn {
-    border-radius: $radius-xs;
-    border: 1px solid #000;
-    padding: $space-sm;
-    transition: opacity .3s ease-out;
+.switch {
+	font-size: $font-size-md;
+	color: $color-text-secondary;
+	cursor: pointer;
 
-    &:hover {
-        opacity: .3;
-    }
+	&:hover {
+		color: $color-text-default;
+	}
 }
 
 .common-paragraph {

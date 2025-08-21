@@ -56,7 +56,7 @@ const classes = computed(() => {
 	display: flex;
 	align-items: center;
 	gap: $space-xs;
-	padding: $space-sm;
+	padding: $space-xs $space-sm;
 	border-radius: $radius-sm;
 	font-size: $font-size-base;
 	transition: .3s ease-out;

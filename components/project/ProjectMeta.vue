@@ -3,14 +3,21 @@
 		class="project-meta"
 		:class="{'align-top': direction === GESTURE_DIRECTION.DOWN}">
 		<div class="header">
-			<div class="d-flex flex-column gap-space-xxs project-title">
-				<p class="title">{{ title }}</p>
-				<p class="tagline">{{ tagline }}</p>
+			<div class="d-flex gap-space-lg justify-contents-space-between project-title">
+				<div class="d-flex flex-column gap-space-xxs">
+					<p class="title">{{ title }}</p>
+					<p class="tagline">{{ tagline }}</p>
+				</div>
 				<!-- TODO: 檢查 bug，點擊時會觸發向上滾動 document.documentElement.scrollTop -->
 				<div
-					class="d-md-none collapsed-btn"
+					class="d-md-none switch"
 					@click="isActionShow = !isActionShow">
-					{{ isActionShow ? 'Hide' : 'Show'}}
+					<ClientOnly v-if="isActionShow">
+						<Icon name="iconoir:switch-on" />
+					</ClientOnly>
+					<ClientOnly v-if="!isActionShow">
+						<Icon name="iconoir:switch-off" />
+					</ClientOnly>
 				</div>
 			</div>
 			<div
@@ -103,7 +110,7 @@ function toggleContent() {
 	padding: $space-sm $space-base;
 	border-radius: $radius-base;
 	border: 1px solid $color-neutral-900;
-	transition: top .3s ease-out;
+	transition: all .15s ease-in-out;
 
 	@include response(md) {
 		--space-between-header: #{$space-lg};
@@ -114,30 +121,31 @@ function toggleContent() {
 
 	.header {
 		.project-title {
-			padding-bottom: $space-sm;
-			border-bottom: 1px solid $color-neutral-900;
-	
 			.title {
-				font-size: $font-size-lg;
+				font-size: $font-size-md;
 				transition: font-size .3s ease-out;
 			}
 	
 			.tagline {
-				font-size: $font-size-md;
+				font-size: $font-size-sm;
 				color: $color-text-secondary;
 				transition: font-size .3s ease-out;
 			}
 
-			.collapsed-btn {
-				position: absolute;
-				top: $space-sm;
-				right: $space-sm;
-				font-size: $font-size-sm;
+			@include response(md) {
+				.title {
+					font-size: $font-size-lg;
+				}
+
+				.tagline {
+					font-size: $font-size-md;
+				}
 			}
 		}
 	
 		.actions {
-			padding: $space-xs 0;
+			padding: $space-sm 0 $space-xs 0;
+			border-top: 1px solid $color-neutral-900;
 
 			.toggle-btn {
 				transition: transform .2s ease-out;
@@ -160,18 +168,18 @@ function toggleContent() {
 	&.align-top {
 		top: 0;
 
-		.project-title {
-			.title {
-				font-size: $font-size-md;
-			}
-
-			.tagline {
-				font-size: $font-size-sm;
-			}
-		}
-
 		@include response(md) {
 			top: $space-lg;
+
+			.project-title {
+				.title {
+					font-size: $font-size-md;
+				}
+	
+				.tagline {
+					font-size: $font-size-sm;
+				}
+			}
 		}
 	}
 }

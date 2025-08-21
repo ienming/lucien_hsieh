@@ -22,14 +22,14 @@
 							<li class="nav-link">
 								<NuxtLink
 									to="/works"
-									class="fade-right-link">
+									class="d-block">
 									<span>CORE WORKS</span>
 								</NuxtLink>
 							</li>
 							<li class="nav-link">
 								<NuxtLink
 									to="/facets"
-									class="fade-right-link">
+									class="d-block">
 									<span>FACETS</span>
 								</NuxtLink>
 							</li>
