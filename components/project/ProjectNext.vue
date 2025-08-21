@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="project-next"
-		@click="goToNextProject">
+		@click="navigateTo(path)">
 		<div class="d-flex justify-contents-space-between align-items-center header">
 			<span class="title">
 				Next
@@ -38,12 +38,7 @@ const {meta} = defineProps({
 	},
 })
 
-const {title, subtitle, tags, cover} = meta;
-
-// TODO: 切換 project
-function goToNextProject() {
-	console.log('Go to next project');
-}
+const {title, subtitle, path, tags, cover} = meta;
 </script>
 
 <style scoped lang="scss">
