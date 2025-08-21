@@ -27,6 +27,7 @@ const thisYear = new Date().getFullYear();
 	.contact-footer {
 		width: 100%;
 		height: 50vh;
+		min-height: 480px;
 		padding: $space-lg $space-base;
 		border-radius: $radius-lg;
 		background-color: $color-neutral-850;
@@ -63,7 +64,8 @@ const thisYear = new Date().getFullYear();
 			grid-template-rows: unset;
 			grid-template-columns: repeat(2, 1fr);
 			padding: $space-5xl $space-md;
-			height: 235px;
+			height: 240px;
+			min-height: unset;
 		}
 	}
 

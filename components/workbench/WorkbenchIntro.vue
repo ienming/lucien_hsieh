@@ -1,5 +1,14 @@
 <template>
-	<div class="d-flex flex-column gap-space-sm workbench-intro">
+	<div
+		v-if="isMobile"
+		class="d-flex flex-column gap-space-sm workbench-intro">
+		<div class="d-flex gap-space-lg justify-contents-space-between align-items-start">
+			<p class="title">Hi👋 I'm Lucien, a designer focused on UI/UX and front-end development.</p>
+		</div>
+	</div>
+	<div
+		v-else
+		class="d-flex flex-column gap-space-sm workbench-intro">
 		<div class="d-flex gap-space-lg justify-contents-space-between align-items-start">
 			<p class="title">Hi👋 I'm Lucien, a designer focused on UI/UX and front-end development.</p>
 			<div class="switch">
@@ -19,7 +28,6 @@
 			v-if="showContent"
 			class="common-paragraph">
 			<p>這裡就像我的工作調查台，收藏著我在沿途探索與挖掘出的作品。</p>
-			<p>Think of this as my work desk — a place where I collect and examine the projects I've unearthed along the way.</p>
 		</div>
 		<Button
 			type="outlined"
@@ -34,22 +42,25 @@
 
 <script setup>
 const showContent = ref(true);
+const { isMobile } = useIsMobile();
 </script>
 
 <style lang="scss" scoped>
 .workbench-intro {
-	position: absolute;
-	top: $space-sm;
-	left: $space-sm;
 	background-color: $color-white;
 	padding: $space-sm;
 	border-radius: $radius-sm;
 	border: 1px solid $color-neutral-900;
-	width: calc(100% - ($space-sm * 2));
 	max-width: 420px;
+	pointer-events: auto;
 
 	.title {
-		font-size: $font-size-lg;
+		font-size: $font-size-md;
+		line-height: 1.25;
+
+		@include response(md) {
+			font-size: $font-size-lg;
+		}
 	}
 
 	.switch {

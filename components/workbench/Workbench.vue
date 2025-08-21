@@ -1,27 +1,32 @@
 <template>
 	<div class="w-full workbench">
-		<WorkbenchIntro />
-		<Transition name="fade">
-			<div
-				v-if="nowHoverProject"
-				class="d-flex flex-column gap-space-sm work-tooltip">
-				<div class="info-card">
-					<div class="title">{{ nowHoverProject.title }}</div>
-					<div class="tagline">{{ nowHoverProject.tagline }}</div>
-					<div class="d-flex gap-space-sm align-items-center justify-contents-end tags">
-						<WorkTypeChip
-							v-for="tag of nowHoverProject.tags"
-							:key="tag"
-							:type="tag"
-							:clickable="false" />
+		<div class="w-full d-flex info-container">
+			<Transition name="fade">
+				<WorkbenchIntro v-if="isMobile ? !nowHoverProject : true" />
+			</Transition>
+			<Transition name="fade">
+				<div
+					v-if="nowHoverProject"
+					class="d-flex flex-column gap-space-sm work-tooltip">
+					<div class="info-card">
+						<div class="title">{{ nowHoverProject.title }}</div>
+						<div class="tagline">{{ nowHoverProject.tagline }}</div>
+						<div class="d-flex gap-space-sm align-items-center justify-contents-end tags">
+							<WorkTypeChip
+								v-for="tag of nowHoverProject.tags"
+								:key="tag"
+								:type="tag"
+								:clickable="false" />
+						</div>
+					</div>
+					<div class="d-flex gap-space-xs align-items-center hint">
+						<!-- TODO: 加上 eventlistener keydown -->
+						<span class="shortcut">I</span>
+						<span>查看作品 Investigate work</span>
 					</div>
 				</div>
-				<div class="d-flex gap-space-xs align-items-center hint">
-					<span class="shortcut">I</span>
-					<span>查看作品 Investigate work</span>
-				</div>
-			</div>
-		</Transition>
+			</Transition>
+		</div>
 		<canvas ref="canvasRef"/>
 		<Button
 			:type="isMobile ? 'filled' : 'outlined'"
@@ -199,22 +204,29 @@ onMounted(async () => {
 	// Mouse hover
 	// CHECK: mouseConstraint
 	let hoveredBody;
-	Events.on(mouseConstraint, 'mousemove', e => {
+
+	if (isMobile.value) {
+		Events.on(mouseConstraint, 'mousedown', e => {
+			detectShowProject(e);
+		});
+	} else {
+		Events.on(mouseConstraint, 'mousemove', e => {
+			detectShowProject(e);
+		});
+	}
+
+	function detectShowProject(e) {
 		const mousePosition = e.mouse.position;
 		const bodiesUnderMouse = Query.point(world.bodies, mousePosition);
-
-		// Apply hover state to the new body (if found)
+		
 		if (bodiesUnderMouse.length <= 0) return;
 		
 		const currentHoveredBody = bodiesUnderMouse[0];
 		if (currentHoveredBody !== hoveredBody) {
-			// TODO: 地板不要 hover
 			hoveredBody = currentHoveredBody;
 			nowHoverProjectId.value = hoveredBody.id;
-			console.log('Apply hover effect', hoveredBody);
-			// TODO: 加上縮小的漸變效果
 		}
-	});
+	}
 
 	Events.on(mouseConstraint, 'startdrag', () => {
 		nowHoverProjectId.value = '';
@@ -242,73 +254,96 @@ onUnmounted(async() => {
 
 <style lang="scss" scoped>
 .workbench {
-	height: 77vh;
+	height: 90vh;
 	border-radius: $radius-sm;
 	border: 1px solid $color-neutral-800;
 	overflow: hidden;
 	position: relative;
 
+	@include response(md) {
+		height: 77vh;
+	}
+
 	.link-to-core-works {
 		position: absolute;
 		width: max-content;
 		right: 50%;
-		bottom: $space-sm;
+		bottom: $space-lg;
 		transform: translateX(50%);
 
 		@include response(md) {
 			right: $space-sm;
+			bottom: $space-sm;
 			transform: unset;
 		}
 	}
 }
 
-.work-tooltip{
-	--shortcut-size: 24px;
+.info-container {
 	position: absolute;
 	right: $space-sm;
 	top: $space-sm;
 	width: calc(100% - ($space-sm * 2));
-	align-items: flex-end;
+	flex-direction: column;
+	gap: $space-sm;
+	pointer-events: none;
 
 	@include response(md) {
-		max-width: 330px;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: start;
 	}
-	
-	.info-card {
+
+	.work-tooltip{
+		--shortcut-size: 24px;
+		position: absolute;
+		right: 0;
+		top: 0;
 		width: 100%;
-		background-color: $color-white;
-		padding: $space-sm;
-		border-radius: $radius-sm;
-		border: 1px solid $color-neutral-900;
-
-		.title {
-			font-size: $font-size-md;
+		align-items: flex-end;
+		pointer-events: auto;
+	
+		@include response(md) {
+			max-width: 330px;
 		}
-
-		.tagline {
-			font-size: $font-size-base;
-			color: $color-text-secondary;
-		}
-	}
-
-	.hint {
-		padding: $space-sm;
-		border-radius: $radius-round;
-		background-color: $color-neutral-50;
-		color: $color-white;
-		font-size: $font-size-sm;
-		box-shadow: 0 4px 20px 5px rgba(0, 0, 0, .15);
-
-		.shortcut {
-			display: inline-block;
+		
+		.info-card {
+			width: 100%;
 			background-color: $color-white;
-			color: $color-neutral-50;
+			padding: $space-sm;
+			border-radius: $radius-sm;
+			border: 1px solid $color-neutral-900;
+	
+			.title {
+				font-size: $font-size-md;
+			}
+	
+			.tagline {
+				font-size: $font-size-base;
+				color: $color-text-secondary;
+			}
+		}
+	
+		.hint {
+			padding: $space-sm;
 			border-radius: $radius-round;
-			width: var(--shortcut-size);
-			height: var(--shortcut-size);
-			text-align: center;
-			line-height: var(--shortcut-size);
+			background-color: $color-neutral-50;
+			color: $color-white;
+			font-size: $font-size-sm;
+			box-shadow: 0 4px 20px 5px rgba(0, 0, 0, .15);
+	
+			.shortcut {
+				display: inline-block;
+				background-color: $color-white;
+				color: $color-neutral-50;
+				border-radius: $radius-round;
+				width: var(--shortcut-size);
+				height: var(--shortcut-size);
+				text-align: center;
+				line-height: var(--shortcut-size);
+			}
 		}
 	}
 }
+
 </style>
