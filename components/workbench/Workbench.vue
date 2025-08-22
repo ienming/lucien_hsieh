@@ -43,7 +43,7 @@
 
 <script setup>
 import { MINERALS_CONFIG } from '~/constants/matter';
-import { getMineralBody, openBoundingWireFrame, shrinkBodyScale, resetBodyScale } from '~/libs/matterHelper';
+import { getMineralBody } from '~/libs/matterHelper';
 import WorkbenchIntro from '~/components/workbench/WorkbenchIntro.vue';
 
 const { projects } = defineProps({
@@ -190,8 +190,6 @@ onMounted(async () => {
 	render.mouse = mouse;
 
 	// Mouse hover
-	let hoveredBody = null;
-
 	if (isMobile.value) {
 		Events.on(mouseConstraint, 'mousedown', e => {
 			detectShowProject(e);
@@ -202,21 +200,69 @@ onMounted(async () => {
 		});
 	}
 
-	// const originalBodyScales = new Map();
+	const originalScales = new Map();
+	const targetScales = new Map();
+	let animating = false;
+
 	function detectShowProject(e) {
 		const mousePosition = e.mouse.position;
 		const bodiesUnderMouse = Query.point(world.bodies, mousePosition);
-		
-		if (bodiesUnderMouse.length <= 0) return;
-		
-		const currentHoveredBody = bodiesUnderMouse[0];
-		if (currentHoveredBody !== hoveredBody) {
-			hoveredBody = currentHoveredBody;
-			nowHoverProjectId.value = hoveredBody ? hoveredBody.id : null;
 
-			// TODO: 可以加上縮放，提示可以點擊
-			// world.bodies.forEach(body => resetBodyScale(body, originalBodyScales));
-			// if (hoveredBody) shrinkBodyScale(hoveredBody, originalBodyScales);
+		const hoveredBody = bodiesUnderMouse.length > 0 ? bodiesUnderMouse[0] : null;
+
+		world.bodies.forEach(body => {
+			// 紀錄原始 scale
+			if (!originalScales.has(body.id)) {
+				originalScales.set(body.id, {
+					x: body.render.sprite.xScale,
+					y: body.render.sprite.yScale,
+				});
+			}
+
+			// 設定目標 scale
+			if (body === hoveredBody) {
+				targetScales.set(body.id, {
+					x: originalScales.get(body.id).x * 0.8,
+					y: originalScales.get(body.id).y * 0.8,
+				});
+				nowHoverProjectId.value = body.id;
+			} else {
+				targetScales.set(body.id, { ...originalScales.get(body.id) });
+			}
+		});
+
+		if (!animating) {
+			animating = true;
+			requestAnimationFrame(step);
+		}
+	}
+
+	function step() {
+		let stillAnimating = false;
+
+		targetScales.forEach((target, id) => {
+			const body = world.bodies.find(b => b.id === id);
+			if (!body) return;
+
+			const currX = body.render.sprite.xScale;
+			const currY = body.render.sprite.yScale;
+
+			// 線性補間
+			const newX = currX + (target.x - currX) * 0.15;
+			const newY = currY + (target.y - currY) * 0.15;
+
+			body.render.sprite.xScale = newX;
+			body.render.sprite.yScale = newY;
+
+			if (Math.abs(newX - target.x) > 0.001 || Math.abs(newY - target.y) > 0.001) {
+				stillAnimating = true;
+			}
+		});
+
+		if (stillAnimating) {
+			requestAnimationFrame(step);
+		} else {
+			animating = false;
 		}
 	}
 

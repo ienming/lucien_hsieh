@@ -1,5 +1,5 @@
 import * as Matter from 'matter-js';
-import { BODY_SHRINK_SCALE, BODY_TYPES } from '~/constants/matter';
+import { BODY_TYPES } from '~/constants/matter';
 
 export function getMineralBody(config) {
 	const {id, startX, startY, type, vertices, radius, physics, texture, xScale, yScale} = config;
@@ -46,27 +46,6 @@ export function getMineralBody(config) {
 	console.log(rigidBody);
 	return rigidBody;
 };
-
-export function shrinkBodyScale(body, scaleMap) {
-	const originScale = scaleMap.get(body.id);
-	if (!originScale) {
-		scaleMap.set(body.id, {
-			x: body.render.sprite.xScale,
-			y: body.render.sprite.yScale,
-		});
-	}
-
-	body.render.sprite.xScale *= BODY_SHRINK_SCALE;
-	body.render.sprite.yScale *= BODY_SHRINK_SCALE;
-}
-
-export function resetBodyScale(body, scaleMap) {
-	const originScale = scaleMap.get(body.id);
-	if (!originScale) return;
-
-	body.render.sprite.xScale = originScale.x;
-	body.render.sprite.yScale = originScale.y;
-}
 
 export function openBoundingWireFrame(world, render) {
 	Matter.Events.on(render, 'afterRender', () => {
