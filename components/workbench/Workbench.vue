@@ -43,7 +43,7 @@
 
 <script setup>
 import { MINERALS_CONFIG } from '~/constants/matter';
-import { getMineralBody, openBoundingWireFrame } from '~/libs/matterHelper';
+import { getMineralBody } from '~/libs/matterHelper';
 import WorkbenchIntro from '~/components/workbench/WorkbenchIntro.vue';
 
 const { projects } = defineProps({
@@ -215,17 +215,10 @@ onMounted(async () => {
 		}
 	}
 
-	Events.on(mouseConstraint, 'startdrag', () => {
-		nowHoverProjectId.value = '';
-	});
-
 	// Reset canvas wheel event
 	mouseConstraint.mouse.element.removeEventListener('wheel', mouseConstraint.mouse.mousewheel);
 
 	Composite.add(world, [...projectBodies, floor]);
-
-	// Debugger
-	// openBoundingWireFrame(world, render);
 
 	// Keydown for navigation
 	document.addEventListener('keydown', e => {

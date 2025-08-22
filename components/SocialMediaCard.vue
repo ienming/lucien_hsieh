@@ -8,3 +8,9 @@
 		</Button>
 	</div>
 </template>
+
+<style lang="scss" scoped>
+.social-media-card {
+	padding: $space-lg $space-xl;
+}
+</style>

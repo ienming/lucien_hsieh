@@ -64,13 +64,5 @@ defineEmits(['update:open']);
 			cursor: pointer;
 		}
 	}
-
-	.education-card {
-		.edu-item {
-			font-size: $font-size-base;
-			border-bottom: 1px solid $color-neutral-900;
-			padding-bottom: $space-sm;
-		}
-	}
 }
 </style>

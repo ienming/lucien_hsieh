@@ -12,7 +12,12 @@
 				@open-btm-sheet="isBottomSheetOpen = true" />
 			<section class="d-grid header">
 				<div class="project-intro">
-					<p v-if="projectData.intros">{{ projectData.intros }}</p>
+					<p
+						v-for="(para, idx) of projectData.introParas"
+						:key="idx"
+						:class="{'mb-space-base': idx !== projectData.introParas.length - 1}">
+						{{ para }}
+					</p>
 				</div>
 				<ProjectMeta
 					v-if="!isMobile"
@@ -97,6 +102,9 @@ const getPageData = async () => {
 	
 	projectData.value = data.value.project;
 	nextProjectData.value = data.value.nextProject;
+
+	// 整理資料
+	projectData.value.introParas = projectData.value.intros.split('\\n').filter(para => para);
 };
 
 function prepareContentImages(props) {
@@ -164,7 +172,6 @@ try {
 		}
 		
 		.project-intro {
-			white-space: pre-wrap;
 			grid-column: 1 / 4;
 			margin-bottom: $space-xl;
 		}

@@ -25,7 +25,7 @@
 		"vue-router": "^4.5.1"
 	},
 	"devDependencies": {
-		"@iconify-json/ant-design": "^1.2.5",
+		"@iconify-json/iconoir": "^1.2.9",
 		"@nuxt/image": "^1.10.0",
 		"sass": "^1.88.0"
 	}

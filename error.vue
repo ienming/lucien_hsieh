@@ -1,11 +1,6 @@
 <template>
 	<DefaultHeader />
 	<div class="container error">
-		<ClientOnly>
-			<Icon
-				name="ant-design:smile-outlined"
-				size="48" />
-		</ClientOnly>
 		<div v-if="error.statusCode === 404">
 			<h2>404 page not found</h2>
 		</div>
