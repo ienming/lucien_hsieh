@@ -29,7 +29,7 @@
 						@click="GoToProject(project.id)" />
 				</TransitionGroup>
 			</ul>
-			<Transition name="slide-from-bottom">
+			<Transition name="slide-from-right">
 				<KeyImage
 					v-if="!isMobile && nowImgUrl"
 					:url="nowImgUrl"

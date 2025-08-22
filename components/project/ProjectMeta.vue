@@ -23,8 +23,13 @@
 			<div
 				v-show="isActionShow"
 				class="d-flex flex-column flex-md-row gap-space-xs justify-contents-space-between actions">
-				<Button class="w-full d-flex justify-contents-space-between">
-					<span>Link To Webpage</span>
+				<!-- TODO: 思考多超連結的情況？ -->
+				<Button
+					:to="links[0].url"
+					target="_blank"
+					class="w-full d-flex justify-contents-space-between">
+					<span v-if="links[0].label">{{ links[0].label }}</span>
+					<span v-else>Link To Webpage</span>
 					<ClientOnly>
 						<Icon name="iconoir:arrow-up-right-square-solid" />
 					</ClientOnly>
@@ -86,7 +91,7 @@ defineEmits(['open-btm-sheet']);
 
 const {direction} = useScrollDirection();
 const {isMobile} = useIsMobile();
-const {tagline, year, tags, about} = meta;
+const {tagline, year, tags, about, links} = meta;
 const isContentShow = ref(false);
 const isActionShow = ref(true);
 
@@ -178,7 +183,7 @@ function toggleContent() {
 				}
 	
 				.tagline {
-					font-size: $font-size-sm;
+					font-size: $font-size-base;
 				}
 			}
 		}

@@ -62,7 +62,7 @@ watch(() => open, newVal => {
 	overflow: auto;
 	width: 100vw;
 	height: 100vh;
-	background-color: rgba(0, 0, 0, .75);
+	background-color: rgba(0, 0, 0, .5);
 	backdrop-filter: blur(4px);
 	display: flex;
 	flex-direction: column;

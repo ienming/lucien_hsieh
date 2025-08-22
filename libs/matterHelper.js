@@ -10,8 +10,11 @@ export function getMineralBody(config) {
 
 		rigidBody = Matter.Bodies.fromVertices(startX, startY, vertices, {
 			id,
-			restitution: physics.restitution,
-			friction: physics.friction,
+			density: physics.density ? physics.density : 1,
+			friction: physics.friction ? physics.friction : 1,
+			frictionAir: physics.frictionAir ? physics.frictionAir : 1,
+			frictionStatic: physics.frictionStatic ? physics.frictionStatic : 1,
+			restitution: physics.restitution ? physics.restitution : 1,
 			render: {
 				sprite: {
 					texture,
@@ -25,8 +28,11 @@ export function getMineralBody(config) {
 	if (type === BODY_TYPES.CIRCLE) {
 		rigidBody = Matter.Bodies.circle(startX, startY, radius, {
 			id,
-			restitution: physics.restitution,
-			friction: physics.friction,
+			density: physics.density ? physics.density : 1,
+			friction: physics.friction ? physics.friction : 1,
+			frictionAir: physics.frictionAir ? physics.frictionAir : 1,
+			frictionStatic: physics.frictionStatic ? physics.frictionStatic : 1,
+			restitution: physics.restitution ? physics.restitution : 1,
 			render: {
 				sprite: {
 					texture,

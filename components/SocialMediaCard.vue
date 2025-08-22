@@ -1,7 +1,9 @@
 <template>
 	<div class="social-media-card">
-		<Button class="w-full d-flex justify-contents-space-between">
-			<span>@luclucxn</span>
+		<Button
+			to="https://www.instagram.com/luclucxn/"
+			class="w-full d-flex justify-contents-space-between">
+			@luclucxn
 			<ClientOnly>
 				<Icon name="iconoir:instagram" />
 			</ClientOnly>
