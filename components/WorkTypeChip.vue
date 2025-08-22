@@ -13,9 +13,9 @@
 </template>
 
 <script setup>
-import { WORKLIST_TYPES } from '~/constants/content';
+import { WORK_TYPES } from '~/constants/content';
 
-const props = defineProps({
+const {type, size} = defineProps({
 	type: {
 		type: String,
 		default: '',
@@ -27,43 +27,13 @@ const props = defineProps({
 });
 
 const typeLabel = computed(() => {
-	// TODO: 修改分類方式
-	if (props.type === WORKLIST_TYPES.UIUX) {
-		return 'UIUX';
-	}else if (props.type === WORKLIST_TYPES.FE) {
-		return 'Frontend Dev';
-	}else if (props.type === WORKLIST_TYPES.APP) {
-		return 'APP Design';
-	}else if (props.type === WORKLIST_TYPES.LANDING_PAGE) {
-		return 'Landing Page';
-	}else if (props.type === WORKLIST_TYPES.DATA_VIZ) {
-		return 'Data Visualization';
-	}else if (props.type === WORKLIST_TYPES.ILLUSTRATION) {
-		return 'Illustration';
-	}else if (props.type === WORKLIST_TYPES.GRAPHIC) {
-		return 'Editorial / Graphic';
-	}
-
-	return '?';
+	if (!WORK_TYPES[type]) return '?';
+	return WORK_TYPES[type].id;
 });
 
 const typeColorStyle = computed(() => {
-	if (props.type === WORKLIST_TYPES.UIUX) {
-		// TOOD: 把色票歸檔
-		return '#2E7BF7';
-	}else if (props.type === WORKLIST_TYPES.FE) {
-		return '#4AEC5D';
-	}else if (props.type === WORKLIST_TYPES.APP) {
-		return '#AA6AF9';
-	}else if (props.type === WORKLIST_TYPES.LANDING_PAGE) {
-		return '#E4EC4A';
-	}else if (props.type === WORKLIST_TYPES.ILLUSTRATION) {
-		return '#EC4AA0';
-	}else if (props.type === WORKLIST_TYPES.GRAPHIC) {
-		return '#2E7BF7';
-	}
-
-	return 'black';
+	if (!WORK_TYPES[type]) return 'black';
+	return WORK_TYPES[type].color;
 });
 </script>
 

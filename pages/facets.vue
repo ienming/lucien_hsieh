@@ -14,8 +14,7 @@
 						<div class="d-flex flex-column gap-space-md intro">
 							<p class="title">Place for my other facets</p>
 							<div class="tagline">
-								<p>關於數位設計之外的創作延伸，其他面向的片段</p>
-								<p>Documenting extensions of my work beyond the main focus, presenting fragments of different facets.</p>
+								<p>Documenting extensions of my work beyond the main focus, fragments of my creative in different forms.</p>
 							</div>
 						</div>
 						<!-- <div

@@ -55,6 +55,10 @@ defineEmits(['close', 'toggle']);
 	border: 1px solid $color-neutral-900;
 	border-radius: $radius-round;
 
+	.close {
+		font-size: $font-size-sm;
+	}
+
 	&.small {
 		padding: $space-xxs $space-sm;
 		gap: $space-xs;

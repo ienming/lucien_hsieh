@@ -8,7 +8,7 @@
 			<Chip
 				v-for="filter of filters"
 				:key="filter"
-				:label="filter" 
+				:label="WORK_TYPES[filter].id"
 				:closable="true"
 				@click="removeFilter(filter)" />
 		</div>
@@ -29,16 +29,20 @@
 						@click="GoToProject(project.id)" />
 				</TransitionGroup>
 			</ul>
-			<KeyImage
-				v-if="!isMobile && nowImgUrl"
-				:url="nowImgUrl"
-				:tagline="nowProject.tagline ? nowProject.tagline : 'Find out the process...'"
-				@click="GoToProject(nowProject.id)" />
+			<Transition name="slide-from-bottom">
+				<KeyImage
+					v-if="!isMobile && nowImgUrl"
+					:url="nowImgUrl"
+					:tagline="nowProject.tagline ? nowProject.tagline : 'Find out the process...'"
+					@click="GoToProject(nowProject.id)" />
+			</Transition>
 		</div>
 	</section>
 </template>
 
 <script setup>
+import { WORK_TYPES } from '~/constants/content';
+
 const {isMobile} = useIsMobile();
 const nowProject = ref({});
 const nowImgUrl = ref('');
