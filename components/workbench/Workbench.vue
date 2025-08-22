@@ -4,7 +4,7 @@
 			<Transition name="fade">
 				<WorkbenchIntro v-if="isMobile ? !nowHoverProject : true" />
 			</Transition>
-			<Transition name="fade">
+			<Transition name="slide-from-right">
 				<div
 					v-if="nowHoverProject"
 					class="d-flex flex-column gap-space-sm work-tooltip">
@@ -42,8 +42,8 @@
 </template>
 
 <script setup>
-import { MINERALS_CONFIG, BODY_TYPES } from '~/constants/matter';
-import { getMineralBody } from '~/libs/matterHelper';
+import { MINERALS_CONFIG } from '~/constants/matter';
+import { getMineralBody, openBoundingWireFrame } from '~/libs/matterHelper';
 import WorkbenchIntro from '~/components/workbench/WorkbenchIntro.vue';
 
 const { projects } = defineProps({
@@ -128,8 +128,7 @@ onMounted(async () => {
 	Composite.add(world, walls);
 
 	// Add bodies to the world
-	const rockSize = 46;
-	const rockStartX = canvasWidth / 2 - rockSize / 2;
+	const rockStartX = canvasWidth / 2;
 	const rockScale = isMobile.value ? 0.3 : 0.45;
 
 	const projectBodies = [];
@@ -141,18 +140,12 @@ onMounted(async () => {
 		targetConfig.startX = rockStartX;
 		targetConfig.xScale = rockScale;
 		targetConfig.yScale = rockScale;
-		if (targetConfig.type === BODY_TYPES.CIRCLE) {
-			targetConfig.radius = rockSize;
-		}
 
 		const body = getMineralBody(targetConfig);
 		if (!body) return;
 		
 		projectBodies.push(body);
-
-		if (targetConfig.type === BODY_TYPES.VERTEX) {
-			Body.scale(body, rockScale, rockScale)
-		};
+		Body.scale(body, rockScale, rockScale);
 	});
 
 	// Draw the floor
@@ -230,6 +223,9 @@ onMounted(async () => {
 	mouseConstraint.mouse.element.removeEventListener('wheel', mouseConstraint.mouse.mousewheel);
 
 	Composite.add(world, [...projectBodies, floor]);
+
+	// Debugger
+	// openBoundingWireFrame(world, render);
 
 	// Keydown for navigation
 	document.addEventListener('keydown', e => {

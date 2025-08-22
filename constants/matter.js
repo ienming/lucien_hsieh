@@ -30,7 +30,7 @@ export const MINERALS_CONFIG = [
 		startX: undefined,
 		startY: 300,
 		type: BODY_TYPES.CIRCLE,
-		radius: 40,
+		radius: 103,
 		physics: {
 			restitution: 0.2,
 			friction: 0.05,
@@ -44,8 +44,21 @@ export const MINERALS_CONFIG = [
 		id: 'labradorite-oval',
 		startX: undefined,
 		startY: 100,
-		type: BODY_TYPES.CIRCLE,
-		radius: 40,
+		type: BODY_TYPES.VERTEX,
+		vertices: [
+			{ x: 0, y: -136 },
+			{ x: 55, y: -100 },
+			{ x: 109, y: 0 }, //水平中線
+			{ x: 92, y: 48},
+			{ x: 85, y: 100 },
+			{ x: 47, y: 115},
+			{ x: 0, y: 136}, //垂直中線
+			{ x: -47, y: 115},
+			{ x: -85, y: 100 },
+			{ x: -92, y: 48},
+			{ x: -109, y: 0 }, //水平中線（左）
+			{ x: -55, y: -100},
+		],
 		physics: {
 			restitution: 0.3,
 			friction: 0.3,
