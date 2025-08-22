@@ -9,10 +9,13 @@
 				loading="lazy"
 				placeholder />
 			<div
-				class="info d-md-flex"
+				class="d-flex flex-column flex-md-row info"
 				@mouseenter="isMobile ? null : $emit('mouse-enter-item')">
 				<span class="title">{{ title }}</span>
 				<span class="sub-title">{{ subTitle }}</span>
+				<span
+					v-if="isMobile"
+					class="tagline">{{ tagline }}</span>
 			</div>
 			<div class="meta">
 				<p class="year">{{ year }}</p>
@@ -35,6 +38,10 @@ defineProps({
 		default: '',
 	},
 	subTitle: {
+		type: String,
+		default: '',
+	},
+	tagline: {
 		type: String,
 		default: '',
 	},
@@ -105,12 +112,19 @@ const {isMobile} = useIsMobile();
 		
 		.sub-title {
 			display: inline-block;
-			font-size: $font-size-sm;
+			font-size: $font-size-base;
+			color: $color-text-secondary;
 			line-height: 1.13;
 
 			@include response(md) {
 				font-size: $font-size-base;
 			}
+		}
+
+		.tagline {
+			margin-top: $space-sm;
+			display: inline-block;
+			font-size: $font-size-base;
 		}
 
 		@include response(md) {

@@ -20,6 +20,7 @@
 						:key="project.id"
 						:title="project.title"
 						:sub-title="project.subTitle"
+						:tagline="project.tagline"
 						:cover="project.cover"
 						:year="project.year"
 						:tags="project.tags"
