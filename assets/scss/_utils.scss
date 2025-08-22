@@ -68,10 +68,6 @@
 	}
 }
 
-.min-100-vh {
-    min-height: 100vh;
-}
-
 .container {
     width: 100%;
     max-width: $content-max-width;
@@ -98,15 +94,4 @@
 .common-paragraph {
 	font-size: $font-size-base;
 	line-height: 24px;
-}
-
-.common-modal-overlay {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	z-index: $z-index-common-modal;
-	background-color: rgba(0, 0, 0, 0.5);
-	padding: $space-md;
 }

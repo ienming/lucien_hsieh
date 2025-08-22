@@ -1,64 +1,61 @@
 <template>
-	<Teleport to="body">
-		<!-- TODO: 考慮把 modal overlay 改成元件，這樣做 global 變數可以控制 modal 展開時是不是都要鎖住 body scroll -->
+	<ModalOverlay
+		:open="open"
+		@update:open="('update:open', $event)">
 		<!-- TODO: 讓手機版也變成 bottomSheet -->
-		<section
-			v-if="open"
-			class="common-modal-overlay">
-			<div class="facet-selector">
-				<div class="d-flex justify-contents-end align-items-center">
+		<div class="facet-selector">
+			<div class="d-flex justify-contents-end align-items-center">
+				<ClientOnly>
+					<Icon
+						name="iconoir:xmark"
+						size="24"
+						class="close"
+						@click="$emit('update:open', false)" />
+				</ClientOnly>
+			</div>
+			<div class="d-flex flex-column gap-space-md">
+				<section class="d-flex flex-column align-items-center gap-space-base">
 					<ClientOnly>
 						<Icon
-							name="iconoir:xmark"
-							size="24"
-							class="close"
-							@click="$emit('update:open', false)" />
+							v-show="isFacetsSelected"
+							size="48"
+							name="iconoir:cube-dots-solid"
+							class="facets-active" />
+						<Icon
+							v-show="!isFacetsSelected"
+							size="48"
+							name="iconoir:cube-dots" />
 					</ClientOnly>
-				</div>
-				<div class="d-flex flex-column gap-space-md">
-					<section class="d-flex flex-column align-items-center gap-space-base">
-						<ClientOnly>
-							<Icon
-								v-show="isFacetsSelected"
-								size="48"
-								name="iconoir:cube-dots-solid"
-								class="facets-active" />
-							<Icon
-								v-show="!isFacetsSelected"
-								size="48"
-								name="iconoir:cube-dots" />
-						</ClientOnly>
-						<div class="title">
-							<p class="title-zh">查看切面</p>
-							<p class="title-en mt-space-xs">View different angles</p>
-						</div>
-					</section>
-					<section class="selector-container">
-						<div class="d-flex gap-space-xs selector-type">
-							<p>類型</p>
-							<p>Types</p>
-						</div>
-						<div class="d-flex gap-space-xs flex-wrap">
-							<!-- TODO: 準備真資料 -->
-							<WorkTypeChip
-								v-for="facet of facets"
-								:key="facet"
-								:type="facet"
-								:selected="selectingFacets.includes(facet)"
-    							@toggle="toggleFacet" />
-						</div>
-					</section>
-					<Button
-						size="large"
-						class="justify-contents-center"
-						@click="$emit('update-facets', selectingFacets);
-							$emit('update:open', false)">
-						更新
-					</Button>
-				</div>
+					<div class="title">
+						<p class="title-zh">查看切面</p>
+						<p class="title-en mt-space-xs">View different angles</p>
+					</div>
+				</section>
+				<section class="selector-container">
+					<div class="d-flex gap-space-xs selector-type">
+						<p>類型</p>
+						<p>Types</p>
+					</div>
+					<div class="d-flex gap-space-xs flex-wrap">
+						<!-- TODO: 準備真資料 -->
+						<WorkTypeChip
+							v-for="facet of facets"
+							:key="facet"
+							:type="facet"
+							:selected="selectingFacets.includes(facet)"
+							@toggle="toggleFacet" />
+					</div>
+				</section>
+				<Button
+					size="large"
+					class="justify-contents-center"
+					@click="$emit('update-facets', selectingFacets);
+						$emit('update:open', false)">
+					更新
+				</Button>
 			</div>
-		</section>
-	</Teleport>
+		</div>
+	</ModalOverlay>
 </template>
 
 <script setup>

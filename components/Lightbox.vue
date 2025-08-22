@@ -1,34 +1,43 @@
 <template>
-	<Teleport to="body">
-		<Transition name="fade">
+	<ModalOverlay
+		:open="open"
+		@update:open="$emit('update:open', $event)">
+		<div
+			ref="lightboxRef"
+			class="d-flex justify-contents-center align-items-center w-full h-full lightbox-modal"
+			@click.self="$emit('update:open', false)">
 			<div
-				v-if="open"
-				ref="lightboxRef"
-				class="lightbox-modal"
-				@click.self="$emit('update:open', false)">
-				<div class="img-container">
-					<NuxtImg :src="currentImg.url" />
-				</div>
-				<div class="d-flex flex-column gap-space-sm info">
-					<div class="title">{{ currentImg.title }}</div>
-					<div class="common-paragraph desc">{{ currentImg.desc }}</div>
-				</div>
-				<ul
-					v-if="images.length > 1"
-					class="d-flex gap-space-md indicators">
-					<li
-						v-for="(indicator, idx) of images"
-						:key="indicator">
-						<NuxtImg
-							class="indicator"
-							:src="indicator.url"
-							:class="{'active': currentIdx === idx}"
-							@click="currentIdx = idx" />
-					</li>
-				</ul>
+				class="img-container"
+				@click="isInfoShow = true">
+				<NuxtImg :src="currentImg.url" />
 			</div>
-		</Transition>
-	</Teleport>
+			<Transition name="fade">
+				<div
+					v-show="isInfoShow"
+					class="d-flex justify-contents-space-between gap-space-4xl info-container">
+					<div
+						class="d-flex flex-column gap-space-sm info"
+						@click="isInfoShow = false">
+						<div class="title">{{ currentImg.title }}</div>
+						<div class="common-paragraph desc">{{ currentImg.desc }}</div>
+					</div>
+					<ul
+						v-if="images.length > 1"
+						class="d-flex gap-space-md indicators">
+						<li
+							v-for="(indicator, idx) of images"
+							:key="indicator">
+							<NuxtImg
+								class="indicator"
+								:src="indicator.url"
+								:class="{'active': currentIdx === idx}"
+								@click="currentIdx = idx" />
+						</li>
+					</ul>
+				</div>
+			</Transition>
+		</div>
+	</ModalOverlay>
 </template>
 
 <script setup>
@@ -51,6 +60,7 @@ const {open, startIdx, images} = defineProps({
 const emits = defineEmits(['update:open']);
 
 const currentIdx = ref(startIdx);
+const isInfoShow = ref(true);
 const lightboxRef = ref(null);
 const { swipeDirection, bindEvents, unbindEvents } = useSwipe()
 
@@ -112,19 +122,7 @@ function handleNext() {
 <style scoped lang="scss">
 .lightbox-modal {
 	--indicator-size: 24px;
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: $z-index-common-modal;
-	overflow: auto;
-	width: 100vw;
-	height: 100vh;
-	background-color: rgba(0, 0, 0, .75);
-	backdrop-filter: blur(4px);
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	position: absolute;
 
 	@include response(md) {
 		--indicator-size: 32px;
@@ -135,13 +133,23 @@ function handleNext() {
 		transition: background-color .3s cubic-bezier(1, 0, 0, 1);
 	}
 
-	.info {
-		position: absolute;
+	.info-container {
+		position: fixed;
+		bottom: 0;
 		left: 0;
-		top: 0;
+		width: 100%;
+		flex-direction: column;
+		background: linear-gradient(0deg, rgba(13, 13, 13, 1), rgba(13, 13, 13, 0)); //$color-neutral-50
 		color: $color-white;
 		padding: $space-sm;
 
+		@include response(md) {		
+			padding: $space-5xl $space-4xl $space-4xl $space-4xl;
+			flex-direction: row;
+		}
+	}
+
+	.info {
 		.title {
 			font-size: $font-size-md;
 			line-height: 1.2;
@@ -150,23 +158,13 @@ function handleNext() {
 				font-size: $font-size-lg;
 			}
 		}
-
-		@include response(md) {
-			top: unset;
-			left: $space-6xl;
-			bottom: $space-6xl;
-		}
 	}
 
 	.indicators {
-		position: absolute;
-		right: 50%;
-		bottom: 0;
-		padding: $space-sm;
-		border-radius: $radius-sm;
+		flex-shrink: 0;
+		padding: $space-xs;
+		border-radius: $radius-xs;
 		background-color: $color-neutral-100;
-		transform: translateX(50%);
-		width: 100%;
 
 		@include response(md) {
 			right: $space-6xl;
