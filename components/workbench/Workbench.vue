@@ -19,12 +19,12 @@
 								:clickable="false" />
 						</div>
 					</div>
-					<NuxtLink
+					<Button
 						:to="`/project/${nowHoverProject.id}`"
 						class="d-flex gap-space-xs align-items-center hint">
-						<span class="shortcut">I</span>
 						<span>查看作品 Investigate work</span>
-					</NuxtLink>
+						<span class="shortcut">W</span>
+					</Button>
 				</div>
 			</Transition>
 		</div>
@@ -43,7 +43,7 @@
 
 <script setup>
 import { MINERALS_CONFIG } from '~/constants/matter';
-import { getMineralBody } from '~/libs/matterHelper';
+import { getMineralBody, openBoundingWireFrame, shrinkBodyScale, resetBodyScale } from '~/libs/matterHelper';
 import WorkbenchIntro from '~/components/workbench/WorkbenchIntro.vue';
 
 const { projects } = defineProps({
@@ -190,7 +190,7 @@ onMounted(async () => {
 	render.mouse = mouse;
 
 	// Mouse hover
-	let hoveredBody;
+	let hoveredBody = null;
 
 	if (isMobile.value) {
 		Events.on(mouseConstraint, 'mousedown', e => {
@@ -202,6 +202,7 @@ onMounted(async () => {
 		});
 	}
 
+	// const originalBodyScales = new Map();
 	function detectShowProject(e) {
 		const mousePosition = e.mouse.position;
 		const bodiesUnderMouse = Query.point(world.bodies, mousePosition);
@@ -211,7 +212,11 @@ onMounted(async () => {
 		const currentHoveredBody = bodiesUnderMouse[0];
 		if (currentHoveredBody !== hoveredBody) {
 			hoveredBody = currentHoveredBody;
-			nowHoverProjectId.value = hoveredBody.id;
+			nowHoverProjectId.value = hoveredBody ? hoveredBody.id : null;
+
+			// TODO: 可以加上縮放，提示可以點擊
+			// world.bodies.forEach(body => resetBodyScale(body, originalBodyScales));
+			// if (hoveredBody) shrinkBodyScale(hoveredBody, originalBodyScales);
 		}
 	}
 
@@ -222,10 +227,13 @@ onMounted(async () => {
 
 	// Keydown for navigation
 	document.addEventListener('keydown', e => {
-		if (e.code === 'KeyI' && nowHoverProject.value?.title) {
+		if (e.code === 'KeyW' && nowHoverProject.value?.title) {
 			listenOnInvestigate();
 		}
 	});
+
+	// TEST debugger
+	// openBoundingWireFrame(world, render);
 });
 
 onUnmounted(async() => {
@@ -241,7 +249,7 @@ onUnmounted(async() => {
 
 <style lang="scss" scoped>
 .workbench {
-	height: 85vh;
+	height: calc(100vh - ($space-sm * 2));
 	border-radius: $radius-sm;
 	border: 1px solid $color-neutral-800;
 	overflow: hidden;
@@ -249,12 +257,14 @@ onUnmounted(async() => {
 
 	.link-to-core-works {
 		position: absolute;
-		width: max-content;
+		width: 90vw;
 		right: 50%;
 		bottom: $space-lg;
 		transform: translateX(50%);
+		justify-content: center;
 
 		@include response(md) {
+			width: max-content;
 			right: $space-sm;
 			bottom: $space-sm;
 			transform: unset;
@@ -309,21 +319,13 @@ onUnmounted(async() => {
 	
 		.hint {
 			padding: $space-sm;
-			border-radius: $radius-round;
-			background-color: $color-neutral-50;
-			color: $color-white;
-			font-size: $font-size-sm;
 			box-shadow: 0 4px 20px 5px rgba(0, 0, 0, .15);
-
-			&:hover {
-				opacity: $opacity-80;
-			}
 	
 			.shortcut {
 				display: inline-block;
-				background-color: $color-white;
-				color: $color-neutral-50;
-				border-radius: $radius-round;
+				background-color: $color-neutral-400;
+				color: $color-neutral-850;
+				border-radius: $radius-xs;
 				width: var(--shortcut-size);
 				height: var(--shortcut-size);
 				text-align: center;

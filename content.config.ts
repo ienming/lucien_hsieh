@@ -26,9 +26,9 @@ export default defineContentConfig({
 			}),
 		}),
 
-		facets: defineCollection({
+		fragments: defineCollection({
 			type: 'data',
-			source: 'facets/*.json',
+			source: 'fragments/*.json',
 			schema: z.object({
 				title: z.string(),
 				images: z.array(z.object({

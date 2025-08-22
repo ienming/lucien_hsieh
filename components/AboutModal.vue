@@ -26,7 +26,7 @@
 					</p>
 				</div>
 			</div>
-			<SocialMediaCard />
+			<ContactCard />
 			<EducationCard />
 		</div>
 	</ModalOverlay>
@@ -52,7 +52,7 @@ defineEmits(['update:open']);
 		max-width: 388px;
 	}
 
-	.info-card, .social-media-card, .education-card {
+	.info-card, .contact-card, .education-card {
 		background-color: $color-white;
 		border: 1px solid $color-neutral-900;
 		padding: $space-xl;

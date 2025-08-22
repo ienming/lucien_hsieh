@@ -4,6 +4,8 @@ export const BODY_TYPES = {
 	RECT: 'RECT',
 };
 
+export const BODY_SHRINK_SCALE = 0.8;
+
 export const MINERALS_CONFIG = [
 	{
 		id: 'moonstone',

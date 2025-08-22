@@ -3,7 +3,7 @@
 		<article
 			v-if="isPageDataReady"
 			class="project-article">
-			<!-- ProjectMeta for mobile in order to sticky at top -->
+			<!-- ProjectMeta for mobile -->
 			<ProjectMeta
 				v-if="isMobile"
 				:title="projectData.title"
@@ -158,7 +158,7 @@ try {
 	}
 
 	.project-meta-mobile {
-		position: sticky;
+		position: initial;
 		margin-bottom: $space-base;
 	}
 

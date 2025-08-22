@@ -20,7 +20,7 @@
 							v-show="isFacetsSelected"
 							size="48"
 							name="iconoir:cube-dots-solid"
-							class="facets-active" />
+							class="fragments-active" />
 						<Icon
 							v-show="!isFacetsSelected"
 							size="48"
@@ -39,7 +39,7 @@
 					<div class="d-flex gap-space-xs flex-wrap">
 						<!-- TODO: 準備真資料 -->
 						<WorkTypeChip
-							v-for="facet of facets"
+							v-for="facet of fragments"
 							:key="facet"
 							:type="facet"
 							:selected="selectingFacets.includes(facet)"
@@ -49,7 +49,7 @@
 				<Button
 					size="large"
 					class="justify-contents-center"
-					@click="$emit('update-facets', selectingFacets);
+					@click="$emit('update-fragments', selectingFacets);
 						$emit('update:open', false)">
 					更新
 				</Button>
@@ -64,11 +64,11 @@ defineProps({
 		type: Boolean,
 		default: false,
 	},
-	facets: {
+	fragments: {
 		type: Array,
 		default: () => [],
 	},
-	// TODO: prop 接收目前的 facets
+	// TODO: prop 接收目前的 fragments
 });
 
 // TODO: watch 把 prop 換成 ref
@@ -86,7 +86,7 @@ function toggleFacet(facet) {
 	}
 }
 
-defineEmits(['update-facets', 'update:open']);
+defineEmits(['update-fragments', 'update:open']);
 </script>
 
 <style lang="scss" scoped>

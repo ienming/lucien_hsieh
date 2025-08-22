@@ -17,8 +17,10 @@
 				loading="lazy"
 				placeholder />
 			<div class="d-flex flex-column gap-space-base next-info">
-				<div class="title">{{ title }}</div>
-				<div class="subtitle">{{ subtitle }}</div>
+				<div class="info-header">
+					<div class="title">{{ title }}</div>
+					<div class="subtitle">{{ subtitle }}</div>
+				</div>
 				<div class="d-flex gap-space-sm tags">
 					<WorkTypeChip
 						v-for="tag of tags"

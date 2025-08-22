@@ -2,17 +2,17 @@
 	<div class="container">
 		<div v-if="isDataReady">
 			<masonry-wall
-				:items="facets"
+				:items="fragments"
 				:ssr-columns="1"
 				:column-width="300"
 				:gap="16"
-				class="facets-container">
+				class="fragments-container">
 				<template #default="{ item: facet, index }">
 					<div
 						v-if="index === 0"
 						class="facet-intro">
 						<div class="d-flex flex-column gap-space-md intro">
-							<p class="title">Place for my other facets</p>
+							<p class="title">Place for my other creations</p>
 							<div class="tagline">
 								<p>Documenting extensions of my work beyond the main focus, fragments of my creative in different forms.</p>
 							</div>
@@ -29,7 +29,7 @@
 									<Icon
 										size="24"
 										:name="isFacetsSelected ? 'iconoir:cube-dots-solid' : 'iconoir:cube-dots'"
-										:class="{'facets-active': isFacetsSelected}" />
+										:class="{'fragments-active': isFacetsSelected}" />
 								</ClientOnly>
 							</div>
 							<div class="text-muted now-selects">
@@ -61,14 +61,14 @@
 		</div>
 		<!-- <FacetSelector
 			v-model:open="isFacetSelectorOpen"
-			:facets="facetsOptions"
-			@update-facets="updateFacets" /> -->
+			:fragments="facetsOptions"
+			@update-fragments="updateFacets" /> -->
 	</div>
 </template>
 
 <script setup>
 const isDataReady = ref(false);
-const facets = ref([]);
+const fragments = ref([]);
 // const isFacetSelectorOpen = ref(false);
 // TODO: 抓到資料後用 Set 過濾
 // const facetsOptions = ref(['UIUX', 'FE', 'LANDING_PAGE']);
@@ -78,16 +78,16 @@ const facets = ref([]);
 // })
 
 const getData = async () => {
-	const { data } = await useAsyncData('facets', async () => {
-		return queryCollection('facets').all();
+	const { data } = await useAsyncData('fragments', async () => {
+		return queryCollection('fragments').all();
 	});
 
-	facets.value = data.value;
+	fragments.value = data.value;
 }
 
-// function updateFacets(facets) {
-// 	console.log(facets);
-// 	selectingFacets.value = facets;
+// function updateFacets(fragments) {
+// 	console.log(fragments);
+// 	selectingFacets.value = fragments;
 // }
 
 try {
@@ -103,7 +103,7 @@ try {
 </script>
 
 <style lang="scss" scoped>
-.facets-container {
+.fragments-container {
 	.facet-intro {
 		background-color: $color-white;
 		border-radius: $radius-sm;
@@ -147,7 +147,7 @@ try {
 		// }
 	}
 
-	// :global(.facets-active) {
+	// :global(.fragments-active) {
 	// 	background: linear-gradient(45deg, #E356FF, #5CD6FF, #FFEC5F);
 	// }
 }

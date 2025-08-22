@@ -4,7 +4,7 @@
 		<main :class="{'with-header': isNotIndex}">
 			<slot />
 		</main>
-		<DefaultFooter :show-creator="!isNotIndex" />
+		<DefaultFooter v-if="isNotIndex" />
 	</div>
 </template>
 

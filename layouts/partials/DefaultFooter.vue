@@ -1,18 +1,7 @@
 <template>
 	<footer class="custom-footer">
 		<div class="contact-footer">
-			<div>
-				<span class="send-signal">Send a Signal</span>
-				<!-- TODO: 在首頁時加上自介，因為這時候沒有 header 的 (creator) 入口 -->
-				<div
-					v-if="showCreator"
-					class="creator-footer">
-					<p class="title">(creator)</p>
-					<p class="common-paragraph">
-						Lucien Hsieh 謝明倫專注於 UI/UX 與前端開發，有約 3 年網頁設計與開發經驗。喜歡結合設計、前端與插畫方面的興趣。希望能將不同的內容轉譯成有趣的敘事作品。
-					</p>
-				</div>
-			</div>
+			<span class="send-signal">Send a Signal</span>
 			<a 
 				href="mailto:hsieh.alan.0726@gmail.com"
 				class="email">hsieh.alan.0726@gmail.com</a>
@@ -45,9 +34,9 @@ const thisYear = new Date().getFullYear();
 	.contact-footer {
 		width: 100%;
 		height: 50vh;
-		min-height: 480px;
-		padding: $space-lg $space-base;
-		border-radius: $radius-lg;
+		max-height: 330px;
+		padding: $space-md $space-md $space-3xl $space-md;
+		border-radius: $radius-sm;
 		background-color: $color-neutral-850;
 		color: $color-neutral-200;
 		display: grid;
@@ -55,11 +44,11 @@ const thisYear = new Date().getFullYear();
 		align-items: start;
 
 		.send-signal {
-			font-size: $font-size-4xl;
+			font-size: $font-size-xl;
 			line-height: 1;
 
 			@include response(md) {
-				font-size: 60px;
+				font-size: $font-size-2xl;
 			}
 		}
 
@@ -70,44 +59,31 @@ const thisYear = new Date().getFullYear();
 			word-break: break-word;
 
 			@include response(md) {
-				font-size: 48px;
+				font-size: $font-size-xl;
 				text-align: right;
 				align-self: start;
 				justify-self: end;
-				border-width: 3px;
+				border-width: 2px;
 			}
 		}
 
 		@include response(md) {
 			grid-template-rows: unset;
 			grid-template-columns: repeat(2, 1fr);
-			padding: $space-5xl $space-md;
-			height: 240px;
-			min-height: unset;
-		}
-	}
-
-	.creator-footer {
-		padding-top: $space-sm;
-		color: $color-text-secondary;
-
-		.title {
-			font-size: $font-size-sm;
+			height: auto;
 		}
 	}
 
 	.copyright-footer {
 		width: 100%;
-		font-size: $font-size-sm;
+		font-size: $font-size-xs;
 		background: $color-neutral-200;
-		color: $color-neutral-850;
-		padding: $space-lg $space-md;
-		border-radius: $radius-md;
+		color: $color-neutral-600;
+		padding: $space-sm $space-base;
+		border-radius: $radius-sm;
 		flex-direction: column;
 
 		@include response(md) {
-			width: 95%;
-			font-size: $font-size-base;
 			flex-direction: row;
 		}
 	}

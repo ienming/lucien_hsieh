@@ -21,14 +21,14 @@
 						<NuxtLink
 							to="/works"
 							class="d-block">
-							<span>CORE WORKS</span>
+							<span>WORKS</span>
 						</NuxtLink>
 					</li>
 					<li class="nav-link">
 						<NuxtLink
-							to="/facets"
+							to="/fragments"
 							class="d-block">
-							<span>FACETS</span>
+							<span>FRAGMENTS</span>
 						</NuxtLink>
 					</li>
 				</ul>
@@ -45,7 +45,7 @@
 						</p>
 					</div>
 				</div>
-				<SocialMediaCard />
+				<ContactCard />
 				<EducationCard />
 			</section>
 		</div>
@@ -103,7 +103,7 @@ onUnmounted(() => {
 	.about {
 		margin-top: $space-6xl;
 
-		.info-card, .social-media-card, .education-card {
+		.info-card, .contact-card, .education-card {
 			padding: $space-md;
 			border-radius: $radius-base;
 			background-color: $color-neutral-200;

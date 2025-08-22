@@ -29,9 +29,8 @@
 		</div>
 		<Button
 			to="/works"
-			type="outlined"
-			class="core-work-btn">
-			Find core works in List
+			class="d-flex justify-contents-center align-items-center core-work-btn">
+			All works
 			<ClientOnly>
 				<Icon name="iconoir:arrow-right" />
 			</ClientOnly>

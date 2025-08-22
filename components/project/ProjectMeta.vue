@@ -8,21 +8,8 @@
 					<p class="title">{{ title }}</p>
 					<p class="tagline">{{ tagline }}</p>
 				</div>
-				<!-- TODO: 檢查 bug，點擊時會觸發向上滾動 document.documentElement.scrollTop -->
-				<div
-					class="d-md-none micro-interactable-btn"
-					@click="isActionShow = !isActionShow">
-					<ClientOnly v-if="isActionShow">
-						<Icon name="iconoir:switch-on" />
-					</ClientOnly>
-					<ClientOnly v-if="!isActionShow">
-						<Icon name="iconoir:switch-off" />
-					</ClientOnly>
-				</div>
 			</div>
-			<div
-				v-show="isActionShow"
-				class="d-flex flex-column flex-md-row gap-space-xs justify-contents-space-between actions">
+			<div class="d-flex flex-column flex-md-row gap-space-xs justify-contents-space-between actions">
 				<!-- TODO: 思考多超連結的情況？ -->
 				<Button
 					:to="links[0].url"
@@ -93,7 +80,6 @@ const {direction} = useScrollDirection();
 const {isMobile} = useIsMobile();
 const {tagline, year, tags, about, links} = meta;
 const isContentShow = ref(false);
-const isActionShow = ref(true);
 
 function toggleContent() {
 	isContentShow.value = !isContentShow.value;

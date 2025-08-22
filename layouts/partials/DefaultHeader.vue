@@ -14,12 +14,12 @@
 			<NuxtLink
 				to="/works"
 				class="link fade-right-link">
-				<span>CORE WORKS</span>
+				<span>WORKS</span>
 			</NuxtLink>
 			<NuxtLink
-				to="/facets"
+				to="/fragments"
 				class="link fade-right-link">
-				<span>FACETS</span>
+				<span>FRAGMENTS</span>
 			</NuxtLink>
 			<NuxtLink
 				class="link fade-right-link"
@@ -62,6 +62,7 @@ const isMobileMenuOpen = ref(false);
 	row-gap: $space-lg;
 	align-items: flex-start;
 	background-color: $color-background-container;
+	border-radius: 0 0 $radius-sm $radius-sm;
 
 	@include response(md) {
 		background-color: transparent;
