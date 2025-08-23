@@ -13,7 +13,7 @@
 					<ClientOnly>
 						<Icon
 							name="iconoir:xmark"
-							class="close micro-interactable-btn"
+							class="close micro-interaction-btn"
 							@click="$emit('update:open', false)" />
 					</ClientOnly>
 				</div>

@@ -28,7 +28,7 @@
 				</div>
 			</Transition>
 		</div>
-		<canvas ref="canvasRef"/>
+		<canvas ref="canvasRef" />
 		<Button
 			to="/works"
 			:type="isMobile ? 'filled' : 'outlined'"
@@ -207,8 +207,14 @@ onMounted(async () => {
 	function detectShowProject(e) {
 		const mousePosition = e.mouse.position;
 		const bodiesUnderMouse = Query.point(world.bodies, mousePosition);
+		let hoveredBody = null;
 
-		const hoveredBody = bodiesUnderMouse.length > 0 ? bodiesUnderMouse[0] : null;
+		if (bodiesUnderMouse.length) {
+			canvasRef.value.style.cursor = 'grab';
+			hoveredBody = bodiesUnderMouse[0];
+		} else {
+			canvasRef.value.style.cursor = 'auto';
+		}
 
 		world.bodies.forEach(body => {
 			// 紀錄原始 scale
@@ -265,6 +271,10 @@ onMounted(async () => {
 			animating = false;
 		}
 	}
+
+	Events.on(mouseConstraint, 'mouseup', () => {
+		canvasRef.value.style.cursor = 'auto';
+	})
 
 	// Reset canvas wheel event
 	mouseConstraint.mouse.element.removeEventListener('wheel', mouseConstraint.mouse.mousewheel);

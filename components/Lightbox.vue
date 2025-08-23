@@ -11,8 +11,24 @@
 				@click="isInfoShow = !isInfoShow">
 				<NuxtImg :src="currentImg.url" />
 			</div>
+			<div
+				v-if="!isMobile && images.length > 1"
+				class="controls-container"
+				:class="{'show': isInfoShow}">
+				<ClientOnly>
+					<Icon
+						name="iconoir:nav-arrow-left"
+						class="left control-btn"
+						@click="handlePrevious" />
+				</ClientOnly>
+				<ClientOnly>
+					<Icon
+						name="iconoir:nav-arrow-right"
+						class="right control-btn"
+						@click="handleNext" />
+				</ClientOnly>
+			</div>
 			<Transition name="fade">
-				<!-- TODO: 還是要加上電腦版可以有前後張的按鈕可以點 -->
 				<div
 					v-show="isInfoShow"
 					class="d-flex justify-contents-space-between gap-space-4xl info-container">
@@ -57,6 +73,7 @@ const {open, startIdx, images} = defineProps({
 	},
 });
 const emits = defineEmits(['update:open']);
+const { isMobile } = useIsMobile();
 
 const currentIdx = ref(startIdx);
 const isInfoShow = ref(true);
@@ -127,10 +144,37 @@ function handleNext() {
 		--indicator-size: 32px;
 	}
 
-	.btn {
-		cursor: pointer;
-		transition: background-color .3s cubic-bezier(1, 0, 0, 1);
+	.controls-container {
+		opacity: 0;
+		transition: opacity .3s ease-in-out;
+
+		&.show {
+			opacity: 1;
+		}
+
+		.control-btn {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			color: $color-neutral-850;
+			display: inline-block;
+			padding: $space-md $space-4xl;
+			cursor: pointer;
+	
+			&.left {
+				left: 0;
+			}
+	
+			&.right {
+				right: 0;
+			}
+	
+			&:hover {
+				color: $color-white;
+			}
+		}
 	}
+
 
 	.info-container {
 		position: fixed;
