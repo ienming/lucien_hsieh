@@ -38,19 +38,30 @@ const delayTime = 350;
 
 watch(() => open, newVal => {
 	if (newVal){
-		// TODO: 如果打開 modal 的情況下按上一頁，這邊就會因為被鎖住而無法滾動
-		document.body.style.overflow = 'hidden';
+		freezeBody();
 		isOverlayOpen.value = true;
 		setTimeout(() => {
 			isModalOpen.value = true;
 		}, delayTime)
 	} else {
-		document.body.style.overflow = 'auto';
+		unfreezeBody();
 		isModalOpen.value = false;
 		setTimeout(() => {
 			isOverlayOpen.value = false;
 		}, delayTime)
 	}
+});
+
+function freezeBody() {
+	document.body.style.overflow = 'hidden';
+}
+
+function unfreezeBody() {
+	document.body.style.overflow = 'auto';
+}
+
+onUnmounted(() => {
+	unfreezeBody();
 });
 </script>
 

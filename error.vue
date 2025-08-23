@@ -7,9 +7,10 @@
 		<div v-else>
 			<h2>{{ error.statusCode }}</h2>
 		</div>
-		<button
-			class="custom-btn"
-			@click="handleError">Clear errors</button>
+		<Button
+			@click="handleError">
+			Clear errors
+		</Button>
 	</div>
 	<DefaultFooter />
 </template>
