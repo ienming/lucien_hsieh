@@ -63,8 +63,10 @@ const nowHoverProject = computed(() => {
 
 let engine, render, runner;
 
-async function listenOnInvestigate() {
-	await navigateTo(`/project/${nowHoverProject.value.id}`)
+async function goToProject(e) {
+	if (e.code === 'KeyW' && nowHoverProject.value?.title) {
+		await navigateTo(`/project/${nowHoverProject.value.id}`)
+	}
 }
 
 onMounted(async () => {
@@ -282,11 +284,7 @@ onMounted(async () => {
 	Composite.add(world, [...projectBodies, floor]);
 
 	// Keydown for navigation
-	document.addEventListener('keydown', e => {
-		if (e.code === 'KeyW' && nowHoverProject.value?.title) {
-			listenOnInvestigate();
-		}
-	});
+	document.addEventListener('keydown', goToProject);
 
 	// TEST debugger
 	// openBoundingWireFrame(world, render);
@@ -300,6 +298,8 @@ onUnmounted(async() => {
 		Runner.stop(runner);
 		Engine.clear(engine);
 	}
+
+	document.removeEventListener('keydown', goToProject);
 });
 </script>
 

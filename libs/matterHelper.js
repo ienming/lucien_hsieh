@@ -43,7 +43,6 @@ export function getMineralBody(config) {
 		});
 	}
 
-	console.log(rigidBody);
 	return rigidBody;
 };
 

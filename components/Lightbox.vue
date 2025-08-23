@@ -90,6 +90,8 @@ watch(lightboxRef, async (newVal) => {
 		document.removeEventListener('keydown', handleKeydown);
 		unbindEvents(lightboxRef.value);
 	}
+}, {
+	once: true,
 });
 
 watch(() => startIdx, newVal => currentIdx.value = newVal);
