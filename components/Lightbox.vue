@@ -80,7 +80,7 @@ const isInfoShow = ref(true);
 const lightboxRef = ref(null);
 const { swipeDirection, bindEvents, unbindEvents } = useSwipe()
 
-watch(() => open, async (newVal) => {
+watch(lightboxRef, async (newVal) => {
 	if (newVal) {
 		document.addEventListener('keydown', handleKeydown);
 
@@ -106,7 +106,6 @@ watch(swipeDirection, dir => {
 });
 
 function handleKeydown(e) {
-	console.log(e);
 	if (e.code === 'ArrowLeft') {
 		handlePrevious();
 	} else if (e.code === 'ArrowRight') {
