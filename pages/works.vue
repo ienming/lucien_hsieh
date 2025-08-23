@@ -128,3 +128,28 @@ function GoToProject(id) {
 	router.push(`/project/${id}`);
 }
 </script>
+
+<style lang="scss" scoped>
+.work-list-h1 {
+	font-size: $font-size-2xl;
+	padding-left: $space-base;
+
+	@include response(md) {
+		font-size: $font-size-4xl;
+		padding-left: $space-xl;
+	}
+}
+
+.filter-container {
+	position: relative;
+	z-index: 1;
+}
+
+.project-list {
+	gap: $space-sm;
+
+	@include response(md) {
+		gap: 0;
+	}
+}
+</style>

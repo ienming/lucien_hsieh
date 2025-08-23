@@ -8,16 +8,15 @@
 			@click.self="$emit('update:open', false)">
 			<div
 				class="img-container"
-				@click="isInfoShow = true">
+				@click="isInfoShow = !isInfoShow">
 				<NuxtImg :src="currentImg.url" />
 			</div>
 			<Transition name="fade">
+				<!-- TODO: 還是要加上電腦版可以有前後張的按鈕可以點 -->
 				<div
 					v-show="isInfoShow"
 					class="d-flex justify-contents-space-between gap-space-4xl info-container">
-					<div
-						class="d-flex flex-column gap-space-sm info"
-						@click="isInfoShow = false">
+					<div class="d-flex flex-column gap-space-sm info">
 						<div class="title">{{ currentImg.title }}</div>
 						<div class="common-paragraph desc">{{ currentImg.desc }}</div>
 					</div>

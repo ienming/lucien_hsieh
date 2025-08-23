@@ -4,12 +4,14 @@
 		class="facet-card"
 		:class="{'hovering': isCardHovering}"
 		@mouseenter="isCardHovering = true"
-		@mouseleave="isCardHovering = false">
-		<div
-			class="facet-cover-container"
-			@click="isLightboxOpen = true">
+		@mouseleave="isCardHovering = false"
+		@click="isLightboxOpen = true">
+		<div class="facet-cover-container">
 			<div class="facet-cover">
-				<NuxtImg :src="images[0].url"/>
+				<NuxtImg
+					:src="images[0].url"
+					:class="{'be-square': isCoverHoriz}"
+					@load="checkImgRatio" />
 			</div>
 			<span class="d-flex gap-space-xs align-items-center expand-btn">
 				<ClientOnly>
@@ -77,6 +79,7 @@ defineProps({
 
 const isCardHovering = ref(false);
 const isLightboxOpen = ref(false);
+const isCoverHoriz = ref(false);
 const facetCard = ref(null);
 
 onMounted(() => {
@@ -84,6 +87,14 @@ onMounted(() => {
 	const descContentHeight = el.querySelector('.content')?.getBoundingClientRect().height;
 	el.style.setProperty('--desc-content-height', `${descContentHeight}px`);
 })
+
+function checkImgRatio(e) {
+	const {naturalWidth, naturalHeight} = e.target;
+	if (naturalWidth > naturalHeight) {
+		//Horizontal
+		isCoverHoriz.value = true;
+	}
+}
 </script>
 
 <style lang="scss" scoped>
@@ -97,13 +108,22 @@ onMounted(() => {
 	overflow: hidden;
 	border: 1px solid $color-neutral-900;
 	position: relative;
+	max-width: var(--facet-card-max-width);
+	
 
 	.facet-cover {
 		border-radius: $radius-xs;
-		object-fit: cover;
 		overflow: hidden;
-		max-width: var(--facet-card-max-width);
 		background-color: $color-neutral-900;
+
+		> img {
+			object-fit: cover;
+
+			&.be-square {
+				aspect-ratio: 1 / 1;
+			}
+		}
+
 
 		&::after {
 			content: '';

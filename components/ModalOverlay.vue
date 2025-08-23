@@ -38,6 +38,7 @@ const delayTime = 350;
 
 watch(() => open, newVal => {
 	if (newVal){
+		// TODO: 如果打開 modal 的情況下按上一頁，這邊就會因為被鎖住而無法滾動
 		document.body.style.overflow = 'hidden';
 		isOverlayOpen.value = true;
 		setTimeout(() => {

@@ -5,7 +5,7 @@
 		<div class="mobile-menu">
 			<div class="d-flex justify-contents-space-between align-items-center mb-space-md header">
 				<div class="text-muted logo">
-					LUUUUUCIEN
+					LUCIEN
 				</div>
 				<div class="close">
 				<ClientOnly>

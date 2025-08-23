@@ -369,11 +369,12 @@ onUnmounted(async() => {
 	
 			.shortcut {
 				display: inline-block;
+				width: var(--shortcut-size);
+				height: var(--shortcut-size);
+				margin-left: $space-sm;
 				background-color: $color-neutral-400;
 				color: $color-neutral-850;
 				border-radius: $radius-xs;
-				width: var(--shortcut-size);
-				height: var(--shortcut-size);
 				text-align: center;
 				line-height: var(--shortcut-size);
 			}
