@@ -182,7 +182,7 @@ onMounted(async () => {
 	const mouseConstraint = MouseConstraint.create(engine, {
 		mouse,
 		constraint: {
-			stiffness: 1.8,
+			stiffness: 1.5,
 			render: {
 				visible: false,
 			},

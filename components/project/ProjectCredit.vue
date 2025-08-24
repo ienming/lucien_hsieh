@@ -47,11 +47,14 @@ defineProps({
 	.credit-item {
 		grid-template-columns: minmax(auto, 140px) auto;
 		padding-bottom: $space-sm;
-		border-bottom: 1px solid $color-neutral-900;
 		font-size: $font-size-base;
 
 		.credit-cate {
 			color: $color-text-secondary;
+		}
+
+		&:not(:last-child) {
+			border-bottom: 1px solid $color-neutral-900;
 		}
 	}
 }

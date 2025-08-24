@@ -7,7 +7,7 @@
 				:column-width="300"
 				:gap="16"
 				class="fragments-container">
-				<template #default="{ item: facet, index }">
+				<template #default="{ item: fragment, index }">
 					<div
 						v-if="index === 0"
 						class="facet-intro">
@@ -48,10 +48,10 @@
 						</div> -->
 					</div>
 					<FacetCard
-						:title="facet.title"
-						:desc="facet.desc"
-						:types="facet.tags"
-						:images="facet.images" />
+						:title="fragment.title"
+						:desc="fragment.desc"
+						:types="fragment.tags"
+						:images="fragment.images" />
 				</template>
 			</masonry-wall>
 		</div>
