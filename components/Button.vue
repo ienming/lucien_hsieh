@@ -67,7 +67,7 @@ const classes = computed(() => {
 		color: $color-white;
 
 		&:hover {
-			opacity: $opacity-80;
+			background-color: $color-neutral-300;
 		}
 	}
 

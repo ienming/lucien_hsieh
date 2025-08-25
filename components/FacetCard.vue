@@ -38,7 +38,7 @@
 			class="d-flex flex-column gap-space-sm info-card"
 			:class="{'expand': isCardHovering}">
 			<div class="d-flex justify-contents-space-between align-items-start header">
-				<span class="title">{{ title }}</span>
+				<span class="title">{{ trimmedTitle }}</span>
 				<WorkTypeChip
 					v-for="type of types"
 					:key="type"
@@ -58,7 +58,7 @@
 </template>
 
 <script setup>
-defineProps({
+const {title} = defineProps({
 	title: {
 		type: String,
 		default: 'FacetCard',
@@ -81,6 +81,10 @@ const isCardHovering = ref(false);
 const isLightboxOpen = ref(false);
 const isCoverHoriz = ref(false);
 const facetCard = ref(null);
+const uiConfig = {
+	maxTitleLength: 16,
+};
+const trimmedTitle = computed(() => title.length > uiConfig.maxTitleLength ? `${title.slice(0, uiConfig.maxTitleLength)}...` : title);
 
 onMounted(() => {
 	const el = facetCard.value;
