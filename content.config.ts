@@ -6,6 +6,7 @@ export default defineContentConfig({
 			type: 'page',
 			source: 'project/*.md',
 			schema: z.object({
+				draft: z.boolean(),
 				title: z.string(),
 				subtitle: z.string(),
 				tagline: z.string(),

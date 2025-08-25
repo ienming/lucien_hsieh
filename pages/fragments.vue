@@ -1,13 +1,13 @@
 <template>
 	<div class="container">
-		<div v-if="isDataReady">
+		<div v-if="isDataReady && fragments.length">
 			<masonry-wall
 				:items="fragments"
 				:ssr-columns="1"
 				:column-width="300"
 				:gap="16"
 				class="fragments-container">
-				<template #default="{ item: fragment, index }">
+				<template #default="{ item, index }">
 					<div
 						v-if="index === 0"
 						class="facet-intro">
@@ -48,10 +48,10 @@
 						</div> -->
 					</div>
 					<FacetCard
-						:title="fragment.title"
-						:desc="fragment.desc"
-						:types="fragment.tags"
-						:images="fragment.images" />
+						:title="item.title"
+						:desc="item.desc"
+						:types="item.tags"
+						:images="item.images" />
 				</template>
 			</masonry-wall>
 		</div>

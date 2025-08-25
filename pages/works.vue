@@ -1,6 +1,7 @@
 <template>
 	<section class="mb-space-6xl">
-		<h1 class="container work-list-h1">core works</h1>
+		<h1 class="container work-list-h1">works</h1>
+		<!-- TODO: 可以考慮加上按鈕切換 list view / card view -->
 		<div
 			v-if="filters.length"
 			class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container filter-container">
@@ -51,9 +52,13 @@ const filters = ref([]);
 const allProjects = ref([]);
 
 const getPageData = async () => {
-	const { data } = await useAsyncData('', async () => {
-		return await queryCollection('project').all();
+	const { data } = await useAsyncData('works', async () => {
+		return await queryCollection('project')
+			.where('draft', '=', false)
+			.all();
 	});
+
+	console.log(data);
 
 	allProjects.value = data.value.map(project => ({
 		id: project.path.split('/')[2],

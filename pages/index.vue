@@ -10,8 +10,10 @@ import Workbench from '~/components/workbench/Workbench.vue';
 
 const allProjects = ref([]);
 const getPageData = async () => {
-	const { data } = await useAsyncData('', async () => {
-		return await queryCollection('project').all();
+	const { data } = await useAsyncData('core-works', async () => {
+		return await queryCollection('project')
+			.where('mineral', 'IS NOT NULL')
+			.all();
 	});
 
 	allProjects.value = data.value.map(project => ({

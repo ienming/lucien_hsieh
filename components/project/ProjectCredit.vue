@@ -31,6 +31,7 @@ defineProps({
 
 	@include response(md) {
 		width: 30vw;
+		min-width: 360px;
 	}
 
 	.header, .content {
