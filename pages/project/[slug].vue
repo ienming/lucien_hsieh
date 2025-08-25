@@ -66,6 +66,7 @@ import MetaBottomSheet from '~/components/project/MetaBottomSheet.vue';
 import ImageRenderer from '~/components/content/ImageRenderer.vue'
 import Lightbox from '~/components/Lightbox.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
+import splitMultiLine from '~/libs/helper';
 
 const projectData = ref({});
 const nextProjectData = ref({});
@@ -104,7 +105,7 @@ const getPageData = async () => {
 	nextProjectData.value = data.value.nextProject;
 
 	// 整理資料
-	projectData.value.introParas = projectData.value.intros.split('\\n').filter(para => para);
+	projectData.value.introParas = splitMultiLine(projectData.value.intros);
 };
 
 function prepareContentImages(props) {

@@ -7,12 +7,16 @@
 <style lang="scss" scoped>
 .project-prose-p {
 	width: 100%;
-	padding: $space-base;
+	padding: 0 $space-base;
+	margin: $space-base 0;
 	word-break: break-all;
+	font-size: $font-size-base;
 
 	@include response(md) {
 		width: 50%;
-		padding: $space-4xl 0 $space-4xl $space-lg;
+		padding: 0 0 0 $space-lg;
+		margin: $space-4xl 0;
+		font-size: $font-size-md;
 	}
 }
 </style>

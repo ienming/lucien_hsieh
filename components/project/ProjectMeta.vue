@@ -53,8 +53,12 @@
 				</div>
 			</div>
 			<div class="common-paragraph content">
-				<!-- TODO: 換資料結構 -->
-				{{ about }}
+				<p
+					v-for="(content, idx) of contents"
+					:key="idx"
+					:class="{'mb-space-base': idx !== contents.length - 1}">
+					{{ content }}
+				</p>
 			</div>
 		</div>
 	</div>
@@ -62,6 +66,7 @@
 
 <script setup>
 import {GESTURE_DIRECTION} from '~/constants/interaction';
+import splitMultiLine from '~/libs/helper';
 
 const {title, meta} = defineProps({
 	title: {
@@ -80,6 +85,8 @@ const {direction} = useScrollDirection();
 const {isMobile} = useIsMobile();
 const {tagline, year, tags, about, links} = meta;
 const isContentShow = ref(false);
+
+const contents = computed(() => splitMultiLine(about));
 
 function toggleContent() {
 	isContentShow.value = !isContentShow.value;
@@ -154,6 +161,11 @@ function toggleContent() {
 		.meta {
 			padding: $space-sm 0;
 			font-size: $font-size-sm;
+		}
+
+		.content {
+			height: 55vh;
+			overflow-y: scroll;
 		}
 	}
 

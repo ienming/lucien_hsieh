@@ -28,8 +28,12 @@
 					</div>
 				</div>
 				<div class="common-paragraph content">
-					<!-- TODO: 換資料結構 -->
-					{{ about }}
+					<p
+						v-for="(content, idx) of contents"
+						:key="idx"
+						:class="{'mb-space-base': idx !== contents.length - 1}">
+						{{ content }}
+					</p>
 				</div>
 			</section>
 		</BottomSheet>
@@ -39,6 +43,7 @@
 <script setup>
 import BottomSheet from "@douxcode/vue-spring-bottom-sheet";
 import "@douxcode/vue-spring-bottom-sheet/dist/style.css";
+import splitMultiLine from "~/libs/helper";
 
 const {title, meta} = defineProps({
 	title: {
@@ -54,6 +59,8 @@ const {year, tags, about} = meta;
 const isSheetOpen = defineModel({
 	type: Boolean,
 });
+
+const contents = computed(() => splitMultiLine(about));
 
 function resetOverflow() {
 	document.body.classList.add('reset-overflow');
