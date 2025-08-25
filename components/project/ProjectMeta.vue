@@ -56,7 +56,10 @@
 				<p
 					v-for="(content, idx) of contents"
 					:key="idx"
-					:class="{'mb-space-base': idx !== contents.length - 1}">
+					:class="{
+						'mb-space-base': idx !== contents.length - 1,
+						'mb-space-2xl': idx === contents.length - 1,
+					}">
 					{{ content }}
 				</p>
 			</div>
@@ -158,14 +161,25 @@ function toggleContent() {
 
 
 	.body {
+		position: relative;
 		.meta {
 			padding: $space-sm 0;
 			font-size: $font-size-sm;
 		}
 
 		.content {
-			height: 55vh;
+			max-height: 55vh;
 			overflow-y: scroll;
+
+			&::after {
+				content: '';
+				display: block;
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				height: 52px;
+				background: linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+			}
 		}
 	}
 
