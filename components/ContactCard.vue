@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex flex-column gap-space-xs contact-card">
+	<div class="d-flex flex-column contact-card">
 		<Button
 			to="mailto:hsieh.alan.0726@gmail.com"
 			class="w-full d-flex justify-contents-space-between">

@@ -69,7 +69,7 @@ export const MINERALS_CONFIG = [
 			friction: 0.5,
 			frictionStatic: 8,
 			frictionAir: 0.01,
-			restitution: 0.1,
+			restitution: 0.01,
 		},
 		texture: '/labradorite-oval.png',
 		xScale: undefined,

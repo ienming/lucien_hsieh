@@ -58,8 +58,6 @@ const getPageData = async () => {
 			.all();
 	});
 
-	console.log(data);
-
 	allProjects.value = data.value.map(project => ({
 		id: project.path.split('/')[2],
 		title: project.title,

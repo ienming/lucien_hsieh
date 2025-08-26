@@ -1,7 +1,7 @@
 export const LIGHTBOX_CLASS_NAME = 'lightbox';
 export const WORK_TYPES = {
 	UIUX: {
-		id: 'UIUX',
+		id: 'UIUX case study',
 		color: '#2E7BF7',
 	},
 	VISUAL: {

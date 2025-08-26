@@ -12,11 +12,11 @@
 			<div class="d-flex flex-column flex-md-row gap-space-xs justify-contents-space-between actions">
 				<!-- TODO: 思考多超連結的情況？ -->
 				<Button
+					v-if="links"
 					:to="links[0].url"
 					target="_blank"
 					class="w-full d-flex justify-contents-space-between">
-					<span v-if="links[0].label">{{ links[0].label }}</span>
-					<span v-else>Link To Webpage</span>
+					<span>{{ links[0].label ? links[0].label : 'Link To Webpage' }}</span>
 					<ClientOnly>
 						<Icon name="iconoir:arrow-up-right-square-solid" />
 					</ClientOnly>

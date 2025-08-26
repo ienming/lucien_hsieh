@@ -87,10 +87,11 @@ const getPageData = async () => {
 	const { data } = await useAsyncData(`project-${slug}`, async () => {
 		const project = await queryCollection('project')
 			.path(`/project/${slug}`)
-			.select('title', 'tagline', 'year', 'credits', 'tags', 'links', 'about', 'intros', 'body')
+			.select('password', 'title', 'tagline', 'year', 'credits', 'tags', 'links', 'about', 'intros', 'body')
 			.first();
 
 		const projects = await queryCollection('project')
+			.where('draft', '=', false)
 			.order('year', 'DESC')
 			.select('title', 'subtitle', 'path', 'tags', 'cover')
 			.all();
@@ -140,8 +141,13 @@ function openLightbox(src) {
 try {
 	await getPageData();
 
-	// TODO: 移除 loading 元件測試用
 	setTimeout(() => {
+		// TODO: 調整密碼 modal
+		// if (projectData.value.password) {
+		// 	alert('Enter the password');
+		// } else {
+		// 	isPageDataReady.value = true;
+		// }
 		isPageDataReady.value = true;
 	}, 300);
 } catch (error) {
@@ -175,6 +181,7 @@ try {
 		.project-intro {
 			grid-column: 1 / 4;
 			margin-bottom: $space-xl;
+			text-align: justify;
 		}
 	}
 

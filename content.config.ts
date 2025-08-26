@@ -7,6 +7,7 @@ export default defineContentConfig({
 			source: 'project/*.md',
 			schema: z.object({
 				draft: z.boolean(),
+				password: z.string(),
 				title: z.string(),
 				subtitle: z.string(),
 				tagline: z.string(),

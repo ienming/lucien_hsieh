@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<div v-if="isDataReady && fragments.length">
-			<masonry-wall
+			<MasonryWall
 				:items="fragments"
 				:ssr-columns="1"
 				:column-width="300"
@@ -53,7 +53,7 @@
 						:types="item.tags"
 						:images="item.images" />
 				</template>
-			</masonry-wall>
+			</MasonryWall>
 		</div>
 		<div v-else>
 			<Skeleton class="mb-space-2xl" />
@@ -67,6 +67,8 @@
 </template>
 
 <script setup>
+import MasonryWall from '@yeger/vue-masonry-wall';
+
 const isDataReady = ref(false);
 const fragments = ref([]);
 // const isFacetSelectorOpen = ref(false);

@@ -1,15 +1,17 @@
 <template>
-	<h1 class="project-prose-h1">
-		<slot />
-	</h1>
+	<h3 class="project-prose-h3">
+		<slot mdc-unwrap="p" />
+	</h3>
 </template>
 
 <style lang="scss" scoped>
-.project-prose-h1 {
+.project-prose-h3 {
 	width: 100%;
 	padding: 0 $space-base;
 	margin: $space-base 0;
 	word-break: break-all;
+	font-size: $font-size-lg;
+	font-weight: 600;
 
 	@include response(md) {
 		width: 50%;

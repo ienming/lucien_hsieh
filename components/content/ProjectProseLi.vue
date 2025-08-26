@@ -1,16 +1,15 @@
 <template>
-	<div class="project-prose-p">
-		<slot />
-	</div>
+	<li class="project-prose-li">
+		<slot mdc-unwrap="p" />
+	</li>
 </template>
 
 <style lang="scss" scoped>
-.project-prose-p {
+.project-prose-li {
 	width: 100%;
 	padding: 0 $space-base;
 	margin: $space-base 0;
 	word-break: break-all;
-	text-align: justify;
 
 	@include response(md) {
 		width: 50%;
