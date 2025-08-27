@@ -31,7 +31,7 @@
 		<canvas ref="canvasRef" />
 		<Button
 			to="/works"
-			:type="isMobile ? 'filled' : 'outlined'"
+			:variant="isMobile ? 'filled' : 'outlined'"
 			class="link-to-core-works">
 			Find core works in list
 			<ClientOnly>
@@ -374,6 +374,7 @@ onUnmounted(async() => {
 	
 			.tagline {
 				font-size: $font-size-base;
+				line-height: 1.3;
 				color: $color-text-secondary;
 			}
 		}

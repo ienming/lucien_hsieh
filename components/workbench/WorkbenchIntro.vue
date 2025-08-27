@@ -3,14 +3,14 @@
 		v-if="isMobile"
 		class="d-flex flex-column gap-space-sm workbench-intro">
 		<div class="d-flex gap-space-lg justify-contents-space-between align-items-start">
-			<p class="title">Hi👋 I'm Lucien, a designer focused on UI/UX and front-end development.</p>
+			<p class="title">Hi👋 I'm Lucien, a designer focused on UI/UX and front-end development</p>
 		</div>
 	</div>
 	<div
 		v-else
 		class="d-flex flex-column gap-space-sm workbench-intro">
 		<div class="d-flex gap-space-lg justify-contents-space-between align-items-start">
-			<p class="title">Hi👋 I'm Lucien, a designer focused on UI/UX and front-end development.</p>
+			<p class="title">Hi👋 I'm Lucien, a designer focused on UI/UX and front-end development</p>
 			<div
 				class="micro-interaction-btn"
 				@click="showContent = !showContent">
@@ -30,7 +30,7 @@
 		<Button
 			to="/works"
 			class="d-flex justify-contents-center align-items-center core-work-btn">
-			All works
+			所有作品 All works
 			<ClientOnly>
 				<Icon name="iconoir:arrow-right" />
 			</ClientOnly>

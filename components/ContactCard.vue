@@ -10,7 +10,8 @@
 		</Button>
 		<Button
 			to="https://www.instagram.com/luclucxn/"
-			type="outlined"
+			target="_blank"
+			variant="outlined"
 			class="w-full d-flex justify-contents-space-between">
 			@luclucxn
 			<ClientOnly>

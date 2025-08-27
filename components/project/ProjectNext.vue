@@ -49,6 +49,7 @@ const {title, subtitle, path, tags, cover} = meta;
 	transition: opacity .3s ease-out;
 
 	&:hover {
+		// TODO: 改成別的動態
 		opacity: $opacity-50;
 		cursor: pointer;
 	}

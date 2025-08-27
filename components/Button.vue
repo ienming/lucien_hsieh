@@ -14,7 +14,7 @@
 import { NuxtLink } from '#components';
 
 const props = defineProps({
-	type: {
+	variant: {
 		type: String,
 		default: 'filled',
 		validator: (value) => ['filled', 'outlined'].includes(value),
@@ -43,9 +43,9 @@ const classes = computed(() => {
 
 	if (props.size === 'lg') results.push('large');
 
-	if (props.type === 'filled') {
+	if (props.variant === 'filled') {
 		results.push('filled')
-	} else if (props.type === 'outlined') {
+	} else if (props.variant === 'outlined') {
 		results.push('outlined');
 	};
 
@@ -75,6 +75,7 @@ const classes = computed(() => {
 	&.outlined {
 		border: 1px solid $color-neutral-800;
 		color: $color-text-default;
+		background-color: $color-white;
 
 		&:hover {
 			background-color: $color-neutral-950;

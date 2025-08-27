@@ -5,7 +5,9 @@
 		transition="slide-from-bottom"
 		class="justify-contents-center align-items-center"
 		@update:open="$emit('update:open', $event)">
-		<div class="page-lock-modal">
+		<form
+			class="page-lock-modal"
+			@submit.prevent="checkPassword">
 			<div class="title">
 				頁面已鎖定，請輸入密碼
 			</div>
@@ -29,16 +31,16 @@
 			</div>
 			<div class="d-flex justify-contents-end align-items-center gap-space-xs action-btns">
 				<Button
-					type="outlined"
+					variant="outlined"
+					type="button"
 					@click="goToWorksPage">
 					取消
 				</Button>
-				<Button
-					@click="checkPassword">
+				<Button type="submit">
 					確認
 				</Button>
 			</div>
-		</div>
+		</form>
 	</ModalOverlay>
 </template>
 

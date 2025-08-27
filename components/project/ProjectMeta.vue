@@ -22,7 +22,7 @@
 					</ClientOnly>
 				</Button>
 				<Button
-					type="outlined"
+					variant="outlined"
 					class="w-full d-flex justify-contents-space-between"
 					@click="isMobile ? $emit('open-btm-sheet') : toggleContent()">
 					<span>About the project</span>
@@ -130,6 +130,8 @@ function toggleContent() {
 	
 			.tagline {
 				font-size: $font-size-sm;
+				line-height: 1.2;
+				margin-bottom: $space-sm;
 				color: $color-text-secondary;
 				transition: font-size .3s ease-out;
 			}
