@@ -8,7 +8,7 @@ export const MINERALS_CONFIG = [
 	{
 		id: 'moonstone',
 		startX: undefined,
-		startY: 30,
+		startY: 100,
 		type: BODY_TYPES.VERTEX,
 		vertices: [
 			{ x: -130, y: -114 },
@@ -48,7 +48,7 @@ export const MINERALS_CONFIG = [
 	{
 		id: 'labradorite-oval',
 		startX: undefined,
-		startY: 100,
+		startY: 30,
 		type: BODY_TYPES.VERTEX,
 		vertices: [
 			{ x: 0, y: -136 },
