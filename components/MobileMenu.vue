@@ -85,7 +85,7 @@ onUnmounted(() => {
 	z-index: $z-index-common-modal;
 	height: 100dvh;
 	background-color: $color-neutral-100;
-	color: $color-white;
+	color: $color-neutral-850;
 	padding: $space-xl;
 	border-radius: $radius-base;
 	overflow-y: scroll;
@@ -106,11 +106,19 @@ onUnmounted(() => {
 			padding: $space-md;
 			border-radius: $radius-base;
 			background-color: $color-neutral-200;
-			color: $color-neutral-850;
 		}
 
 		.education-card {
 			font-size: $font-size-base;
+		}
+	}
+
+	:deep(.me-button.outlined) {
+		border: 1px solid $color-neutral-800;
+		color: $color-neutral-950;
+
+		&:hover {
+			background-color: $color-neutral-300;
 		}
 	}
 }

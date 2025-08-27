@@ -42,12 +42,7 @@ const classes = computed(() => {
 	const results = [];
 
 	if (props.size === 'lg') results.push('large');
-
-	if (props.variant === 'filled') {
-		results.push('filled')
-	} else if (props.variant === 'outlined') {
-		results.push('outlined');
-	};
+	results.push(props.variant);
 
 	return results;
 });
@@ -75,7 +70,6 @@ const classes = computed(() => {
 	&.outlined {
 		border: 1px solid $color-neutral-800;
 		color: $color-text-default;
-		background-color: $color-white;
 
 		&:hover {
 			background-color: $color-neutral-950;

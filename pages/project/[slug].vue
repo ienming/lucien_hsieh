@@ -55,7 +55,6 @@
 			v-model="isBottomSheetOpen"
 			:title="projectData.title"
 			:meta="projectData" />
-		<!-- TODO: 之後改成用 middleware 檢查 -->
 		<PageLockModal
 			v-model:open="isPageLockVisible"
 			:page-id="route.params.slug"
@@ -88,6 +87,7 @@ const isBottomSheetOpen = ref(false);
 const isPageLockVisible = ref(false);
 
 const getPageData = async () => {
+	// TODO: 搬到 middleware 配合頁面密碼鎖定作檢查
 	const { slug } = route.params;
 
 	if (!slug) return;

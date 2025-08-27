@@ -327,8 +327,8 @@ onUnmounted(async() => {
 			right: $space-sm;
 			bottom: $space-sm;
 			transform: unset;
-			padding: inherit;
-			font-size: inherit;
+			padding: $space-xs $space-sm;
+			font-size: $font-size-base;
 		}
 	}
 }
