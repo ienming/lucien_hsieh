@@ -5,7 +5,7 @@
 				v-if="isOverlayOpen"
 				class="overlay"
 				:class="[attrs.class]"
-				@click.self="$emit('update:open', false)">
+				@click.self="overlayClosable ? $emit('update:open', false) : null">
 				<Transition
 					:name="transition"
 					mode="out-in">
@@ -24,6 +24,10 @@ const {open} = defineProps({
 	open: {
 		type: Boolean,
 		default: false,
+	},
+	overlayClosable: {
+		type: Boolean,
+		default: true,
 	},
 	transition: {
 		type: String,

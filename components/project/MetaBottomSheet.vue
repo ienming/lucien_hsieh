@@ -43,7 +43,7 @@
 <script setup>
 import BottomSheet from "@douxcode/vue-spring-bottom-sheet";
 import "@douxcode/vue-spring-bottom-sheet/dist/style.css";
-import splitMultiLine from "~/libs/helper";
+import {splitMultiLine} from "~/libs/helper";
 
 const {title, meta} = defineProps({
 	title: {

@@ -17,6 +17,7 @@ const props = defineProps({
 	type: {
 		type: String,
 		default: 'filled',
+		validator: (value) => ['filled', 'outlined'].includes(value),
 	},
 	size: {
 		type: String,

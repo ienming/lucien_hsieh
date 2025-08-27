@@ -69,7 +69,7 @@
 
 <script setup>
 import {GESTURE_DIRECTION} from '~/constants/interaction';
-import splitMultiLine from '~/libs/helper';
+import {splitMultiLine} from '~/libs/helper';
 
 const {title, meta} = defineProps({
 	title: {

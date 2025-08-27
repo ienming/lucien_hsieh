@@ -1,0 +1,63 @@
+@use "./_variables" as *;
+
+.form-input-container {
+	margin-bottom: $space-md;
+
+	.me-input {
+		// TODO: 建立 form 相關的顏色
+		border: 1px solid $color-neutral-600;
+		padding: 0 $space-sm;
+		border-radius: $radius-xs;
+
+		&:focus {
+			box-shadow: 0 0 0 4px $color-neutral-900;
+		}
+
+		&.error {
+			border-color: $color-warning;
+			animation: shake 0.4s ease;
+
+			&:focus {
+				box-shadow: 0 0 0 4px $color-warning-base;
+			}
+		}
+	}
+
+	.hint-container {
+		position: relative;
+		margin-top: $space-xs;
+	}
+
+	.error-msg {
+		position: absolute;
+		color: $color-warning;
+		font-size: $font-size-sm;
+	}
+}
+
+@keyframes shake {
+	0% {
+		transform: translateX(0);
+	}
+	15% {
+		transform: translateX(-6px);
+	}
+	30% {
+		transform: translateX(6px);
+	}
+	45% {
+		transform: translateX(-6px);
+	}
+	60% {
+		transform: translateX(6px);
+	}
+	75% {
+		transform: translateX(-3px);
+	}
+	90% {
+		transform: translateX(3px);
+	}
+	100% {
+		transform: translateX(0);
+	}
+}

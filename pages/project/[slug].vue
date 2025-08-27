@@ -55,6 +55,12 @@
 			v-model="isBottomSheetOpen"
 			:title="projectData.title"
 			:meta="projectData" />
+		<!-- TODO: 之後改成用 middleware 檢查 -->
+		<PageLockModal
+			v-model:open="isPageLockVisible"
+			:page-id="route.params.slug"
+			:password="projectData.password"
+			@pass="unlockPage" />
 	</div>
 </template>
 
@@ -63,11 +69,13 @@ import ProjectMeta from '~/components/project/ProjectMeta.vue';
 import ProjectCredit from '~/components/project/ProjectCredit.vue';
 import ProjectNext from '~/components/project/ProjectNext.vue';
 import MetaBottomSheet from '~/components/project/MetaBottomSheet.vue';
+import PageLockModal from '~/components/project/PageLockModal.vue';
 import ImageRenderer from '~/components/content/ImageRenderer.vue'
 import Lightbox from '~/components/Lightbox.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
-import splitMultiLine from '~/libs/helper';
+import { splitMultiLine, getPageUnlockRecords } from '~/libs/helper';
 
+const route = useRoute();
 const projectData = ref({});
 const nextProjectData = ref({});
 const isPageDataReady = ref(false);
@@ -77,9 +85,9 @@ const currentImg = ref(0);
 const lightboxImages = ref([]);
 const isLightboxVisible = ref(false);
 const isBottomSheetOpen = ref(false);
+const isPageLockVisible = ref(false);
 
 const getPageData = async () => {
-	const route = useRoute();
 	const { slug } = route.params;
 
 	if (!slug) return;
@@ -139,17 +147,23 @@ function openLightbox(src) {
 	}
 }
 
+function unlockPage() {
+	isPageLockVisible.value = false;
+	isPageDataReady.value = true;
+}
+
 try {
 	await getPageData();
 
 	setTimeout(() => {
-		// TODO: 調整密碼 modal
-		// if (projectData.value.password) {
-		// 	alert('Enter the password');
-		// } else {
-		// 	isPageDataReady.value = true;
-		// }
-		isPageDataReady.value = true;
+		const unlockedRecords = getPageUnlockRecords();
+		const isPageUnlocked = !!unlockedRecords[route.params.slug];
+
+		if (projectData.value.password && !isPageUnlocked) {
+			isPageLockVisible.value = true;
+		} else {
+			isPageDataReady.value = true;
+		}
 	}, 300);
 } catch (error) {
 	throw createError(error);
