@@ -1,15 +1,24 @@
 <template>
-	<li class="project-prose-li">
+	<div class="project-prose-ul">
 		<slot mdc-unwrap="p" />
-	</li>
+	</div>
 </template>
 
 <style lang="scss" scoped>
-.project-prose-li {
+.project-prose-ul {
 	width: 100%;
 	padding: 0 $space-base;
 	margin: $space-base 0;
 	word-break: break-all;
+
+	:global(ul) {
+		padding-inline-start: $space-xl;
+		list-style: disc;
+	
+		> li {
+			margin-bottom: $space-sm;
+		}
+	}
 
 	@include response(md) {
 		width: 50%;
