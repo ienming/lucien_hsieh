@@ -73,6 +73,7 @@ const classes = computed(() => {
 
 	&.outlined {
 		border: 1px solid $color-neutral-800;
+		color: $color-text-default;
 
 		&:hover {
 			background-color: $color-neutral-950;

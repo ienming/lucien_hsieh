@@ -82,7 +82,6 @@ onMounted(async () => {
 	const { width: canvasWidth, height: canvasHeight } = canvasContainer.getBoundingClientRect();
 	engine = Engine.create();
 	const world = engine.world;
-	world.gravity.scale = 0.0015;
 	render = Render.create({
 		element: canvasContainer,
 		canvas: canvasRef.value,

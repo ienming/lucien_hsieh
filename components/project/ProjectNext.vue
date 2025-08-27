@@ -93,7 +93,11 @@ const {title, subtitle, path, tags, cover} = meta;
 
 	.next-info {
 		.title {
-			font-size: $font-size-xl;
+			font-size: $font-size-lg;
+
+			@include response(md) {
+				font-size: $font-size-xl;
+			}
 		}
 
 		.subtitle {

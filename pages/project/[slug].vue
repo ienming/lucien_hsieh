@@ -110,13 +110,14 @@ const getPageData = async () => {
 };
 
 function prepareContentImages(props) {
-	const {src, alt, title, class: className} = props;
+	const {src, alt, title, desc, class: className} = props;
 						
 	if (src &&
 		className?.includes(LIGHTBOX_CLASS_NAME) &&
 		!lightboxImages.value.filter(img => img.url === src).length) {
 		lightboxImages.value.push({
 			title: title ?? '',
+			desc: desc ?? '',
 			url: src,
 		});
 	}
