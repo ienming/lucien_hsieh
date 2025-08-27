@@ -318,12 +318,17 @@ onUnmounted(async() => {
 		bottom: $space-lg;
 		transform: translateX(50%);
 		justify-content: center;
+		padding-top: $space-base;
+		padding-bottom: $space-base;
+		font-size: $font-size-md;
 
 		@include response(md) {
 			width: max-content;
 			right: $space-sm;
 			bottom: $space-sm;
 			transform: unset;
+			padding: inherit;
+			font-size: inherit;
 		}
 	}
 }
