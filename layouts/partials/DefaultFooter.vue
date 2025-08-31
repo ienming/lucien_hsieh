@@ -4,7 +4,7 @@
 			<span class="send-signal">Send a Signal</span>
 			<a 
 				href="mailto:hsieh.alan.0726@gmail.com"
-				class="email">hsieh.alan.0726@gmail.com</a>
+				class="fade-link email">hsieh.alan.0726@gmail.com</a>
 		</div>
 		<div class="d-flex justify-contents-space-between copyright-footer">
 			<span>©{{ thisYear }} all rights reserved</span>

@@ -6,7 +6,7 @@
 			<NuxtLink
 				to="/"
 				class="logo">
-				<span class="cross-off-link">LUCIEN</span>
+				<span class="fade-link">LUCIEN</span>
 			</NuxtLink>
 		</div>
 		<!-- Desktop -->
