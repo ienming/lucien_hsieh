@@ -155,16 +155,18 @@ function unlockPage() {
 try {
 	await getPageData();
 
-	setTimeout(() => {
-		const unlockedRecords = getPageUnlockRecords();
-		const isPageUnlocked = !!unlockedRecords[route.params.slug];
-
-		if (projectData.value.password && !isPageUnlocked) {
-			isPageLockVisible.value = true;
-		} else {
-			isPageDataReady.value = true;
-		}
-	}, 300);
+	if (import.meta.client) {
+		setTimeout(() => {
+			const unlockedRecords = getPageUnlockRecords();
+			const isPageUnlocked = !!unlockedRecords[route.params.slug];
+	
+			if (projectData.value.password && !isPageUnlocked) {
+				isPageLockVisible.value = true;
+			} else {
+				isPageDataReady.value = true;
+			}
+		}, 300);
+	}
 } catch (error) {
 	throw createError(error);
 }
