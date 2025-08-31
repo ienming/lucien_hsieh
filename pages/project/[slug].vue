@@ -153,18 +153,22 @@ function unlockPage() {
 }
 
 try {
-	await getPageData();
+	const { data, error, pending } = await useFetch('/api/hello')
+	console.log('data', data.value)
+	console.log('error', error.value)
+	console.log('pending', pending.value)
+	// await getPageData();
 
-	setTimeout(() => {
-		const unlockedRecords = getPageUnlockRecords();
-		const isPageUnlocked = !!unlockedRecords[route.params.slug];
+	// setTimeout(() => {
+	// 	const unlockedRecords = getPageUnlockRecords();
+	// 	const isPageUnlocked = !!unlockedRecords[route.params.slug];
 
-		if (projectData.value.password && !isPageUnlocked) {
-			isPageLockVisible.value = true;
-		} else {
-			isPageDataReady.value = true;
-		}
-	}, 300);
+	// 	if (projectData.value.password && !isPageUnlocked) {
+	// 		isPageLockVisible.value = true;
+	// 	} else {
+	// 		isPageDataReady.value = true;
+	// 	}
+	// }, 300);
 } catch (error) {
 	throw createError(error);
 }
