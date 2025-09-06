@@ -8,15 +8,16 @@
 .project-prose-h3 {
 	width: 100%;
 	padding: 0 $space-base;
-	margin: $space-base 0;
+	margin: $space-md 0;
 	word-break: break-all;
-	font-size: $font-size-lg;
+	font-size: $font-size-md;
 	font-weight: 600;
 
 	@include response(md) {
 		width: 50%;
+		font-size: $font-size-lg;
 		padding: 0 0 0 $space-lg;
-		margin: $space-4xl 0;
+		margin: $space-3xl 0;
 	}
 }
 </style>
