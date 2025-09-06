@@ -197,11 +197,12 @@ try {
 		
 		.project-intro {
 			grid-column: 1 / 4;
-			margin-bottom: $space-xl;
+			margin: $space-xl 0 $space-6xl 0;
 			font-size: $font-size-md;
 			line-height: 1.65;
 
 			@include response(md) {
+				margin-top: 0;
 				margin-bottom: $space-4xl;
 				font-size: $font-size-lg;
 			}

@@ -148,8 +148,7 @@ function toggleContent() {
 		}
 	
 		.actions {
-			padding: $space-sm 0 $space-xs 0;
-			border-top: 1px solid $color-neutral-900;
+			padding: $space-xs 0;
 
 			.toggle-btn {
 				transition: transform .2s ease-out;
