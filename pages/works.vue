@@ -64,6 +64,7 @@ const getPageData = async () => {
 		subTitle: project.subtitle,
 		tagline: project.tagline,
 		year: String(project.year),
+		type: project.type,
 		tags: project.tags,
 		cover: project.cover,
 		mineral: project.mineral,

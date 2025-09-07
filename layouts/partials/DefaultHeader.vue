@@ -6,7 +6,10 @@
 			<NuxtLink
 				to="/"
 				class="logo">
-				<span class="fade-link">LUCIEN</span>
+				<Avatar :img="'/avatar.jpg'" />
+				<span class="fade-link">
+					LUCIEN
+				</span>
 			</NuxtLink>
 		</div>
 		<!-- Desktop -->
@@ -24,7 +27,7 @@
 			<NuxtLink
 				class="link fade-right-link"
 				@click="isAboutModalOpen = true">
-				<span>(curator)</span>
+				<span>(creator)</span>
 			</NuxtLink>
 		</nav>
 		<!-- Mobile -->
@@ -57,11 +60,10 @@ const isMobileMenuOpen = ref(false);
 	transform: translateX(-50%) translateY(0);
 	z-index: $z-index-common-fixed;
 	transition: transform .3s ease-in-out;
-	padding: $space-sm;
+	padding: $space-lg $space-base;
 	grid-template-columns: repeat(2, 1fr);
 	row-gap: $space-lg;
 	align-items: flex-start;
-	background-color: $color-background-container;
 	border-radius: 0 0 $radius-sm $radius-sm;
 
 	@include response(md) {
@@ -70,12 +72,15 @@ const isMobileMenuOpen = ref(false);
 	}
 
 	.logo {
+		display: flex;
+		align-items: center;
+		gap: $space-sm;
 		font-size: $font-size-lg;
 	}
 
 	.nav {
 		grid-template-columns: repeat(3, 1fr);
-		font-size: $font-size-lg;
+		font-size: $font-size-md;
 	}
 
 	&.hide {

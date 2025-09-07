@@ -16,7 +16,9 @@ export default defineContentConfig({
 					cate: z.string(),
 					to: z.string(),
 				})),
+				type: z.string(),
 				tags: z.array(z.string()),
+				libraries: z.string(),
 				cover: z.string(),
 				links: z.array(z.object({
 					label: z.string(),
