@@ -14,6 +14,8 @@
 </template>
 
 <script setup>
+import { showSplitTextOnHover } from '~/libs/animate';
+
 defineProps({
 	showCreator: {
 		type: Boolean,
@@ -22,6 +24,15 @@ defineProps({
 });
 
 const thisYear = new Date().getFullYear();
+let cleanUp;
+
+onMounted(() => {
+	cleanUp = showSplitTextOnHover('.custom-footer .email');
+});
+
+onUnmounted(() => {
+	cleanUp();
+});
 </script>
 
 <style lang="scss" scoped>

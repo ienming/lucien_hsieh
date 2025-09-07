@@ -58,7 +58,6 @@ defineEmits(['mouse-enter-item', 'filter-by-tag']);
 
 const listItemRef = useTemplateRef('img-list-item');
 defineExpose({el: listItemRef});
-
 const {isMobile} = useIsMobile();
 </script>
 

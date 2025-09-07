@@ -101,7 +101,6 @@ const getPageData = async () => {
 
 		const projects = await queryCollection('project')
 			.where('draft', '=', false)
-			.order('year', 'DESC')
 			.select('title', 'subtitle', 'path', 'tags', 'cover')
 			.all();
 

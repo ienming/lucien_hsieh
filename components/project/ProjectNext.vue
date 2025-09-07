@@ -18,7 +18,9 @@
 				placeholder />
 			<div class="d-flex flex-column gap-space-base next-info">
 				<div class="info-header">
-					<div class="title">{{ title }}</div>
+					<div
+						ref="nextProjectTitle"
+						class="title">{{ title }}</div>
 					<div class="subtitle">{{ subtitle }}</div>
 				</div>
 				<div class="d-flex gap-space-sm tags">
@@ -33,14 +35,28 @@
 </template>
 
 <script setup>
+import { showSplitTextOnHover } from '~/libs/animate';
+
 const {meta} = defineProps({
 	meta: {
 		type: Object,
-		default: () => {},
+		default: () => ({}),
 	},
 })
 
 const {title, subtitle, path, tags, cover} = meta;
+const nextProjectTitle = ref(null);
+let cleanUp;
+
+onMounted(async () => {
+	if (nextProjectTitle.value) {
+		cleanUp = showSplitTextOnHover(nextProjectTitle.value, {}, '.project-next');
+	}
+});
+
+onUnmounted(() => {
+	cleanUp();
+});
 </script>
 
 <style scoped lang="scss">
@@ -49,8 +65,6 @@ const {title, subtitle, path, tags, cover} = meta;
 	transition: opacity .3s ease-out;
 
 	&:hover {
-		// TODO: 改成別的動態
-		opacity: $opacity-50;
 		cursor: pointer;
 	}
 

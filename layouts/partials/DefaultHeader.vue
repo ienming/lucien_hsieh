@@ -45,10 +45,22 @@
 
 <script setup>
 import {GESTURE_DIRECTION} from '~/constants/interaction';
+import { showSplitTextOnHover } from '~/libs/animate';
 
 const {direction} = useScrollDirection();
 const isAboutModalOpen = ref(false);
 const isMobileMenuOpen = ref(false);
+let cleanUp;
+
+onMounted(() => {
+	cleanUp = showSplitTextOnHover('.custom-header .fade-right-link', {
+		stagger: 0.02,
+	});
+});
+
+onUnmounted(() => {
+	cleanUp();
+})
 </script>
 
 <style lang="scss" scoped>
