@@ -58,6 +58,7 @@
 		<PageLockModal
 			v-model:open="isPageLockVisible"
 			:page-id="route.params.slug"
+			:page-title="projectData.title"
 			:password="projectData.password"
 			@pass="unlockPage" />
 	</div>
@@ -112,6 +113,10 @@ const getPageData = async () => {
 	
 	projectData.value = data.value.project;
 	nextProjectData.value = data.value.nextProject;
+
+	useHead({
+		title: `${projectData.value.title} | Lucien Hsieh`,
+	});
 
 	// 整理資料
 	projectData.value.introParas = splitMultiLine(projectData.value.intros);
@@ -197,11 +202,12 @@ try {
 		
 		.project-intro {
 			grid-column: 1 / 4;
-			margin-bottom: $space-xl;
+			margin: $space-xl 0 $space-6xl 0;
 			font-size: $font-size-md;
 			line-height: 1.65;
 
 			@include response(md) {
+				margin-top: 0;
 				margin-bottom: $space-4xl;
 				font-size: $font-size-lg;
 			}

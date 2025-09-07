@@ -1,22 +1,13 @@
 <template>
 	<div class="block-content">
-		<h3 class="title">{{ title }}</h3>
-		<p class="content">{{ content }}</p>
+		<h3 class="title">
+			<slot name="title" mdc-unwrap="p" />
+		</h3>
+		<div class="content">
+			<slot name="content" />
+		</div>
 	</div>
 </template>
-
-<script setup>
-defineProps({
-	title: {
-		type: String,
-		default: 'Section Title',
-	},
-	content: {
-		type: String,
-		default: 'Content...',
-	},
-});
-</script>
 
 <style scoped lang="scss">
 .block-content {
@@ -41,6 +32,16 @@ defineProps({
 		@include response(md) {
 			font-size: $font-size-xl;
 		}
+	}
+
+	:deep(.content p) {
+		margin-bottom: $space-base;
+		text-align: justify;
+	}
+
+	:deep(.subtitle) {
+		margin-bottom: $space-md;
+		font-weight: 600;
 	}
 }
 </style>
