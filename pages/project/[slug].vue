@@ -115,7 +115,7 @@ const getPageData = async () => {
 	nextProjectData.value = data.value.nextProject;
 
 	useHead({
-		title: `${projectData.value.title} | Lucien Hsieh`,
+		title: projectData.value.title,
 	});
 
 	// 整理資料
@@ -205,6 +205,7 @@ try {
 			margin: $space-xl 0 $space-6xl 0;
 			font-size: $font-size-md;
 			line-height: 1.65;
+			text-align: justify;
 
 			@include response(md) {
 				margin-top: 0;

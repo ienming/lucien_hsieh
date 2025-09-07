@@ -6,7 +6,6 @@
 			<NuxtLink
 				to="/"
 				class="logo">
-				<Avatar :img="'/avatar.jpg'" />
 				<span class="fade-link">
 					LUCIEN
 				</span>
@@ -65,9 +64,8 @@ const isMobileMenuOpen = ref(false);
 	row-gap: $space-lg;
 	align-items: flex-start;
 	border-radius: 0 0 $radius-sm $radius-sm;
-
+	
 	@include response(md) {
-		background-color: transparent;
 		padding: $space-md $space-xl;
 	}
 

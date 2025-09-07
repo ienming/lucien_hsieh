@@ -8,6 +8,11 @@
 <script setup>
 import Workbench from '~/components/workbench/Workbench.vue';
 
+useHead({
+	title: 'Lucien Hsieh',
+	titleTemplate: null,
+});
+
 const allProjects = ref([]);
 const getPageData = async () => {
 	const { data } = await useAsyncData('core-works', async () => {

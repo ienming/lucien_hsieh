@@ -26,7 +26,7 @@ export default defineNuxtConfig({
 	},
 	app: {
 		head: {
-			title: 'Lucien Hsieh',
+			titleTemplate: '%s | Lucien Hsieh',
 			link: [
 				{
 					rel: 'icon',
