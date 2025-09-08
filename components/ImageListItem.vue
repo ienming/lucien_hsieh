@@ -12,10 +12,9 @@
 				class="d-flex flex-column flex-md-row info"
 				@mouseenter="isMobile ? null : $emit('mouse-enter-item')">
 				<span class="title">{{ title }}</span>
-				<span class="sub-title">{{ subTitle }}</span>
 				<span
 					v-if="isMobile"
-					class="tagline">{{ tagline }}</span>
+					class="sub-title">{{ subTitle }}</span>
 			</div>
 			<div class="meta">
 				<p class="year">{{ year }}</p>
@@ -41,10 +40,6 @@ defineProps({
 		type: String,
 		default: '',
 	},
-	tagline: {
-		type: String,
-		default: '',
-	},
 	tags: {
 		type: Array,
 		default: () => [],
@@ -63,7 +58,6 @@ defineEmits(['mouse-enter-item', 'filter-by-tag']);
 
 const listItemRef = useTemplateRef('img-list-item');
 defineExpose({el: listItemRef});
-
 const {isMobile} = useIsMobile();
 </script>
 
@@ -119,12 +113,6 @@ const {isMobile} = useIsMobile();
 			@include response(md) {
 				font-size: $font-size-base;
 			}
-		}
-
-		.tagline {
-			margin-top: $space-sm;
-			display: inline-block;
-			font-size: $font-size-base;
 		}
 
 		@include response(md) {

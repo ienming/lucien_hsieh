@@ -1,6 +1,7 @@
 <template>
 	<ModalOverlay
 		:open="open"
+		transition="page"
 		@update:open="('update:open', $event)">
 		<div class="mobile-menu">
 			<div class="d-flex justify-contents-space-between align-items-center mb-space-md header">
@@ -38,10 +39,10 @@
 					<Avatar :img="'/avatar.jpg'" />
 					<div class="d-flex flex-column gap-space-sm mt-space-base common-paragraph">
 						<p>
-							Lucien Hsieh 謝明倫 專注在使用者前端體驗，有約 3 年UIUX 設計及前端開發經驗。喜歡結合網頁前端與設計、資料視覺化方面的興趣。希望能將不同的內容轉譯成有趣的敘事作品。
+							Lucien Hsieh 謝明倫專注於將概念轉化為視覺、可互動的數位媒體，有約 3 年設計與前端開發經驗。希望能將不同的內容轉譯成有趣的敘事作品。
 						</p>
 						<p>
-							Have three years experiences in UIUX design and frontend development. I use web frontend technologies to express my interests in design, illustration, story, and data visualization.
+							I’m Lucien — a front-end developer who also design. I have 3 years experiences in the field. I craft interfaces, build interactions and wrap them in concepts that tell a story.
 						</p>
 					</div>
 				</div>
@@ -113,7 +114,7 @@ onUnmounted(() => {
 		}
 	}
 
-	:deep(.me-button.outlined) {
+	:deep(.luc-button.outlined) {
 		border: 1px solid $color-neutral-800;
 		color: $color-neutral-950;
 

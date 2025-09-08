@@ -1,6 +1,6 @@
 <template>
 	<section class="mb-space-6xl">
-		<h1 class="container work-list-h1">works</h1>
+		<h1 class="container work-list-h1">ALL WORKS</h1>
 		<!-- TODO: 可以考慮加上按鈕切換 list view / card view -->
 		<div
 			v-if="filters.length"
@@ -51,6 +51,10 @@ const nowImgUrl = ref('');
 const filters = ref([]);
 const allProjects = ref([]);
 
+useHead({
+	title: 'Works',
+});
+
 const getPageData = async () => {
 	const { data } = await useAsyncData('works', async () => {
 		return await queryCollection('project')
@@ -64,6 +68,7 @@ const getPageData = async () => {
 		subTitle: project.subtitle,
 		tagline: project.tagline,
 		year: String(project.year),
+		type: project.type,
 		tags: project.tags,
 		cover: project.cover,
 		mineral: project.mineral,
@@ -134,11 +139,10 @@ function GoToProject(id) {
 
 <style lang="scss" scoped>
 .work-list-h1 {
-	font-size: $font-size-2xl;
+	font-size: $font-size-4xl;
 	padding-left: $space-base;
 
-	@include response(md) {
-		font-size: $font-size-4xl;
+	@include response(lg) {
 		padding-left: $space-xl;
 	}
 }

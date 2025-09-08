@@ -99,8 +99,7 @@ function toggleContent() {
 <style lang="scss" scoped>
 .project-meta {
 	position: fixed;
-	//TODO: 把 header 高度統一變共用
-	--header-height: 68px;
+	--header-height: 40px;
 	--space-between-header: calc(-1 * #{$space-base});
 	top: calc(var(--header-height) + var(--space-between-header));
 	left: 0;
@@ -148,8 +147,7 @@ function toggleContent() {
 		}
 	
 		.actions {
-			padding: $space-sm 0 $space-xs 0;
-			border-top: 1px solid $color-neutral-900;
+			padding: $space-xs 0;
 
 			.toggle-btn {
 				transition: transform .2s ease-out;

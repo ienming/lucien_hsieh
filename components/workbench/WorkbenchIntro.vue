@@ -3,14 +3,14 @@
 		v-if="isMobile"
 		class="d-flex flex-column gap-space-sm workbench-intro">
 		<div class="d-flex gap-space-lg justify-contents-space-between align-items-start">
-			<p class="title">Hi👋 I'm Lucien, a designer focused on UI/UX and front-end development</p>
+			<p class="title">Hi👋 I'm Lucien, I focused on digital storytelling and front-end development</p>
 		</div>
 	</div>
 	<div
 		v-else
 		class="d-flex flex-column gap-space-sm workbench-intro">
 		<div class="d-flex gap-space-lg justify-contents-space-between align-items-start">
-			<p class="title">Hi👋 I'm Lucien, a designer focused on UI/UX and front-end development</p>
+			<p class="title">Hi👋 I'm Lucien, I focused on digital storytelling and front-end development</p>
 			<div
 				class="micro-interaction-btn"
 				@click="showContent = !showContent">

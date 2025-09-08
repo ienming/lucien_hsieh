@@ -19,10 +19,10 @@
 				</div>
 				<div class="d-flex flex-column gap-space-sm common-paragraph">
 					<p>
-						Lucien Hsieh 謝明倫專注於 UI/UX 與前端開發，有約 3 年網頁設計與開發經驗。喜歡結合設計、前端與插畫方面的興趣。希望能將不同的內容轉譯成有趣的敘事作品。
+						Lucien Hsieh 謝明倫專注於將概念轉化為視覺、可互動的數位媒體，有約 3 年設計與前端開發經驗。希望能將不同的內容轉譯成有趣的敘事作品。
 					</p>
 					<p>
-						I’m Lucien — a UI/UX designer and front-end developer, having 3 years experiences in the field. I craft interfaces, build interactions, illustrate, and wrap them in concepts that tell a story.
+						I’m Lucien — a front-end developer who also design. I have 3 years experiences in the field. I craft interfaces, build interactions and wrap them in concepts that tell a story.
 					</p>
 				</div>
 			</div>

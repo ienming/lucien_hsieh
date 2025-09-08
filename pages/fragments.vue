@@ -79,6 +79,10 @@ const fragments = ref([]);
 // 	return !!selectingFacets.value.length;
 // })
 
+useHead({
+	title: 'Fragments'
+});
+
 const getData = async () => {
 	const { data } = await useAsyncData('fragments', async () => {
 		return queryCollection('fragments').all();
