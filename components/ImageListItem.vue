@@ -5,9 +5,10 @@
 		<div class="align-items-center item-container">
 			<NuxtImg
 				:src="cover"
-				class="d-md-none cover"
+				:class="imgFloatOnMobile"
 				loading="lazy"
-				placeholder />
+				placeholder
+				class="d-md-none cover" />
 			<div
 				class="d-flex flex-column flex-md-row info"
 				@mouseenter="isMobile ? null : $emit('mouse-enter-item')">
@@ -31,6 +32,8 @@
 </template>
 
 <script setup>
+import { showSplitTextOnHover } from '~/libs/animate';
+
 defineProps({
 	title: {
 		type: String,
@@ -59,6 +62,22 @@ defineEmits(['mouse-enter-item', 'filter-by-tag']);
 const listItemRef = useTemplateRef('img-list-item');
 defineExpose({el: listItemRef});
 const {isMobile} = useIsMobile();
+let imgFloatOnMobile;
+
+let cleanUp;
+
+onMounted(() => {
+	if (!isMobile.value) {
+		cleanUp = showSplitTextOnHover(listItemRef.value.querySelector('.info .title'), {}, '.img-list-item');
+	}
+	imgFloatOnMobile = Math.random() - 0.5 > 0 ? 'left' : 'right';
+});
+
+onUnmounted(() => {
+	if (cleanUp) {
+		cleanUp();
+	}
+});
 </script>
 
 <style scoped lang="scss">
@@ -67,15 +86,12 @@ const {isMobile} = useIsMobile();
 	z-index: 1;
 	max-width: $content-max-width;
 	padding: $space-xs;
-	background-color: $color-white;
-	border: 1px solid $color-neutral-900;
-	border-radius: $radius-base;
-	margin-bottom: -1px;
 	list-style: none;
 	cursor: pointer;
 
 	@include response(md) {
-		padding: $space-md $space-xl;
+		padding: $space-base $space-xl;
+		border-bottom: 1px solid $color-neutral-800;
 	}
 		
 	.item-container {
@@ -86,13 +102,23 @@ const {isMobile} = useIsMobile();
 		row-gap: $space-sm;
 
 		@include response(md) {
-			grid-template-columns: repeat(2, 1fr);
+			grid-template-columns: repeat(4, 1fr);
 			margin-bottom: 0;
 		}
 
 		.cover {
 			aspect-ratio: 4/3;
 			object-fit: cover;
+			width: 80%;
+			margin-bottom: $space-6xl;
+
+			&.left {
+				margin-right: auto;
+			}
+
+			&.right {
+				margin-left: auto;
+			}
 		}
 	}
 
@@ -119,6 +145,7 @@ const {isMobile} = useIsMobile();
 			margin-bottom: 0;
 			align-items: baseline;
 			gap: $space-base;
+			grid-column: 1 / 4;
 		}
 	}
 
@@ -144,7 +171,8 @@ const {isMobile} = useIsMobile();
 		}
 
 		@include response(md) {
-			grid-template-columns: repeat(3, 1fr);
+			grid-template-columns: repeat(2, 1fr);
+			grid-column: 4 / -1;
 		}
 	}
 }

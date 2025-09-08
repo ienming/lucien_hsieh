@@ -1,6 +1,6 @@
 <template>
 	<header
-		class="d-grid align-items-center container custom-header"
+		class="container custom-header"
 		:class="{hide: direction === GESTURE_DIRECTION.DOWN}">
 		<div>
 			<NuxtLink
@@ -14,11 +14,6 @@
 		<!-- Desktop -->
 		<nav class="d-none d-md-grid nav">
 			<NuxtLink
-				to="/works"
-				class="link fade-right-link">
-				<span>WORKS</span>
-			</NuxtLink>
-			<NuxtLink
 				to="/fragments"
 				class="link fade-right-link">
 				<span>FRAGMENTS</span>
@@ -29,14 +24,7 @@
 				<span>(creator)</span>
 			</NuxtLink>
 		</nav>
-		<!-- Mobile -->
-		<div
-			class="d-md-none mobile-menu"
-			@click="isMobileMenuOpen = true">
-			MENU
-		</div>
 		<AboutModal v-model:open="isAboutModalOpen" />
-		<MobileMenu v-model:open="isMobileMenuOpen"/>
 	</header>
 </template>
 
@@ -46,7 +34,6 @@ import { showSplitTextOnHover } from '~/libs/animate';
 
 const {direction} = useScrollDirection();
 const isAboutModalOpen = ref(false);
-const isMobileMenuOpen = ref(false);
 let cleanUp;
 
 onMounted(() => {
@@ -69,14 +56,17 @@ onUnmounted(() => {
 	z-index: $z-index-common-fixed;
 	transition: transform .3s ease-in-out;
 	padding: $space-lg $space-base;
-	grid-template-columns: repeat(2, 1fr);
-	row-gap: $space-lg;
-	align-items: flex-start;
+	display: flex;
+	justify-content: center;
 	border-radius: 0 0 $radius-sm $radius-sm;
 	color: $color-white;
 	mix-blend-mode: difference;
 	
 	@include response(md) {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		row-gap: $space-lg;
+		align-items: flex-start;
 		padding: $space-md $space-xl;
 	}
 
@@ -88,17 +78,13 @@ onUnmounted(() => {
 	}
 
 	.nav {
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(2, 1fr);
+		grid-column: 4 / -1;
 		font-size: $font-size-md;
 	}
 
 	&.hide {
 		transform: translateX(-50%) translateY(-100%);
-	}
-
-	.mobile-menu {
-		justify-self: end;
-		padding: $space-xs;
 	}
 }
 </style>

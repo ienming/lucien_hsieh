@@ -5,9 +5,6 @@
 		@update:open="('update:open', $event)">
 		<div class="mobile-menu">
 			<div class="d-flex justify-contents-space-between align-items-center mb-space-md header">
-				<div class="text-muted logo">
-					LUCIEN
-				</div>
 				<div class="close">
 				<ClientOnly>
 					<Icon
@@ -18,20 +15,14 @@
 			</div>
 			<nav>
 				<ul class="d-flex flex-column gap-space-md">
-					<li class="nav-link">
-						<NuxtLink
-							to="/works"
-							class="d-block">
-							<span>WORKS</span>
-						</NuxtLink>
-					</li>
-					<li class="nav-link">
+					<!-- TODO: 暫時隱藏 -->
+					<!-- <li class="nav-link">
 						<NuxtLink
 							to="/fragments"
 							class="d-block">
 							<span>FRAGMENTS</span>
 						</NuxtLink>
-					</li>
+					</li> -->
 				</ul>
 			</nav>
 			<section class="about">
@@ -85,7 +76,6 @@ onUnmounted(() => {
 	width: 100%;
 	z-index: $z-index-common-modal;
 	height: 100dvh;
-	background-color: $color-neutral-100;
 	color: $color-neutral-850;
 	padding: $space-xl;
 	border-radius: $radius-base;

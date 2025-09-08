@@ -4,10 +4,6 @@ export const WORK_TYPES = {
 		id: 'landing page',
 		color: '#4AEC5D',
 	},
-	FE: {
-		id: 'frontend',
-		color: '#E4EC4A',
-	},
 	DATA_VIZ: {
 		id: 'data visualization',
 		color: '#AA6AF9',
