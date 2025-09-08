@@ -1,60 +1,70 @@
 <template>
 	<div>
-		<article
-			v-if="isPageDataReady"
-			class="project-article">
-			<!-- ProjectMeta for mobile -->
-			<ProjectMeta
-				v-if="isMobile"
-				:title="projectData.title"
-				:meta="projectData"
-				class="project-meta-mobile"
-				@open-btm-sheet="isBottomSheetOpen = true" />
-			<section class="d-grid header">
-				<div class="project-intro">
-					<p
-						v-for="(para, idx) of projectData.introParas"
-						:key="idx"
-						:class="{'mb-space-base': idx !== projectData.introParas.length - 1}">
-						{{ para }}
-					</p>
+		<Transition
+			name="page"
+			mode="out-in">
+			<article
+				v-if="isPageDataReady"
+				class="project-article">
+				<div>
+					<NuxtImg
+						:src="projectData.cover"
+						class="w-full hero-img" />
 				</div>
-				<ProjectMeta
-					v-if="!isMobile"
-					:title="projectData.title"
-					:meta="projectData" />
-			</section>
-			<ContentRenderer
-				:value="projectData"
-				:components="{
-					img: prepareContentImages,
-				}"
-			/>
-			<!-- Footer Area -->
-			<section class="d-flex credit-container">
-				<ProjectCredit :credits="projectData.credits" />
-			</section>
-			<section class="d-flex justify-contents-center align-items-center next-container">
-				<ProjectNext :meta="nextProjectData" />
-			</section>
-		</article>
-		<article
-			v-else
-			class="project-article loading">
-			<div class="p-space-xl">
-				<Skeleton class="mb-space-2xl" />
-				<Skeleton />
-			</div>
-		</article>
+				<section class="d-grid header">
+					<div class="project-intro">
+						<p
+							v-for="(para, idx) of projectData.introParas"
+							:key="idx"
+							:class="{'mb-space-base': idx !== projectData.introParas.length - 1}">
+							{{ para }}
+						</p>
+					</div>
+					<ProjectMeta
+						v-if="!isMobile"
+						:title="projectData.title"
+						:meta="projectData" />
+				</section>
+				<section
+					v-if="isMobile"
+					class="d-flex flex-column gap-space-base project-meta-mobile">
+					<div class="d-flex justify-contents-space-between flex-wrap gap-space-base meta-mobile-header">
+						<span class="d-flex align-items-center">&lt;Year&gt; {{ projectData.year }}</span>
+						<div class="d-flex gap-space-xs flex-wrap align-items-center types">
+							&lt;Type&gt;
+							<WorkTypeChip
+								v-for="tag of projectData.tags" 
+								:key="tag"
+								:type="tag"
+								:clickable="false" />
+						</div>
+					</div>
+					<Link
+						v-for="link of projectData.links"
+						:key="link.url"
+						:url="link.url"
+						:label="link.label"
+						class="meta-mobile-link" />
+				</section>
+				<ContentRenderer
+					:value="projectData"
+					:components="{
+						img: prepareContentImages,
+					}"
+				/>
+				<!-- Footer Area -->
+				<section class="d-flex credit-container">
+					<ProjectCredit :credits="projectData.credits" />
+				</section>
+				<section class="d-flex justify-contents-center align-items-center next-container">
+					<ProjectNext :meta="nextProjectData" />
+				</section>
+			</article>
+		</Transition>
 		<Lightbox
 			v-model:open="isLightboxVisible"
 			:start-idx="currentImg"
 			:images="lightboxImages" />
-		<MetaBottomSheet
-			v-if="isPageDataReady"
-			v-model="isBottomSheetOpen"
-			:title="projectData.title"
-			:meta="projectData" />
 		<PageLockModal
 			v-model:open="isPageLockVisible"
 			:page-id="route.params.slug"
@@ -68,10 +78,10 @@
 import ProjectMeta from '~/components/project/ProjectMeta.vue';
 import ProjectCredit from '~/components/project/ProjectCredit.vue';
 import ProjectNext from '~/components/project/ProjectNext.vue';
-import MetaBottomSheet from '~/components/project/MetaBottomSheet.vue';
 import PageLockModal from '~/components/project/PageLockModal.vue';
 import ImageRenderer from '~/components/content/ImageRenderer.vue'
 import Lightbox from '~/components/Lightbox.vue';
+import Link from '~/components/Link.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
 import { splitMultiLine, getPageUnlockRecords } from '~/libs/helper';
 
@@ -84,7 +94,6 @@ const {isMobile} = useIsMobile();
 const currentImg = ref(0);
 const lightboxImages = ref([]);
 const isLightboxVisible = ref(false);
-const isBottomSheetOpen = ref(false);
 const isPageLockVisible = ref(false);
 
 const getPageData = async () => {
@@ -96,7 +105,7 @@ const getPageData = async () => {
 	const { data } = await useAsyncData(`project-${slug}`, async () => {
 		const project = await queryCollection('project')
 			.path(`/project/${slug}`)
-			.select('password', 'title', 'tagline', 'year', 'credits', 'tags', 'links', 'about', 'intros', 'body')
+			.select('password', 'title', 'tagline', 'year', 'cover', 'credits', 'tags', 'links', 'about', 'intros', 'body')
 			.first();
 
 		const projects = await queryCollection('project')
@@ -181,13 +190,18 @@ try {
 	max-width: $content-max-width;
 	margin: 0 auto;
 
-	@include response(md) {
-		padding-top: $space-5xl;
-	}
-
 	.project-meta-mobile {
-		position: initial;
-		margin-bottom: $space-base;
+		margin: $space-base $space-base $space-4xl $space-base;
+		padding: $space-sm;
+		justify-content: flex-start;
+
+		.meta-mobile-header {
+			font-size: $font-size-sm;
+		}
+
+		.meta-mobile-link {
+			align-self: self-end;
+		}
 	}
 
 	.header {
@@ -201,21 +215,24 @@ try {
 		
 		.project-intro {
 			grid-column: 1 / 4;
-			margin: $space-xl 0 $space-6xl 0;
+			margin: $space-xl 0 $space-4xl 0;
 			font-size: $font-size-md;
-			line-height: 1.65;
+			line-height: 1.5;
 			text-align: justify;
 
 			@include response(md) {
-				margin-top: 0;
-				margin-bottom: $space-4xl;
 				font-size: $font-size-lg;
 			}
 		}
 	}
 
-	&.loading {
-		min-height: 60vh;
+	.hero-img {
+		aspect-ratio: 1 / 1.25;
+		object-fit: cover;
+
+		@include response(md) {
+			aspect-ratio: 9 / 4;
+		}
 	}
 
 	.credit-container {

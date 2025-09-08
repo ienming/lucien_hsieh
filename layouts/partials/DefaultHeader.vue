@@ -30,13 +30,10 @@
 			</NuxtLink>
 		</nav>
 		<!-- Mobile -->
-		<div class="d-md-none mobile-menu">
-			<ClientOnly>
-				<Icon
-					name="iconoir:menu"
-					class="d-block"
-					@click="isMobileMenuOpen = true" />
-			</ClientOnly>
+		<div
+			class="d-md-none mobile-menu"
+			@click="isMobileMenuOpen = true">
+			MENU
 		</div>
 		<AboutModal v-model:open="isAboutModalOpen" />
 		<MobileMenu v-model:open="isMobileMenuOpen"/>
@@ -76,6 +73,8 @@ onUnmounted(() => {
 	row-gap: $space-lg;
 	align-items: flex-start;
 	border-radius: 0 0 $radius-sm $radius-sm;
+	color: $color-white;
+	mix-blend-mode: difference;
 	
 	@include response(md) {
 		padding: $space-md $space-xl;
@@ -99,11 +98,7 @@ onUnmounted(() => {
 
 	.mobile-menu {
 		justify-self: end;
-		background-color: $color-white;
 		padding: $space-xs;
-		border-radius: $radius-xs;
-		border: 1px solid $color-neutral-900;
-		font-size: $font-size-2xl;
 	}
 }
 </style>

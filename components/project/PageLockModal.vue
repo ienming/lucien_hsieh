@@ -18,7 +18,7 @@
 					<input
 						v-model="inputPassword"
 						:type="nowInputType"
-						class="me-input w-full"
+						class="luc-input w-full"
 						:class="{'error': isErrMsgShow}"
 						@input="resetInputState">
 					<ClientOnly>
@@ -154,7 +154,7 @@ function goToWorksPage() {
 	}
 
 	.action-btns {
-		:deep(.me-button) {
+		:deep(.luc-button) {
 			width: 100%;
 			justify-content: center;
 
@@ -169,7 +169,7 @@ function goToWorksPage() {
 	.input-container {
 		position: relative;
 
-		.me-input {
+		.luc-input {
 			padding-right: $space-lg;
 		}
 

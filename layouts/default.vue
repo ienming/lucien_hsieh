@@ -1,10 +1,10 @@
 <template>
 	<div>
-		<DefaultHeader v-show="isNotIndex" />
-		<main :class="{'with-header': isNotIndex}">
+		<DefaultHeader v-show="isNoIndex" />
+		<main :class="{'with-header': isNeedHeaderMargin}">
 			<slot />
 		</main>
-		<DefaultFooter v-if="isNotIndex" />
+		<DefaultFooter v-if="isNoIndex" />
 	</div>
 </template>
 
@@ -13,11 +13,15 @@ import DefaultHeader from './partials/DefaultHeader';
 import DefaultFooter from './partials/DefaultFooter';
 
 const route = useRoute();
-const isNotIndex = computed(() => route.path !== '/');
+const isNoIndex = computed(() => route.path !== '/');
+const isNeedHeaderMargin = computed(() => {
+	return route.path !== '/' && !route.path.includes('/project/');
+});
 </script>
 
 <style lang="scss">
 main {
+	min-height: 100vh;
 
 	&.with-header {
 		--header-height: 90px;

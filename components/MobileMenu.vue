@@ -1,6 +1,7 @@
 <template>
 	<ModalOverlay
 		:open="open"
+		transition="page"
 		@update:open="('update:open', $event)">
 		<div class="mobile-menu">
 			<div class="d-flex justify-contents-space-between align-items-center mb-space-md header">
@@ -113,7 +114,7 @@ onUnmounted(() => {
 		}
 	}
 
-	:deep(.me-button.outlined) {
+	:deep(.luc-button.outlined) {
 		border: 1px solid $color-neutral-800;
 		color: $color-neutral-950;
 
