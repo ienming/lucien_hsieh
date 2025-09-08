@@ -20,13 +20,6 @@
 				<ul class="d-flex flex-column gap-space-md">
 					<li class="nav-link">
 						<NuxtLink
-							to="/works"
-							class="d-block">
-							<span>WORKS</span>
-						</NuxtLink>
-					</li>
-					<li class="nav-link">
-						<NuxtLink
 							to="/fragments"
 							class="d-block">
 							<span>FRAGMENTS</span>

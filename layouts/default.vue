@@ -16,7 +16,7 @@ import MobileMenuHamburger from '~/components/MobileMenuHamburger.vue';
 
 const route = useRoute();
 const isNeedHeaderMargin = computed(() => {
-	return route.path !== '/' && !route.path.includes('/project/');
+	return !route.path.includes('/project/');
 });
 </script>
 

@@ -122,7 +122,7 @@ function updateUnlockRecord() {
 }
 
 function goToWorksPage() {
-	navigateTo('/works');
+	navigateTo('/');
 }
 </script>
 

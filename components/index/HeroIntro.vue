@@ -2,19 +2,13 @@
 	<div
 		class="d-flex flex-column gap-space-sm hero-intro">
 		<div class="d-flex gap-space-lg justify-contents-space-between align-items-start">
-			<p class="title">Hi👋 I'm Lucien, I focused on digital storytelling and front-end development</p>
+			<p
+				ref="heroTitle"
+				class="title">Hi👋 I'm Lucien, I focused on digital storytelling and front-end development</p>
 		</div>
 		<div class="common-paragraph">
 			<p>這裡就像我的工作調查台，收藏著我在沿途探索與挖掘出的作品。</p>
 		</div>
-		<Button
-			to="/works"
-			class="d-flex justify-contents-center align-items-center core-work-btn">
-			所有作品 All works
-			<ClientOnly>
-				<Icon name="iconoir:arrow-right" />
-			</ClientOnly>
-		</Button>
 	</div>
 </template>
 
@@ -22,8 +16,10 @@
 import { gsap } from 'gsap';
 import SplitText from 'gsap/SplitText';
 
+const heroTitle = useTemplateRef('heroTitle');
+
 onMounted(() => {
-	const split = SplitText.create('.title', {
+	const split = SplitText.create(heroTitle.value, {
 		type: 'chars, lines',
 		mask: 'lines',
 	});
@@ -46,6 +42,7 @@ onMounted(() => {
 	width: 70vw;
 	max-width: 420px;
 	pointer-events: auto;
+	margin: 0 auto;
 
 	.title {
 		font-size: $font-size-md;
