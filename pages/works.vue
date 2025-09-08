@@ -139,10 +139,11 @@ function GoToProject(id) {
 
 <style lang="scss" scoped>
 .work-list-h1 {
-	font-size: $font-size-4xl;
+	font-size: $font-size-xl;
 	padding-left: $space-base;
 
 	@include response(lg) {
+		font-size: $font-size-4xl;
 		padding-left: $space-xl;
 	}
 }

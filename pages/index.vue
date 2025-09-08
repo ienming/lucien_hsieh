@@ -1,41 +1,17 @@
 <template>
 	<section class="p-space-sm pb-0">
-		<Workbench
-			:projects="allProjects" />
+		<HeroIntro />
 	</section>
 </template>
 
 <script setup>
-import Workbench from '~/components/workbench/Workbench.vue';
+import HeroIntro from '~/components/workbench/HeroIntro.vue';
 
 useHead({
 	title: 'Lucien Hsieh',
 	titleTemplate: null,
 });
-
-const allProjects = ref([]);
-const getPageData = async () => {
-	const { data } = await useAsyncData('core-works', async () => {
-		return await queryCollection('project')
-			.where('mineral', 'IS NOT NULL')
-			.all();
-	});
-
-	allProjects.value = data.value.map(project => ({
-		id: project.path.split('/')[2],
-		title: project.title,
-		subTitle: project.subtitle,
-		tagline: project.tagline,
-		year: project.year,
-		tags: project.tags,
-		cover: project.cover,
-		mineral: project.mineral,
-	}));
-};
-
-try {
-	await getPageData();
-} catch(error) {
-	throw createError(error);
-}
 </script>
+
+<style lang="scss" scoped>
+</style>

@@ -1,19 +1,20 @@
 <template>
 	<div>
-		<DefaultHeader v-show="isNoIndex" />
+		<DefaultHeader />
 		<main :class="{'with-header': isNeedHeaderMargin}">
 			<slot />
+			<MobileMenuHamburger />
 		</main>
-		<DefaultFooter v-if="isNoIndex" />
+		<DefaultFooter />
 	</div>
 </template>
 
 <script setup>
 import DefaultHeader from './partials/DefaultHeader';
 import DefaultFooter from './partials/DefaultFooter';
+import MobileMenuHamburger from '~/components/MobileMenuHamburger.vue';
 
 const route = useRoute();
-const isNoIndex = computed(() => route.path !== '/');
 const isNeedHeaderMargin = computed(() => {
 	return route.path !== '/' && !route.path.includes('/project/');
 });
