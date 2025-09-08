@@ -142,6 +142,7 @@ function goToWorksPage() {
 	}
 
 	.title {
+		font-size: $font-size-md;
 		font-weight: 600;
 		margin: $space-md 0;
 		text-align: center;

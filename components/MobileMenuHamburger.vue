@@ -1,14 +1,18 @@
 <template>
 	<div
 		class="mobile-menu-hamburger"
+		:class="{hide: direction === GESTURE_DIRECTION.DOWN}"
 		@click="isMobileMenuOpen = true">
-		MENU
+		(creator)
 	</div>
 	<MobileMenu v-model:open="isMobileMenuOpen"/>
 </template>
 
 <script setup>
+import { GESTURE_DIRECTION } from '~/constants/interaction';
+
 const isMobileMenuOpen = ref(false);
+const {direction} = useScrollDirection();
 </script>
 
 <style lang="scss" scoped>
@@ -22,10 +26,15 @@ const isMobileMenuOpen = ref(false);
 	background-color: $color-neutral-100;
 	border-radius: $radius-sm;
 	color: $color-white;
-	padding: $space-md;
+	padding: $space-sm $space-base;
+	transition: transform .3s ease-in-out;
 
 	@include response(md) {
 		display: none;
+	}
+
+	&.hide {
+		transform: translateX(-50%) translateY(100%);
 	}
 }
 </style>

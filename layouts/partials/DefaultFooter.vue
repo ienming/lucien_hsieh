@@ -48,7 +48,7 @@ onUnmounted(() => {
 		max-height: 330px;
 		padding: $space-md $space-md $space-3xl $space-md;
 		border-radius: $radius-sm;
-		background-color: $color-neutral-850;
+		background: linear-gradient(90deg, $color-neutral-900, $color-neutral-950);
 		color: $color-neutral-200;
 		display: grid;
 		grid-template-rows: repeat(2, 1fr);
@@ -81,7 +81,8 @@ onUnmounted(() => {
 		@include response(md) {
 			grid-template-rows: unset;
 			grid-template-columns: repeat(2, 1fr);
-			height: auto;
+			max-height: 250px;
+			margin-top: 180px;
 		}
 	}
 
