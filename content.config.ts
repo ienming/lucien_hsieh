@@ -26,7 +26,6 @@ export default defineContentConfig({
 				})),
 				about: z.string(),
 				intros: z.string(),
-				mineral: z.string(),
 			}),
 		}),
 

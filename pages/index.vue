@@ -73,7 +73,6 @@ const getPageData = async () => {
 		type: project.type,
 		tags: project.tags,
 		cover: project.cover,
-		mineral: project.mineral,
 	}));
 };
 

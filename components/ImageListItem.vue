@@ -62,8 +62,7 @@ defineEmits(['mouse-enter-item', 'filter-by-tag']);
 const listItemRef = useTemplateRef('img-list-item');
 defineExpose({el: listItemRef});
 const {isMobile} = useIsMobile();
-
-const imgFloatOnMobile = Math.random() - 0.5 > 0 ? 'left' : 'right';
+let imgFloatOnMobile;
 
 let cleanUp;
 
@@ -71,6 +70,7 @@ onMounted(() => {
 	if (!isMobile.value) {
 		cleanUp = showSplitTextOnHover(listItemRef.value.querySelector('.info .title'), {}, '.img-list-item');
 	}
+	imgFloatOnMobile = Math.random() - 0.5 > 0 ? 'left' : 'right';
 });
 
 onUnmounted(() => {
@@ -90,7 +90,7 @@ onUnmounted(() => {
 	cursor: pointer;
 
 	@include response(md) {
-		padding: $space-md $space-xl;
+		padding: $space-base $space-xl;
 		border-bottom: 1px solid $color-neutral-800;
 	}
 		
