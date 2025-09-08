@@ -2,7 +2,6 @@
 	<ModalOverlay
 		:open="open"
 		@update:open="('update:open', $event)">
-		<!-- TODO: 讓手機版也變成 bottomSheet -->
 		<div class="facet-selector">
 			<div class="d-flex justify-contents-end align-items-center">
 				<ClientOnly>

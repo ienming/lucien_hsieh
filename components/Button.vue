@@ -5,7 +5,7 @@
 		:to="to"
 		:target="target"
 		:class="classes"
-		class="me-button">
+		class="luc-button">
 		<slot />
 	</component>
 </template>
@@ -49,7 +49,7 @@ const classes = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.me-button {
+.luc-button {
 	display: flex;
 	align-items: center;
 	gap: $space-xs;
