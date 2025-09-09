@@ -1,7 +1,7 @@
 <template>
 	<section class="mb-space-6xl">
 		<Hero />
-		<h1 class="container work-list-h1">Worklist</h1>
+		<h1 class="container all-works-h1">All works</h1>
 		<!-- TODO: 可以考慮加上按鈕切換 list view / card view -->
 		<div
 			v-if="filters.length"
@@ -55,6 +55,7 @@ const allProjects = ref([]);
 
 useHead({
 	title: 'Lucien Hsieh',
+	titleTemplate: null,
 });
 
 const getPageData = async () => {
@@ -139,7 +140,7 @@ function GoToProject(id) {
 </script>
 
 <style lang="scss" scoped>
-.work-list-h1 {
+.all-works-h1 {
 	font-size: $font-size-xl;
 	padding-left: $space-base;
 

@@ -27,7 +27,7 @@
 import { gsap } from 'gsap';
 import SplitText from 'gsap/SplitText';
 
-const heroTitle = useTemplateRef('heroTitle');
+const heroTitleRef = useTemplateRef('heroTitle');
 const handlerMaps = new Map();
 
 function revealIcon(target) {
@@ -41,7 +41,7 @@ function revealIcon(target) {
 }
 
 onMounted(() => {
-	const triggers = heroTitle.value.querySelectorAll('.hidden-trigger');
+	const triggers = heroTitleRef.value.querySelectorAll('.hidden-trigger');
 	triggers.forEach(trigger => {
 		const img = trigger.querySelector('.hidden-img');
 		const handler = () => revealIcon(img);
@@ -49,7 +49,7 @@ onMounted(() => {
 		handlerMaps.set(trigger, handler);
 	});
 
-	const split = SplitText.create(heroTitle.value, {
+	const split = SplitText.create(heroTitleRef.value, {
 		type: 'words',
 		mask: 'words',
 	});

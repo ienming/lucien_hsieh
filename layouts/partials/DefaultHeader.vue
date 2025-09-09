@@ -2,29 +2,27 @@
 	<header
 		class="container custom-header"
 		:class="{hide: direction === GESTURE_DIRECTION.DOWN}">
-		<div>
-			<NuxtLink
-				to="/"
-				class="logo">
-				<span class="fade-link">
-					LUCIEN
-				</span>
-			</NuxtLink>
-		</div>
+		<NuxtLink
+			to="/"
+			class="logo">
+			<span class="fade-link">
+				LUCIEN
+			</span>
+		</NuxtLink>
 		<!-- Desktop -->
 		<nav class="d-none d-md-grid nav">
 			<NuxtLink
-				to="/fragments"
-				class="link fade-right-link">
-				<span>FRAGMENTS</span>
-			</NuxtLink>
-			<NuxtLink
 				class="link fade-right-link"
-				@click="isAboutModalOpen = true">
+				@click="isAboutCardOpen = true">
 				<span>(creator)</span>
 			</NuxtLink>
 		</nav>
-		<AboutModal v-model:open="isAboutModalOpen" />
+		<Teleport to="body">
+			<AboutCard
+				v-if="isAboutCardOpen"
+				v-model:open="isAboutCardOpen"
+				class="about-card-desktop" />
+		</Teleport>
 	</header>
 </template>
 
@@ -33,7 +31,7 @@ import {GESTURE_DIRECTION} from '~/constants/interaction';
 import { showSplitTextOnHover } from '~/libs/animate';
 
 const {direction} = useScrollDirection();
-const isAboutModalOpen = ref(false);
+const isAboutCardOpen = ref(false);
 let cleanUp;
 
 onMounted(() => {
@@ -64,7 +62,7 @@ onUnmounted(() => {
 	
 	@include response(md) {
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(3, 1fr);
 		row-gap: $space-lg;
 		align-items: flex-start;
 		padding: $space-md $space-xl;
@@ -75,11 +73,15 @@ onUnmounted(() => {
 		align-items: center;
 		gap: $space-sm;
 		font-size: $font-size-lg;
+
+		@include response(md) {
+			grid-column: 1 / span 2;
+		}
 	}
 
 	.nav {
-		grid-template-columns: repeat(2, 1fr);
-		grid-column: 4 / -1;
+		grid-template-columns: repeat(1, 1fr);
+		justify-self: flex-end;
 		font-size: $font-size-md;
 	}
 
