@@ -7,6 +7,7 @@
 		<div v-else>
 			<h2>{{ error.statusCode }}</h2>
 		</div>
+		<p>{{ error.message }}</p>
 		<Button
 			@click="handleError">
 			Clear errors

@@ -2,44 +2,53 @@
 	<section class="mb-space-6xl">
 		<Hero />
 		<h1 class="container all-works-h1">All works</h1>
-		<!-- TODO: 可以考慮加上按鈕切換 list view / card view -->
-		<div
-			v-if="filters.length"
-			class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container filter-container">
-			<span class="text-muted">Tagged with</span>
-			<Chip
-				v-for="filter of filters"
-				:key="filter"
-				:label="WORK_TYPES[filter].id"
-				:closable="true"
-				@click="removeFilter(filter)" />
-		</div>
-		<div @mouseleave="handleProjectHoverEnd">
-			<ul class="d-flex flex-column align-items-center project-list">
-				<TransitionGroup name="fade">
-					<ImageListItem
-						v-for="project of projects"
-						:key="project.id"
-						:title="project.title"
-						:sub-title="project.subTitle"
-						:tagline="project.tagline"
-						:cover="project.cover"
-						:year="project.year"
-						:tags="project.tags"
-						class="w-full"
-						@mouse-enter-item="handleProjectHoverStart(project.id)"
-						@filter-by-tag="filterProject"
-						@click="GoToProject(project.id)" />
-				</TransitionGroup>
-			</ul>
-			<Transition name="slide-from-right">
-				<KeyImage
-					v-if="!isMobile && nowImgUrl"
-					:url="nowImgUrl"
-					:tagline="nowProject.tagline ? nowProject.tagline : 'Find out the process...'"
-					@click="GoToProject(nowProject.id)" />
-			</Transition>
-		</div>
+		<section v-if="error">
+			Something went wrong...
+		</section>
+		<section v-else-if="allProjects.length">
+			<!-- TODO: 可以考慮加上按鈕切換 list view / card view -->
+			<div
+				v-if="filters.length"
+				class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container filter-container">
+				<span class="text-muted">Tagged with</span>
+				<Chip
+					v-for="filter of filters"
+					:key="filter"
+					:label="WORK_TYPES[filter].id"
+					:closable="true"
+					@click="removeFilter(filter)" />
+			</div>
+			<div @mouseleave="handleProjectHoverEnd">
+				<ul class="d-flex flex-column align-items-center project-list">
+					<TransitionGroup name="fade">
+						<ImageListItem
+							v-for="project of projects"
+							:key="project.id"
+							:title="project.title"
+							:sub-title="project.subTitle"
+							:tagline="project.tagline"
+							:cover="project.cover"
+							:year="project.year"
+							:tags="project.tags"
+							class="w-full"
+							@mouse-enter-item="handleProjectHoverStart(project.id)"
+							@filter-by-tag="filterProject"
+							@click="GoToProject(project.id)" />
+					</TransitionGroup>
+				</ul>
+				<Transition name="slide-from-right">
+					<KeyImage
+						v-if="!isMobile && nowImgUrl"
+						:url="nowImgUrl"
+						:tagline="nowProject.tagline ? nowProject.tagline : 'Find out the process...'"
+						@click="GoToProject(nowProject.id)" />
+				</Transition>
+			</div>
+		</section>
+		<section v-else>
+			<Skeleton class="mb-space-2xl" />
+			<Skeleton />
+		</section>
 	</section>
 </template>
 
@@ -47,25 +56,24 @@
 import Hero from '~/components/index/Hero.vue';
 import { WORK_TYPES } from '~/constants/content';
 
-const {isMobile} = useIsMobile();
-const nowProject = ref({});
-const nowImgUrl = ref('');
-const filters = ref([]);
-const allProjects = ref([]);
-
 useHead({
 	title: 'Lucien Hsieh',
 	titleTemplate: null,
 });
+const router = useRouter();
+const {isMobile} = useIsMobile();
 
-const getPageData = async () => {
-	const { data } = await useAsyncData('works', async () => {
-		return await queryCollection('project')
-			.where('draft', '=', false)
-			.all();
-	});
+const nowProject = ref({});
+const nowImgUrl = ref('');
+const filters = ref([]);
 
-	allProjects.value = data.value.map(project => ({
+const { data: allProjects, error } = await useAsyncData('works', async () => {
+	const allResults = await queryCollection('project')
+		.where('draft', '=', false)
+		.select('path', 'title', 'subtitle', 'tagline', 'year', 'type', 'tags', 'cover')
+		.all();
+
+	return allResults.map(project => ({
 		id: project.path.split('/')[2],
 		title: project.title,
 		subTitle: project.subtitle,
@@ -75,7 +83,7 @@ const getPageData = async () => {
 		tags: project.tags,
 		cover: project.cover,
 	}));
-};
+});
 
 const projects = computed(() => {
 	if (!filters.value.length) {
@@ -98,12 +106,6 @@ const projects = computed(() => {
 
 	return results;
 });
-
-try {
-	await getPageData();
-} catch(error) {
-	throw createError(error);
-}
 
 function handleProjectHoverStart(id) {
 	const targetProject = findTargetProject(id);
@@ -134,7 +136,6 @@ function removeFilter(tag) {
 }
 
 function GoToProject(id) {
-	const router = useRouter();
 	router.push(`/project/${id}`);
 }
 </script>

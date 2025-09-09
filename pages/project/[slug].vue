@@ -86,41 +86,39 @@ import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
 import { splitMultiLine, getPageUnlockRecords } from '~/libs/helper';
 
 const route = useRoute();
+const {isMobile} = useIsMobile();
+
 const projectData = ref({});
 const nextProjectData = ref({});
 const isPageDataReady = ref(false);
-const {isMobile} = useIsMobile();
-
 const currentImg = ref(0);
 const lightboxImages = ref([]);
 const isLightboxVisible = ref(false);
 const isPageLockVisible = ref(false);
 
-const getPageData = async () => {
-	// TODO: 搬到 middleware 配合頁面密碼鎖定作檢查
-	const { slug } = route.params;
+const { slug } = route.params;
+const { data, error } = await useLazyAsyncData(`project-${slug}`, async () => {
+	const project = await queryCollection('project')
+		.path(`/project/${slug}`)
+		.select('password', 'title', 'tagline', 'year', 'cover', 'credits', 'tags', 'links', 'about', 'intros', 'body')
+		.first();
 
-	if (!slug) return;
+	const projects = await queryCollection('project')
+		.where('draft', '=', false)
+		.select('title', 'subtitle', 'path', 'tags', 'cover')
+		.all();
 
-	const { data } = await useAsyncData(`project-${slug}`, async () => {
-		const project = await queryCollection('project')
-			.path(`/project/${slug}`)
-			.select('password', 'title', 'tagline', 'year', 'cover', 'credits', 'tags', 'links', 'about', 'intros', 'body')
-			.first();
+	const index = projects.findIndex(p => p.path === `/project/${slug}`);
+	const nextProject = projects[index + 1] ?? projects[0];
 
-		const projects = await queryCollection('project')
-			.where('draft', '=', false)
-			.select('title', 'subtitle', 'path', 'tags', 'cover')
-			.all();
+	return { project, nextProject };
+});
 
-		const index = projects.findIndex(p => p.path === `/project/${slug}`);
-		const nextProject = projects[index + 1] ?? projects[0];
+watch(data, newData => {
+	if (!newData) return;
 
-		return { project, nextProject };
-	})
-	
-	projectData.value = data.value.project;
-	nextProjectData.value = data.value.nextProject;
+	projectData.value = newData.project;
+	nextProjectData.value = newData.nextProject;
 
 	useHead({
 		title: projectData.value.title,
@@ -128,7 +126,32 @@ const getPageData = async () => {
 
 	// 整理資料
 	projectData.value.introParas = splitMultiLine(projectData.value.intros);
-};
+
+	if (import.meta.client) {
+		setTimeout(() => {
+			const unlockedRecords = getPageUnlockRecords();
+			const isPageUnlocked = !!unlockedRecords[route.params.slug];
+	
+			if (projectData.value.password && !isPageUnlocked) {
+				isPageLockVisible.value = true;
+			} else {
+				isPageDataReady.value = true;
+			}
+		}, 300);
+	}
+}, {
+	immediate: true,
+});
+
+watch(error, err => {
+	if (!err) return;
+
+	showError({
+		statusCode: error.value?.statusCode || 400,
+		message: error.value?.data?.message || error.value?.message || 'Something went wrong',
+		fatal: true,
+	});
+});
 
 function prepareContentImages(props) {
 	const {src, alt, title, desc, class: className} = props;
@@ -163,25 +186,6 @@ function openLightbox(src) {
 function unlockPage() {
 	isPageLockVisible.value = false;
 	isPageDataReady.value = true;
-}
-
-try {
-	await getPageData();
-
-	if (import.meta.client) {
-		setTimeout(() => {
-			const unlockedRecords = getPageUnlockRecords();
-			const isPageUnlocked = !!unlockedRecords[route.params.slug];
-	
-			if (projectData.value.password && !isPageUnlocked) {
-				isPageLockVisible.value = true;
-			} else {
-				isPageDataReady.value = true;
-			}
-		}, 300);
-	}
-} catch (error) {
-	throw createError(error);
 }
 </script>
 
