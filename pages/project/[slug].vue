@@ -1,66 +1,77 @@
 <template>
 	<div>
-		<Transition
-			name="page"
-			mode="out-in">
-			<article
-				v-if="isPageDataReady"
-				class="project-article">
-				<div>
-					<NuxtImg
-						:src="projectData.cover"
-						class="w-full hero-img" />
-				</div>
-				<section class="d-grid header">
-					<div class="project-intro">
-						<p
-							v-for="(para, idx) of projectData.introParas"
-							:key="idx"
-							:class="{'mb-space-base': idx !== projectData.introParas.length - 1}">
-							{{ para }}
-						</p>
+		<article class="project-article">
+			<Transition
+				name="fade"
+				mode="out-in">
+				<section v-if="isPageDataReady">
+					<div>
+						<NuxtImg
+							:src="projectData.cover"
+							class="w-full hero-img" />
 					</div>
-					<ProjectMeta
-						v-if="!isMobile"
-						:title="projectData.title"
-						:meta="projectData" />
+					<section class="d-grid header">
+						<div class="project-intro">
+							<p
+								v-for="(para, idx) of projectData.introParas"
+								:key="idx"
+								:class="{'mb-space-base': idx !== projectData.introParas.length - 1}">
+								{{ para }}
+							</p>
+						</div>
+						<ProjectMeta
+							v-if="!isMobile"
+							:title="projectData.title"
+							:meta="projectData" />
+					</section>
+					<section
+						v-if="isMobile"
+						class="d-flex flex-column gap-space-base project-meta-mobile">
+						<div class="d-flex justify-contents-space-between flex-wrap gap-space-base meta-mobile-header">
+							<span class="d-flex align-items-center">&lt;Year&gt; {{ projectData.year }}</span>
+							<div class="d-flex gap-space-xs flex-wrap align-items-center types">
+								&lt;Type&gt;
+								<WorkTypeChip
+									v-for="tag of projectData.tags" 
+									:key="tag"
+									:type="tag"
+									:clickable="false" />
+							</div>
+						</div>
+						<Link
+							v-for="link of projectData.links"
+							:key="link.url"
+							:url="link.url"
+							:label="link.label"
+							class="meta-mobile-link" />
+					</section>
+					<ContentRenderer
+						:value="projectData"
+						:components="{
+							img: prepareContentImages,
+						}"
+					/>
+					<!-- Footer Area -->
+					<section class="d-flex credit-container">
+						<ProjectCredit :credits="projectData.credits" />
+					</section>
+					<section class="d-flex justify-contents-center align-items-center next-container">
+						<ProjectNext :meta="nextProjectData" />
+					</section>
 				</section>
 				<section
-					v-if="isMobile"
-					class="d-flex flex-column gap-space-base project-meta-mobile">
-					<div class="d-flex justify-contents-space-between flex-wrap gap-space-base meta-mobile-header">
-						<span class="d-flex align-items-center">&lt;Year&gt; {{ projectData.year }}</span>
-						<div class="d-flex gap-space-xs flex-wrap align-items-center types">
-							&lt;Type&gt;
-							<WorkTypeChip
-								v-for="tag of projectData.tags" 
-								:key="tag"
-								:type="tag"
-								:clickable="false" />
-						</div>
+					v-else
+					class="skeleton-container">
+					<Skeleton
+						type="imageProfile"
+						class="mb-space-4xl" />
+					<div class="pl-space-base pr-space-base w-half">
+						<Skeleton class="mb-space-xl" />
+						<Skeleton />
 					</div>
-					<Link
-						v-for="link of projectData.links"
-						:key="link.url"
-						:url="link.url"
-						:label="link.label"
-						class="meta-mobile-link" />
 				</section>
-				<ContentRenderer
-					:value="projectData"
-					:components="{
-						img: prepareContentImages,
-					}"
-				/>
-				<!-- Footer Area -->
-				<section class="d-flex credit-container">
-					<ProjectCredit :credits="projectData.credits" />
-				</section>
-				<section class="d-flex justify-contents-center align-items-center next-container">
-					<ProjectNext :meta="nextProjectData" />
-				</section>
-			</article>
-		</Transition>
+			</Transition>
+		</article>
 		<Lightbox
 			v-model:open="isLightboxVisible"
 			:start-idx="currentImg"
@@ -192,6 +203,7 @@ function unlockPage() {
 <style lang="scss" scoped>
 .project-article {
 	max-width: $content-max-width;
+	min-height: 100vh;
 	margin: 0 auto;
 
 	.project-meta-mobile {
@@ -253,6 +265,11 @@ function unlockPage() {
 
 	.next-container {
 		margin-bottom: 46px;
+	}
+
+	.skeleton-container {
+		position: absolute;
+		width: 100%;
 	}
 }
 </style>
