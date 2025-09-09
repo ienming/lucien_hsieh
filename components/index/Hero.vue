@@ -27,12 +27,14 @@
 import { gsap } from 'gsap';
 import SplitText from 'gsap/SplitText';
 
+const {isMobile} = useIsMobile();
+
 const heroTitleRef = useTemplateRef('heroTitle');
 const handlerMaps = new Map();
 
 function revealIcon(target) {
 	gsap.to(target, {
-		width: '60px',
+		width: isMobile.value ? '40px' : '60px',
 		opacity: 1,
 		duration: 0.5,
 		rotate: (Math.random() - 1) * 100,

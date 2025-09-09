@@ -2,8 +2,10 @@
 	<div>
 		<DefaultHeader />
 		<main :class="{'with-header': isNeedHeaderMargin}">
-			<slot />
-			<MobileMenuHamburger />
+			<div>
+				<slot />
+			</div>
+			<MobileMenuHamburger v-if="!route.path.includes('/project/')" />
 		</main>
 		<DefaultFooter />
 	</div>

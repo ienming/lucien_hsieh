@@ -24,7 +24,7 @@ const {direction} = useScrollDirection();
 	position: sticky;
 	z-index: $z-index-common-fixed;
 	bottom: 0;
-	padding-bottom: $space-4xl;
+	padding-bottom: $space-md;
 	transition: transform .3s ease-in-out;
 	
 	.trigger {

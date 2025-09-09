@@ -69,7 +69,7 @@ function revealModal() {
 		gsap.to(aboutCardRef.value, {
 			clipPath: 'inset(0% 0% 0% 0% round 6px)',
 			ease: 'power4.out',
-			duration: 1,
+			duration: 0.8,
 		});
 	});
 }
@@ -81,7 +81,6 @@ function handleClose() {
 		gsap.to(aboutCardRef.value, {
 			clipPath: 'inset(0% 0% 100% 0% round 6px)',
 			ease: 'power1.in',
-			duration: 0.5,
 			onComplete: () => {
 				emits('update:open', false);
 			},
@@ -94,13 +93,14 @@ function handleClose() {
 <style lang="scss" scoped>
 .about {
 	position: absolute;
-	bottom: 60px;
+	bottom: 0;
 	left: 0;
 	width: 100%;
 	z-index: $z-index-common-modal;
 	color: $color-neutral-850;
 	padding: $space-3xl;
 	border-radius: $radius-base;
+	max-height: 100vh;
 	overflow-y: scroll;
 
 	.info-card, .contact-card, .education-card {
