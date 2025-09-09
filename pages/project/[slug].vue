@@ -2,7 +2,7 @@
 	<div>
 		<article class="project-article">
 			<Transition
-				name="fade"
+				name="page"
 				mode="out-in">
 				<section v-if="isPageDataReady">
 					<div>
@@ -95,6 +95,10 @@ import Lightbox from '~/components/Lightbox.vue';
 import Link from '~/components/Link.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
 import { splitMultiLine, getPageUnlockRecords } from '~/libs/helper';
+
+definePageMeta({
+	pageTransition: false
+});
 
 const route = useRoute();
 const {isMobile} = useIsMobile();
