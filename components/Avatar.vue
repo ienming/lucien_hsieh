@@ -21,5 +21,6 @@ defineProps({
 	border: 1px solid $color-neutral-900;
 	background-color: $color-neutral-900;
 	background-position: center;
+	background-size: cover;
 }
 </style>

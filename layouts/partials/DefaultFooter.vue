@@ -1,7 +1,7 @@
 <template>
 	<footer class="custom-footer">
 		<div class="contact-footer">
-			<span class="send-signal">Send a Signal</span>
+			<h3 class="send-signal">Send a Signal</h3>
 			<a 
 				href="mailto:hsieh.alan.0726@gmail.com"
 				class="fade-link email">hsieh.alan.0726@gmail.com</a>

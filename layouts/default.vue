@@ -2,10 +2,25 @@
 	<div>
 		<DefaultHeader />
 		<main :class="{'with-header': isNeedHeaderMargin}">
-			<slot />
-			<MobileMenuHamburger />
+			<div>
+				<slot />
+			</div>
+			<!-- TODO: 手機版的導覽 -->
+			<MobileMenuHamburger v-if="!isIndex" />
 		</main>
-		<DefaultFooter />
+		<DefaultFooter v-if="!isIndex" />
+		<ClientOnly>
+			<Teleport to="body">
+				<AllWorks v-model:open="isAllWorksOpen" />
+			</Teleport>
+		</ClientOnly>
+		<ClientOnly>
+			<Teleport to="body">
+				<AboutCard
+					v-model:open="isAboutCardOpen"
+					:class="{'about-card-desktop': !isMobile}" />
+			</Teleport>
+		</ClientOnly>
 	</div>
 </template>
 
@@ -15,8 +30,16 @@ import DefaultFooter from './partials/DefaultFooter';
 import MobileMenuHamburger from '~/components/MobileMenuHamburger.vue';
 
 const route = useRoute();
+const {isMobile} = useIsMobile();
+const {isAllWorksOpen} = useAllWorksModal();
+const {isAboutCardOpen} = useAboutCard();
+
 const isNeedHeaderMargin = computed(() => {
-	return !route.path.includes('/project/');
+	return route.path !== '/' && !route.path.includes('/project/');
+});
+
+const isIndex = computed(() => {
+	return route.path === '/';
 });
 </script>
 

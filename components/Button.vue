@@ -61,10 +61,6 @@ const classes = computed(() => {
 	&.filled {
 		background-color: $color-neutral-100;
 		color: $color-white;
-
-		&:hover {
-			background-color: $color-neutral-300;
-		}
 	}
 
 	&.outlined {

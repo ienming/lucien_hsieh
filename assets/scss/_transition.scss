@@ -66,3 +66,8 @@
 .slide-from-bottom-leave-active {
 	transition: all 0.3s ease;
 }
+
+// GSAP class target
+.modal-clip-mask {
+	clip-path: inset(0% 0% 100% 0% round 6px);
+}
