@@ -4,7 +4,15 @@
 		@update:open="$emit('update:open', $event)">
 		<section class="all-works">
 			<div class="container">
-				<h1 class="all-works-h1">All works</h1>
+				<h1 class="all-works-h1">
+					<span>All works</span>
+					<ClientOnly>
+						<Icon
+							name="iconoir:xmark"
+							class="d-md-none"
+							@click="$emit('update:open', false)" />
+					</ClientOnly>
+				</h1>
 				<section v-if="error">
 					Something went wrong...
 				</section>
@@ -169,6 +177,9 @@ function GoToProject(id) {
 	}
 
 	.all-works-h1 {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 		color: $color-neutral-800;
 		font-size: $font-size-xl;
 	

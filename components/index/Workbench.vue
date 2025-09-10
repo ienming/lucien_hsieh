@@ -305,8 +305,7 @@ onUnmounted(async() => {
 
 <style lang="scss" scoped>
 .workbench {
-	height: calc(80vh - ($space-sm * 2));
-	min-height: 680px;
+	height: calc(80svh - ($space-sm * 2));
 	border-radius: $radius-lg;
 	padding: $space-base;
 	background-color: $color-white;
