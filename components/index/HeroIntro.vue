@@ -25,7 +25,6 @@ const {isAllWorksOpen} = useAllWorksModal();
 	padding: $space-md;
 	border-radius: $radius-sm;
 	border: 1px solid $color-neutral-900;
-	pointer-events: auto;
 	margin-top: -1px;
 	flex-grow: 1;
 	display: flex;

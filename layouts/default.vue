@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<DefaultHeader v-if="!isIndex" />
+		<DefaultHeader />
 		<main :class="{'with-header': isNeedHeaderMargin}">
 			<div>
 				<slot />

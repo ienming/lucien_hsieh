@@ -156,9 +156,10 @@ function GoToProject(id) {
 	display: flex;
 	flex-direction: column;
 	justify-content: end;
-	height: 100vh;
+	min-height: 100vh;
 
 	.container {
+		pointer-events: auto;
 		padding: $space-md $space-md $space-4xl $space-md;
 		overflow-y: scroll;
 
@@ -178,7 +179,6 @@ function GoToProject(id) {
 	
 	.filter-container {
 		color: $color-white;
-		pointer-events: auto;
 	}
 	
 	.work-list {

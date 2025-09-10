@@ -4,7 +4,8 @@
 		:class="{hide: direction === GESTURE_DIRECTION.DOWN}">
 		<NuxtLink
 			to="/"
-			class="logo">
+			class="logo"
+			:class="{'hide': isIndex}">
 			<span class="fade-link">
 				LUCIEN
 			</span>
@@ -32,8 +33,10 @@ import { showSplitTextOnHover } from '~/libs/animate';
 const {direction} = useScrollDirection();
 const {isAllWorksOpen} = useAllWorksModal();
 const {isAboutCardOpen} = useAboutCard();
+const route = useRoute();
 
 let cleanUp;
+const isIndex = computed(() => route.path === '/');
 
 onMounted(() => {
 	cleanUp = showSplitTextOnHover('.custom-header .fade-right-link', {
@@ -74,6 +77,11 @@ onUnmounted(() => {
 		align-items: center;
 		gap: $space-sm;
 		font-size: $font-size-lg;
+
+		&.hide {
+			opacity: 0;
+			visibility: hidden;
+		}
 
 		@include response(md) {
 			grid-column: 1 / span 2;
