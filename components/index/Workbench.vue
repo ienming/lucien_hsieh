@@ -306,7 +306,7 @@ onUnmounted(async() => {
 
 <style lang="scss" scoped>
 .workbench {
-	height: calc(90lvh - ($space-sm * 2));
+	height: calc(80lvh - ($space-sm * 2));
 	border-radius: $radius-lg;
 	padding: $space-base;
 	background-color: $color-white;
@@ -317,7 +317,6 @@ onUnmounted(async() => {
 	@include response(md) {
 		padding: $space-sm;
 		min-height: unset;
-		height: calc(80lvh - ($space-sm * 2));
 	}
 
 	>canvas {

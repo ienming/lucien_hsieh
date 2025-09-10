@@ -29,7 +29,7 @@ function stretchText() {
 	if (!titleRef.value) return;
 
 	gsap.to(titleRef.value, {
-		letterSpacing: 2,
+		letterSpacing: '0.1rem',
 		autoRound: false,
 		ease: 'elastic.out(1,0.3)',
 		duration: 1,
@@ -40,7 +40,7 @@ function releaseText() {
 	if (!titleRef.value) return;
 
 	gsap.to(titleRef.value, {
-		letterSpacing: -2.5,
+		letterSpacing: '-0.08rem',
 		autoRound: false,
 		duration: .2,
 		ease: 'elastic.out(1,0.3)',
@@ -77,7 +77,7 @@ function releaseText() {
 		}
 
 		.title {
-			letter-spacing: -2.5px;
+			letter-spacing: -0.08rem;
 
 			@include response(md) {
 				font-size: 12vh;
