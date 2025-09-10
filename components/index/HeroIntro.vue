@@ -1,5 +1,5 @@
 <template>
-	<div class="d-grid gap-space-sm hero-intro">
+	<div class="hero-intro">
 		<div class="header">
 			<h1 class="title">LUUUUUUUCIEN</h1>
 			<Button
@@ -26,13 +26,16 @@ const {isAllWorksOpen} = useAllWorksModal();
 	border-radius: $radius-sm;
 	border: 1px solid $color-neutral-900;
 	pointer-events: auto;
-	grid-template-rows: max-content max-content;
 	margin-top: -1px;
 	flex-grow: 1;
+	display: flex;
+	flex-direction: column;
+	gap: $space-base;
 
 	@include response(md) {
-		grid-template-columns: repeat(2, 1fr);
-		grid-template-rows: unset;
+		flex-direction: row;
+		align-items: center;
+		gap: $space-4xl;
 	}
 
 	.header {
@@ -46,6 +49,11 @@ const {isAllWorksOpen} = useAllWorksModal();
 
 		.title {
 			letter-spacing: -1.75px;
+
+			@include response(md) {
+				font-size: 12vh;
+				align-items: start;
+			}
 		}
 	}
 	
@@ -57,7 +65,8 @@ const {isAllWorksOpen} = useAllWorksModal();
 		letter-spacing: -0.3px;
 
 		@include response(md) {
-			font-size: $font-size-lg;
+			font-size: $font-size-2xl;
+			letter-spacing: -1px;
 		}
 	}
 }
