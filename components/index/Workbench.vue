@@ -1,5 +1,5 @@
 <template>
-	<div class="w-full workbench">
+	<div class="container workbench">
 		<canvas ref="canvasRef" />
 		<Transition name="slide-from-right">
 			<div
@@ -15,7 +15,8 @@
 							v-for="tag of nowHoverProject.tags"
 							:key="tag"
 							:type="tag"
-							:clickable="false" />
+							:clickable="false"
+							size="sm" />
 					</div>
 				</div>
 				<Button
@@ -305,7 +306,7 @@ onUnmounted(async() => {
 
 <style lang="scss" scoped>
 .workbench {
-	height: calc(80svh - ($space-sm * 2));
+	height: calc(90lvh - ($space-sm * 2));
 	border-radius: $radius-lg;
 	padding: $space-base;
 	background-color: $color-white;
@@ -316,6 +317,7 @@ onUnmounted(async() => {
 	@include response(md) {
 		padding: $space-sm;
 		min-height: unset;
+		height: calc(80lvh - ($space-sm * 2));
 	}
 
 	>canvas {
@@ -372,7 +374,7 @@ onUnmounted(async() => {
 
 		.title {
 			text-align: center;
-			font-size: $font-size-base;
+			font-size: $font-size-sm;
 
 			@include response(md) {
 				font-size: $font-size-md;
@@ -389,7 +391,7 @@ onUnmounted(async() => {
 
 	.hint {
 		padding: $space-xs $space-xs $space-xs $space-sm;
-		font-size: $font-size-sm;
+		font-size: $font-size-xs;
 
 		.shortcut {
 			display: inline-block;
