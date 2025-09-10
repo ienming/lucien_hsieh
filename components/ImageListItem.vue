@@ -89,6 +89,7 @@ onUnmounted(() => {
 	max-width: $content-max-width;
 	list-style: none;
 	cursor: pointer;
+	pointer-events: auto;
 
 	@include response(md) {
 		padding: $space-base $space-xl;

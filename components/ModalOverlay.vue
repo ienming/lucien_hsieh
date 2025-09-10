@@ -34,8 +34,10 @@ const {open} = defineProps({
 		default: 'fade',
 	},
 });
-defineEmits(['update:open']);
+const emits = defineEmits(['update:open']);
 const attrs = useAttrs();
+const router = useRouter();
+
 const isOverlayOpen = ref(false);
 const isModalOpen = ref(false);
 const delayTime = 350;
@@ -63,6 +65,10 @@ function freezeBody() {
 function unfreezeBody() {
 	document.body.style.overflow = 'auto';
 }
+
+router.afterEach(() => {
+	emits('update:open', false);
+});
 
 onUnmounted(() => {
 	unfreezeBody();

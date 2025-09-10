@@ -4,7 +4,6 @@
 		class="about modal-clip-mask">
 		<section>
 			<div class="info-card">
-				<Avatar :img="'/avatar.png'" />
 				<div class="close">
 					<ClientOnly>
 						<Icon
@@ -12,7 +11,7 @@
 							@click="handleClose" />
 					</ClientOnly>
 				</div>
-				<div class="d-flex flex-column gap-space-sm mt-space-base common-paragraph">
+				<div class="d-flex flex-column gap-space-sm common-paragraph">
 					<p>
 						Lucien Hsieh 謝明倫專注於將概念轉化為視覺、可互動的數位媒體，有約 3 年設計與前端開發經驗。希望能將不同的內容轉譯成有趣的敘事作品。
 					</p>
@@ -51,6 +50,7 @@ watch(() => open, async(newVal) => {
 	immediate: true,
 });
 
+// TODO: check
 onMounted(() => {
 	closeAfterNavigate = router.afterEach(() => {
 		emits('update:open', false);

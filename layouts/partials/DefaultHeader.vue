@@ -16,12 +16,19 @@
 				@click="isAboutCardOpen = true">
 				<span>(creator)</span>
 			</NuxtLink>
+			<NuxtLink
+				class="link fade-right-link"
+				@click="isAllWorksOpen = true">
+				<span>(all works)</span>
+			</NuxtLink>
 		</nav>
 		<Teleport to="body">
 			<AboutCard
-				v-if="isAboutCardOpen"
 				v-model:open="isAboutCardOpen"
 				class="about-card-desktop" />
+		</Teleport>
+		<Teleport to="body">
+			<AllWorks v-model:open="isAllWorksOpen" />
 		</Teleport>
 	</header>
 </template>
@@ -32,6 +39,7 @@ import { showSplitTextOnHover } from '~/libs/animate';
 
 const {direction} = useScrollDirection();
 const isAboutCardOpen = ref(false);
+const isAllWorksOpen = ref(false);
 let cleanUp;
 
 onMounted(() => {

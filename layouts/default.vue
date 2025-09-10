@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<DefaultHeader v-if="isNeedHeader" />
+		<DefaultHeader />
 		<main :class="{'with-header': isNeedHeaderMargin}">
 			<div>
 				<slot />
@@ -8,7 +8,7 @@
 			<!-- TODO: 手機版的導覽 -->
 			<!-- <MobileMenuHamburger v-if="!route.path.includes('/project/')" /> -->
 		</main>
-		<DefaultFooter />
+		<DefaultFooter v-if="!isIndex" />
 	</div>
 </template>
 
@@ -21,8 +21,8 @@ const route = useRoute();
 const isNeedHeaderMargin = computed(() => {
 	return route.path !== '/' && !route.path.includes('/project/');
 });
-const isNeedHeader = computed(() => {
-	return route.path !== '/';
+const isIndex = computed(() => {
+	return route.path === '/';
 });
 </script>
 

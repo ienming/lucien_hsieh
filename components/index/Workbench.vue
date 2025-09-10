@@ -33,22 +33,31 @@
 import { MINERALS_CONFIG } from '~/constants/matter';
 import { getMineralBody } from '~/libs/matterHelper';
 
-const { projects } = defineProps({
-	projects: {
-		type: Array,
-		default: () => [],
-	},
-});
-
 const canvasRef = ref(null);
 const nowHoverProjectId = ref('');
 const {isMobile} = useIsMobile();
+//Matter JS
+let engine, render, runner;
 
-const nowHoverProject = computed(() => {
-	return projects.find(project => project.mineral === nowHoverProjectId.value);
+const { data: projects } = await useAsyncData('workbench', async () => {
+	const allResults = await queryCollection('project')
+		.where('draft', '=', false)
+		.where('mineral', 'IS NOT NULL')
+		.select('path', 'title', 'tagline', 'tags', 'mineral')
+		.all();
+
+	return allResults.map(project => ({
+		id: project.path.split('/')[2],
+		title: project.title,
+		tagline: project.tagline,
+		tags: project.tags,
+		mineral: project.mineral,
+	}));
 });
 
-let engine, render, runner;
+const nowHoverProject = computed(() => {
+	return projects.value.find(project => project.mineral === nowHoverProjectId.value);
+});
 
 async function goToProject(e) {
 	if (e.code === 'KeyW' && nowHoverProject.value?.title) {
@@ -65,7 +74,11 @@ onMounted(async () => {
 		MouseConstraint, Events, Query } = Matter;
 
 	const canvasContainer = canvasRef.value.parentElement;
-	const { width: canvasWidth, height: canvasHeight } = canvasContainer.getBoundingClientRect();
+	let { width: canvasWidth, height: canvasHeight } = canvasContainer.getBoundingClientRect();
+	const canvasPadding = parseFloat(getComputedStyle(canvasContainer).padding);
+	canvasWidth = canvasWidth - canvasPadding * 2;
+	canvasHeight = canvasHeight - canvasPadding * 2;
+
 	engine = Engine.create();
 	const world = engine.world;
 	render = Render.create({
@@ -85,7 +98,8 @@ onMounted(async () => {
 
 	// FLOOR
 	const floorHeight = 100;
-	const floor = Bodies.rectangle(canvasWidth / 2,
+	const floor = Bodies.rectangle(
+		canvasWidth / 2,
 		canvasHeight - floorHeight / 2,
 		canvasWidth,
 		floorHeight,
@@ -120,7 +134,7 @@ onMounted(async () => {
 	const rockScale = isMobile.value ? 0.3 : 0.45;
 
 	const projectBodies = [];
-	projects.forEach(project => {
+	projects.value.forEach(project => {
 		const targetConfig = MINERALS_CONFIG.find(config => config.id === project.mineral);
 		if (!targetConfig) return;
 
@@ -292,10 +306,20 @@ onUnmounted(async() => {
 <style lang="scss" scoped>
 .workbench {
 	height: calc(80vh - ($space-sm * 2));
-	border-radius: $radius-sm;
+	border-radius: $radius-lg;
+	padding: $space-base;
+	background-color: $color-white;
 	border: 1px solid $color-neutral-800;
 	overflow: hidden;
 	position: relative;
+
+	@include response(md) {
+		padding: $space-sm;
+	}
+
+	>canvas {
+		border-radius: $radius-md;
+	}
 
 	.link-to-core-works {
 		position: absolute;
@@ -322,12 +346,13 @@ onUnmounted(async() => {
 	--shortcut-size: 24px;
 	position: absolute;
 	width: 80vw;
-	top: $space-sm;
+	top: $space-lg;
 	left: 50%;
 	transform: translateX(-50%);
 	
 	@include response(md) {
 		max-width: 430px;
+		top: $space-md;
 	}
 	
 	.info-card {
