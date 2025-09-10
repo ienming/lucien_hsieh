@@ -238,6 +238,7 @@ function unlockPage() {
 			margin: $space-xl 0 $space-4xl 0;
 			font-size: $font-size-md;
 			line-height: 1.5;
+			letter-spacing: -0.5px;
 			text-align: justify;
 
 			@include response(md) {
