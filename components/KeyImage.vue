@@ -39,7 +39,7 @@ defineProps({
 	border-radius: $radius-base;
 	background-color: $color-white;
 	border: 1px solid $color-neutral-900;
-	max-width: 280px;
+	max-width: 440px;
 
 	img {
 		aspect-ratio: 6 / 4;

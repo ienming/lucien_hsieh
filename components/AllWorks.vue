@@ -3,53 +3,55 @@
 		:open="open"
 		@update:open="$emit('update:open', $event)">
 		<section class="all-works">
-			<h1 class="container all-works-h1">All works</h1>
-			<section v-if="error">
-				Something went wrong...
-			</section>
-			<section v-else-if="works.length">
-				<!-- TODO: 可以考慮加上按鈕切換 list view / card view -->
-				<div
-					v-if="filters.length"
-					class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container filter-container">
-					<span>Tagged with</span>
-					<Chip
-						v-for="filter of filters"
-						:key="filter"
-						:label="WORK_TYPES[filter].id"
-						:closable="true"
-						@click="removeFilter(filter)" />
-				</div>
-				<div @mouseleave="handleWorkHoverEnd">
-					<ul class="d-flex flex-column align-items-center work-list">
-						<TransitionGroup name="fade">
-							<ImageListItem
-								v-for="work of filteredWorks"
-								:key="work.id"
-								:title="work.title"
-								:sub-title="work.subTitle"
-								:tagline="work.tagline"
-								:cover="work.cover"
-								:year="work.year"
-								:tags="work.tags"
-								class="w-full"
-								@mouse-enter-item="handleWorkHoverStart(work.id)"
-								@filter-by-tag="filterWork"
-								@click="GoToProject(work.id)" />
-						</TransitionGroup>
-					</ul>
-					<Transition name="slide-from-right">
-						<KeyImage
-							v-if="!isMobile && nowImgUrl"
-							:url="nowImgUrl"
-							:tagline="nowWork.tagline ? nowWork.tagline : 'Find out the process...'"
-							@click="GoToProject(nowWork.id)" />
-					</Transition>
-				</div>
-			</section>
-			<section v-else>
-				Loading...
-			</section>
+			<div class="container">
+				<h1 class="all-works-h1">All works</h1>
+				<section v-if="error">
+					Something went wrong...
+				</section>
+				<section v-else-if="works.length">
+					<!-- TODO: 可以考慮加上按鈕切換 list view / card view -->
+					<div
+						v-if="filters.length"
+						class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container filter-container">
+						<span>Tagged with</span>
+						<Chip
+							v-for="filter of filters"
+							:key="filter"
+							:label="WORK_TYPES[filter].id"
+							:closable="true"
+							@click="removeFilter(filter)" />
+					</div>
+					<div @mouseleave="handleWorkHoverEnd">
+						<ul class="d-flex flex-column align-items-center work-list">
+							<TransitionGroup name="fade">
+								<ImageListItem
+									v-for="work of filteredWorks"
+									:key="work.id"
+									:title="work.title"
+									:sub-title="work.subTitle"
+									:tagline="work.tagline"
+									:cover="work.cover"
+									:year="work.year"
+									:tags="work.tags"
+									class="w-full"
+									@mouse-enter-item="handleWorkHoverStart(work.id)"
+									@filter-by-tag="filterWork"
+									@click="GoToProject(work.id)" />
+							</TransitionGroup>
+						</ul>
+						<Transition name="slide-from-right">
+							<KeyImage
+								v-if="!isMobile && nowImgUrl"
+								:url="nowImgUrl"
+								:tagline="nowWork.tagline ? nowWork.tagline : 'Find out the process...'"
+								@click="GoToProject(nowWork.id)" />
+						</Transition>
+					</div>
+				</section>
+				<section v-else>
+					Loading...
+				</section>
+			</div>
 		</section>
 	</ModalOverlay>
 </template>
@@ -150,17 +152,26 @@ function GoToProject(id) {
 
 <style lang="scss" scoped>
 .all-works {
-	padding: $space-md $space-md $space-4xl $space-md;
-	overflow-y: scroll;
-	height: 100vh;
 	pointer-events: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: end;
+	height: 100vh;
+
+	.container {
+		padding: $space-md $space-md $space-4xl $space-md;
+		overflow-y: scroll;
+
+		@include response(md) {
+			padding-bottom: $space-md;
+		}
+	}
 
 	.all-works-h1 {
 		color: $color-neutral-800;
 		font-size: $font-size-xl;
 	
 		@include response(md) {
-			margin-top: 35vh;
 			font-size: $font-size-4xl;
 		}
 	}

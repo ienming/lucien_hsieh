@@ -66,12 +66,13 @@ function unfreezeBody() {
 	document.body.style.overflow = 'auto';
 }
 
-router.afterEach(() => {
+const closeAfterNavigation = router.afterEach(() => {
 	emits('update:open', false);
 });
 
 onUnmounted(() => {
 	unfreezeBody();
+	closeAfterNavigation();
 });
 </script>
 

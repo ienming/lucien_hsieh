@@ -4,9 +4,6 @@
 			<Workbench />
 			<HeroIntro />
 		</section>
-		<!-- <Teleport to="body">
-			<AllWorks v-model:open="isAllWorksOpen" />
-		</Teleport> -->
 	</div>
 </template>
 
@@ -18,8 +15,6 @@ useHead({
 	title: 'Lucien Hsieh',
 	titleTemplate: null,
 });
-
-// const isAllWorksOpen = ref(false);
 </script>
 
 <style lang="scss" scoped>

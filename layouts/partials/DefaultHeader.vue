@@ -22,14 +22,6 @@
 				<span>(all works)</span>
 			</NuxtLink>
 		</nav>
-		<Teleport to="body">
-			<AboutCard
-				v-model:open="isAboutCardOpen"
-				class="about-card-desktop" />
-		</Teleport>
-		<Teleport to="body">
-			<AllWorks v-model:open="isAllWorksOpen" />
-		</Teleport>
 	</header>
 </template>
 
@@ -38,8 +30,9 @@ import {GESTURE_DIRECTION} from '~/constants/interaction';
 import { showSplitTextOnHover } from '~/libs/animate';
 
 const {direction} = useScrollDirection();
-const isAboutCardOpen = ref(false);
-const isAllWorksOpen = ref(false);
+const {isAllWorksOpen} = useAllWorksModal();
+const {isAboutCardOpen} = useAboutCard();
+
 let cleanUp;
 
 onMounted(() => {
@@ -91,6 +84,10 @@ onUnmounted(() => {
 		grid-template-columns: repeat(1, 1fr);
 		justify-self: flex-end;
 		font-size: $font-size-md;
+
+		.link {
+			text-align: right;
+		}
 	}
 
 	&.hide {

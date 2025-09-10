@@ -92,9 +92,10 @@ function handleClose() {
 
 <style lang="scss" scoped>
 .about {
-	position: absolute;
-	bottom: 0;
-	left: 0;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	width: 100%;
 	z-index: $z-index-common-modal;
 	color: $color-neutral-850;
@@ -148,12 +149,11 @@ function handleClose() {
 	}
 
 	&.about-card-desktop {
-		position: fixed;
-		right: $space-base;
 		top: $space-xl;
-		bottom: unset;
+		right: $space-base;
 		left: unset;
 		max-width: 400px;
+		transform: unset;
 	}
 }
 </style>

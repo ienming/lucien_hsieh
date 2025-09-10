@@ -2,21 +2,36 @@
 	<div
 		class="mobile-menu-hamburger"
 		:class="{hide: direction === GESTURE_DIRECTION.DOWN}"
-		@click="isMobileAboutOpen = true">
+		@click="isMobileMenuOpen = !isMobileMenuOpen">
 		<span class="trigger">
-			(creator)
+			MENU
 		</span>
-		<AboutCard
-			v-if="isMobileAboutOpen"
-			v-model:open="isMobileAboutOpen" />
+		<Transition name="fade">
+			<MobileMenu v-if="isMobileMenuOpen" />
+		</Transition>
 	</div>
 </template>
 
 <script setup>
 import { GESTURE_DIRECTION } from '~/constants/interaction';
 
-const isMobileAboutOpen = ref(false);
 const {direction} = useScrollDirection();
+const router = useRouter();
+const isMobileMenuOpen = ref(false);
+
+watch(direction, newVal => {
+	if (newVal === GESTURE_DIRECTION.DOWN) {
+		isMobileMenuOpen.value = false;
+	}
+});
+
+const closeAfterNavigation = router.afterEach(() => {
+	isMobileMenuOpen.value = false;
+});
+
+onUnmounted(() => {
+	closeAfterNavigation();
+})
 </script>
 
 <style lang="scss" scoped>
@@ -31,10 +46,12 @@ const {direction} = useScrollDirection();
 		display: block;
 		margin: 0 auto;
 		width: max-content;
-		background-color: $color-neutral-100;
+		background-color: $color-primary;
 		border-radius: $radius-sm;
 		color: $color-white;
 		padding: $space-sm $space-base;
+		font-size: $font-size-xs;
+		letter-spacing: 1px;
 	}
 
 	@include response(md) {

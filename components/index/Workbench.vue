@@ -349,6 +349,10 @@ onUnmounted(async() => {
 	top: $space-lg;
 	left: 50%;
 	transform: translateX(-50%);
+
+	@include response(sm) {
+		max-width: 375px;
+	}
 	
 	@include response(md) {
 		max-width: 430px;
