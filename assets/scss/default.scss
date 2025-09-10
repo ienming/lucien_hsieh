@@ -8,5 +8,9 @@
 html, body {
     color: $color-text-default;
     background-color: $color-background-container;
-    font-family: "Noto Sans Traditional Chinese", "Urbanist", sans-serif;
+    font-family: 'Noto Sans Traditional Chinese', 'Urbanist', 'ArialNarrow', sans-serif;
+}
+
+h1, h2, h3, h4 {
+	font-family: 'Noto Sans Tranditional Chinese', 'Cossette Titre', 'ArialNarrow', 'sans-serif';
 }

@@ -1,7 +1,7 @@
 <template>
 	<div class="block-content">
 		<h3 class="title">
-			<slot name="title" mdc-unwrap="p" />
+			<slot name="title" />
 		</h3>
 		<div class="content">
 			<slot name="content" />
@@ -18,9 +18,7 @@
 	padding: 0 $space-base;
 
 	@include response(md) {
-		width: 90vw;
 		grid-template-columns: repeat(2, 1fr);
-		padding: 0;
 		margin: 120px auto;
 		gap: 0;
 	}
@@ -31,6 +29,20 @@
 
 		@include response(md) {
 			font-size: $font-size-xl;
+			max-width: $project-text-paragraph-max-width;
+			display: grid;
+			grid-template-columns: repeat(6, 1fr);
+
+			:deep(>p) {
+				grid-column: 2 / 5;
+			}
+		}
+	}
+
+	.content {
+		@include response(md) {
+			padding-right: $space-4xl;
+			max-width: $project-text-paragraph-max-width;
 		}
 	}
 

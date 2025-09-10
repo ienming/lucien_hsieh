@@ -73,11 +73,8 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 .hero-container {
-	margin: 40px 0 120px 0;
-
-	@include response(md) {
-		margin-bottom: 420px;
-	}
+	margin: 40px 0 0 0;
+	letter-spacing: -0.2px;
 
 	.title {
 		font-size: $font-size-xl;

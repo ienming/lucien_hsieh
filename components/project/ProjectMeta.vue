@@ -114,10 +114,9 @@ function toggleContent() {
 
 	@include response(md) {
 		--space-between-header: #{$space-lg};
-		width: 30vw;
 		min-width: 360px;
-		left: auto;
-		right: $space-lg;
+		max-width: 440px;
+		left: $space-lg;
 	}
 
 	.header {

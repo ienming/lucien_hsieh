@@ -1,7 +1,10 @@
 <template>
 	<section class="mb-space-6xl">
-		<Hero />
-		<h1 class="container all-works-h1">All works</h1>
+		<Workbench :projects="allProjects" />
+		<HeroIntro />
+		<h1
+			id="allWorksH1"
+			class="container all-works-h1">All works</h1>
 		<section v-if="error">
 			Something went wrong...
 		</section>
@@ -53,7 +56,8 @@
 </template>
 
 <script setup>
-import Hero from '~/components/index/Hero.vue';
+import Workbench from '~/components/index/Workbench.vue';
+import HeroIntro from '~/components/index/HeroIntro.vue';
 import { WORK_TYPES } from '~/constants/content';
 
 useHead({
@@ -70,7 +74,7 @@ const filters = ref([]);
 const { data: allProjects, error } = await useAsyncData('works', async () => {
 	const allResults = await queryCollection('project')
 		.where('draft', '=', false)
-		.select('path', 'title', 'subtitle', 'tagline', 'year', 'type', 'tags', 'cover')
+		.select('path', 'title', 'subtitle', 'tagline', 'year', 'type', 'tags', 'cover', 'mineral')
 		.all();
 
 	return allResults.map(project => ({
@@ -82,6 +86,7 @@ const { data: allProjects, error } = await useAsyncData('works', async () => {
 		type: project.type,
 		tags: project.tags,
 		cover: project.cover,
+		mineral: project.mineral,
 	}));
 });
 
@@ -143,11 +148,15 @@ function GoToProject(id) {
 <style lang="scss" scoped>
 .all-works-h1 {
 	font-size: $font-size-xl;
-	padding-left: $space-base;
+	padding: $space-md;
+	padding-top: 80px;
+	border-radius: $radius-sm;
+	background: linear-gradient(270deg, $color-neutral-900, $color-neutral-950);
+	color: $color-neutral-200;
 
 	@include response(lg) {
 		font-size: $font-size-4xl;
-		padding-left: $space-xl;
+		padding-top: 180px;
 	}
 }
 
@@ -157,10 +166,10 @@ function GoToProject(id) {
 }
 
 .project-list {
-	gap: 72px;
+	gap: $space-sm;
 
 	@include response(md) {
-		gap: $space-sm;
+		gap: 0;
 	}
 }
 </style>

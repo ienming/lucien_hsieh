@@ -65,7 +65,7 @@
 					<Skeleton
 						type="imageProfile"
 						class="mb-space-4xl" />
-					<div class="pl-space-base pr-space-base w-half">
+					<div class="skeleton-project-intro">
 						<Skeleton class="mb-space-xl" />
 						<Skeleton />
 					</div>
@@ -229,12 +229,12 @@ function unlockPage() {
 		padding: 0 $space-base;
 
 		@include response(md) {
-			grid-template-columns: repeat(6, 1fr);
+			grid-template-columns: repeat(2, 1fr);
 			padding: 0 $space-xl;
 		}
 		
 		.project-intro {
-			grid-column: 1 / 4;
+			grid-column: 2 / -1;
 			margin: $space-xl 0 $space-4xl 0;
 			font-size: $font-size-md;
 			line-height: 1.5;
@@ -242,6 +242,8 @@ function unlockPage() {
 
 			@include response(md) {
 				font-size: $font-size-lg;
+				padding-right: $space-4xl;
+				max-width: $project-text-paragraph-max-width;
 			}
 		}
 	}
@@ -274,6 +276,15 @@ function unlockPage() {
 	.skeleton-container {
 		position: absolute;
 		width: 100%;
+
+		.skeleton-project-intro {
+			padding: 0 $space-md;
+
+			@include response(md) {
+				width: 50%;
+				margin-left: auto;
+			}
+		}
 	}
 }
 </style>

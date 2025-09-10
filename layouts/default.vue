@@ -1,11 +1,12 @@
 <template>
 	<div>
-		<DefaultHeader />
+		<DefaultHeader v-if="isNeedHeader" />
 		<main :class="{'with-header': isNeedHeaderMargin}">
 			<div>
 				<slot />
 			</div>
-			<MobileMenuHamburger v-if="!route.path.includes('/project/')" />
+			<!-- TODO: 手機版的導覽 -->
+			<!-- <MobileMenuHamburger v-if="!route.path.includes('/project/')" /> -->
 		</main>
 		<DefaultFooter />
 	</div>
@@ -14,11 +15,14 @@
 <script setup>
 import DefaultHeader from './partials/DefaultHeader';
 import DefaultFooter from './partials/DefaultFooter';
-import MobileMenuHamburger from '~/components/MobileMenuHamburger.vue';
+// import MobileMenuHamburger from '~/components/MobileMenuHamburger.vue';
 
 const route = useRoute();
 const isNeedHeaderMargin = computed(() => {
-	return !route.path.includes('/project/');
+	return route.path !== '/' && !route.path.includes('/project/');
+});
+const isNeedHeader = computed(() => {
+	return route.path !== '/';
 });
 </script>
 

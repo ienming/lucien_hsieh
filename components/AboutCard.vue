@@ -4,7 +4,7 @@
 		class="about modal-clip-mask">
 		<section>
 			<div class="info-card">
-				<Avatar :img="'/avatar.jpg'" />
+				<Avatar :img="'/avatar.png'" />
 				<div class="close">
 					<ClientOnly>
 						<Icon
