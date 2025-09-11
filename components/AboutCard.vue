@@ -13,10 +13,10 @@
 				</div>
 				<div class="d-flex flex-column gap-space-sm common-paragraph">
 					<p>
-						Lucien Hsieh 謝明倫專注於將概念轉化為視覺、可互動的數位媒體，有約 3 年設計與前端開發經驗。希望能將不同的內容轉譯成有趣的敘事作品。
+						Lucien Hsieh 謝明倫，有三年的前端開發與設計經驗，透過設計與程式的結合，我希望能把想法化為實際的體驗與故事、傳遞給更多人。
 					</p>
 					<p>
-						I’m Lucien — a front-end developer who also design. I have 3 years experiences in the field. I craft interfaces, build interactions and wrap them in concepts that tell a story.
+						HI! I'm Lucien, I have 3 years experiences in building web experiences with design and front-end development. I use these skills to tell the story, to convey my idea and hope it can reach others.
 					</p>
 				</div>
 			</div>
@@ -130,7 +130,7 @@ function handleClose() {
 			cursor: pointer;
 
 			&:hover {
-				transform: rotate(30deg) scale(1.1);
+				transform: rotate(120deg) scale(1.4);
 			}
 		}
 	}

@@ -98,7 +98,8 @@ onMounted(async () => {
 	Render.run(render);
 
 	// FLOOR
-	const floorHeight = 100;
+	const flootMaxHeight = 100;
+	const floorHeight = Math.min(Math.floor(canvasHeight / 8), flootMaxHeight);
 	const floor = Bodies.rectangle(
 		canvasWidth / 2,
 		canvasHeight - floorHeight / 2,
@@ -132,7 +133,7 @@ onMounted(async () => {
 
 	// BODIES
 	const rockStartX = canvasWidth / 2;
-	const rockScale = isMobile.value ? 0.3 : 0.45;
+	const rockScale = isMobile.value ? 0.33 : 0.5;
 
 	const projectBodies = [];
 	projects.value.forEach(project => {
@@ -158,7 +159,7 @@ onMounted(async () => {
 		const floorWidth = bounds.max.x - bounds.min.x;
 		const floorHeight = bounds.max.y - bounds.min.y;
 		const scaleY = 0.4;
-		const gradientSpan = canvasWidth * 0.8 < 400 ? canvasWidth * 0.8 : 400; 
+		const gradientSpan = Math.min(canvasWidth * 0.4, 400); 
 
 		ctx.save();
 		ctx.translate(position.x, bounds.min.y);

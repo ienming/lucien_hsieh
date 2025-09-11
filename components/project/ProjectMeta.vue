@@ -104,8 +104,6 @@ function toggleContent() {
 	top: calc(var(--header-height) + var(--space-between-header));
 	left: 0;
 	z-index: $z-index-common-fixed;
-	width: 100vw;
-	max-width: 695px;
 	background-color: $color-white;
 	padding: $space-sm $space-base;
 	border-radius: $radius-base;
@@ -114,8 +112,8 @@ function toggleContent() {
 
 	@include response(md) {
 		--space-between-header: #{$space-lg};
-		min-width: 360px;
-		max-width: 440px;
+		width: 400px;
+		max-width: 50%;
 		left: $space-lg;
 	}
 
