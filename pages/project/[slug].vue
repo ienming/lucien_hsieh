@@ -5,7 +5,9 @@
 				name="page"
 				mode="out-in">
 				<section v-if="isPageDataReady">
-					<div>
+					<div
+						ref="heroImgContainer"
+						class="hero-img-container">
 						<NuxtImg
 							:src="projectData.cover"
 							class="w-full hero-img" />
@@ -62,9 +64,11 @@
 				<section
 					v-else
 					class="skeleton-container">
-					<Skeleton
-						type="imageProfile"
-						class="mb-space-4xl" />
+					<div class="hero-img-container">
+						<Skeleton
+							type="imageProfile"
+							class="mb-space-4xl" />
+					</div>
 					<div class="skeleton-project-intro">
 						<Skeleton class="mb-space-xl" />
 						<Skeleton />
@@ -86,6 +90,8 @@
 </template>
 
 <script setup>
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import ProjectMeta from '~/components/project/ProjectMeta.vue';
 import ProjectCredit from '~/components/project/ProjectCredit.vue';
 import ProjectNext from '~/components/project/ProjectNext.vue';
@@ -96,12 +102,16 @@ import Link from '~/components/Link.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
 import { splitMultiLine, getPageUnlockRecords } from '~/libs/helper';
 
+// TODO: refactor to global
+gsap.registerPlugin(ScrollTrigger);
+
 definePageMeta({
 	pageTransition: false
 });
 
 const route = useRoute();
 const {isMobile} = useIsMobile();
+const heroImgContainerRef = useTemplateRef('heroImgContainer');
 
 const projectData = ref({});
 const nextProjectData = ref({});
@@ -168,6 +178,29 @@ watch(error, err => {
 	});
 });
 
+watch(heroImgContainerRef, val => {
+	if (!val) return;
+
+	const tl = gsap.timeline({
+		scrollTrigger: {
+			trigger: val,
+			start: 'bottom 70%',
+			toggleActions: 'play pause resume reset',
+		}
+	});
+
+	tl
+		.addLabel('start')
+		.to(val, {
+			padding: 0,
+		})
+		.to(val.querySelector('.hero-img'), {
+			borderRadius: 0,
+		});
+}, {
+	once: true,
+})
+
 function prepareContentImages(props) {
 	const {src, alt, title, desc, class: className} = props;
 						
@@ -224,6 +257,14 @@ function unlockPage() {
 		}
 	}
 
+	.hero-img-container {
+		padding: $space-sm;
+
+		.hero-img {
+			border-radius: $radius-sm;
+		}
+	}
+
 	.header {
 		grid-template-columns: auto;
 		padding: 0 $space-base;
@@ -235,7 +276,7 @@ function unlockPage() {
 		
 		.project-intro {
 			grid-column: 2 / -1;
-			margin: $space-xl 0 $space-4xl 0;
+			margin: $space-base 0 $space-4xl 0;
 			font-size: $font-size-md;
 			line-height: 1.5;
 			letter-spacing: -0.5px;
@@ -250,7 +291,7 @@ function unlockPage() {
 	}
 
 	.hero-img {
-		aspect-ratio: 1 / 1.25;
+		aspect-ratio: 1 / 1.5;
 		object-fit: cover;
 
 		@include response(md) {
