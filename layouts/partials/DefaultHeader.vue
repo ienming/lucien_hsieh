@@ -6,9 +6,7 @@
 			to="/"
 			class="logo"
 			:class="{'hide': isIndex}">
-			<span class="fade-link">
-				LUCIEN
-			</span>
+			<Logo />
 		</NuxtLink>
 		<!-- Desktop -->
 		<nav class="d-none d-md-grid nav">

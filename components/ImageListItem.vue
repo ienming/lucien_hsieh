@@ -10,10 +10,10 @@
 				placeholder
 				class="d-md-none cover" />
 		</div>
-		<div class="info-container">
-			<div
-				class="d-flex flex-column flex-md-row info"
-				@mouseenter="isMobile ? null : $emit('mouse-enter-item')">
+		<div
+			class="info-container"
+			@mouseenter="isMobile ? null : $emit('mouse-enter-item')">
+			<div class="d-flex flex-column flex-md-row info">
 				<span class="title">{{ title }}</span>
 				<span
 					v-if="isMobile"

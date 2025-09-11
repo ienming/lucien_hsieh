@@ -1,11 +1,7 @@
 <template>
 	<div class="container hero-intro">
 		<div class="header">
-			<h1
-				ref="title"
-				class="title"
-				@mouseenter="stretchText"
-				@mouseleave="releaseText">LUUUUUUUCIEN</h1>
+			<Logo class="logo-title" />
 			<Button
 				class="d-md-none"
 				@click="isAllWorksOpen = true">
@@ -20,33 +16,7 @@
 </template>
 
 <script setup>
-import gsap from 'gsap';
-
 const {isAllWorksOpen} = useAllWorksModal();
-const titleRef = useTemplateRef('title');
-
-function stretchText() {
-	if (!titleRef.value) return;
-
-	gsap.to(titleRef.value, {
-		letterSpacing: '0.1rem',
-		autoRound: false,
-		ease: 'elastic.out(1,0.3)',
-		duration: 1,
-	});
-}
-
-function releaseText() {
-	if (!titleRef.value) return;
-
-	gsap.to(titleRef.value, {
-		letterSpacing: '-0.08rem',
-		autoRound: false,
-		duration: .2,
-		ease: 'elastic.out(1,0.3)',
-		duration: 1,
-	});
-}
 </script>
 
 <style lang="scss" scoped>
@@ -76,9 +46,7 @@ function releaseText() {
 			align-items: start;
 		}
 
-		.title {
-			letter-spacing: -0.08rem;
-
+		.logo-title {
 			@include response(md) {
 				font-size: 12vh;
 				align-items: start;

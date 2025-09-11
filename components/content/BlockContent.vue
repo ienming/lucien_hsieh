@@ -24,7 +24,7 @@
 	}
 
 	.title {
-		font-size: $font-size-md;
+		font-size: $font-size-lg;
 		font-weight: 600;
 
 		@include response(md) {
@@ -49,11 +49,41 @@
 	:deep(.content p) {
 		margin-bottom: $space-base;
 		text-align: justify;
+		font-size: $font-size-basemd;
+	}
+
+	:deep(.content ul) {
+		list-style: disc;
+		padding-inline-start: $space-xl;
+		font-size: $font-size-basemd;
+
+		li {
+			margin-bottom: $space-md;
+		}
 	}
 
 	:deep(.subtitle) {
 		margin-bottom: $space-md;
 		font-weight: 600;
+		font-size: $font-size-md;
+
+		&:not(:first-child) {
+			margin-top: $space-5xl;
+		}
+	}
+
+	:deep(.callout-card) {
+		padding: $space-md;
+		border-radius: $radius-base;
+		background-color: $color-neutral-900;
+		border: 1px solid $color-neutral-800;
+		color: $color-neutral-300;
+
+		.title {
+			font-weight: 600;
+			font-size: $font-size-lg;
+			line-height: 1.35;
+		}
 	}
 }
 </style>
