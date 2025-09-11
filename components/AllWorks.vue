@@ -36,6 +36,7 @@
 									v-for="work of filteredWorks"
 									:key="work.id"
 									:title="work.title"
+									:is-locked="!!work.password"
 									:sub-title="work.subTitle"
 									:tagline="work.tagline"
 									:cover="work.cover"
@@ -68,7 +69,7 @@
 import ModalOverlay from './ModalOverlay.vue';
 import { WORK_TYPES } from '~/constants/content';
 
-defineProps({
+const {open} = defineProps({
 	open: {
 		type: Boolean,
 		default: false,
@@ -87,11 +88,12 @@ const filters = ref([]);
 const { data: works, error } = await useAsyncData('all-works', async () => {
 	const allWorks = await queryCollection('project')
 		.where('draft', '=', false)
-		.select('path', 'title', 'subtitle', 'tagline', 'year', 'type', 'tags', 'cover', 'mineral')
+		.select('path', 'password', 'title', 'subtitle', 'tagline', 'year', 'type', 'tags', 'cover', 'mineral')
 		.all();
 
 	return allWorks.map(item => ({
 		id: item.path.split('/')[2],
+		password: item.password ?? null,
 		title: item.title,
 		subTitle: item.subtitle,
 		tagline: item.tagline,
@@ -123,6 +125,12 @@ const filteredWorks = computed(() => {
 	}
 
 	return results;
+});
+
+watch(() => open, newVal => {
+	if (newVal) {
+    	filters.value = [];
+  	}
 });
 
 function handleWorkHoverStart(id) {

@@ -13,7 +13,14 @@
 		<div
 			class="info-container"
 			@mouseenter="isMobile ? null : $emit('mouse-enter-item')">
-			<div class="d-flex flex-column flex-md-row info">
+			<div class="d-flex gap-space-sm flex-column flex-md-row info">
+				<span
+					v-if="isLocked"
+					class="need-password">
+					<ClientOnly>
+						<Icon name="iconoir:lock" />
+					</ClientOnly>
+				</span>
 				<span class="title">{{ title }}</span>
 				<span
 					v-if="isMobile"
@@ -44,6 +51,10 @@ defineProps({
 	subTitle: {
 		type: String,
 		default: '',
+	},
+	isLocked: {
+		type: Boolean,
+		default: false,
 	},
 	tags: {
 		type: Array,
@@ -133,6 +144,22 @@ onUnmounted(() => {
 		}
 
 		.info {
+			.need-password {
+				display: inline-flex;
+				align-items: center;
+				align-self: start;
+				gap: $space-sm;
+				font-size: $font-size-sm;
+				border-radius: $radius-round;
+				background-color: $color-neutral-950;
+				color: $color-neutral-400;
+				padding: $space-xs $space-sm;
+
+				@include response(md) {
+					align-self: auto;
+				}
+			}
+
 			.title {
 				display: block;
 				font-size: $font-size-md;
