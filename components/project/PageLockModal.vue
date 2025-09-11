@@ -8,7 +8,6 @@
 		<form
 			class="page-lock-modal"
 			@submit.prevent="checkPassword">
-			<h3 class="title">{{ pageTitle }} </h3>
 			<div class="instruct">
 				頁面已鎖定，請輸入密碼
 			</div>
@@ -62,12 +61,8 @@
 <script setup>
 import { getPageUnlockRecords, setPageUnlockRecord } from '~/libs/helper';
 
-const {open, password, pageId, pageTitle} = defineProps({
+const {open, password, pageId} = defineProps({
 	pageId: {
-		type: String,
-		default: '',
-	},
-	pageTitle: {
 		type: String,
 		default: '',
 	},

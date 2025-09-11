@@ -83,7 +83,6 @@
 		<PageLockModal
 			v-model:open="isPageLockVisible"
 			:page-id="route.params.slug"
-			:page-title="projectData.title"
 			:password="projectData.password"
 			@pass="unlockPage" />
 	</div>
