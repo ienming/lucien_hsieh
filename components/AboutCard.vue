@@ -130,7 +130,7 @@ function handleClose() {
 			cursor: pointer;
 
 			&:hover {
-				transform: rotate(120deg) scale(1.4);
+				transform: scale(1.4);
 			}
 		}
 	}

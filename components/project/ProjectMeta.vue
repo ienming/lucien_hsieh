@@ -2,7 +2,9 @@
 	<div
 		class="project-meta"
 		:class="{'align-top': direction === GESTURE_DIRECTION.DOWN}">
-		<div class="header">
+		<div
+			ref="header"
+			class="header">
 			<div class="d-flex gap-space-lg justify-contents-space-between project-title">
 				<div class="d-flex flex-column gap-space-xxs">
 					<p class="title">{{ title }}</p>
@@ -24,50 +26,51 @@
 				<Button
 					variant="outlined"
 					class="w-full d-flex justify-contents-space-between"
-					@click="isMobile ? $emit('open-btm-sheet') : toggleContent()">
+					@click="toggleContent">
 					<span>About the project</span>
 					<ClientOnly>
 						<Icon
-							:name="isMobile ? 'iconoir:plus' : 'iconoir:nav-arrow-up'"
+							name="iconoir:nav-arrow-up"
 							class="toggle-btn"
 							:class="{'downward': isContentShow}" />
 					</ClientOnly>
 				</Button>
-			</div>
-		</div>
-		<div
-			v-show="isContentShow"
-			class="body">
-			<div class="d-flex justify-contents-space-between flex-wrap meta">
-				<div class="year">
-					<span class="mr-space-sm">&lt;Year&gt;</span>
-					<span>{{ year }}</span>
+				<div
+					class="body"
+					:class="{'show': isContentShow}">
+					<div class="d-flex justify-contents-space-between flex-wrap meta">
+						<div class="year">
+							<span class="mr-space-sm">&lt;Year&gt;</span>
+							<span>{{ year }}</span>
+						</div>
+						<div class="d-flex gap-space-xs flex-wrap align-items-start types">
+							<span class="mr-space-sm">&lt;Type&gt;</span>
+							<WorkTypeChip
+								v-for="tag of tags" 
+								:key="tag"
+								:type="tag"
+								:clickable="false" />
+						</div>
+					</div>
+					<div class="common-paragraph content">
+						<p
+							v-for="(content, idx) of contents"
+							:key="idx"
+							:class="{
+								'mb-space-base': idx !== contents.length - 1,
+								'mb-space-2xl': idx === contents.length - 1,
+							}">
+							{{ content }}
+						</p>
+					</div>
 				</div>
-				<div class="d-flex gap-space-xs flex-wrap align-items-start types">
-					<span class="mr-space-sm">&lt;Type&gt;</span>
-					<WorkTypeChip
-						v-for="tag of tags" 
-						:key="tag"
-						:type="tag"
-						:clickable="false" />
-				</div>
-			</div>
-			<div class="common-paragraph content">
-				<p
-					v-for="(content, idx) of contents"
-					:key="idx"
-					:class="{
-						'mb-space-base': idx !== contents.length - 1,
-						'mb-space-2xl': idx === contents.length - 1,
-					}">
-					{{ content }}
-				</p>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script setup>
+import gsap from 'gsap';
 import {GESTURE_DIRECTION} from '~/constants/interaction';
 import {splitMultiLine} from '~/libs/helper';
 
@@ -82,17 +85,51 @@ const {title, meta} = defineProps({
 	},
 })
 
-defineEmits(['open-btm-sheet']);
-
 const {direction} = useScrollDirection();
-const {isMobile} = useIsMobile();
+const headerRef = useTemplateRef('header');
+
 const {tagline, year, tags, about, links} = meta;
 const isContentShow = ref(false);
 
 const contents = computed(() => splitMultiLine(about));
 
+// TODO: refactor to useGSAP or plugin
 function toggleContent() {
+	if (!headerRef.value) return;
 	isContentShow.value = !isContentShow.value;
+
+	if (isContentShow.value) {
+		const {height: oriHeight} = headerRef.value.getBoundingClientRect();
+		const {height: bodyHeight} = headerRef.value.querySelector('.body').getBoundingClientRect();
+	
+		const tl = gsap.timeline();
+
+		tl
+			.add('headerOpen')
+			.to(headerRef.value, {
+				height: oriHeight + bodyHeight,
+				ease: 'power4.out',
+				duration: 1,
+			})
+			.add('bodyOpen')
+			.to('.body', {
+				clipPath: 'inset(0% 0% 0% 0 round 6px)',
+			}, headerRef.value)
+	} else {
+		const tl = gsap.timeline();
+
+		tl
+			.add('headerClose')
+			.to(headerRef.value, {
+				height: 'auto',
+				ease: 'power4.out',
+				duration: 1,
+			})
+			.add('bodyHide')
+			.to('.body', {
+				clipPath: 'inset(0% 0% 100% 0 round 6px)',
+			}, headerRef.value)
+	}
 }
 </script>
 
@@ -125,26 +162,17 @@ function toggleContent() {
 			}
 	
 			.tagline {
-				font-size: $font-size-sm;
+				font-size: $font-size-base;
 				line-height: 1.2;
 				margin-bottom: $space-sm;
 				color: $color-text-secondary;
 				transition: font-size .3s ease-out;
 			}
-
-			@include response(md) {
-				.title {
-					font-size: $font-size-lg;
-				}
-
-				.tagline {
-					font-size: $font-size-md;
-				}
-			}
 		}
 	
 		.actions {
 			padding: $space-xs 0;
+			position: relative;
 
 			.toggle-btn {
 				transition: transform .2s ease-out;
@@ -153,29 +181,37 @@ function toggleContent() {
 					transform: rotate(180deg);
 				}
 			}
-		}
-	}
 
-
-	.body {
-		position: relative;
-		.meta {
-			padding: $space-sm 0;
-			font-size: $font-size-sm;
-		}
-
-		.content {
-			max-height: 55vh;
-			overflow-y: scroll;
-
-			&::after {
-				content: '';
-				display: block;
+			.body {
 				position: absolute;
-				bottom: 0;
+				top: $space-5xl;
 				width: 100%;
-				height: 52px;
-				background: linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+				max-height: 300px;
+				overflow-y: scroll;
+				clip-path: inset(0 0% 100% 0 round 6px);
+
+				.meta {
+					padding: $space-sm 0;
+					font-size: $font-size-sm;
+				}
+			}
+		}
+
+		&::after {
+			content: '';
+			display: none;
+			position: absolute;
+			bottom: 0;
+			width: calc(100% - $space-base * 2);
+			height: 52px;
+			background: linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+			opacity: 0;
+		}
+
+		&:has(.body.show) {
+			&::after {
+				display: block;
+				opacity: 1;
 			}
 		}
 	}
@@ -185,16 +221,6 @@ function toggleContent() {
 
 		@include response(md) {
 			top: $space-lg;
-
-			.project-title {
-				.title {
-					font-size: $font-size-md;
-				}
-	
-				.tagline {
-					font-size: $font-size-base;
-				}
-			}
 		}
 	}
 }
