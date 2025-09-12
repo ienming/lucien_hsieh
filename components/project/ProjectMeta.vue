@@ -119,7 +119,8 @@ onMounted(() => {
 			})
 			.to('.body', {
 				clipPath: 'inset(0px 0% 0% 0px round 6px)',
-				duration: 0.3,
+				opacity: 1,
+				duration: 0.4,
 			}, '<');
 	});
 })
@@ -187,6 +188,7 @@ onUnmounted(() => {
 				max-height: 300px;
 				overflow-y: scroll;
 				clip-path: inset(0px 0% 100% 0px round 6px);
+				opacity: 0;
 
 				.meta {
 					padding: $space-sm 0;

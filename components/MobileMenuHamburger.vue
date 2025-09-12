@@ -35,7 +35,7 @@ watch(triggerRef, (newVal) => {
 
 	ctx = gsap.context(() => {
 		const listItemStagger = 0.1;
-		const menuOpenTime = 0.3;
+		const menuOpenTime = 0.2;
 		gsap.set('.link-item', {
 			y: 20,
 		});
