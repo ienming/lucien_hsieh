@@ -26,7 +26,7 @@
 				<Button
 					variant="outlined"
 					class="w-full d-flex justify-contents-space-between"
-					@click="toggleContent">
+					@click="isContentShow = !isContentShow;">
 					<span>About the project</span>
 					<ClientOnly>
 						<Icon
@@ -94,43 +94,39 @@ const isContentShow = ref(false);
 const contents = computed(() => splitMultiLine(about));
 
 // TODO: refactor to useGSAP or plugin
-function toggleContent() {
-	if (!headerRef.value) return;
-	isContentShow.value = !isContentShow.value;
+let tl, ctx;
+watch(isContentShow, newVal => {
+	if (newVal) {
+		tl.play();
+	} else {
+		tl.reverse();
+	}
+});
 
-	if (isContentShow.value) {
-		const {height: oriHeight} = headerRef.value.getBoundingClientRect();
-		const {height: bodyHeight} = headerRef.value.querySelector('.body').getBoundingClientRect();
-	
-		const tl = gsap.timeline();
+onMounted(() => {
+	const {height: oriHeight} = headerRef.value.getBoundingClientRect();
+	const {height: bodyHeight} = headerRef.value.querySelector('.body').getBoundingClientRect();
 
+	ctx = gsap.context(() => {
+		tl = gsap.timeline({
+			paused: true,
+		});
 		tl
-			.add('headerOpen')
 			.to(headerRef.value, {
 				height: oriHeight + bodyHeight,
-				ease: 'power4.out',
-				duration: 1,
+				ease: 'power2.out',
+				duration: 0.8,
 			})
-			.add('bodyOpen')
 			.to('.body', {
 				clipPath: 'inset(0% 0% 0% 0 round 6px)',
-			}, headerRef.value)
-	} else {
-		const tl = gsap.timeline();
+				duration: 0.6,
+			}, '<');
+	});
+})
 
-		tl
-			.add('headerClose')
-			.to(headerRef.value, {
-				height: 'auto',
-				ease: 'power4.out',
-				duration: 1,
-			})
-			.add('bodyHide')
-			.to('.body', {
-				clipPath: 'inset(0% 0% 100% 0 round 6px)',
-			}, headerRef.value)
-	}
-}
+onUnmounted(() => {
+	if (ctx) ctx.revert();
+})
 </script>
 
 <style lang="scss" scoped>
@@ -155,6 +151,8 @@ function toggleContent() {
 	}
 
 	.header {
+		height: auto;
+
 		.project-title {
 			.title {
 				font-size: $font-size-md;
@@ -199,18 +197,18 @@ function toggleContent() {
 
 		&::after {
 			content: '';
-			display: none;
 			position: absolute;
 			bottom: 0;
 			width: calc(100% - $space-base * 2);
 			height: 52px;
 			background: linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+			pointer-events: none;
 			opacity: 0;
+			transition: opacity .5s ease-in;
 		}
 
 		&:has(.body.show) {
 			&::after {
-				display: block;
 				opacity: 1;
 			}
 		}
