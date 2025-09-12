@@ -115,11 +115,11 @@ onMounted(() => {
 			.to(headerRef.value, {
 				height: oriHeight + bodyHeight,
 				ease: 'power2.out',
-				duration: 0.8,
+				duration: 0.5,
 			})
 			.to('.body', {
-				clipPath: 'inset(0% 0% 0% 0 round 6px)',
-				duration: 0.6,
+				clipPath: 'inset(0px 0% 0% 0px round 6px)',
+				duration: 0.3,
 			}, '<');
 	});
 })
@@ -186,7 +186,7 @@ onUnmounted(() => {
 				width: 100%;
 				max-height: 300px;
 				overflow-y: scroll;
-				clip-path: inset(0 0% 100% 0 round 6px);
+				clip-path: inset(0px 0% 100% 0px round 6px);
 
 				.meta {
 					padding: $space-sm 0;
