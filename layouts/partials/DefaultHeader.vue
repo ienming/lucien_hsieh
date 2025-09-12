@@ -12,13 +12,13 @@
 		<nav class="d-none d-md-grid nav">
 			<NuxtLink
 				class="link fade-right-link"
-				@click="isAboutCardOpen = true">
-				<span>(creator)</span>
+				@click="isAllWorksOpen = true">
+				<span>(all works)</span>
 			</NuxtLink>
 			<NuxtLink
 				class="link fade-right-link"
-				@click="isAllWorksOpen = true">
-				<span>(all works)</span>
+				@click="isAboutCardOpen = true">
+				<span>(creator)</span>
 			</NuxtLink>
 		</nav>
 	</header>

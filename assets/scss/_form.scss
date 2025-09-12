@@ -15,7 +15,6 @@
 
 		&.error {
 			border-color: $color-warning;
-			animation: shake 0.4s ease;
 
 			&:focus {
 				box-shadow: 0 0 0 4px $color-warning-base;
@@ -32,6 +31,10 @@
 		position: absolute;
 		color: $color-warning;
 		font-size: $font-size-sm;
+	}
+
+	&:has(.error) {
+		animation: shake 0.4s ease;
 	}
 }
 
