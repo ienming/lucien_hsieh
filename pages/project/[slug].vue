@@ -101,9 +101,6 @@ import Link from '~/components/Link.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
 import { splitMultiLine, getPageUnlockRecords } from '~/libs/helper';
 
-// TODO: refactor to global
-gsap.registerPlugin(ScrollTrigger);
-
 definePageMeta({
 	pageTransition: false
 });
@@ -199,6 +196,11 @@ watch(heroImgContainerRef, val => {
 }, {
 	once: true,
 })
+
+onMounted(() => {
+	// TODO: refactor to global
+	gsap.registerPlugin(ScrollTrigger);
+});
 
 function prepareContentImages(props) {
 	const {src, alt, title, desc, class: className} = props;
