@@ -180,7 +180,7 @@ watch(heroImgContainerRef, val => {
 	const tl = gsap.timeline({
 		scrollTrigger: {
 			trigger: val,
-			start: 'bottom 70%',
+			start: '5px 0%',
 			toggleActions: 'play pause resume reset',
 		}
 	});

@@ -5,7 +5,7 @@
 		:class="{hide: direction === GESTURE_DIRECTION.DOWN}"
 		@click="isMobileMenuOpen = !isMobileMenuOpen">
 		<span class="trigger">
-			<span>MENU</span>
+			<span>MENÜ</span>
 		</span>
 		<Transition name="fade">
 			<MobileMenu v-show="isMobileMenuOpen" />
@@ -62,7 +62,6 @@ watch(triggerRef, (newVal) => {
 
 // TODO: refactor to useGSAP or plugin
 watch(isMobileMenuOpen, newVal => {
-	console.log(triggerRef.value);
 	if (!triggerRef.value || !tl) return;
 	
 	if (newVal) {
