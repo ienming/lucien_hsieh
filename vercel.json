@@ -1,8 +1,10 @@
 {
 	"$schema": "https://openapi.vercel.sh/vercel.json",
+	"buildCommand": "nuxt generate",
 	"git": {
 		"deploymentEnabled": {
-			"dev": true
+			"dev": true,
+			"chore/change-vercel-build-command": true
 		}
 	}
 }
