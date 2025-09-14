@@ -13,7 +13,7 @@
 				</div>
 				<div class="d-flex flex-column gap-space-sm common-paragraph">
 					<p>
-						Lucien Hsieh 謝明倫，有約三年前端開發與網頁設計經驗，透過設計與程式的結合，我希望能把想法化為實際的體驗與故事、傳遞給更多人。
+						Lucien Hsieh 謝明倫，有三年前端開發與網頁設計經驗，透過設計與程式的結合，我希望能把想法化為實際的體驗與故事、傳遞給更多人。
 					</p>
 					<p>
 						HI! I'm Lucien, I have 3 years experiences in building web experiences with design and front-end development. I use these skills to tell the story, to convey my idea and hope it can reach others.
@@ -121,8 +121,8 @@ function handleClose() {
 			border-radius: $radius-round;
 			background-color: $color-neutral-800;
 			color: $color-neutral-50;
-			width: 32px;
-			height: 32px;
+			width: 24px;
+			height: 24px;
 			display: inline-flex;
 			justify-content: center;
 			align-items: center;
@@ -130,7 +130,7 @@ function handleClose() {
 			cursor: pointer;
 
 			&:hover {
-				transform: rotate(120deg) scale(1.4);
+				transform: scale(1.15);
 			}
 		}
 	}

@@ -23,7 +23,6 @@ const {isAboutCardOpen} = useAboutCard();
 	left: 50%;
 	transform: translateX(-50%);
 	border-radius: $radius-base;
-	background-color: $color-primary;
 	padding: $space-sm;
 	min-width: 180px;
 	
@@ -34,7 +33,6 @@ const {isAboutCardOpen} = useAboutCard();
 		.link-item {
 			padding: $space-sm;
 			border-radius: $radius-sm;
-			background-color: $color-neutral-200;
 			color: $color-white;
 		}
 	}

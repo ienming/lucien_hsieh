@@ -180,19 +180,16 @@ watch(heroImgContainerRef, val => {
 	const tl = gsap.timeline({
 		scrollTrigger: {
 			trigger: val,
-			start: 'bottom 70%',
-			toggleActions: 'play pause resume reset',
+			start: '5px 0%',
+			toggleActions: 'play pause resume reverse',
 		}
 	});
 
 	tl
 		.addLabel('start')
 		.to(val, {
-			padding: 0,
+			clipPath: 'inset(0px round 0px)',
 		})
-		.to(val.querySelector('.hero-img'), {
-			borderRadius: 0,
-		});
 }, {
 	once: true,
 })
@@ -259,11 +256,7 @@ function unlockPage() {
 	}
 
 	.hero-img-container {
-		padding: $space-sm;
-
-		.hero-img {
-			border-radius: $radius-sm;
-		}
+		clip-path: inset($space-sm round $radius-sm),
 	}
 
 	.header {
