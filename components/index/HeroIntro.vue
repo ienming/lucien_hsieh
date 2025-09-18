@@ -9,8 +9,8 @@
 			</Button>
 		</div>
 		<div>
-			<p class="message">Hi! I'm Lucien, I tell the story on web through code and design</p>
-			<p class="common-paragraph">這裡就像我的工作調查台，收藏我在沿途探索與挖掘出的作品。</p>
+			<p class="message">Hi! I'm Lucien, I craft digital experiences that bring ideas to life</p>
+			<p class="common-paragraph">這裡就像我的工作調查台，每顆礦石都代表我將創意化為互動體驗的專案。</p>
 		</div>
 	</div>
 </template>

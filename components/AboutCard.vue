@@ -13,10 +13,10 @@
 				</div>
 				<div class="d-flex flex-column gap-space-sm common-paragraph">
 					<p>
-						Lucien Hsieh 謝明倫，有三年前端開發與網頁設計經驗，透過設計與程式的結合，我希望能把想法化為實際的體驗與故事、傳遞給更多人。
+						Lucien Hsieh 謝明倫，有三年前端開發與網頁設計經驗，透過網頁互動，把想法轉化為實際體驗。
 					</p>
 					<p>
-						HI! I'm Lucien, I have 3 years experiences in building web experiences with design and front-end development. I use these skills to tell the story, to convey my idea and hope it can reach others.
+						Hi, I'm Lucien Hsieh. I bring creative ideas to life through web experiences. With 3 years of experience in design-led front-end development, I combine design and code to craft unique, engaging experiences that connect with audiences.
 					</p>
 				</div>
 			</div>

@@ -1,23 +1,19 @@
 export const LIGHTBOX_CLASS_NAME = 'lightbox';
 export const WORK_TYPES = {
-	LANDING_PAGE: {
-		id: 'landing page',
+	WEB_DESIGN: {
+		id: 'web design',
 		color: '#4AEC5D',
 	},
-	DATA_VIZ: {
-		id: 'data visualization',
+	CREATIVE_WEB: {
+		id: 'creative web',
 		color: '#AA6AF9',
 	},
-	UIUX: {
-		id: 'UIUX case study',
+	UX: {
+		id: 'UX',
 		color: '#2E7BF7',
 	},
 	GRAPHIC: {
 		id: 'graphic / editorial',
-		color: '#EC4AA0',
-	},
-	ILLUSTRATION: {
-		id: 'illustration',
 		color: '#EC4AA0',
 	},
 };
