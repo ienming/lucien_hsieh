@@ -10,7 +10,7 @@
 		</div>
 		<div>
 			<p class="message">Hi! I'm Lucien, I craft digital experiences that bring ideas to life</p>
-			<p class="common-paragraph">這裡就像我的工作調查台，每顆礦石都代表我將創意化為互動體驗的專案。</p>
+			<p class="common-paragraph">我把想法化為互動數位體驗，這裡展示我將創意落地的互動專案。</p>
 		</div>
 	</div>
 </template>

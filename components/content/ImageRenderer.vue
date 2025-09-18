@@ -2,7 +2,12 @@
 	<div
 		class="content-img"
 		:class="{'disabled': !className?.includes(LIGHTBOX_CLASS_NAME)}">
+		<img
+			v-if="useLocal"
+			:src="src"
+			alt="">
 		<NuxtImg
+			v-else
 			placeholder
 			:src="src"
 			:alt="alt"
@@ -33,6 +38,12 @@ const {alt, src, title} = defineProps({
 defineEmits(['preview']);
 const attrs = useAttrs();
 const {class: className} = attrs;
+
+// For development testing
+const useLocal = computed(() => {
+	if (src.startsWith('/')) return true;
+	return false;
+})
 </script>
 
 <style scoped lang="scss">
@@ -42,6 +53,8 @@ const {class: className} = attrs;
 
 	img {
 		width: 100%;
+		border-radius: $radius-sm;
+		margin: $space-xs 0;
 	}
 
 	&:hover {
