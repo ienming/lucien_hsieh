@@ -4,15 +4,6 @@
 			<h3 class="title">
 				{{ title }}
 			</h3>
-			<!-- <Button
-				v-if="isMore"
-				variant="outlined"
-				@click="isContentOpen = !isContentOpen">
-				Read more
-				<ClientOnly>
-					<Icon name="iconoir:plus" />
-				</ClientOnly>
-			</Button> -->
 			<div class="text-muted content">
 				<slot />
 			</div>
@@ -26,14 +17,7 @@ defineProps({
 		type: String,
 		default: '',
 	},
-	isMore: {
-		type: Boolean,
-		default: false,
-	},
 });
-
-// TODO: 之後改成 Modal
-// const isContentOpen = ref(false);
 </script>
 
 <style scoped lang="scss">

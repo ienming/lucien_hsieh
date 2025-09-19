@@ -6,9 +6,7 @@
 		:gap="8"
 		max-columns="2">
 		<template #default="{ item }">
-			<ImageRenderer
-				:src="item"
-				/>
+			<ImageRenderer :src="item" />
 		</template>
 	</MasonryWall>
 </template>
