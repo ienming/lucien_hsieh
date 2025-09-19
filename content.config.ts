@@ -29,21 +29,5 @@ export default defineContentConfig({
 				mineral: z.string().optional(),
 			}),
 		}),
-
-		fragments: defineCollection({
-			type: 'data',
-			source: 'fragments/*.json',
-			schema: z.object({
-				title: z.string(),
-				images: z.array(z.object({
-					title: z.string(),
-					desc: z.string(),
-					url: z.string().url(),
-				})),
-				desc: z.string(),
-				tags: z.array(z.string()),
-				date: z.string(),
-			}),
-		}),
 	},
 })
