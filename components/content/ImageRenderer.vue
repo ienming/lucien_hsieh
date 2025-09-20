@@ -53,8 +53,11 @@ const useLocal = computed(() => {
 
 	img {
 		width: 100%;
-		border-radius: $radius-sm;
 		margin: $space-xs 0;
+
+		@include response(md) {
+			border-radius: $radius-sm;
+		}
 	}
 
 	&:hover {
