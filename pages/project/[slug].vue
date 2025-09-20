@@ -48,6 +48,7 @@
 							class="meta-mobile-link" />
 					</section>
 					<ContentRenderer
+						class="render-content"
 						:value="projectData"
 						:components="{
 							img: prepareContentImages,
@@ -266,6 +267,7 @@ function unlockPage() {
 		@include response(md) {
 			grid-template-columns: repeat(2, 1fr);
 			padding: 0 $space-xl;
+			margin: $space-3xl 0 $space-6xl 0;
 		}
 		
 		.project-intro {
@@ -281,6 +283,13 @@ function unlockPage() {
 				padding-right: $space-4xl;
 				max-width: $project-text-paragraph-max-width;
 			}
+		}
+	}
+
+	.render-content {
+		@include response(md) {
+			max-width: 90%;
+			margin: 0 auto;
 		}
 	}
 
@@ -301,7 +310,7 @@ function unlockPage() {
 		@include response(md) {
 			margin-bottom: 272px;
 			justify-content: end;
-			padding-right: $space-lg;
+			padding-right: 5vw;
 		}
 	}
 
