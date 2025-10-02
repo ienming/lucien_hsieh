@@ -4,7 +4,7 @@
 			<Transition
 				name="page"
 				mode="out-in">
-				<section v-if="isPageDataReady">
+				<section v-if="projectData">
 					<div
 						ref="heroImgContainer"
 						class="hero-img-container">
@@ -47,13 +47,15 @@
 							:label="link.label"
 							class="meta-mobile-link" />
 					</section>
-					<ContentRenderer
-						class="render-content"
-						:value="projectData"
-						:components="{
-							img: prepareContentImages,
-						}"
-					/>
+					<ClientOnly>
+						<ContentRenderer
+							class="render-content"
+							:value="projectData"
+							:components="{
+								img: prepareContentImages,
+							}"
+						/>
+					</ClientOnly>
 					<!-- Footer Area -->
 					<section class="d-flex credit-container">
 						<ProjectCredit :credits="projectData.credits" />
@@ -84,8 +86,7 @@
 		<PageLockModal
 			v-model:open="isPageLockVisible"
 			:page-id="route.params.slug"
-			:password="projectData.password"
-			@pass="unlockPage" />
+			@pass="fetchPageData" />
 	</div>
 </template>
 
@@ -101,6 +102,7 @@ import Lightbox from '~/components/Lightbox.vue';
 import Link from '~/components/Link.vue';
 import { LIGHTBOX_CLASS_NAME } from '~/constants/content';
 import { splitMultiLine, getPageUnlockRecords } from '~/libs/helper';
+import { STATUS_CLIENT_COMMON_ERROR } from '~/constants/system';
 
 definePageMeta({
 	pageTransition: false
@@ -110,70 +112,27 @@ const route = useRoute();
 const {isMobile} = useIsMobile();
 const heroImgContainerRef = useTemplateRef('heroImgContainer');
 
-const projectData = ref({});
-const nextProjectData = ref({});
-const isPageDataReady = ref(false);
+const meta = ref({});
+const projectData = ref(null);
+const nextProjectData = ref(null);
 const currentImg = ref(0);
 const lightboxImages = ref([]);
 const isLightboxVisible = ref(false);
 const isPageLockVisible = ref(false);
 
 const { slug } = route.params;
-const { data, error } = await useLazyAsyncData(`project-${slug}`, async () => {
-	const project = await queryCollection('project')
-		.path(`/project/${slug}`)
-		.select('password', 'title', 'tagline', 'year', 'cover', 'credits', 'tags', 'links', 'about', 'intros', 'body')
-		.first();
 
-	const projects = await queryCollection('project')
-		.where('draft', '=', false)
-		.select('title', 'subtitle', 'path', 'tags', 'cover')
-		.all();
+try {
+	const { data: metaData } = await useFetch(`/api/content/${slug}`);
+	meta.value = metaData.value;
 
-	const index = projects.findIndex(p => p.path === `/project/${slug}`);
-	const nextProject = projects[index + 1] ?? projects[0];
-
-	return { project, nextProject };
-});
-
-watch(data, newData => {
-	if (!newData) return;
-
-	projectData.value = newData.project;
-	nextProjectData.value = newData.nextProject;
-
-	useHead({
-		title: projectData.value.title,
-	});
-
-	// 整理資料
-	projectData.value.introParas = splitMultiLine(projectData.value.intros);
-
-	if (import.meta.client) {
-		setTimeout(() => {
-			const unlockedRecords = getPageUnlockRecords();
-			const isPageUnlocked = !!unlockedRecords[route.params.slug];
-	
-			if (projectData.value.password && !isPageUnlocked) {
-				isPageLockVisible.value = true;
-			} else {
-				isPageDataReady.value = true;
-			}
-		}, 300);
+	if (!meta.value.needPassword) {
+		const { data: pageData } = await useFetch(`/api/content/${slug}/page`);
+		initPageData(pageData.value);
 	}
-}, {
-	immediate: true,
-});
-
-watch(error, err => {
-	if (!err) return;
-
-	showError({
-		statusCode: error.value?.statusCode || 400,
-		message: error.value?.data?.message || error.value?.message || 'Something went wrong',
-		fatal: true,
-	});
-});
+} catch (err) {
+	showPageError(err)
+}
 
 watch(heroImgContainerRef, val => {
 	if (!val) return;
@@ -196,13 +155,53 @@ watch(heroImgContainerRef, val => {
 })
 
 onMounted(() => {
+	useHead({
+		title: meta.value.title,
+	});
+
+	if (meta.value.needPassword) {
+		const unlockedRecords = getPageUnlockRecords();
+		const isPageAlreadyUnlocked = !!unlockedRecords[slug];
+	
+		if (isPageAlreadyUnlocked) {
+			fetchPageData();
+		} else {
+			isPageLockVisible.value = true;
+		}
+	}
+
 	// TODO: refactor to global
 	gsap.registerPlugin(ScrollTrigger);
 });
 
+async function fetchPageData() {
+	try {
+		const res = await $fetch(`/api/content/${slug}/page`);
+		initPageData(res);
+	} catch (error) {
+		showPageError(error);
+	}
+}
+
+function initPageData({ project, nextProject }) {
+	projectData.value = project;
+	nextProjectData.value = nextProject;
+	projectData.value.introParas = splitMultiLine(projectData.value.intros);
+
+	isPageLockVisible.value = false;
+}
+
+function showPageError(error) {
+	showError({
+		statusCode: error.value?.statusCode || STATUS_CLIENT_COMMON_ERROR,
+		message: error.value?.data?.message || error.value?.message || 'Something went wrong',
+		fatal: true,
+	});
+}
+
 function prepareContentImages(props) {
 	const {src, alt, title, desc, class: className} = props;
-						
+
 	if (src &&
 		className?.includes(LIGHTBOX_CLASS_NAME) &&
 		!lightboxImages.value.filter(img => img.url === src).length) {
@@ -228,11 +227,6 @@ function openLightbox(src) {
 		currentImg.value = index;
 		isLightboxVisible.value = true;
 	}
-}
-
-function unlockPage() {
-	isPageLockVisible.value = false;
-	isPageDataReady.value = true;
 }
 </script>
 

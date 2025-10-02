@@ -59,9 +59,10 @@
 </template>
 
 <script setup>
+import { STATUS_AUTH_INVALID } from '~/constants/system';
 import { getPageUnlockRecords, setPageUnlockRecord } from '~/libs/helper';
 
-const {open, password, pageId} = defineProps({
+const {open, pageId} = defineProps({
 	pageId: {
 		type: String,
 		default: '',
@@ -69,10 +70,6 @@ const {open, password, pageId} = defineProps({
 	open: {
 		type: Boolean,
 		default: false,
-	},
-	password: {
-		type: String,
-		default: '',
 	},
 });
 const emits = defineEmits(['update:open', 'pass']);
@@ -92,18 +89,33 @@ function resetInputState() {
 	}
 }
 
-function checkPassword() {
-	// TODO: 驗證錯誤
-	isErrMsgShow.value = true;
+async function checkPassword() {
+	isErrMsgShow.value = false;
+
 	if (!inputPassword.value.length) {
+		isErrMsgShow.value = true;
 		errorMsg.value = '請輸入密碼';
 		return;
-	} else if (inputPassword.value !== password) {
+	}
+	
+	let res;
+	try {
+		res = await $fetch(`/api/content/${pageId}/unlock`, {
+			method: 'POST',
+			body: {
+				password: inputPassword.value,
+			},
+		});
+	} catch {
+		return;
+	}
+
+	if (res.statusCode === STATUS_AUTH_INVALID) {
+		isErrMsgShow.value = true;
 		errorMsg.value = '密碼錯誤';
 		return;
 	}
 
-	isErrMsgShow.value = false;
 	updateUnlockRecord();
 	setTimeout(() => {
 		emits('pass');
