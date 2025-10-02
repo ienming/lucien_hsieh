@@ -27,7 +27,8 @@
 					<WorkTypeChip
 						v-for="tag of tags"
 						:key="tag"
-						:type="tag" />
+						:type="tag"
+						:clickable="false" />
 				</div>
 			</div>
 		</div>

@@ -1,42 +1,26 @@
 <template>
 	<header
-		class="d-grid align-items-center container custom-header"
+		class="container custom-header"
 		:class="{hide: direction === GESTURE_DIRECTION.DOWN}">
-		<div>
-			<NuxtLink
-				to="/"
-				class="logo">
-				<span class="fade-link">
-					LUCIEN
-				</span>
-			</NuxtLink>
-		</div>
+		<NuxtLink
+			to="/"
+			class="logo"
+			:class="{'hide': isIndex}">
+			<Logo />
+		</NuxtLink>
 		<!-- Desktop -->
 		<nav class="d-none d-md-grid nav">
 			<NuxtLink
-				to="/works"
-				class="link fade-right-link">
-				<span>WORKS</span>
-			</NuxtLink>
-			<NuxtLink
-				to="/fragments"
-				class="link fade-right-link">
-				<span>FRAGMENTS</span>
+				class="link fade-right-link"
+				@click="isAllWorksOpen = true">
+				<span>(all works)</span>
 			</NuxtLink>
 			<NuxtLink
 				class="link fade-right-link"
-				@click="isAboutModalOpen = true">
+				@click="isAboutCardOpen = true">
 				<span>(creator)</span>
 			</NuxtLink>
 		</nav>
-		<!-- Mobile -->
-		<div
-			class="d-md-none mobile-menu"
-			@click="isMobileMenuOpen = true">
-			MENU
-		</div>
-		<AboutModal v-model:open="isAboutModalOpen" />
-		<MobileMenu v-model:open="isMobileMenuOpen"/>
 	</header>
 </template>
 
@@ -45,9 +29,12 @@ import {GESTURE_DIRECTION} from '~/constants/interaction';
 import { showSplitTextOnHover } from '~/libs/animate';
 
 const {direction} = useScrollDirection();
-const isAboutModalOpen = ref(false);
-const isMobileMenuOpen = ref(false);
+const {isAllWorksOpen} = useAllWorksModal();
+const {isAboutCardOpen} = useAboutCard();
+const route = useRoute();
+
 let cleanUp;
+const isIndex = computed(() => route.path === '/');
 
 onMounted(() => {
 	cleanUp = showSplitTextOnHover('.custom-header .fade-right-link', {
@@ -69,14 +56,17 @@ onUnmounted(() => {
 	z-index: $z-index-common-fixed;
 	transition: transform .3s ease-in-out;
 	padding: $space-lg $space-base;
-	grid-template-columns: repeat(2, 1fr);
-	row-gap: $space-lg;
-	align-items: flex-start;
+	display: flex;
+	justify-content: center;
 	border-radius: 0 0 $radius-sm $radius-sm;
 	color: $color-white;
 	mix-blend-mode: difference;
 	
 	@include response(md) {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		row-gap: $space-lg;
+		align-items: flex-start;
 		padding: $space-md $space-xl;
 	}
 
@@ -85,20 +75,29 @@ onUnmounted(() => {
 		align-items: center;
 		gap: $space-sm;
 		font-size: $font-size-lg;
+
+		&.hide {
+			opacity: 0;
+			visibility: hidden;
+		}
+
+		@include response(md) {
+			grid-column: 1 / span 2;
+		}
 	}
 
 	.nav {
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(1, 1fr);
+		justify-self: flex-end;
 		font-size: $font-size-md;
+
+		.link {
+			text-align: right;
+		}
 	}
 
 	&.hide {
 		transform: translateX(-50%) translateY(-100%);
-	}
-
-	.mobile-menu {
-		justify-self: end;
-		padding: $space-xs;
 	}
 }
 </style>

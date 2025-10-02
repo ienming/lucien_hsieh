@@ -1,125 +1,39 @@
 <template>
-	<ModalOverlay
-		:open="open"
-		transition="page"
-		@update:open="('update:open', $event)">
-		<div class="mobile-menu">
-			<div class="d-flex justify-contents-space-between align-items-center mb-space-md header">
-				<div class="text-muted logo">
-					LUCIEN
-				</div>
-				<div class="close">
-				<ClientOnly>
-					<Icon
-						name="iconoir:xmark"
-						@click="$emit('update:open', false)" />
-				</ClientOnly>
-				</div>
-			</div>
-			<nav>
-				<ul class="d-flex flex-column gap-space-md">
-					<li class="nav-link">
-						<NuxtLink
-							to="/works"
-							class="d-block">
-							<span>WORKS</span>
-						</NuxtLink>
-					</li>
-					<li class="nav-link">
-						<NuxtLink
-							to="/fragments"
-							class="d-block">
-							<span>FRAGMENTS</span>
-						</NuxtLink>
-					</li>
-				</ul>
-			</nav>
-			<section class="about">
-				<div class="info-card">
-					<Avatar :img="'/avatar.jpg'" />
-					<div class="d-flex flex-column gap-space-sm mt-space-base common-paragraph">
-						<p>
-							Lucien Hsieh 謝明倫專注於將概念轉化為視覺、可互動的數位媒體，有約 3 年設計與前端開發經驗。希望能將不同的內容轉譯成有趣的敘事作品。
-						</p>
-						<p>
-							I’m Lucien — a front-end developer who also design. I have 3 years experiences in the field. I craft interfaces, build interactions and wrap them in concepts that tell a story.
-						</p>
-					</div>
-				</div>
-				<ContactCard />
-				<EducationCard />
-			</section>
-		</div>
-	</ModalOverlay>
+	<section class="mobile-menu">
+		<ul class="d-flex flex-column link-list">
+			<li
+				class="link-item"
+				@click.stop="isAllWorksOpen = true">All works</li>
+			<li
+				class="link-item"
+				@click.stop="isAboutCardOpen = true">(creator)</li>
+		</ul>
+	</section>
 </template>
 
 <script setup>
-defineProps({
-	open: {
-		type: Boolean,
-		default: false,
-	},
-});
-
-const emits = defineEmits(['update:open']);
-
-const router = useRouter();
-let closeAfterNavigate = null;
-
-onMounted(() => {
-	closeAfterNavigate = router.afterEach(() => {
-		emits('update:open', false);
-	});
-});
-
-onUnmounted(() => {
-	if (closeAfterNavigate) closeAfterNavigate();
-})
+const {isAllWorksOpen} = useAllWorksModal();
+const {isAboutCardOpen} = useAboutCard();
 </script>
 
 <style lang="scss" scoped>
 .mobile-menu {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	z-index: $z-index-common-modal;
-	height: 100dvh;
-	background-color: $color-neutral-100;
-	color: $color-neutral-850;
-	padding: $space-xl;
+	position: absolute;
+	bottom: 60px;
+	left: 50%;
+	transform: translateX(-50%);
 	border-radius: $radius-base;
-	overflow-y: scroll;
+	padding: $space-sm;
+	min-width: 180px;
+	
+	.link-list {
+		gap: $space-sm;
+		text-align: center;
 
-	.close {
-		font-size: $font-size-2xl;
-	}
-
-	.nav-link {
-		font-size: $font-size-xl;
-		padding: 0 $space-sm;
-	}
-
-	.about {
-		margin-top: $space-6xl;
-
-		.info-card, .contact-card, .education-card {
-			padding: $space-md;
-			border-radius: $radius-base;
-			background-color: $color-neutral-200;
-		}
-
-		.education-card {
-			font-size: $font-size-base;
-		}
-	}
-
-	:deep(.luc-button.outlined) {
-		border: 1px solid $color-neutral-800;
-		color: $color-neutral-950;
-
-		&:hover {
-			background-color: $color-neutral-300;
+		.link-item {
+			padding: $space-sm;
+			border-radius: $radius-sm;
+			color: $color-white;
 		}
 	}
 }

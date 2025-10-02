@@ -31,7 +31,7 @@ export default defineNuxtConfig({
 				{
 					rel: 'icon',
 					type: 'image/x-icon',
-					href: '/avatar.jpg',
+					href: '/avatar.png',
 				},
 			],
 		},
@@ -43,6 +43,7 @@ export default defineNuxtConfig({
 	googleFonts: {
 		families: {
 			'Urbanist': true,
+			'Cossette Titre': true,
 			'Noto Sans Traditional Chinese': true,
 		},
 	},

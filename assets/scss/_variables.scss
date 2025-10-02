@@ -1,5 +1,6 @@
 // Layout
 $content-max-width: 1700px;
+$project-text-paragraph-max-width: 700px;
 
 // Color
 $color-white: #ffffff;
@@ -29,11 +30,14 @@ $color-text-default: $color-neutral-200;
 $color-text-secondary: $color-neutral-400;
 $color-text-tertiary: $color-neutral-700;
 
+$color-primary: $color-neutral-100;
+
 // Typography
 $font-size-xxs: 10px;
 $font-size-xs: 12px;
 $font-size-sm: 14px;
 $font-size-base: 16px;
+$font-size-basemd: 18px;
 $font-size-md: 20px;
 $font-size-lg: 24px;
 $font-size-xl: 28px;

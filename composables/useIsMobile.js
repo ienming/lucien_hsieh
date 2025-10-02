@@ -15,7 +15,7 @@ export function useIsMobile(breakpoint = 768) {
 	})
 
 	onUnmounted(() => {
-		mediaQuery.removeEventListener('change', update);
+		mediaQuery?.removeEventListener('change', update);
 	})
 
 	return { isMobile };
