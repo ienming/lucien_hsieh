@@ -100,7 +100,7 @@ async function checkPassword() {
 	
 	let res;
 	try {
-		res = await $fetch(`/api/content/${pageId}/lock`, {
+		res = await $fetch(`/api/content/${pageId}/unlock`, {
 			method: 'POST',
 			body: {
 				password: inputPassword.value,

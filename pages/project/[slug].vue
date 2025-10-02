@@ -122,7 +122,7 @@ const isPageLockVisible = ref(false);
 const { slug } = route.params;
 
 try {
-	const { data } = await useFetch(`/api/content/${slug}/meta`);
+	const { data } = await useFetch(`/api/content/${slug}`);
 	meta.value = data.value;
 } catch (err) {
 	showPageError(err)
