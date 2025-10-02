@@ -7,6 +7,6 @@ export default defineEventHandler(async event => {
 
 	return {
 		title: project?.title,
-		isLocked: !!project?.password,
+		needPassword: !!project?.password,
 	};
 });

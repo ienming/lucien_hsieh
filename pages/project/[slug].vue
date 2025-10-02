@@ -4,7 +4,7 @@
 			<Transition
 				name="page"
 				mode="out-in">
-				<section v-if="isPageDataReady">
+				<section v-if="projectData">
 					<div
 						ref="heroImgContainer"
 						class="hero-img-container">
@@ -47,13 +47,15 @@
 							:label="link.label"
 							class="meta-mobile-link" />
 					</section>
-					<ContentRenderer
-						class="render-content"
-						:value="projectData"
-						:components="{
-							img: prepareContentImages,
-						}"
-					/>
+					<ClientOnly>
+						<ContentRenderer
+							class="render-content"
+							:value="projectData"
+							:components="{
+								img: prepareContentImages,
+							}"
+						/>
+					</ClientOnly>
 					<!-- Footer Area -->
 					<section class="d-flex credit-container">
 						<ProjectCredit :credits="projectData.credits" />
@@ -111,9 +113,8 @@ const {isMobile} = useIsMobile();
 const heroImgContainerRef = useTemplateRef('heroImgContainer');
 
 const meta = ref({});
-const projectData = ref({});
-const nextProjectData = ref({});
-const isPageDataReady = ref(false);
+const projectData = ref(null);
+const nextProjectData = ref(null);
 const currentImg = ref(0);
 const lightboxImages = ref([]);
 const isLightboxVisible = ref(false);
@@ -122,8 +123,13 @@ const isPageLockVisible = ref(false);
 const { slug } = route.params;
 
 try {
-	const { data } = await useFetch(`/api/content/${slug}`);
-	meta.value = data.value;
+	const { data: metaData } = await useFetch(`/api/content/${slug}`);
+	meta.value = metaData.value;
+
+	if (!meta.value.needPassword) {
+		const { data: pageData } = await useFetch(`/api/content/${slug}/page`);
+		initPageData(pageData.value);
+	}
 } catch (err) {
 	showPageError(err)
 }
@@ -149,19 +155,19 @@ watch(heroImgContainerRef, val => {
 })
 
 onMounted(() => {
-	if (!meta.value) return;
-
 	useHead({
 		title: meta.value.title,
 	});
 
-	const unlockedRecords = getPageUnlockRecords();
-	const isPageAlreadyUnlocked = !!unlockedRecords[slug];
-
-	if (meta.value.isLocked && !isPageAlreadyUnlocked) {
-		isPageLockVisible.value = true;
-	} else {
-		fetchPageData();
+	if (meta.value.needPassword) {
+		const unlockedRecords = getPageUnlockRecords();
+		const isPageAlreadyUnlocked = !!unlockedRecords[slug];
+	
+		if (isPageAlreadyUnlocked) {
+			fetchPageData();
+		} else {
+			isPageLockVisible.value = true;
+		}
 	}
 
 	// TODO: refactor to global
@@ -171,16 +177,18 @@ onMounted(() => {
 async function fetchPageData() {
 	try {
 		const res = await $fetch(`/api/content/${slug}/page`);
-
-		projectData.value = res.project;
-		nextProjectData.value = res.nextProject;
-		projectData.value.introParas = splitMultiLine(projectData.value.intros);
-	
-		isPageLockVisible.value = false;
-		isPageDataReady.value = true;
+		initPageData(res);
 	} catch (error) {
 		showPageError(error);
 	}
+}
+
+function initPageData({ project, nextProject }) {
+	projectData.value = project;
+	nextProjectData.value = nextProject;
+	projectData.value.introParas = splitMultiLine(projectData.value.intros);
+
+	isPageLockVisible.value = false;
 }
 
 function showPageError(error) {
@@ -193,7 +201,7 @@ function showPageError(error) {
 
 function prepareContentImages(props) {
 	const {src, alt, title, desc, class: className} = props;
-						
+
 	if (src &&
 		className?.includes(LIGHTBOX_CLASS_NAME) &&
 		!lightboxImages.value.filter(img => img.url === src).length) {
