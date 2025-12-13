@@ -127,13 +127,8 @@ try {
 	meta.value = metaData.value;
 
 	if (!meta.value.needPassword) {
-		const { data: pageData } = await useLazyFetch(`/api/content/${slug}/page`);
-		watch(pageData, newPageData => {
-			if (!newPageData) return;
-			initPageData(newPageData);
-		}, {
-			immediate: true,
-		})
+		const { data: pageData } = await useFetch(`/api/content/${slug}/page`);
+		initPageData(pageData.value);
 	}
 } catch (err) {
 	showPageError(err)
