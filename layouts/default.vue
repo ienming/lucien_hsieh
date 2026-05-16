@@ -1,60 +1,23 @@
 <template>
 	<div>
-		<DefaultHeader />
-		<main :class="{'with-header': isNeedHeaderMargin}">
-			<div>
-				<slot />
-			</div>
-			<!-- TODO: 手機版的導覽 -->
-			<MobileMenuHamburger v-if="!isIndex" />
+		<AppHeader />
+		<main>
+			<slot />
 		</main>
-		<DefaultFooter v-if="!isIndex" />
-		<ClientOnly>
-			<Teleport to="body">
-				<AllWorks v-model:open="isAllWorksOpen" />
-			</Teleport>
-		</ClientOnly>
-		<ClientOnly>
-			<Teleport to="body">
-				<AboutCard
-					v-model:open="isAboutCardOpen"
-					:class="{'about-card-desktop': !isMobile}" />
-			</Teleport>
-		</ClientOnly>
+		<AppSidebar :projects="projects" :current-index="currentIndex" :progress-label="progressLabel" @go-to="goTo"
+			@toggle-environment="env.togglePanel" />
+		<EnvironmentPanel :is-open="env.isOpen.value" :language="env.language.value" :is-dark="env.isDark.value"
+			@close="env.closePanel" @toggle-language="env.toggleLanguage" @toggle-theme="env.toggleTheme" />
 	</div>
 </template>
 
 <script setup>
-import DefaultHeader from './partials/DefaultHeader';
-import DefaultFooter from './partials/DefaultFooter';
-import MobileMenuHamburger from '~/components/MobileMenuHamburger.vue';
+import AppHeader from "./partials/AppHeader";
+import AppSidebar from "./partials/AppSidebar";
+import EnvironmentPanel from "./partials/EnvironmentPanel";
 
-const route = useRoute();
-const {isMobile} = useIsMobile();
-const {isAllWorksOpen} = useAllWorksModal();
-const {isAboutCardOpen} = useAboutCard();
+const { projects, currentIndex, currentProject, progressLabel, goTo } =
+	useProjects();
 
-const isNeedHeaderMargin = computed(() => {
-	return route.path !== '/' && !route.path.includes('/project/');
-});
-
-const isIndex = computed(() => {
-	return route.path === '/';
-});
+const env = useEnvironment();
 </script>
-
-<style lang="scss">
-main {
-	min-height: 100vh;
-
-	&.with-header {
-		--header-height: 90px;
-		margin-top: var(--header-height); //要把 fixed top 的 header 推上去
-		min-height: calc(100vh - var(--header-height));
-		
-		@include response(md) {
-			--header-height: 80px;
-		}
-	}
-}
-</style>

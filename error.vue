@@ -17,9 +17,6 @@
 </template>
 
 <script setup>
-import DefaultHeader from '~/layouts/partials/DefaultHeader';
-import DefaultFooter from '~/layouts/partials/DefaultFooter';
-
 defineProps({
 	error: {
 		type: Object,
