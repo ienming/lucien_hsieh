@@ -1,68 +1,65 @@
 <template>
   <aside class="app-sidebar">
-    <!-- Environment 觸發 + Panel -->
-    <div class="env-section">
-      <button class="env-trigger" @click="$emit('toggle-environment')">
-        {{ t('environment') }}
-      </button>
+	<nav class="app-nav">
+      <button class="nav-link">{{ t('fileExplorer') }}</button>
+      <button class="nav-link">{{ t('viewInList') }}</button>
+    </nav>
+	<!-- Environment 觸發 + Panel -->
+	<div class="env-section">
+	  <button class="nav-link env-trigger" @click="togglePanel">
+		{{ t('environment') }}
+	  </button>
 
-      <EnvironmentPanel
-        :is-open="isEnvOpen"
-        :language="language"
-        :is-dark="isDark"
-        @close="$emit('close')"
-        @toggle-language="$emit('toggle-language')"
-        @toggle-theme="$emit('toggle-theme')"
-      />
-    </div>
+	  <EnvironmentPanel
+		:is-open="isEnvOpen"
+		:language="language"
+		:is-dark="isDark"
+		@close="closePanel"
+		@toggle-language="toggleLanguage"
+		@toggle-theme="toggleTheme"
+	  />
+	</div>
 
     <!-- 點狀進度清單 -->
-    <ul class="dot-list">
-      <li
-        v-for="project in visibleDots"
-        :key="project.id"
-        class="dot-item"
-        :class="{
-          'is-active': project.index === currentIndex,
-          'is-near':   Math.abs(project.index - currentIndex) === 1,
-          'is-far':    Math.abs(project.index - currentIndex) >= 2,
-        }"
-        @click="$emit('go-to', project.index)"
-      >
-        <span class="dot" />
-        <span v-if="project.index === currentIndex" class="dot-label desktop-only">
-          {{ project.name }}
-        </span>
-      </li>
-    </ul>
-
-    <!-- 進度數字 -->
-    <div class="progress-label">{{ progressLabel }}</div>
+	 <section class="progress-hint">
+		 <ul class="dot-list">
+		   <li
+			 v-for="project in visibleDots"
+			 :key="project.id"
+			 class="dot-item"
+			 :class="{
+			   'is-active': project.index === currentIndex,
+			   'is-near':   Math.abs(project.index - currentIndex) === 1,
+			   'is-far':    Math.abs(project.index - currentIndex) >= 2,
+			 }"
+			 @click="goTo(project.index)"
+		   >
+			 <span class="dot" />
+			 <span v-if="project.index === currentIndex" class="dot-label desktop-only">
+			   {{ project.name }}
+			 </span>
+		   </li>
+		 </ul>
+	 
+		 <!-- 進度數字 -->
+		 <div class="progress-label">{{ progressLabel }}</div>
+	 </section>
   </aside>
 </template>
 
 <script setup>
 import EnvironmentPanel from './EnvironmentPanel.vue'
 
-const props = defineProps({
-	projects:      { type: Array,   required: true },
-	currentIndex:  { type: Number,  required: true },
-	progressLabel: { type: String,  required: true },
-	isEnvOpen:     { type: Boolean, required: true },
-	language:      { type: String,  required: true },
-	isDark:        { type: Boolean, required: true },
-})
-
-defineEmits(['go-to', 'toggle-environment', 'close', 'toggle-language', 'toggle-theme'])
-
+const { projects, currentIndex, progressLabel, goTo } = useProjects()
+const { isEnvOpen, language, isDark, togglePanel, closePanel, toggleLanguage, toggleTheme } = useEnvironment()
 const { t } = useI18n()
 
 const visibleDots = computed(() => {
-	const total = props.projects.length
-	const cur   = props.currentIndex
+	const total = projects.value.length
+	const cur   = currentIndex.value
 
 	if (total <= 5) {
-		return props.projects.map((p, i) => ({ ...p, index: i }))
+		return projects.value.map((p, i) => ({ ...p, index: i }))
 	}
 
 	let start = Math.max(0, cur - 2)
@@ -73,7 +70,7 @@ const visibleDots = computed(() => {
 		if (end === total - 1) start = Math.max(0, total - 5)
 	}
 
-	return props.projects
+	return projects.value
 		.slice(start, end + 1)
 		.map((p, i) => ({ ...p, index: start + i }))
 })
@@ -81,6 +78,7 @@ const visibleDots = computed(() => {
 
 <style lang="scss" scoped>
 .app-sidebar {
+	height: 100%;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
@@ -93,28 +91,38 @@ const visibleDots = computed(() => {
   }
 }
 
-// ─── Environment 觸發 ──────────────────────────────────
-.env-section {
-  order: 2;
-  position: relative; // EnvironmentPanel 的 absolute 錨點
+.app-nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 8px;
+  height: 100%;
+}
 
-  @media (max-width: 767px) {
-    order: 1;
+.nav-link {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-align: left;
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--color-text-primary);
   }
 }
 
-.env-trigger {
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  color: var(--color-text-muted);
-  transition: color var(--transition-fast);
-
-  &:hover { color: var(--color-text-primary); }
+// ─── Environment 觸發 ──────────────────────────────────
+.env-section {
+  position: relative; // EnvironmentPanel 的 absolute 錨點
 }
 
 // ─── 點狀清單 ──────────────────────────────────────────
+.progress-hint {
+	margin-top: 20px;
+}
+
 .dot-list {
-  order: 2;
   display: flex;
   flex-direction: column;
   gap: 10px;

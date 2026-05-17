@@ -2,19 +2,7 @@
   <div class="layout">
     <aside class="layout-left">
       <AppHeader />
-      <AppSidebar
-        :projects="projects"
-        :current-index="currentIndex"
-        :progress-label="progressLabel"
-        :is-env-open="isEnvOpen"
-        :language="language"
-        :is-dark="isDark"
-        @go-to="goTo"
-        @toggle-environment="togglePanel"
-        @close="closePanel"
-        @toggle-language="toggleLanguage"
-        @toggle-theme="toggleTheme"
-      />
+      <AppSidebar />
     </aside>
 
     <main class="layout-main">
@@ -29,29 +17,6 @@
 import AppHeader from "./partials/AppHeader";
 import AppSidebar from "./partials/AppSidebar";
 import ProjectModal from "~/components/inventory/ProjectModal.vue";
-
-const {
-  projects,
-  currentIndex,
-  progressLabel,
-  goTo,
-} = useProjects()
-
-const {
-  language,
-  toggleLanguage,
-  isDark,
-  toggleTheme,
-  initTheme,   // window.matchMedia → 只能在 client 呼叫
-  isEnvOpen,
-  togglePanel,
-  closePanel,
-} = useEnvironment()
-
-// SSR 安全：onMounted 只在 client 端執行
-onMounted(() => {
-  initTheme()
-})
 </script>
 
 <style lang="scss" scoped>
@@ -64,13 +29,11 @@ onMounted(() => {
 
 // ─── 左欄：AppHeader（上）+ AppSidebar（下）────────────
 .layout-left {
-  width: 200px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: var(--spacing-lg);
-  border-right: 1px solid var(--color-border);
 
   // 手機：退化為底部固定橫列
   @media (max-width: 767px) {

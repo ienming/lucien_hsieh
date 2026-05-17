@@ -36,18 +36,15 @@
                 <span class="meta-label">{{ t('name') }}</span>
                 <span class="meta-value">{{ project?.name }}</span>
               </div>
-              <div class="meta-group">
+              <div class="meta-group meta-no">
                 <span class="meta-label">{{ t('no') }}</span>
                 <span class="meta-value">{{ project?.no }}</span>
               </div>
-              <div class="meta-group">
+              <div class="meta-group meta-medium">
                 <span class="meta-label">{{ t('medium') }}</span>
                 <span class="meta-value">{{ project?.medium }}</span>
               </div>
             </div>
-            <button class="close-btn" aria-label="Close" @click="closeModal">
-              &#x2715;
-            </button>
           </div>
 
           <!-- Content（自然高度，不限制） -->
@@ -197,7 +194,7 @@ function onDragEnd() {
 
   @media (min-width: 768px) {
     margin: 8vh auto;
-    width: min(640px, 90vw);
+    width: min(1000px, 90vw);
     min-height: auto;
     border-radius: var(--card-radius);
     box-shadow: 0 8px 48px rgba(0, 0, 0, 0.2);
@@ -230,10 +227,10 @@ function onDragEnd() {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--spacing-sm) var(--spacing-md);
   border-bottom: 1px solid var(--color-border);
   background: var(--color-surface);
   touch-action: none;
+  border-radius: 12px 12px 0 0;
 
   @media (max-width: 767px) {
     cursor: grab;
@@ -243,41 +240,44 @@ function onDragEnd() {
 
 .modal-meta {
   display: flex;
-  gap: var(--spacing-xl);
+  width: 100%;
 }
 
 .meta-group {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  width: 100%;
+  border-left: 1px solid var(--color-border);
+  padding-left: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+
+  &.meta-no {
+	max-width: 90px;
+  }
+
+  &.meta-medium {
+	max-width: 120px;
+  }
 }
 
 .meta-label {
-  font-size: 9px;
+  font-size: 12px;
   color: var(--color-text-faint);
-  letter-spacing: 0.06em;
 }
 
 .meta-value {
-  font-size: 12px;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: var(--font-mono);
   color: var(--color-text-primary);
-}
-
-.close-btn {
-  font-size: 14px;
-  color: var(--color-text-muted);
-  padding: var(--spacing-xs);
-  line-height: 1;
-  transition: color var(--transition-fast);
-
-  &:hover { color: var(--color-text-primary); }
-
-  @media (max-width: 767px) { display: none; }
 }
 
 // ─── Content area（自然高度） ─────────────────────────
 .modal-content-area {
-  // 不設 overflow，讓 scroll container 統一捲動
+	max-width: 760px;
+	margin: 0 auto;
+	padding: var(--spacing-lg) var(--spacing-md);
 }
 
 .modal-cover {
@@ -288,7 +288,6 @@ function onDragEnd() {
 }
 
 .modal-content {
-  padding: var(--spacing-lg) var(--spacing-md);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-lg);

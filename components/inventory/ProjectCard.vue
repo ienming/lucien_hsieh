@@ -3,11 +3,10 @@
     ref="cardEl"
     class="project-card"
     :class="[`type-${project.type}`, { 'is-hovering': isHovered }]"
-    :style="cardStyle"
     @mouseenter="onMouseEnter"
     @mousemove="onMouseMove"
     @mouseleave="onMouseLeave"
-    @click="onClick"
+    @click="clickable ? onClick() : null"
   >
     <!-- Card Header -->
     <div class="card-header">
@@ -15,11 +14,11 @@
         <span class="meta-label">{{ t('name') }}</span>
         <span class="meta-value">{{ project.name }}</span>
       </div>
-      <div class="card-meta">
+      <div class="card-meta meta-no">
         <span class="meta-label">{{ t('no') }}</span>
         <span class="meta-value">{{ project.no }}</span>
       </div>
-      <div class="card-meta">
+      <div class="card-meta meta-medium">
         <span class="meta-label">{{ t('medium') }}</span>
         <span class="meta-value">{{ project.medium }}</span>
       </div>
@@ -55,6 +54,10 @@ const props = defineProps({
 		type: Object,
 		required: true,
 	},
+	clickable: {
+		type: Boolean,
+		default: true,
+	}
 })
 
 const { openModal, isOpen: isModalOpen } = useModal()
@@ -112,6 +115,8 @@ function onMouseLeave() {
   box-shadow: 0 2px 16px var(--color-card-shadow);
   width: 100%;
   max-width: var(--card-max-width);
+  height: 360px;
+  transform: scale(0.8);
   // 預設：滑鼠離開時慢速歸零
   transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow var(--transition-base);
 
@@ -125,7 +130,6 @@ function onMouseLeave() {
 // ─── Card Header ──────────────────────────────────────
 .card-header {
   display: flex;
-  gap: var(--spacing-xl);
   padding: var(--spacing-sm) var(--spacing-md);
   border-bottom: 1px solid var(--color-border);
 }
@@ -134,16 +138,26 @@ function onMouseLeave() {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  width: 100%;
+
+  &.meta-no {
+	max-width: 90px;
+  }
+
+  &.meta-medium {
+	max-width: 120px;
+  }
 }
 
 .meta-label {
-  font-size: 9px;
+  font-size: 12px;
   color: var(--color-text-faint);
   letter-spacing: 0.06em;
 }
 
 .meta-value {
-  font-size: 12px;
+  font-size: 16px;
+  font-weight: 500;
   color: var(--color-text-primary);
 }
 
@@ -159,10 +173,10 @@ function onMouseLeave() {
 }
 
 .profile-text {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 28px;
+  line-height: 40px;
   color: var(--color-text-primary);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
 }
 
 // Project 型

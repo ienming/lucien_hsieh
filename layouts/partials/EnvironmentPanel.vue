@@ -7,7 +7,7 @@
         <div class="panel-row">
           <span class="row-label">{{ t('translation') }}</span>
           <button class="row-toggle" @click="$emit('toggle-language')">
-            <span :class="{ 'is-active': language === 'EN' }">[EN]</span>
+            <span :class="{ 'is-active': language === 'EN' }">EN</span>
             <span class="separator">/</span>
             <span :class="{ 'is-active': language === 'ZH' }">ZH</span>
           </button>
@@ -16,7 +16,7 @@
         <div class="panel-row">
           <span class="row-label">{{ t('light') }}</span>
           <button class="row-toggle" @click="$emit('toggle-theme')">
-            <span :class="{ 'is-active': !isDark }">[ON]</span>
+            <span :class="{ 'is-active': !isDark }">ON</span>
             <span class="separator">/</span>
             <span :class="{ 'is-active': isDark }">OFF</span>
           </button>
@@ -47,9 +47,6 @@ const { t } = useI18n()
   z-index: 200;
 
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--card-radius);
-  padding: var(--spacing-md);
   min-width: 150px;
 
   box-shadow: 0 4px 20px var(--color-card-shadow);
@@ -62,12 +59,13 @@ const { t } = useI18n()
 }
 
 .panel-close {
-  position: absolute;
-  top: var(--spacing-sm);
-  right: var(--spacing-sm);
-  font-size: 10px;
-  color: var(--color-text-muted);
+	width: 100%;
+	text-align: right;
+  font-size: 12px;
+  font-weight: 400;
   transition: color var(--transition-fast);
+  padding: var(--spacing-sm);
+  padding-bottom: 0;
 
   &:hover { color: var(--color-text-primary); }
 }
@@ -76,23 +74,25 @@ const { t } = useI18n()
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
-  margin-top: var(--spacing-xs);
+  margin-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
 }
 
 .panel-row {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-lg);
+  padding: var(--spacing-sm);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .row-label {
-  font-size: 9px;
+  font-size: 12px;
   color: var(--color-text-faint);
-  letter-spacing: 0.06em;
 }
 
 .row-toggle {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--color-text-muted);
   display: flex;
   align-items: center;

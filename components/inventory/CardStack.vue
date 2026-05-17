@@ -1,159 +1,137 @@
 <template>
-  <div ref="stackEl" class="card-stack">
-    <!--
-      Ghost 卡（堆疊視覺，固定在底層）
-      高度跟著 currentCard 的實際高度同步
-    -->
-    <div
-      class="stack-ghost stack-ghost--2"
-      :style="{ height: cardHeight ? `${cardHeight}px` : 'auto' }"
-    />
-    <div
-      class="stack-ghost stack-ghost--1"
-      :style="{ height: cardHeight ? `${cardHeight}px` : 'auto' }"
-    />
-
-    <!--
-      卡片動畫容器
-      TransitionGroup 管理進出場
-      key 用 project.id 讓 Vue 知道是不同元素
-    -->
-    <TransitionGroup
-      :name="transitionName"
-      tag="div"
-      class="card-transition-wrapper"
-    >
-      <ProjectCard
-        v-if="currentProject"
-        :key="currentProject.id"
-        :project="currentProject"
-        class="stack-card"
-        @vue:mounted="onCardMounted"
-      />
-    </TransitionGroup>
-  </div>
+	<div ref="scrollerEl" class="card-scroller">
+		<div class="card-stack">
+			<div ref="sectionEl" class="stacked-section">
+				<div class="stacked-zone">
+					<ProjectCard
+						v-for="(project, i) in projects"
+						:key="project.id + '-' + i"
+						:ref="(el) => setCardRef(el, i)"
+						:project="project"
+						:clickable="project.type === 'profile' ? false : true"
+						:style="{ zIndex: projects.length - i }"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script setup>
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import ProjectCard from './ProjectCard.vue'
 
-defineProps({
-	transitionName: { type: String, default: 'slide-up' },
+gsap.registerPlugin(ScrollTrigger)
+
+const { projects } = useProjects()
+
+const GAP = 65
+const SCALE_STEP = 0.09
+
+const scrollerEl = ref(null)
+const sectionEl = ref(null)
+const cardRefs = ref([])
+
+function setCardRef(el, i) {
+	if (el) cardRefs.value[i] = el.$el ?? el
+}
+
+let trigger = null
+
+onMounted(async () => {
+	await nextTick()
+
+	const cards = cardRefs.value.filter(Boolean)
+	if (cards.length === 0) return
+
+	const heights = cards.map((el) => el.getBoundingClientRect().height + 120)
+	const paddingTop = parseFloat(getComputedStyle(scrollerEl.value).paddingTop)
+	const scrollerHeight = scrollerEl.value.clientHeight
+
+	// Section must be tall enough so user can scroll through the full animation
+	const ANIM_SCROLL = (cards.length - 1) * 350
+	gsap.set(sectionEl.value, { height: ANIM_SCROLL + scrollerHeight })
+
+	// Initial: top card at y=0, each subsequent card peeks by GAP
+	cards.forEach((el, i) => {
+		gsap.set(el, { position: 'absolute', top: 80, left: 0, right: 0, y: i * GAP, scale: 1 - i * SCALE_STEP, transformOrigin: 'top center' })
+	})
+
+	// Peel from top: card[i] exits upward, remaining cards slide into peek positions
+	const tl = gsap.timeline()
+	for (let i = 0; i < cards.length - 1; i++) {
+		tl.to(cards[i], {
+			y: -heights[i]-80,
+			scale: 1,
+			ease: 'none',
+		})
+		tl.to(cards.slice(i + 1), { y: (j) => j * GAP, scale: (j) => 1 - j * SCALE_STEP, ease: 'none' }, '<')
+		tl.to({}, { duration: 0.5 })
+	}
+
+	trigger = ScrollTrigger.create({
+		trigger: sectionEl.value,
+		scroller: scrollerEl.value,
+		start: `top top+=${paddingTop}`,
+		end: `+=${ANIM_SCROLL}`,
+		scrub: true,
+		animation: tl,
+	})
 })
 
-const { currentProject } = useProjects()
-
-// ─── Ghost 卡高度同步 ───────────────────────────────────
-const cardHeight = ref(0)
-const stackEl    = ref(null)
-
-function onCardMounted() {
-	nextTick(() => {
-		const cardEl = stackEl.value?.querySelector('.stack-card')
-		if (cardEl) cardHeight.value = cardEl.offsetHeight
-	})
-}
+onUnmounted(() => {
+	trigger?.kill()
+})
 </script>
 
 <style lang="scss" scoped>
-// ─── 容器 ──────────────────────────────────────────────
+.card-scroller {
+	height: 100vh;
+	overflow-y: auto;
+	padding: var(--spacing-xl);
+
+	@media (max-width: 767px) {
+		padding: var(--spacing-md);
+		padding-bottom: 48px;
+	}
+}
+
 .card-stack {
-  position: relative;
-  width: 100%;
-  max-width: var(--card-max-width);
-  padding-bottom: 20px;
-  // 讓 JS 完全接管 touch，避免瀏覽器的 native scroll 搶走 swipe 事件
-  touch-action: none;
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-md);
+	width: 100%;
+	max-width: var(--card-max-width);
+	margin: 0 auto;
 }
 
-// ─── TransitionGroup wrapper ───────────────────────────
-// 需要 position: relative 讓 absolute 的離場卡片定位正確
-.card-transition-wrapper {
-  position: relative;
+.stacked-section {
+	position: relative;
+	width: 100%;
 }
 
-// ─── 當前卡片 ──────────────────────────────────────────
-.stack-card {
-  position: relative;
-  z-index: 3;
-  // will-change 提示瀏覽器預備 GPU 加速
-  will-change: transform, opacity;
-}
+.stacked-zone {
+	position: sticky;
+	top: var(--spacing-xl);
+	width: 100%;
+	overflow: hidden;
+	height: 80vh;
 
-// ─── Ghost 卡（堆疊視覺）──────────────────────────────
-.stack-ghost {
-  position: absolute;
-  left: 0;
-  right: 0;
-  border-radius: var(--card-radius);
-  background: var(--color-surface);
+	@media (max-width: 767px) {
+		top: var(--spacing-md);
+	}
 
-  &--1 {
-    bottom: -8px;
-    left: 16px;
-    right: 16px;
-    z-index: 2;
-    opacity: 0.65;
-    box-shadow: 0 2px 12px var(--color-card-shadow);
-  }
-
-  &--2 {
-    bottom: -16px;
-    left: 32px;
-    right: 32px;
-    z-index: 1;
-    opacity: 0.35;
-    box-shadow: 0 2px 8px var(--color-card-shadow);
-  }
-}
-
-// ─── 進場 / 離場動畫 ───────────────────────────────────
-// slide-up：下一張（舊卡往上飛出，新卡從下飛入）
-.slide-up-enter-active,
-.slide-up-leave-active {
-  transition:
-    transform var(--transition-slow),
-    opacity   0.4s ease;
-  // 離場的卡片需要 absolute 才不會佔位擠壓新卡
-  &.slide-up-leave-active {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-}
-
-.slide-up-enter-from {
-  transform: translateY(60px);
-  opacity: 0;
-}
-
-.slide-up-leave-to {
-  transform: translateY(-80px);
-  opacity: 0;
-}
-
-// slide-down：上一張（舊卡往下飛出，新卡從上飛入）
-.slide-down-enter-active,
-.slide-down-leave-active {
-  transition:
-    transform var(--transition-slow),
-    opacity   0.4s ease;
-  &.slide-down-leave-active {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-}
-
-.slide-down-enter-from {
-  transform: translateY(-60px);
-  opacity: 0;
-}
-
-.slide-down-leave-to {
-  transform: translateY(80px);
-  opacity: 0;
+	&::after {
+		display: block;
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 80px;
+		background: linear-gradient(0deg,rgba(232, 232, 232, 0) 0%, rgba(232, 232, 232, 1) 100%);
+		z-index: 1001;
+	}
 }
 </style>

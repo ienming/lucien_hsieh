@@ -1,6 +1,5 @@
 const T = {
 	EN: {
-		siteTitle:    "LUCIEN'S INVENTORY",
 		fileExplorer: 'FILE EXPLORER',
 		viewInList:   'VIEW IN LIST',
 		environment:  'ENVIRONMENT',
@@ -12,15 +11,14 @@ const T = {
 		viewProject:  'View Project →',
 	},
 	ZH: {
-		siteTitle:    'LUCIEN 的作品',
-		fileExplorer: '所有作品',
-		viewInList:   '清單模式',
-		environment:  '環境設定',
-		translation:  '語言切換',
-		light:        '深色模式',
-		name:         '名稱',
-		no:           '編號',
-		medium:       '媒介',
+		fileExplorer: '所有專案',
+		viewInList:   '在清單閱讀',
+		environment:  '設定',
+		translation:  '語言',
+		light:        '外觀',
+		name:         'name',
+		no:           'no',
+		medium:       'medium',
 		viewProject:  '查看作品 →',
 	},
 }
