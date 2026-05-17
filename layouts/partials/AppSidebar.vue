@@ -1,10 +1,19 @@
 <template>
   <aside class="app-sidebar">
-    <!-- Environment 觸發區（panel 往右展開） -->
+    <!-- Environment 觸發 + Panel -->
     <div class="env-section">
       <button class="env-trigger" @click="$emit('toggle-environment')">
-        ENVIRONMENT
+        {{ t('environment') }}
       </button>
+
+      <EnvironmentPanel
+        :is-open="isEnvOpen"
+        :language="language"
+        :is-dark="isDark"
+        @close="$emit('close')"
+        @toggle-language="$emit('toggle-language')"
+        @toggle-theme="$emit('toggle-theme')"
+      />
     </div>
 
     <!-- 點狀進度清單 -->
@@ -21,7 +30,7 @@
         @click="$emit('go-to', project.index)"
       >
         <span class="dot" />
-        <span v-if="project.index === currentIndex" class="dot-label">
+        <span v-if="project.index === currentIndex" class="dot-label desktop-only">
           {{ project.name }}
         </span>
       </li>
@@ -33,57 +42,65 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import EnvironmentPanel from './EnvironmentPanel.vue'
 
 const props = defineProps({
-  projects:      { type: Array,  required: true },
-  currentIndex:  { type: Number, required: true },
-  progressLabel: { type: String, required: true },
+	projects:      { type: Array,   required: true },
+	currentIndex:  { type: Number,  required: true },
+	progressLabel: { type: String,  required: true },
+	isEnvOpen:     { type: Boolean, required: true },
+	language:      { type: String,  required: true },
+	isDark:        { type: Boolean, required: true },
 })
 
-defineEmits(['go-to', 'toggle-environment'])
+defineEmits(['go-to', 'toggle-environment', 'close', 'toggle-language', 'toggle-theme'])
+
+const { t } = useI18n()
 
 const visibleDots = computed(() => {
-  const total = props.projects.length
-  const cur   = props.currentIndex
+	const total = props.projects.length
+	const cur   = props.currentIndex
 
-  if (total <= 5) {
-    return props.projects.map((p, i) => ({ ...p, index: i }))
-  }
+	if (total <= 5) {
+		return props.projects.map((p, i) => ({ ...p, index: i }))
+	}
 
-  let start = Math.max(0, cur - 2)
-  let end   = Math.min(total - 1, cur + 2)
+	let start = Math.max(0, cur - 2)
+	let end   = Math.min(total - 1, cur + 2)
 
-  if (end - start < 4) {
-    if (start === 0) end   = Math.min(total - 1, 4)
-    if (end === total - 1) start = Math.max(0, total - 5)
-  }
+	if (end - start < 4) {
+		if (start === 0) end   = Math.min(total - 1, 4)
+		if (end === total - 1) start = Math.max(0, total - 5)
+	}
 
-  return props.projects
-    .slice(start, end + 1)
-    .map((p, i) => ({ ...p, index: start + i }))
+	return props.projects
+		.slice(start, end + 1)
+		.map((p, i) => ({ ...p, index: start + i }))
 })
 </script>
 
 <style lang="scss" scoped>
 .app-sidebar {
-  position: fixed;
-  left: var(--spacing-lg);
-  bottom: var(--spacing-lg);
-  z-index: 100;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
 
-  // 由下往上排列：progress → dots → env
-  // 用 flex-direction: column-reverse 讓視覺順序跟設計稿相符
-  // 設計稿由上而下：env panel → dots → 00/07
-  // 但 env trigger 在最下面所以用正常 column 然後調整 order
+  @media (max-width: 767px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
 }
 
 // ─── Environment 觸發 ──────────────────────────────────
 .env-section {
-  order: 3; // 視覺最下方
+  order: 2;
+  position: relative; // EnvironmentPanel 的 absolute 錨點
+
+  @media (max-width: 767px) {
+    order: 1;
+  }
 }
 
 .env-trigger {
@@ -92,9 +109,7 @@ const visibleDots = computed(() => {
   color: var(--color-text-muted);
   transition: color var(--transition-fast);
 
-  &:hover {
-    color: var(--color-text-primary);
-  }
+  &:hover { color: var(--color-text-primary); }
 }
 
 // ─── 點狀清單 ──────────────────────────────────────────
@@ -103,6 +118,13 @@ const visibleDots = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media (max-width: 767px) {
+    flex-direction: row;
+    flex: 1;
+    justify-content: center;
+    gap: 12px;
+  }
 }
 
 .dot-item {
@@ -151,12 +173,20 @@ const visibleDots = computed(() => {
   animation: fadeIn 0.2s ease;
 }
 
+.desktop-only {
+  @media (max-width: 767px) { display: none; }
+}
+
 // ─── 進度數字 ──────────────────────────────────────────
 .progress-label {
-  order: 1; // 視覺最上方（dot list 上面）
+  order: 1;
   font-size: 10px;
   color: var(--color-text-muted);
   letter-spacing: 0.04em;
+
+  @media (max-width: 767px) {
+    order: 3;
+  }
 }
 
 @keyframes fadeIn {

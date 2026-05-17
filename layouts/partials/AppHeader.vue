@@ -1,26 +1,27 @@
 <template>
   <header class="app-header">
-    <h1 class="site-title">LUCIEN'S INVENTORY</h1>
+    <h1 class="site-title">{{ t('siteTitle') }}</h1>
     <nav class="header-nav">
-      <button class="nav-link">FILE EXPLORER</button>
-      <button class="nav-link">VIEW IN LIST</button>
+      <button class="nav-link">{{ t('fileExplorer') }}</button>
+      <button class="nav-link">{{ t('viewInList') }}</button>
     </nav>
   </header>
 </template>
 
 <script setup>
-// Environment 觸發移到左下角的 AppSidebar，header 不再持有
+const { t } = useI18n()
 </script>
 
 <style lang="scss" scoped>
 .app-header {
-  position: fixed;
-  top: var(--spacing-lg);
-  left: var(--spacing-lg);
-  z-index: 100;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
+
+  // 手機：在底欄中隱藏，空間有限
+  @media (max-width: 767px) {
+    display: none;
+  }
 }
 
 .site-title {

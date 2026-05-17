@@ -1,5 +1,4 @@
 <template>
-	<DefaultHeader />
 	<div class="container error">
 		<div v-if="error.statusCode === 404">
 			<h2>404 page not found</h2>
@@ -13,7 +12,6 @@
 			Clear errors
 		</Button>
 	</div>
-	<DefaultFooter />
 </template>
 
 <script setup>

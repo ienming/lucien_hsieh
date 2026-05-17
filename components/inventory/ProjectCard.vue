@@ -1,17 +1,26 @@
 <template>
-  <div class="project-card" :class="`type-${project.type}`">
+  <div
+    ref="cardEl"
+    class="project-card"
+    :class="[`type-${project.type}`, { 'is-hovering': isHovered }]"
+    :style="cardStyle"
+    @mouseenter="onMouseEnter"
+    @mousemove="onMouseMove"
+    @mouseleave="onMouseLeave"
+    @click="onClick"
+  >
     <!-- Card Header -->
     <div class="card-header">
       <div class="card-meta">
-        <span class="meta-label">Name</span>
+        <span class="meta-label">{{ t('name') }}</span>
         <span class="meta-value">{{ project.name }}</span>
       </div>
       <div class="card-meta">
-        <span class="meta-label">No</span>
+        <span class="meta-label">{{ t('no') }}</span>
         <span class="meta-value">{{ project.no }}</span>
       </div>
       <div class="card-meta">
-        <span class="meta-label">Medium</span>
+        <span class="meta-label">{{ t('medium') }}</span>
         <span class="meta-value">{{ project.medium }}</span>
       </div>
     </div>
@@ -23,18 +32,17 @@
         <p class="profile-text">{{ project.description }}</p>
       </div>
 
-      <!-- Project 型：封面圖 -->
+      <!-- Project 型：封面圖 + hover overlay -->
       <div v-else class="card-body--project">
         <img
           v-if="project.coverImage"
           :src="project.coverImage"
           :alt="project.name"
           class="cover-image"
+          :class="{ 'is-hidden': isHovered }"
         />
-        <!-- 圖片上的文字（第三階段 hover 時會切換） -->
-        <div class="cover-overlay">
-          <p class="overlay-tagline">{{ project.tagline }}</p>
-          <p class="overlay-sub">{{ project.taglineSub }}</p>
+        <div class="hover-overlay" :class="{ 'is-visible': isHovered }">
+          <p class="hover-description">{{ project.description }}</p>
         </div>
       </div>
     </div>
@@ -42,12 +50,58 @@
 </template>
 
 <script setup>
-defineProps({
-  project: {
-    type: Object,
-    required: true,
-  },
+const props = defineProps({
+	project: {
+		type: Object,
+		required: true,
+	},
 })
+
+const { openModal, isOpen: isModalOpen } = useModal()
+const { t } = useI18n()
+
+const cardEl = ref(null)
+const isHovered    = ref(false)
+const tiltX        = ref(0)
+const tiltY        = ref(0)
+
+const MAX_TILT = 10
+
+// Modal 開啟時重置 hover 狀態，避免卡片 frozen 在橘色 overlay
+watch(isModalOpen, (open) => {
+	if (open) {
+		isHovered.value = false
+		tiltX.value = 0
+		tiltY.value = 0
+	}
+})
+
+const cardStyle = computed(() => ({
+	transform: `perspective(900px) rotateX(${tiltX.value}deg) rotateY(${tiltY.value}deg)`,
+}))
+
+function onClick() {
+	openModal(props.project)
+}
+
+function onMouseEnter() {
+	isHovered.value = true
+}
+
+function onMouseMove(e) {
+	if (!cardEl.value) return
+	const rect = cardEl.value.getBoundingClientRect()
+	const cx = rect.width / 2
+	const cy = rect.height / 2
+	tiltY.value = ((e.clientX - rect.left - cx) / cx) * MAX_TILT
+	tiltX.value = -((e.clientY - rect.top - cy) / cy) * MAX_TILT
+}
+
+function onMouseLeave() {
+	isHovered.value = false
+	tiltX.value = 0
+	tiltY.value = 0
+}
 </script>
 
 <style lang="scss" scoped>
@@ -58,10 +112,14 @@ defineProps({
   box-shadow: 0 2px 16px var(--color-card-shadow);
   width: 100%;
   max-width: var(--card-max-width);
-  transition: box-shadow var(--transition-base);
+  // 預設：滑鼠離開時慢速歸零
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow var(--transition-base);
 
-  // 第三階段 hover 3D 效果的容器設定
-  // transform-style: preserve-3d 會在第三階段加入
+  // hover 中：快速跟隨游標
+  &.is-hovering {
+    transition: transform 0.08s linear, box-shadow var(--transition-base);
+    box-shadow: 0 8px 32px var(--color-card-shadow);
+  }
 }
 
 // ─── Card Header ──────────────────────────────────────
@@ -112,42 +170,39 @@ defineProps({
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: var(--color-border); // 圖片載入前的佔位色
+  background: var(--color-border);
 }
 
 .cover-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: opacity 0.4s ease;
+
+  &.is-hidden {
+    opacity: 0;
+  }
 }
 
-.cover-overlay {
+.hover-overlay {
   position: absolute;
   inset: 0;
+  background: #e84c2b;
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: var(--spacing-md);
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-md);
+  opacity: 0;
+  transition: opacity 0.4s ease;
 
-  // 漸層讓文字可讀
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.5) 0%,
-    transparent 50%
-  );
+  &.is-visible {
+    opacity: 1;
+  }
 }
 
-.overlay-tagline {
-  font-size: 18px;
+.hover-description {
+  font-size: 14px;
+  line-height: 1.6;
   color: #fff;
-  font-style: italic;
-  line-height: 1.3;
-  margin-bottom: 4px;
-}
-
-.overlay-sub {
-  font-size: 10px;
-  color: rgba(255, 255, 255, 0.75);
-  letter-spacing: 0.04em;
+  font-family: var(--font-mono);
 }
 </style>

@@ -5,7 +5,7 @@
 
       <div class="panel-rows">
         <div class="panel-row">
-          <span class="row-label">Translation</span>
+          <span class="row-label">{{ t('translation') }}</span>
           <button class="row-toggle" @click="$emit('toggle-language')">
             <span :class="{ 'is-active': language === 'EN' }">[EN]</span>
             <span class="separator">/</span>
@@ -14,7 +14,7 @@
         </div>
 
         <div class="panel-row">
-          <span class="row-label">Light</span>
+          <span class="row-label">{{ t('light') }}</span>
           <button class="row-toggle" @click="$emit('toggle-theme')">
             <span :class="{ 'is-active': !isDark }">[ON]</span>
             <span class="separator">/</span>
@@ -34,17 +34,16 @@ defineProps({
 })
 
 defineEmits(['close', 'toggle-language', 'toggle-theme'])
+
+const { t } = useI18n()
 </script>
 
 <style lang="scss" scoped>
 .env-panel {
-  position: fixed;
-
-  // 對齊左下角 ENVIRONMENT 按鈕，往右展開
-  // bottom 對齊 sidebar bottom + env trigger 的高度
-  bottom: calc(var(--spacing-lg) - 4px);
-  left: calc(var(--spacing-lg) + 88px); // ENVIRONMENT 文字寬度約 88px
-
+  // 相對於 .env-section（position: relative）定位
+  position: absolute;
+  bottom: 0;
+  left: calc(100% + var(--spacing-sm)); // 緊貼在按鈕右側
   z-index: 200;
 
   background: var(--color-surface);
@@ -54,6 +53,12 @@ defineEmits(['close', 'toggle-language', 'toggle-theme'])
   min-width: 150px;
 
   box-shadow: 0 4px 20px var(--color-card-shadow);
+
+  // 手機：底欄往上展開
+  @media (max-width: 767px) {
+    bottom: calc(100% + var(--spacing-sm));
+    left: 0;
+  }
 }
 
 .panel-close {
@@ -105,7 +110,7 @@ defineEmits(['close', 'toggle-language', 'toggle-theme'])
   .separator { color: var(--color-text-faint); }
 }
 
-// ─── 動畫：從左下往右淡入 ─────────────────────────────
+// ─── 動畫 ─────────────────────────────────────────────
 .panel-enter-active,
 .panel-leave-active {
   transition:

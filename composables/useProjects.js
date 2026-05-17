@@ -1,20 +1,7 @@
-import { ref, computed } from 'vue'
-
-// ─── 資料型別說明 ──────────────────────────────────────
-// Project {
-//   id:          string        唯一識別碼
-//   no:          string        展示用編號，e.g. '001'
-//   name:        string        專案名稱
-//   medium:      string        媒介，e.g. 'Web' | 'Print' | 'Form'
-//   year:        string        年份
-//   type:        'profile' | 'project'
-//   tagline:     string        圖片上的標語（project 才有）
-//   taglineSub:  string        副標語（project 才有）
-//   description: string        專案描述
-//   coverImage:  string        封面圖片路徑
-//   link:        string        專案連結（project 才有）
-//   images:      Array<{ src, caption }>  詳細頁圖片
-// }
+// composables/useProjects.js
+//
+// useState key 命名規則：'domain:field'
+// 任何元件呼叫 useProjects() 都拿到同一份狀態
 
 const PROJECTS = [
   {
@@ -50,42 +37,34 @@ const PROJECTS = [
       },
     ],
   },
-  // 之後新增專案繼續往這裡加
 ]
 
 export function useProjects() {
-  const projects = ref(PROJECTS)
+  // ─── 共享狀態（useState key 全域唯一）─────────────────
+  const projects     = useState('projects:list',         () => PROJECTS)
+  const currentIndex = useState('projects:currentIndex', () => 0)
 
-  // 當前顯示的 index（第二階段 scroll 邏輯會操作這個）
-  const currentIndex = ref(0)
-
+  // ─── Computed ──────────────────────────────────────────
   const currentProject = computed(() => projects.value[currentIndex.value])
+  const total          = computed(() => projects.value.length)
 
-  const total = computed(() => projects.value.length)
-
-  // 進度列用：格式化為 '01/07'
   const progressLabel = computed(() => {
     const cur = String(currentIndex.value + 1).padStart(2, '0')
     const tot = String(total.value).padStart(2, '0')
     return `${cur}/${tot}`
   })
 
-  // 第二階段實作切換邏輯時會用到
+  const canGoNext = computed(() => true)
+  const canGoPrev = computed(() => true)
+
+  // ─── Actions ───────────────────────────────────────────
   function goTo(index) {
-    if (index < 0 || index >= total.value) return
-    currentIndex.value = index
+    const len = total.value
+    currentIndex.value = ((index % len) + len) % len
   }
 
-  function goNext() {
-    goTo(currentIndex.value + 1)
-  }
-
-  function goPrev() {
-    goTo(currentIndex.value - 1)
-  }
-
-  const canGoNext = computed(() => currentIndex.value < total.value - 1)
-  const canGoPrev = computed(() => currentIndex.value > 0)
+  function goNext() { goTo(currentIndex.value + 1) }
+  function goPrev() { goTo(currentIndex.value - 1) }
 
   return {
     projects,
@@ -93,10 +72,10 @@ export function useProjects() {
     currentProject,
     total,
     progressLabel,
+    canGoNext,
+    canGoPrev,
     goTo,
     goNext,
     goPrev,
-    canGoNext,
-    canGoPrev,
   }
 }
