@@ -174,7 +174,8 @@ const visibleDots = computed(() => {
 }
 
 .dot-label {
-  font-size: 10px;
+  font-size: 12px;
+  font-family: 'Courier Prime';
   color: var(--color-text-primary);
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -188,9 +189,8 @@ const visibleDots = computed(() => {
 // ─── 進度數字 ──────────────────────────────────────────
 .progress-label {
   order: 1;
-  font-size: 10px;
-  color: var(--color-text-muted);
-  letter-spacing: 0.04em;
+  font-size: 28px;
+  margin-block-start: 16px;
 
   @media (max-width: 767px) {
     order: 3;

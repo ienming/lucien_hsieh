@@ -14,11 +14,11 @@ const PROJECTS = [
     tagline: 'Seen, but never exposed.',
     taglineSub: 'let them look, let them wonder',
     description: 'A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.',
-    coverImage: '/images/shyline-cover.jpg',
+    coverImage: '/imgs/shyline-cover.jpg',
     link: 'https://jenning.github.io/iroironairo/#/',
     images: [
       {
-        src: '/images/shyline-fig1.jpg',
+        src: '/imgs/shyline-cover.jpg',
         caption: 'Saturated(original) and de-saturated picture.',
       },
     ],
@@ -32,7 +32,7 @@ const PROJECTS = [
     type: 'profile',
     tagline: '',
     taglineSub: '',
-    description: 'Lucien Hsieh is a narrator telling story from paper to web. Based in Taipei, Taiwan, looking for opportunities to do storytelling or creative data visualization.',
+    description: 'Lucien Hsieh is a digital narrator who focuses on telling story from paper to web. Based in Taipei, Taiwan, looking for opportunities to do storytelling or creative data visualization.',
     coverImage: '',
     link: '',
     images: [],

@@ -115,7 +115,7 @@ function onMouseLeave() {
   box-shadow: 0 2px 16px var(--color-card-shadow);
   width: 100%;
   max-width: var(--card-max-width);
-  height: 360px;
+  height: 460px;
   transform: scale(0.8);
   // 預設：滑鼠離開時慢速歸零
   transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow var(--transition-base);

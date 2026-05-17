@@ -24,7 +24,7 @@ import ProjectCard from './ProjectCard.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const { projects } = useProjects()
+const { projects, currentIndex } = useProjects()
 
 const GAP = 65
 const SCALE_STEP = 0.09
@@ -66,7 +66,17 @@ onMounted(async () => {
 			scale: 1,
 			ease: 'none',
 		})
-		tl.to(cards.slice(i + 1), { y: (j) => j * GAP, scale: (j) => 1 - j * SCALE_STEP, ease: 'none' }, '<')
+		tl.to(cards.slice(i + 1), {
+			y: (j) => j * GAP,
+			scale: (j) => 1 - j * SCALE_STEP,
+			ease: 'none',
+			onComplete: () => {
+				currentIndex.value = i + 1;
+			},
+			onReverseComplete: () => {
+				currentIndex.value = i;
+			},
+		}, '<')
 		tl.to({}, { duration: 0.5 })
 	}
 
@@ -131,6 +141,11 @@ onUnmounted(() => {
 		width: 100%;
 		height: 80px;
 		background: linear-gradient(0deg,rgba(232, 232, 232, 0) 0%, rgba(232, 232, 232, 1) 100%);
+		background: linear-gradient(
+			0deg,
+			transparent 0%,
+			var(--color-bg) 100%,
+		);
 		z-index: 1001;
 	}
 }
