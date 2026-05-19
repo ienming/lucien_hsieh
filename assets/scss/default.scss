@@ -1,8 +1,8 @@
 @use './variables' as *;
 
 ::selection {
-	color: $color-neutral-100;
-	background-color: $color-white;
+	color: var(--color-bg);
+	background-color: var(--color-text-primary);
 }
 
 html,
