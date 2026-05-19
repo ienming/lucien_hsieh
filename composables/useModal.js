@@ -11,9 +11,9 @@ export function useModal() {
 
 	watch(
 		() => route.query.project,
-		(id) => {
-			if (id) {
-				project.value = projects.value.find((p) => p.id === id) ?? null
+		(no) => {
+			if (no) {
+				project.value = projects.value.find((p) => p.no === no) ?? null
 			} else {
 				setTimeout(() => { project.value = null }, 400)
 			}
@@ -22,7 +22,7 @@ export function useModal() {
 	)
 
 	function openModal(pj) {
-		router.push({ query: { project: pj.id } })
+		router.push({ query: { project: pj.no } })
 	}
 
 	function closeModal() {

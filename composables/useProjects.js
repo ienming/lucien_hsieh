@@ -34,7 +34,7 @@ const PROJECTS = [
 	},
 	{
 		id: 'shyline',
-		no: '001',
+		no: '002',
 		name: 'Shyline',
 		medium: 'Web',
 		year: '2026',
@@ -53,7 +53,7 @@ const PROJECTS = [
 	},
 	{
 		id: 'shyline',
-		no: '001',
+		no: '003',
 		name: 'Shyline',
 		medium: 'Web',
 		year: '2026',
@@ -72,7 +72,7 @@ const PROJECTS = [
 	},
 	{
 		id: 'shyline',
-		no: '001',
+		no: '004',
 		name: 'Shyline',
 		medium: 'Web',
 		year: '2026',
@@ -91,7 +91,7 @@ const PROJECTS = [
 	},
 	{
 		id: 'shyline',
-		no: '001',
+		no: '005',
 		name: 'Shyline',
 		medium: 'Web',
 		year: '2026',
@@ -110,7 +110,7 @@ const PROJECTS = [
 	},
 	{
 		id: 'shyline',
-		no: '001',
+		no: '006',
 		name: 'Shyline',
 		medium: 'Web',
 		year: '2026',
