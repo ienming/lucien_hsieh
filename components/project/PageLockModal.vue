@@ -4,13 +4,13 @@
 		:overlay-closable="false"
 		transition="slide-from-bottom"
 		class="justify-contents-center align-items-center"
-		@update:open="$emit('update:open', $event)">
+		@update:open="$emit('update:open', $event)"
+	>
 		<form
 			class="page-lock-modal"
-			@submit.prevent="checkPassword">
-			<div class="instruct">
-				頁面已鎖定，請輸入密碼
-			</div>
+			@submit.prevent="checkPassword"
+		>
+			<div class="instruct">頁面已鎖定，請輸入密碼</div>
 			<!-- TODO: 可以考慮封裝成表單驗證元件 -->
 			<div class="form-input-container">
 				<div class="input-container">
@@ -18,26 +18,30 @@
 						v-model="inputPassword"
 						:type="nowInputType"
 						class="luc-input w-full"
-						:class="{'error': isErrMsgShow}"
-						@input="resetInputState">
+						:class="{ error: isErrMsgShow }"
+						@input="resetInputState"
+					/>
 					<ClientOnly>
 						<Icon
 							v-if="nowInputType === INPUT_TYPE.PASSWORD"
 							name="iconoir:eye-closed"
 							class="suffix-icon"
-							@click="nowInputType = INPUT_TYPE.TEXT" />
+							@click="nowInputType = INPUT_TYPE.TEXT"
+						/>
 						<Icon
 							v-if="nowInputType === INPUT_TYPE.TEXT"
 							name="iconoir:eye"
 							class="suffix-icon"
-							@click="nowInputType = INPUT_TYPE.PASSWORD" />
+							@click="nowInputType = INPUT_TYPE.PASSWORD"
+						/>
 					</ClientOnly>
 				</div>
 				<div class="hint-container">
 					<Transition name="slide-from-bottom">
 						<span
 							v-if="isErrMsgShow"
-							class="error-msg">
+							class="error-msg"
+						>
 							{{ errorMsg }}
 						</span>
 					</Transition>
@@ -47,12 +51,11 @@
 				<Button
 					variant="outlined"
 					type="button"
-					@click="goToWorksPage">
+					@click="goToWorksPage"
+				>
 					取消
 				</Button>
-				<Button type="submit">
-					確認
-				</Button>
+				<Button type="submit"> 確認 </Button>
 			</div>
 		</form>
 	</ModalOverlay>
@@ -62,7 +65,7 @@
 import { STATUS_AUTH_INVALID } from '~/constants/system';
 import { getPageUnlockRecords, setPageUnlockRecord } from '~/libs/helper';
 
-const {open, pageId} = defineProps({
+const { open, pageId } = defineProps({
 	pageId: {
 		type: String,
 		default: '',
@@ -97,7 +100,7 @@ async function checkPassword() {
 		errorMsg.value = '請輸入密碼';
 		return;
 	}
-	
+
 	let res;
 	try {
 		res = await $fetch(`/api/content/${pageId}/unlock`, {
@@ -137,8 +140,8 @@ function goToWorksPage() {
 .page-lock-modal {
 	display: flex;
 	flex-direction: column;
-	background-color: $color-white;
-	border: 1px solid $color-neutral-900;
+	background-color: var(--color-white);
+	border: 1px solid var(--color-neutral-900);
 	border-radius: $card-radius;
 	padding: $space-base;
 	margin: 0 $space-base;

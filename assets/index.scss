@@ -13,13 +13,13 @@
 
 :root {
 	// Colors - Light mode
-	--color-bg: #e8e8e6;
-	--color-surface: #ffffff;
-	--color-text-primary: #1a1a1a;
-	--color-text-muted: #888888;
-	--color-text-faint: #bbbbbb;
-	--color-accent: #3333cc;
-	--color-border: #e0e0e0;
+	--color-bg: var(--color-neutral-900);
+	--color-surface: var(--color-white);
+	--color-text-primary: var(--color-neutral-100);
+	--color-text-muted: var(--color-neutral-500);
+	--color-text-faint: var(--color-neutral-700);
+	--color-accent: #1920e6;
+	--color-border: var(--color-neutral-900);
 
 	// Card stack
 	--color-card-shadow: rgba(0, 0, 0, 0.1);
@@ -50,12 +50,12 @@
 
 // ─── Dark mode ────────────────────────────────────────
 [data-theme='dark'] {
-	--color-bg: #141414;
-	--color-surface: #1e1e1e;
-	--color-text-primary: #f0f0f0;
-	--color-text-muted: #666666;
-	--color-text-faint: #333333;
-	--color-accent: #6666ff;
-	--color-border: #2a2a2a;
+	--color-bg: var(--color-neutral-50);
+	--color-surface: var(--color-neutral-100);
+	--color-text-primary: var(--color-neutral-950);
+	--color-text-muted: var(--color-neutral-700);
+	--color-text-faint: var(--color-neutral-600);
+	--color-accent: #1920e6;
+	--color-border: var(--color-neutral-200);
 	--color-card-shadow: rgba(0, 0, 0, 0.4);
 }

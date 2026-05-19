@@ -1,22 +1,28 @@
 <template>
 	<div
 		ref="aboutCard"
-		class="about modal-clip-mask">
+		class="about modal-clip-mask"
+	>
 		<section>
 			<div class="info-card">
 				<div class="close">
 					<ClientOnly>
 						<Icon
 							name="iconoir:xmark"
-							@click="handleClose" />
+							@click="handleClose"
+						/>
 					</ClientOnly>
 				</div>
 				<div class="d-flex flex-column gap-space-sm common-paragraph">
 					<p>
-						Lucien Hsieh 謝明倫，有三年前端開發與網頁設計經驗，透過網頁互動，把想法轉化為實際體驗。
+						Lucien Hsieh
+						謝明倫，有三年前端開發與網頁設計經驗，透過網頁互動，把想法轉化為實際體驗。
 					</p>
 					<p>
-						Hi, I'm Lucien Hsieh. I bring creative ideas to life through web experiences. With 3 years of experience in design-led front-end development, I combine design and code to craft unique, engaging experiences that connect with audiences.
+						Hi, I'm Lucien Hsieh. I bring creative ideas to life through web
+						experiences. With 3 years of experience in design-led front-end development,
+						I combine design and code to craft unique, engaging experiences that connect
+						with audiences.
 					</p>
 				</div>
 			</div>
@@ -29,7 +35,7 @@
 <script setup>
 import gsap from 'gsap';
 
-const {open} = defineProps({
+const { open } = defineProps({
 	open: {
 		type: Boolean,
 		default: false,
@@ -41,14 +47,18 @@ const aboutCardRef = useTemplateRef('aboutCard');
 let closeAfterNavigate = null;
 let ctx;
 
-watch(() => open, async(newVal) => {
-	await nextTick();
-	if (newVal){
-		revealModal();
-	}
-}, {
-	immediate: true,
-});
+watch(
+	() => open,
+	async (newVal) => {
+		await nextTick();
+		if (newVal) {
+			revealModal();
+		}
+	},
+	{
+		immediate: true,
+	},
+);
 
 // TODO: check
 onMounted(() => {
@@ -86,7 +96,6 @@ function handleClose() {
 			},
 		});
 	});
-
 }
 </script>
 
@@ -98,7 +107,7 @@ function handleClose() {
 	transform: translate(-50%, -50%);
 	width: 100%;
 	z-index: $z-index-common-modal;
-	color: $color-neutral-850;
+	color: var(--color-neutral-850);
 	padding: $space-3xl;
 	border-radius: $radius-base;
 	max-height: 100vh;
@@ -107,7 +116,7 @@ function handleClose() {
 	.info-card, .contact-card, .education-card {
 		padding: $space-md;
 		border-radius: $radius-base;
-		background-color: $color-neutral-200;
+		background-color: var(--color-neutral-200);
 	}
 
 	.info-card {
@@ -119,8 +128,8 @@ function handleClose() {
 			top: calc($space-xs * -1);
 			font-size: $font-size-md;
 			border-radius: $radius-round;
-			background-color: $color-neutral-800;
-			color: $color-neutral-50;
+			background-color: var(--color-neutral-800);
+			color: var(--color-neutral-50);
 			width: 24px;
 			height: 24px;
 			display: inline-flex;
@@ -140,11 +149,11 @@ function handleClose() {
 	}
 
 	:deep(.luc-button.outlined) {
-		border: 1px solid $color-neutral-800;
-		color: $color-neutral-950;
+		border: 1px solid var(--color-neutral-800);
+		color: var(--color-neutral-950);
 
 		&:hover {
-			background-color: $color-neutral-300;
+			background-color: var(--color-neutral-300);
 		}
 	}
 

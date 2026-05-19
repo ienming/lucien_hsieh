@@ -1,11 +1,10 @@
 <template>
 	<div
 		class="project-next"
-		@click="navigateTo(path)">
+		@click="navigateTo(path)"
+	>
 		<div class="d-flex justify-contents-space-between align-items-center header">
-			<span class="title">
-				Next
-			</span>
+			<span class="title"> Next </span>
 			<ClientOnly>
 				<Icon name="iconoir:arrow-right" />
 			</ClientOnly>
@@ -15,12 +14,16 @@
 				:src="cover"
 				class="next-cover"
 				loading="lazy"
-				placeholder />
+				placeholder
+			/>
 			<div class="d-flex flex-column gap-space-base next-info">
 				<div class="info-header">
 					<div
 						ref="nextProjectTitle"
-						class="title">{{ title }}</div>
+						class="title"
+					>
+						{{ title }}
+					</div>
 					<div class="subtitle">{{ subtitle }}</div>
 				</div>
 				<div class="d-flex gap-space-sm tags">
@@ -28,7 +31,8 @@
 						v-for="tag of tags"
 						:key="tag"
 						:type="tag"
-						:clickable="false" />
+						:clickable="false"
+					/>
 				</div>
 			</div>
 		</div>
@@ -38,14 +42,14 @@
 <script setup>
 import { showSplitTextOnHover } from '~/libs/animate';
 
-const {meta} = defineProps({
+const { meta } = defineProps({
 	meta: {
 		type: Object,
 		default: () => ({}),
 	},
-})
+});
 
-const {title, subtitle, path, tags, cover} = meta;
+const { title, subtitle, path, tags, cover } = meta;
 const nextProjectTitle = ref(null);
 let cleanUp;
 
@@ -61,22 +65,23 @@ onUnmounted(() => {
 </script>
 
 <style scoped lang="scss">
-.project-next{
+.project-next {
 	width: 90vw;
-	transition: opacity .3s ease-out;
+	transition: opacity 0.3s ease-out;
 
 	&:hover {
 		cursor: pointer;
 	}
 
-	.header, .content {
+	.header,
+	.content {
 		border-radius: $radius-base;
-		background-color: $color-white;
+		background-color: var(--color-white);
 	}
-	
+
 	.header {
 		padding: $space-base $space-sm;
-		border: 1px solid $color-neutral-900;
+		border: 1px solid var(--color-neutral-900);
 
 		.title {
 			font-size: $font-size-lg;
@@ -94,7 +99,7 @@ onUnmounted(() => {
 
 	.next-cover {
 		border-radius: $radius-sm;
-		background-color: $color-neutral-800;
+		background-color: var(--color-neutral-800);
 		width: 100%;
 		max-width: 550px;
 		aspect-ratio: 1 / 1.25;

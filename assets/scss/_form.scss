@@ -1,23 +1,23 @@
-@use "./_variables" as *;
+@use './_variables' as *;
 
 .form-input-container {
 	margin-bottom: $space-md;
 
 	.luc-input {
 		// TODO: 建立 form 相關的顏色
-		border: 1px solid $color-neutral-600;
+		border: 1px solid var(--color-neutral-600);
 		padding: 0 $space-sm;
 		border-radius: $radius-xs;
 
 		&:focus {
-			box-shadow: 0 0 0 4px $color-neutral-900;
+			box-shadow: 0 0 0 4px var(--color-neutral-900);
 		}
 
 		&.error {
-			border-color: $color-warning;
+			border-color: var(--color-warning);
 
 			&:focus {
-				box-shadow: 0 0 0 4px $color-warning-base;
+				box-shadow: 0 0 0 4px var(--color-warning-base);
 			}
 		}
 	}
@@ -29,7 +29,7 @@
 
 	.error-msg {
 		position: absolute;
-		color: $color-warning;
+		color: var(--color-warning);
 		font-size: $font-size-sm;
 	}
 

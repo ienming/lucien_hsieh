@@ -6,7 +6,8 @@
 				<li
 					v-for="credit of credits"
 					:key="credit.cate"
-					class="d-grid credit-item">
+					class="d-grid credit-item"
+				>
 					<span class="credit-cate">{{ credit.cate }}</span>
 					<span class="credit-to">{{ credit.to }}</span>
 				</li>
@@ -19,7 +20,7 @@
 defineProps({
 	credits: {
 		type: Array,
-		default:() => [],
+		default: () => [],
 	},
 });
 </script>
@@ -35,27 +36,27 @@ defineProps({
 	}
 
 	.header, .content {
-		background-color: $color-white;
+		background-color: var(--color-white);
 		padding: $space-base $space-sm;
 		border-radius: $radius-base;
 	}
 
 	.header {
 		font-size: $font-size-lg;
-		border: 1px solid $color-neutral-900;
+		border: 1px solid var(--color-neutral-900);
 	}
-	
+
 	.credit-item {
 		grid-template-columns: minmax(auto, 140px) auto;
 		padding-bottom: $space-sm;
 		font-size: $font-size-base;
 
 		.credit-cate {
-			color: $color-text-secondary;
+			color: var(--text-secondary;
 		}
 
 		&:not(:last-child) {
-			border-bottom: 1px solid $color-neutral-900;
+			border-bottom: 1px solid var(--color-neutral-900);
 		}
 	}
 }

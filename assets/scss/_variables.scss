@@ -2,36 +2,6 @@
 $content-max-width: 1700px;
 $project-text-paragraph-max-width: 700px;
 
-// Color
-$color-white: #ffffff;
-$color-neutral-950: #F2F2F2;
-$color-neutral-900: #E5E5E5;
-$color-neutral-850: #D9D9D9;
-$color-neutral-800: #CCCCCC;
-$color-neutral-700: #B2B2B2;
-$color-neutral-600: #999999;
-$color-neutral-500: #808080;
-$color-neutral-400: #666666;
-$color-neutral-300: #4D4D4D;
-$color-neutral-200: #333333;
-$color-neutral-100: #1A1A1A;
-$color-neutral-50: #0D0D0D;
-$color-neutral-0: #000000;
-
-$color-red-950: #fcdbdb;
-$color-red-900: #fcbcbc;
-$color-red-600: #d52121;
-
-$color-warning: $color-red-600;
-$color-warning-base: $color-red-950;
-
-$color-background-container: $color-neutral-950;
-$color-text-default: $color-neutral-200;
-$color-text-secondary: $color-neutral-400;
-$color-text-tertiary: $color-neutral-700;
-
-$color-primary: $color-neutral-100;
-
 // Typography
 $font-size-xxs: 10px;
 $font-size-xs: 12px;
@@ -53,7 +23,6 @@ $font-weight-600: 600;
 $font-weight-700: 700;
 $font-weight-800: 800;
 
-
 // Space
 $space-xxs: 2px;
 $space-xs: 4px;
@@ -69,18 +38,18 @@ $space-5xl: 40px;
 $space-6xl: 48px;
 
 $space-values: (
-    "space-xxs": $space-xxs,
-    "space-xs": $space-xs,
-    "space-sm": $space-sm,
-    "space-base": $space-base,
-    "space-md": $space-md,
-    "space-lg": $space-lg,
-    "space-xl": $space-xl,
-    "space-2xl": $space-2xl,
-	"space-3xl": $space-3xl,
-	"space-4xl": $space-4xl,
-	"space-5xl": $space-5xl,
-	"space-6xl": $space-6xl,
+	'space-xxs': $space-xxs,
+	'space-xs': $space-xs,
+	'space-sm': $space-sm,
+	'space-base': $space-base,
+	'space-md': $space-md,
+	'space-lg': $space-lg,
+	'space-xl': $space-xl,
+	'space-2xl': $space-2xl,
+	'space-3xl': $space-3xl,
+	'space-4xl': $space-4xl,
+	'space-5xl': $space-5xl,
+	'space-6xl': $space-6xl,
 );
 
 // Radius
@@ -104,3 +73,34 @@ $z-index-common-fixed: 900;
 // Components Tokens
 // Card
 $card-radius: $radius-base;
+
+:root {
+	--color-white: #ffffff;
+	--color-neutral-950: #f2f2f2;
+	--color-neutral-900: #e5e5e5;
+	--color-neutral-850: #d9d9d9;
+	--color-neutral-800: #cccccc;
+	--color-neutral-700: #b2b2b2;
+	--color-neutral-600: #999999;
+	--color-neutral-500: #808080;
+	--color-neutral-400: #666666;
+	--color-neutral-300: #4d4d4d;
+	--color-neutral-200: #333333;
+	--color-neutral-100: #1a1a1a;
+	--color-neutral-50: #0d0d0d;
+	--color-neutral-0: #000000;
+
+	--color-red-950: #fcdbdb;
+	--color-red-900: #fcbcbc;
+	--color-red-600: #d52121;
+
+	--color-warning: var(--color-red-600);
+	--color-warning-base: var(--color-red-950);
+
+	--color-background-container: var(--color-neutral-950);
+	--color-text-default: var(--color-neutral-200);
+	--color-text-secondary: var(--color-neutral-400);
+	--color-text-tertiary: var(--color-neutral-700);
+
+	--color-primary: var(--color-neutral-100);
+}

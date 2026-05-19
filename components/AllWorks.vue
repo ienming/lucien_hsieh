@@ -1,7 +1,8 @@
 <template>
 	<ModalOverlay
 		:open="open"
-		@update:open="$emit('update:open', $event)">
+		@update:open="$emit('update:open', $event)"
+	>
 		<section class="all-works">
 			<div class="container">
 				<h1 class="all-works-h1">
@@ -10,24 +11,25 @@
 						<Icon
 							name="iconoir:xmark"
 							class="d-md-none"
-							@click="$emit('update:open', false)" />
+							@click="$emit('update:open', false)"
+						/>
 					</ClientOnly>
 				</h1>
-				<section v-if="error">
-					Something went wrong...
-				</section>
+				<section v-if="error">Something went wrong...</section>
 				<section v-else-if="works.length">
 					<!-- TODO: 可以考慮加上按鈕切換 list view / card view -->
 					<div
 						v-if="filters.length"
-						class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container filter-container">
+						class="d-flex align-items-center gap-space-xs flex-wrap ml-space-sm container filter-container"
+					>
 						<span>Tagged with</span>
 						<Chip
 							v-for="filter of filters"
 							:key="filter"
 							:label="WORK_TYPES[filter].id"
 							:closable="true"
-							@click="removeFilter(filter)" />
+							@click="removeFilter(filter)"
+						/>
 					</div>
 					<div @mouseleave="handleWorkHoverEnd">
 						<ul class="d-flex flex-column align-items-center work-list">
@@ -45,21 +47,23 @@
 									class="w-full"
 									@mouse-enter-item="handleWorkHoverStart(work.id)"
 									@filter-by-tag="filterWork"
-									@click="GoToProject(work.id)" />
+									@click="GoToProject(work.id)"
+								/>
 							</TransitionGroup>
 						</ul>
 						<Transition name="slide-from-right">
 							<KeyImage
 								v-if="!isMobile && nowImgUrl"
 								:url="nowImgUrl"
-								:tagline="nowWork.tagline ? nowWork.tagline : 'Find out the process...'"
-								@click="GoToProject(nowWork.id)" />
+								:tagline="
+									nowWork.tagline ? nowWork.tagline : 'Find out the process...'
+								"
+								@click="GoToProject(nowWork.id)"
+							/>
 						</Transition>
 					</div>
 				</section>
-				<section v-else>
-					Loading...
-				</section>
+				<section v-else>Loading...</section>
 			</div>
 		</section>
 	</ModalOverlay>
@@ -69,7 +73,7 @@
 import ModalOverlay from './ModalOverlay.vue';
 import { WORK_TYPES } from '~/constants/content';
 
-const {open} = defineProps({
+const { open } = defineProps({
 	open: {
 		type: Boolean,
 		default: false,
@@ -77,7 +81,7 @@ const {open} = defineProps({
 });
 defineEmits(['update:open']);
 
-const {isMobile} = useIsMobile();
+const { isMobile } = useIsMobile();
 const router = useRouter();
 
 const nowWork = ref({});
@@ -88,10 +92,21 @@ const filters = ref([]);
 const { data: works, error } = await useAsyncData('all-works', async () => {
 	const allWorks = await queryCollection('project')
 		.where('draft', '=', false)
-		.select('path', 'password', 'title', 'subtitle', 'tagline', 'year', 'type', 'tags', 'cover', 'mineral')
+		.select(
+			'path',
+			'password',
+			'title',
+			'subtitle',
+			'tagline',
+			'year',
+			'type',
+			'tags',
+			'cover',
+			'mineral',
+		)
 		.all();
 
-	return allWorks.map(item => ({
+	return allWorks.map((item) => ({
 		id: item.path.split('/')[2],
 		password: item.password ?? null,
 		title: item.title,
@@ -112,13 +127,12 @@ const filteredWorks = computed(() => {
 
 	const results = [];
 
-	for (let i = 0; i < filters.value.length; i ++) {
+	for (let i = 0; i < filters.value.length; i++) {
 		const filter = filters.value[i];
 		for (let j = 0; j < works.value.length; j++) {
 			const nowWork = works.value[j];
 
-			if (nowWork.tags.includes(filter) &&
-				!results.includes(nowWork)) {
+			if (nowWork.tags.includes(filter) && !results.includes(nowWork)) {
 				results.push(nowWork);
 			}
 		}
@@ -127,11 +141,14 @@ const filteredWorks = computed(() => {
 	return results;
 });
 
-watch(() => open, newVal => {
-	if (newVal) {
-    	filters.value = [];
-  	}
-});
+watch(
+	() => open,
+	(newVal) => {
+		if (newVal) {
+			filters.value = [];
+		}
+	},
+);
 
 function handleWorkHoverStart(id) {
 	const targetWork = findTargetWork(id);
@@ -145,7 +162,7 @@ function handleWorkHoverEnd() {
 }
 
 function findTargetWork(id) {
-	return filteredWorks.value.find(work => work.id === id);
+	return filteredWorks.value.find((work) => work.id === id);
 }
 
 function filterWork(tag) {
@@ -157,7 +174,7 @@ function filterWork(tag) {
 }
 
 function removeFilter(tag) {
-	const filterIndex = filters.value.findIndex(item => item === tag);
+	const filterIndex = filters.value.findIndex((item) => item === tag);
 	filters.value.splice(filterIndex, 1);
 }
 
@@ -188,21 +205,21 @@ function GoToProject(id) {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		color: $color-neutral-800;
+		color: var(--color-neutral-800);
 		font-size: $font-size-xl;
-	
+
 		@include response(md) {
 			font-size: $font-size-4xl;
 		}
 	}
-	
+
 	.filter-container {
-		color: $color-white;
+		color: var(--color-white);
 	}
-	
+
 	.work-list {
 		gap: $space-sm;
-	
+
 		@include response(md) {
 			gap: 0;
 		}

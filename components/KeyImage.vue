@@ -3,13 +3,13 @@
 		<NuxtImg
 			v-if="url"
 			:key="url"
-			:src="url" />
+			:src="url"
+		/>
 		<div class="d-flex justify-contents-end align-items-start gap-space-sm hint">
 			<span>{{ tagline }}</span>
 			<ClientOnly>
 				<div class="icon">
-					<Icon
-						name="iconoir:arrow-right-circle-solid"/>
+					<Icon name="iconoir:arrow-right-circle-solid" />
 				</div>
 			</ClientOnly>
 		</div>
@@ -37,8 +37,8 @@ defineProps({
 	z-index: 1;
 	padding: $space-xs;
 	border-radius: $radius-base;
-	background-color: $color-white;
-	border: 1px solid $color-neutral-900;
+	background-color: var(--color-white);
+	border: 1px solid var(--color-neutral-900);
 	max-width: 440px;
 
 	img {
@@ -54,7 +54,7 @@ defineProps({
 	.hint {
 		text-align: right;
 		margin-top: $space-xs;
-		border-top: 1px solid $color-neutral-950;
+		border-top: 1px solid var(--color-neutral-950);
 		font-size: $font-size-base;
 
 		.icon {

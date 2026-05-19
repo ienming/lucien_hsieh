@@ -3,17 +3,23 @@
 		<ul class="d-flex flex-column link-list">
 			<li
 				class="link-item"
-				@click.stop="isAllWorksOpen = true">All works</li>
+				@click.stop="isAllWorksOpen = true"
+			>
+				All works
+			</li>
 			<li
 				class="link-item"
-				@click.stop="isAboutCardOpen = true">(creator)</li>
+				@click.stop="isAboutCardOpen = true"
+			>
+				(creator)
+			</li>
 		</ul>
 	</section>
 </template>
 
 <script setup>
-const {isAllWorksOpen} = useAllWorksModal();
-const {isAboutCardOpen} = useAboutCard();
+const { isAllWorksOpen } = useAllWorksModal();
+const { isAboutCardOpen } = useAboutCard();
 </script>
 
 <style lang="scss" scoped>
@@ -25,7 +31,7 @@ const {isAboutCardOpen} = useAboutCard();
 	border-radius: $radius-base;
 	padding: $space-sm;
 	min-width: 180px;
-	
+
 	.link-list {
 		gap: $space-sm;
 		text-align: center;
@@ -33,7 +39,7 @@ const {isAboutCardOpen} = useAboutCard();
 		.link-item {
 			padding: $space-sm;
 			border-radius: $radius-sm;
-			color: $color-white;
+			color: var(--color-white);
 		}
 	}
 }

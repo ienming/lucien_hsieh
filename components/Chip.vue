@@ -2,17 +2,19 @@
 	<span
 		class="d-flex align-items-center gap-space-xs chip"
 		:class="{
-			'clickable': clickable,
-			'active': selected,
-			'small': size === 'sm'
+			clickable: clickable,
+			active: selected,
+			small: size === 'sm',
 		}"
-		@click="$emit('toggle', value)">
+		@click="$emit('toggle', value)"
+	>
 		<slot name="prefixIcon" />
 		<span>{{ label }}</span>
 		<ClientOnly
 			v-if="closable"
 			class="close"
-			@click="$emit('close')">
+			@click="$emit('close')"
+		>
 			<Icon name="iconoir:xmark" />
 		</ClientOnly>
 	</span>
@@ -52,7 +54,7 @@ defineEmits(['close', 'toggle']);
 .chip{
 	padding: $space-xxs $space-sm;
 	transition: opacity .3s ease-in-out;
-	border: 1px solid $color-neutral-900;
+	border: 1px solid var(--color-neutral-900);
 	border-radius: $radius-round;
 
 	.close {
@@ -66,7 +68,7 @@ defineEmits(['close', 'toggle']);
 	}
 
 	&.active {
-		background-color: $color-neutral-950;
+		background-color: var(--color-neutral-950);
 		border: none;
 	}
 

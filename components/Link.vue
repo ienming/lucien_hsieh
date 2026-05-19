@@ -1,7 +1,8 @@
 <template>
 	<NuxtLink
 		:to="url"
-		class="d-inline-block luc-inline-link">
+		class="d-inline-block luc-inline-link"
+	>
 		{{ label }}
 		<ClientOnly>
 			<Icon name="iconoir:arrow-up-right-square" />
@@ -19,7 +20,7 @@ defineProps({
 		type: String,
 		default: '',
 	},
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -29,7 +30,7 @@ defineProps({
 		display: block;
 		width: 100%;
 		height: 1px;
-		background-color: $color-neutral-50;
+		background-color: var(--color-neutral-50);
 	}
 }
 </style>

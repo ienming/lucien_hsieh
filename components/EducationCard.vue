@@ -17,11 +17,11 @@
 .education-card {
 	.edu-item {
 		font-size: $font-size-base;
-		border-bottom: 1px solid $color-neutral-300;
+		border-bottom: 1px solid var(--color-neutral-300);
 		padding-bottom: $space-sm;
 
 		@include response(md) {
-			border-color: $color-neutral-900;
+			border-color: var(--color-neutral-900);
 		}
 	}
 }

@@ -5,7 +5,8 @@
 		:to="to"
 		:target="target"
 		:class="classes"
-		class="luc-button">
+		class="luc-button"
+	>
 		<slot />
 	</component>
 </template>
@@ -36,7 +37,7 @@ const props = defineProps({
 const renderAs = computed(() => {
 	if (props.to) return NuxtLink;
 	return 'button';
-})
+});
 
 const classes = computed(() => {
 	const results = [];
@@ -56,23 +57,23 @@ const classes = computed(() => {
 	padding: $space-xs $space-sm;
 	border-radius: $radius-sm;
 	font-size: $font-size-base;
-	transition: .3s ease-out;
+	transition: 0.3s ease-out;
 
 	&.filled {
-		background-color: $color-neutral-100;
-		color: $color-white;
+		background-color: var(--color-neutral-100);
+		color: var(--color-white);
 
 		&:hover {
-			background-color: $color-neutral-300;
+			background-color: var(--color-neutral-300);
 		}
 	}
 
 	&.outlined {
-		border: 1px solid $color-neutral-800;
-		color: $color-text-default;
+		border: 1px solid var(--color-neutral-800);
+		color: var(--color-text-default);
 
 		&:hover {
-			background-color: $color-neutral-950;
+			background-color: var(--color-neutral-950);
 		}
 	}
 

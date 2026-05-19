@@ -1,52 +1,62 @@
 <template>
 	<ModalOverlay
 		:open="open"
-		@update:open="$emit('update:open', $event)">
+		@update:open="$emit('update:open', $event)"
+	>
 		<div
 			ref="lightboxRef"
 			class="d-flex justify-contents-center align-items-center w-full h-full lightbox-modal"
-			@click.self="$emit('update:open', false)">
+			@click.self="$emit('update:open', false)"
+		>
 			<div
 				class="img-container"
-				@click="isInfoShow = !isInfoShow">
+				@click="isInfoShow = !isInfoShow"
+			>
 				<NuxtImg :src="currentImg.url" />
 			</div>
 			<div
 				v-if="!isMobile && images.length > 1"
 				class="controls-container"
-				:class="{'show': isInfoShow}">
+				:class="{ show: isInfoShow }"
+			>
 				<ClientOnly>
 					<Icon
 						name="iconoir:nav-arrow-left"
 						class="left control-btn"
-						@click="handlePrevious" />
+						@click="handlePrevious"
+					/>
 				</ClientOnly>
 				<ClientOnly>
 					<Icon
 						name="iconoir:nav-arrow-right"
 						class="right control-btn"
-						@click="handleNext" />
+						@click="handleNext"
+					/>
 				</ClientOnly>
 			</div>
 			<Transition name="fade">
 				<div
 					v-show="isInfoShow"
-					class="d-flex justify-contents-space-between gap-space-4xl info-container">
+					class="d-flex justify-contents-space-between gap-space-4xl info-container"
+				>
 					<div class="d-flex flex-column gap-space-sm info">
 						<div class="title">{{ currentImg.title }}</div>
 						<div class="common-paragraph desc">{{ currentImg.desc }}</div>
 					</div>
 					<ul
 						v-if="images.length > 1"
-						class="d-flex gap-space-md indicators">
+						class="d-flex gap-space-md indicators"
+					>
 						<li
 							v-for="(indicator, idx) of images"
-							:key="indicator">
+							:key="indicator"
+						>
 							<NuxtImg
 								class="indicator"
 								:src="indicator.url"
-								:class="{'active': currentIdx === idx}"
-								@click="currentIdx = idx" />
+								:class="{ active: currentIdx === idx }"
+								@click="currentIdx = idx"
+							/>
 						</li>
 					</ul>
 				</div>
@@ -58,7 +68,7 @@
 <script setup>
 import { GESTURE_DIRECTION } from '~/constants/interaction';
 
-const {open, startIdx, images} = defineProps({
+const { open, startIdx, images } = defineProps({
 	open: {
 		type: Boolean,
 		default: false,
@@ -78,26 +88,33 @@ const { isMobile } = useIsMobile();
 const currentIdx = ref(startIdx);
 const isInfoShow = ref(true);
 const lightboxRef = ref(null);
-const { swipeDirection, bindEvents, unbindEvents } = useSwipe()
+const { swipeDirection, bindEvents, unbindEvents } = useSwipe();
 
-watch(lightboxRef, async (newVal) => {
-	if (newVal) {
-		document.addEventListener('keydown', handleKeydown);
+watch(
+	lightboxRef,
+	async (newVal) => {
+		if (newVal) {
+			document.addEventListener('keydown', handleKeydown);
 
-		await nextTick();
-		bindEvents(lightboxRef.value);
-	} else {
-		document.removeEventListener('keydown', handleKeydown);
-		unbindEvents(lightboxRef.value);
-	}
-}, {
-	once: true,
-});
+			await nextTick();
+			bindEvents(lightboxRef.value);
+		} else {
+			document.removeEventListener('keydown', handleKeydown);
+			unbindEvents(lightboxRef.value);
+		}
+	},
+	{
+		once: true,
+	},
+);
 
-watch(() => startIdx, newVal => currentIdx.value = newVal);
+watch(
+	() => startIdx,
+	(newVal) => (currentIdx.value = newVal),
+);
 const currentImg = computed(() => images[currentIdx.value]);
 
-watch(swipeDirection, dir => {
+watch(swipeDirection, (dir) => {
 	if (dir === GESTURE_DIRECTION.LEFT) {
 		handleNext();
 	} else if (dir === GESTURE_DIRECTION.RIGHT) {
@@ -147,7 +164,7 @@ function handleNext() {
 
 	.controls-container {
 		opacity: 0;
-		transition: opacity .3s ease-in-out;
+		transition: opacity 0.3s ease-in-out;
 
 		&.show {
 			opacity: 1;
@@ -157,25 +174,24 @@ function handleNext() {
 			position: absolute;
 			top: 50%;
 			transform: translateY(-50%);
-			color: $color-neutral-850;
+			color: var(--color-neutral-850);
 			display: inline-block;
 			padding: $space-md $space-4xl;
 			cursor: pointer;
-	
+
 			&.left {
 				left: 0;
 			}
-	
+
 			&.right {
 				right: 0;
 			}
-	
+
 			&:hover {
-				color: $color-white;
+				color: var(--color-white);
 			}
 		}
 	}
-
 
 	.info-container {
 		position: fixed;
@@ -183,11 +199,15 @@ function handleNext() {
 		left: 0;
 		width: 100%;
 		flex-direction: column;
-		background: linear-gradient(0deg, rgba(13, 13, 13, 1), rgba(13, 13, 13, 0)); //$color-neutral-50
-		color: $color-white;
+		background: linear-gradient(
+			0deg,
+			rgba(13, 13, 13, 1),
+			rgba(13, 13, 13, 0)
+		); //var(--color-neutral-50
+		color: var(--color-white);
 		padding: $space-sm;
 
-		@include response(md) {		
+		@include response(md) {
 			padding: $space-5xl $space-4xl $space-4xl $space-4xl;
 			flex-direction: row;
 		}
@@ -208,7 +228,7 @@ function handleNext() {
 		flex-shrink: 0;
 		padding: $space-xs;
 		border-radius: $radius-xs;
-		background-color: $color-neutral-100;
+		background-color: var(--color-neutral-100);
 
 		@include response(md) {
 			right: $space-6xl;
@@ -222,7 +242,7 @@ function handleNext() {
 		.indicator {
 			width: var(--indicator-size);
 			height: var(--indicator-size);
-			background-color: $color-neutral-900;
+			background-color: var(--color-neutral-900);
 			aspect-ratio: 1 / 1;
 			object-fit: cover;
 			border-radius: $radius-xs;
@@ -234,7 +254,9 @@ function handleNext() {
 
 			&.active {
 				opacity: 1;
-				box-shadow:  0 0 0 5px $color-neutral-100, 0 0 0 8px $color-neutral-950;
+				box-shadow:
+					0 0 0 5px var(--color-neutral-100),
+					0 0 0 8px var(--color-neutral-950);
 			}
 		}
 	}

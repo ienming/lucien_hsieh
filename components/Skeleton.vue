@@ -1,7 +1,8 @@
 <template>
 	<div
 		v-if="type === 'text'"
-		class="skeleton-text-container">
+		class="skeleton-text-container"
+	>
 		<div class="skeleton bar" />
 		<div class="skeleton bar" />
 		<div class="skeleton bar short" />
@@ -9,7 +10,8 @@
 	<div
 		v-else-if="type === 'image' || type === 'imageProfile'"
 		class="skeleton skeleton-img"
-		:class="{'profile': type === 'imageProfile'}" />
+		:class="{ profile: type === 'imageProfile' }"
+	/>
 </template>
 
 <script setup>
@@ -24,7 +26,7 @@ defineProps({
 
 <style lang="scss" scoped>
 .skeleton {
-	background: linear-gradient(90deg, $color-neutral-800, $color-neutral-900, $color-neutral-800);
+	background: linear-gradient(90deg, var(--color-neutral-800), var(--color-neutral-900), var(--color-neutral-800));
 	animation: loading 6s infinite;
 }
 
