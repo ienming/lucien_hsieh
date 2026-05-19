@@ -49,6 +49,7 @@
 
           <!-- Content（自然高度，不限制） -->
           <div class="modal-content-area">
+			<ProjectMeta />
             <img
               v-if="project?.coverImage"
               :src="project.coverImage"
@@ -89,6 +90,8 @@
 </template>
 
 <script setup>
+import ProjectMeta from '../project/ProjectMeta'
+
 const { isOpen, project, closeModal } = useModal()
 const { t } = useI18n()
 
@@ -194,7 +197,7 @@ function onDragEnd() {
 
   @media (min-width: 768px) {
     margin: 8vh auto;
-    width: min(1000px, 90vw);
+    width: min(1200px, 90vw);
     min-height: auto;
     border-radius: var(--card-radius);
     box-shadow: 0 8px 48px rgba(0, 0, 0, 0.2);

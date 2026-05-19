@@ -1,7 +1,7 @@
 <template>
-  <div class="inventory-view">
-    <CardStack />
-  </div>
+	<div class="inventory-view">
+		<CardStack />
+	</div>
 </template>
 
 <script setup>

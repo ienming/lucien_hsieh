@@ -1,4 +1,6 @@
-const T = {
+import { useEnvironment } from "./useEnvironment"
+
+const LANG_KEY_MAP = {
 	EN: {
 		fileExplorer: 'FILE EXPLORER',
 		viewInList:   'VIEW IN LIST',
@@ -24,8 +26,10 @@ const T = {
 }
 
 export function useI18n() {
-	const { language } = useEnvironment()
-	// t() 直接讀 language.value，Vue 追蹤依賴，語言切換時元件自動重渲染
-	const t = (key) => T[language.value]?.[key] ?? T.EN[key] ?? key
+	const { language } = useEnvironment();
+	const t = (key) => {
+		if (!language.value) return key;
+		return LANG_KEY_MAP[language.value]?.[key];
+	};
 	return { t }
 }

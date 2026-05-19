@@ -1,14 +1,11 @@
 <template>
   <header class="app-header">
-    <h1 class="site-title">
-		LUCIEN's <br>
-		INVENTORY
-	</h1>
+    <h1 class="site-title">LÜUÜUÜUÜCIEN</h1>
+	<h2>INVENTORY</h2>
   </header>
 </template>
 
 <script setup>
-const { t } = useI18n()
 </script>
 
 <style lang="scss" scoped>

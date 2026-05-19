@@ -1,7 +1,5 @@
 <template>
-	<div
-		class="project-meta"
-		:class="{'align-top': direction === GESTURE_DIRECTION.DOWN}">
+	<div class="project-meta">
 		<div
 			ref="header"
 			class="header">
@@ -14,7 +12,7 @@
 			<div class="d-flex flex-column flex-md-row gap-space-xs justify-contents-space-between actions">
 				<!-- TODO: 思考多超連結的情況？ -->
 				<Button
-					v-if="links"
+					v-if="links.length"
 					:to="links[0].url"
 					target="_blank"
 					class="w-full d-flex justify-contents-space-between">
@@ -71,7 +69,6 @@
 
 <script setup>
 import gsap from 'gsap';
-import {GESTURE_DIRECTION} from '~/constants/interaction';
 import {splitMultiLine} from '~/libs/helper';
 
 const {title, meta} = defineProps({
@@ -81,11 +78,16 @@ const {title, meta} = defineProps({
 	},
 	meta: {
 		type: Object,
-		default: () => {},
+		default: () => ({
+			tagline: 'tagline',
+			year: '2026',
+			tags: [],
+			about: 'about',
+			links: [],
+		}),
 	},
 })
 
-const {direction} = useScrollDirection();
 const headerRef = useTemplateRef('header');
 
 const {tagline, year, tags, about, links} = meta;
@@ -132,24 +134,11 @@ onUnmounted(() => {
 
 <style lang="scss" scoped>
 .project-meta {
-	position: fixed;
-	--header-height: 40px;
-	--space-between-header: calc(-1 * #{$space-base});
-	top: calc(var(--header-height) + var(--space-between-header));
-	left: 0;
-	z-index: $z-index-common-fixed;
-	background-color: $color-white;
-	padding: $space-sm $space-base;
-	border-radius: $radius-base;
-	border: 1px solid $color-neutral-900;
+	padding: $space-base;
+	border-left: 1px solid $color-neutral-900;
+	border-right: 1px solid $color-neutral-900;
 	transition: all .15s ease-in-out;
-
-	@include response(md) {
-		--space-between-header: #{$space-lg};
-		width: 400px;
-		max-width: 50%;
-		left: $space-lg;
-	}
+	margin-bottom: $space-base;
 
 	.header {
 		height: auto;
@@ -195,32 +184,6 @@ onUnmounted(() => {
 					font-size: $font-size-sm;
 				}
 			}
-		}
-
-		&::after {
-			content: '';
-			position: absolute;
-			bottom: 0;
-			width: calc(100% - $space-base * 2);
-			height: 52px;
-			background: linear-gradient(0deg, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
-			pointer-events: none;
-			opacity: 0;
-			transition: opacity .5s ease-in;
-		}
-
-		&:has(.body.show) {
-			&::after {
-				opacity: 1;
-			}
-		}
-	}
-
-	&.align-top {
-		top: 0;
-
-		@include response(md) {
-			top: $space-lg;
 		}
 	}
 }
