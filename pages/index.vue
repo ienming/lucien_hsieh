@@ -7,16 +7,15 @@
 </template>
 
 <script setup>
-import InventoryView from "~/components/inventory/InventoryView.vue";
+import InventoryView from '~/components/inventory/InventoryView.vue';
 
 useHead({
-	title: "Lucien Hsieh",
+	title: 'Lucien Hsieh',
 	titleTemplate: null,
 });
-
 </script>
 
 <style lang="scss">
-@use "./assets/scss/_variables2.scss";
-@use "./assets/scss/_reset.scss";
+@use './assets/scss/_variables2.scss';
+@use './assets/scss/_reset.scss';
 </style>
