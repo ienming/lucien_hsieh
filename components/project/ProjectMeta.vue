@@ -1,190 +1,69 @@
 <template>
 	<div class="project-meta">
-		<div
-			ref="header"
-			class="header">
-			<div class="d-flex gap-space-lg justify-contents-space-between project-title">
-				<div class="d-flex flex-column gap-space-xxs">
-					<p class="title">{{ title }}</p>
-					<p class="tagline">{{ tagline }}</p>
-				</div>
-			</div>
-			<div class="d-flex flex-column flex-md-row gap-space-xs justify-contents-space-between actions">
-				<!-- TODO: 思考多超連結的情況？ -->
-				<Button
-					v-if="links.length"
-					:to="links[0].url"
-					target="_blank"
-					class="w-full d-flex justify-contents-space-between">
-					<span>{{ links[0].label ? links[0].label : 'Link To Webpage' }}</span>
-					<ClientOnly>
-						<Icon name="iconoir:arrow-up-right-square-solid" />
-					</ClientOnly>
-				</Button>
-				<Button
-					variant="outlined"
-					class="w-full d-flex justify-contents-space-between"
-					@click="isContentShow = !isContentShow;">
-					<span>About the project</span>
-					<ClientOnly>
-						<Icon
-							name="iconoir:nav-arrow-up"
-							class="toggle-btn"
-							:class="{'downward': isContentShow}" />
-					</ClientOnly>
-				</Button>
-				<div
-					class="body"
-					:class="{'show': isContentShow}">
-					<div class="d-flex justify-contents-space-between flex-wrap meta">
-						<div class="year">
-							<span class="mr-space-sm">&lt;Year&gt;</span>
-							<span>{{ year }}</span>
-						</div>
-						<div class="d-flex gap-space-xs flex-wrap align-items-start types">
-							<span class="mr-space-sm">&lt;Type&gt;</span>
-							<WorkTypeChip
-								v-for="tag of tags" 
-								:key="tag"
-								:type="tag"
-								:clickable="false" />
-						</div>
-					</div>
-					<div class="common-paragraph content">
-						<p
-							v-for="(content, idx) of contents"
-							:key="idx"
-							:class="{
-								'mb-space-base': idx !== contents.length - 1,
-								'mb-space-2xl': idx === contents.length - 1,
-							}">
-							{{ content }}
-						</p>
-					</div>
-				</div>
-			</div>
+		<div class="meta-row">
+			<span class="meta-label">Brief</span>
+			<p class="meta-value">{{ description }}</p>
+		</div>
+		<div v-if="link" class="meta-row">
+			<span class="meta-label">Link</span>
+			<a :href="link" target="_blank" rel="noopener noreferrer" class="meta-link">{{
+				link
+			}}</a>
 		</div>
 	</div>
 </template>
 
 <script setup>
-import gsap from 'gsap';
-import {splitMultiLine} from '~/libs/helper';
-
-const {title, meta} = defineProps({
-	title: {
+defineProps({
+	description: {
 		type: String,
-		default: 'Project Title',
+		default: 'This is description',
 	},
-	meta: {
-		type: Object,
-		default: () => ({
-			tagline: 'tagline',
-			year: '2026',
-			tags: [],
-			about: 'about',
-			links: [],
-		}),
+	link: {
+		type: String,
+		default: 'https://test.test.com/test',
 	},
-})
-
-const headerRef = useTemplateRef('header');
-
-const {tagline, year, tags, about, links} = meta;
-const isContentShow = ref(false);
-
-const contents = computed(() => splitMultiLine(about));
-
-// TODO: refactor to useGSAP or plugin
-let tl, ctx;
-watch(isContentShow, newVal => {
-	if (newVal) {
-		tl.play();
-	} else {
-		tl.reverse();
-	}
 });
-
-onMounted(() => {
-	const {height: oriHeight} = headerRef.value.getBoundingClientRect();
-	const {height: bodyHeight} = headerRef.value.querySelector('.body').getBoundingClientRect();
-
-	ctx = gsap.context(() => {
-		tl = gsap.timeline({
-			paused: true,
-		});
-		tl
-			.to(headerRef.value, {
-				height: oriHeight + bodyHeight,
-				ease: 'power2.out',
-				duration: 0.5,
-			})
-			.to('.body', {
-				clipPath: 'inset(0px 0% 0% 0px round 6px)',
-				opacity: 1,
-				duration: 0.4,
-			}, '<');
-	});
-})
-
-onUnmounted(() => {
-	if (ctx) ctx.revert();
-})
 </script>
 
 <style lang="scss" scoped>
 .project-meta {
-	padding: $space-base;
-	border-left: 1px solid $color-neutral-900;
-	border-right: 1px solid $color-neutral-900;
-	transition: all .15s ease-in-out;
-	margin-bottom: $space-base;
+	font-family: var(--font-mono);
+	border-left: 1px solid var(--color-border);
+	border-right: 1px solid var(--color-border);
+}
 
-	.header {
-		height: auto;
+.meta-row {
+	padding: var(--spacing-lg) var(--spacing-md);
+	border-bottom: 1px solid var(--color-border);
 
-		.project-title {
-			.title {
-				font-size: $font-size-md;
-				transition: font-size .3s ease-out;
-			}
-	
-			.tagline {
-				font-size: $font-size-base;
-				line-height: 1.2;
-				margin-bottom: $space-sm;
-				color: $color-text-secondary;
-				transition: font-size .3s ease-out;
-			}
-		}
-	
-		.actions {
-			padding: $space-xs 0;
-			position: relative;
+	&:last-child {
+		border: none;
+	}
+}
 
-			.toggle-btn {
-				transition: transform .2s ease-out;
+.meta-label {
+	display: block;
+	font-size: 11px;
+	color: var(--color-text-muted);
+	margin-bottom: var(--spacing-sm);
+}
 
-				&.downward {
-					transform: rotate(180deg);
-				}
-			}
+.meta-value {
+	font-size: 18px;
+	line-height: 1.6;
+	color: var(--color-text-primary);
+}
 
-			.body {
-				position: absolute;
-				top: $space-5xl;
-				width: 100%;
-				max-height: 300px;
-				overflow-y: scroll;
-				clip-path: inset(0px 0% 100% 0px round 6px);
-				opacity: 0;
+.meta-link {
+	font-size: 16px;
+	color: var(--color-text-primary);
+	text-decoration: underline;
+	text-underline-offset: 3px;
+	word-break: break-all;
 
-				.meta {
-					padding: $space-sm 0;
-					font-size: $font-size-sm;
-				}
-			}
-		}
+	&:hover {
+		color: var(--color-text-muted);
 	}
 }
 </style>
