@@ -1,12 +1,61 @@
 @forward 'scss/reset';
-@forward 'scss/_variables';
-@forward 'scss/_breakpoints';
-@forward 'scss/_display';
-@forward 'scss/_flex';
+@forward 'scss/variables';
+@forward 'scss/breakpoints';
+@forward 'scss/display';
+@forward 'scss/flex';
 @forward 'scss/grid';
-@forward 'scss/_space';
-@forward 'scss/_utils';
-@forward 'scss/_transition';
-@forward 'scss/_size';
-@forward 'scss/_form';
+@forward 'scss/space';
+@forward 'scss/utils';
+@forward 'scss/transition';
+@forward 'scss/size';
+@forward 'scss/form';
 @forward 'scss/default';
+
+:root {
+	// Colors - Light mode
+	--color-bg: #e8e8e6;
+	--color-surface: #ffffff;
+	--color-text-primary: #1a1a1a;
+	--color-text-muted: #888888;
+	--color-text-faint: #bbbbbb;
+	--color-accent: #3333cc;
+	--color-border: #e0e0e0;
+
+	// Card stack
+	--color-card-shadow: rgba(0, 0, 0, 0.1);
+
+	// Typography
+	--font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+	--font-sans: 'Noto Sans TC', 'IBM Plex Sans';
+
+	// Spacing
+	--spacing-xs: 4px;
+	--spacing-sm: 8px;
+	--spacing-md: 16px;
+	--spacing-lg: 24px;
+	--spacing-xl: 40px;
+	--spacing-2xl: 64px;
+
+	// Layout
+	--header-height: 48px;
+	--sidebar-width: 140px;
+	--card-max-width: 720px;
+	--card-radius: 6px;
+
+	// Transitions
+	--transition-fast: 0.15s ease;
+	--transition-base: 0.3s ease;
+	--transition-slow: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+// ─── Dark mode ────────────────────────────────────────
+[data-theme='dark'] {
+	--color-bg: #141414;
+	--color-surface: #1e1e1e;
+	--color-text-primary: #f0f0f0;
+	--color-text-muted: #666666;
+	--color-text-faint: #333333;
+	--color-accent: #6666ff;
+	--color-border: #2a2a2a;
+	--color-card-shadow: rgba(0, 0, 0, 0.4);
+}

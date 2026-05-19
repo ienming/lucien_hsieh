@@ -14,8 +14,3 @@ useHead({
 	titleTemplate: null,
 });
 </script>
-
-<style lang="scss">
-@use './assets/scss/_variables2.scss';
-@use './assets/scss/_reset.scss';
-</style>

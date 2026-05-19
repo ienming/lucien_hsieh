@@ -1,23 +1,22 @@
 export default defineNuxtConfig({
 	ssr: true,
 	devtools: {
-		enabled: true
+		enabled: true,
 	},
+	css: ['@/assets/index.scss'],
 	vite: {
 		css: {
 			preprocessorOptions: {
 				scss: {
-					additionalData: '@use "~/assets/index.scss" as *;'
-				}
-			}
-		}
+					additionalData: `
+						@use "@/assets/scss/_variables.scss" as *;
+						@use "@/assets/scss/_breakpoints.scss" as *;
+					`,
+				},
+			},
+		},
 	},
-	modules: [
-		'@nuxt/eslint',
-		'@nuxtjs/google-fonts',
-		'@nuxt/image',
-		'@nuxt/icon',
-	],
+	modules: ['@nuxt/eslint', '@nuxtjs/google-fonts', '@nuxt/image', '@nuxt/icon'],
 	runtimeConfig: {
 		public: {
 			maintenanceMode: process.env.MAINTENANCE_MODE,
@@ -53,4 +52,4 @@ export default defineNuxtConfig({
 			baseURL: 'https://res.cloudinary.com/dxu48xzzo/image/upload/',
 		},
 	},
-})
+});
