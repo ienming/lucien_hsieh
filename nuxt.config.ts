@@ -41,8 +41,9 @@ export default defineNuxtConfig({
 	},
 	googleFonts: {
 		families: {
-			'Urbanist': true,
-			'Cossette Titre': true,
+			'Courier Prime': true,
+			'IBM Plex Mono': true,
+			'IBM Plex Sans': true,
 			'Noto Sans Traditional Chinese': true,
 		},
 	},
