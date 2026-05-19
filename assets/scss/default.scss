@@ -23,9 +23,7 @@ body {
 		background-color var(--transition-base),
 		color var(--transition-base);
 	-webkit-font-smoothing: antialiased;
-	font-family:
-		'Noto Sans Traditional Chinese',
-		'IBM Plex Sans' sans-serif;
+	font-family: 'IBM Plex Sans', 'Noto Sans Tranditional Chinese', sans-serif;
 	font-family: var(--font-mono);
 }
 
@@ -33,7 +31,5 @@ h1,
 h2,
 h3,
 h4 {
-	font-family:
-		'Noto Sans Tranditional Chinese',
-		'IBM Plex Sans' sans-serif;
+	font-family: 'IBM Plex Sans', 'Noto Sans Tranditional Chinese', sans-serif;
 }

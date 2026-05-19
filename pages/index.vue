@@ -19,9 +19,15 @@ import AppSidebar from '~/layouts/partials/AppSidebar.vue';
 import ProjectModal from '~/components/inventory/ProjectModal.vue';
 import InventoryView from '~/components/inventory/InventoryView.vue';
 
+const { initTheme } = useEnvironment();
+
 useHead({
 	title: 'Lucien Hsieh',
 	titleTemplate: null,
+});
+
+onMounted(() => {
+	initTheme();
 });
 </script>
 

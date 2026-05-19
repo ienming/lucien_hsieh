@@ -4,11 +4,18 @@
 			<span class="meta-label">Brief</span>
 			<p class="meta-value">{{ description }}</p>
 		</div>
-		<div v-if="link" class="meta-row">
+		<div
+			v-if="link"
+			class="meta-row"
+		>
 			<span class="meta-label">Link</span>
-			<a :href="link" target="_blank" rel="noopener noreferrer" class="meta-link">{{
-				link
-			}}</a>
+			<a
+				:href="link"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="meta-link"
+				>{{ link }}</a
+			>
 		</div>
 	</div>
 </template>
@@ -44,19 +51,20 @@ defineProps({
 
 .meta-label {
 	display: block;
-	font-size: 11px;
+	font-size: 12px;
 	color: var(--color-text-muted);
 	margin-bottom: var(--spacing-sm);
 }
 
 .meta-value {
-	font-size: 18px;
-	line-height: 1.6;
+	font-size: 16px;
+	line-height: 22px;
 	color: var(--color-text-primary);
 }
 
 .meta-link {
 	font-size: 16px;
+	font-weight: 600;
 	color: var(--color-text-primary);
 	text-decoration: underline;
 	text-underline-offset: 3px;
