@@ -49,39 +49,11 @@
 
           <!-- Content（自然高度，不限制） -->
           <div class="modal-content-area">
-			<ProjectMeta />
-            <img
-              v-if="project?.coverImage"
-              :src="project.coverImage"
-              :alt="project?.name"
-              class="modal-cover"
+            <component
+              :is="contentComponent"
+              v-if="contentComponent && project"
+              :project="project"
             />
-            <div class="modal-content">
-              <p v-if="project?.description" class="modal-description">
-                {{ project.description }}
-              </p>
-              <a
-                v-if="project?.link"
-                :href="project.link"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="modal-link"
-              >
-                {{ t('viewProject') }}
-              </a>
-              <div v-if="project?.images?.length" class="modal-images">
-                <figure
-                  v-for="(img, i) in project.images"
-                  :key="i"
-                  class="modal-image-figure"
-                >
-                  <img :src="img.src" :alt="img.caption" class="modal-image" />
-                  <figcaption v-if="img.caption" class="modal-caption">
-                    {{ img.caption }}
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -90,10 +62,16 @@
 </template>
 
 <script setup>
-import ProjectMeta from '../project/ProjectMeta'
-
 const { isOpen, project, closeModal } = useModal()
 const { t } = useI18n()
+
+const contentRegistry = {
+  // shyline: defineAsyncComponent(() => import('~/components/projects/ShylineContent.vue')),
+}
+const defaultContent = defineAsyncComponent(() => import('~/components/projects/DefaultContent.vue'))
+const contentComponent = computed(() =>
+  project.value ? (contentRegistry[project.value.id] ?? defaultContent) : null
+)
 
 // ─── 點擊 scroll container 外部（遮罩區）關閉 ──────────
 const panelEl = ref(null)
@@ -280,65 +258,6 @@ function onDragEnd() {
 .modal-content-area {
 	max-width: 760px;
 	margin: 0 auto;
-	padding: var(--spacing-lg) var(--spacing-md);
-}
-
-.modal-cover {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  display: block;
-}
-
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
-  padding-bottom: var(--spacing-2xl); // 底部留呼吸空間
-}
-
-.modal-description {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--color-text-primary);
-  font-family: var(--font-mono);
-}
-
-.modal-link {
-  display: inline-block;
-  font-size: 12px;
-  color: var(--color-text-muted);
-  letter-spacing: 0.04em;
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 2px;
-  width: fit-content;
-  transition: color var(--transition-fast), border-color var(--transition-fast);
-
-  &:hover {
-    color: var(--color-text-primary);
-    border-color: var(--color-text-primary);
-  }
-}
-
-// ─── Image gallery ────────────────────────────────────
-.modal-images {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.modal-image-figure {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-}
-
-.modal-image { width: 100%; border-radius: 4px; }
-
-.modal-caption {
-  font-size: 10px;
-  color: var(--color-text-muted);
-  letter-spacing: 0.04em;
 }
 
 // ─── Backdrop transition ──────────────────────────────
