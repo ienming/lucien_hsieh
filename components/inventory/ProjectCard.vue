@@ -226,10 +226,9 @@ function onMouseLeave() {
 	inset: 0;
 	background: #e84c2b;
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	padding: var(--spacing-lg) var(--spacing-md);
 	opacity: 0;
-	transition: opacity 0.4s ease;
 
 	&.is-visible {
 		opacity: 1;
@@ -237,7 +236,7 @@ function onMouseLeave() {
 }
 
 .hover-description {
-	font-size: 14px;
+	font-size: 20px;
 	line-height: 1.6;
 	color: #fff;
 	font-family: var(--font-mono);

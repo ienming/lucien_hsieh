@@ -8,7 +8,7 @@ const PROJECTS = [
 		type: 'project',
 		tagline: 'Seen, but never exposed.',
 		taglineSub: 'let them look, let them wonder',
-		description: 'A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.',
+		description: 'Sunset glasses project',
 		coverImage: '/imgs/shyline-cover.jpg',
 		link: 'https://jenning.github.io/iroironairo/#/',
 		images: [
