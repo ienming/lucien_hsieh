@@ -26,7 +26,7 @@ const PROJECTS = [
 		medium: 'Web',
 		year: '2024',
 		type: 'project',
-		description: '「色々な色 (iroironairo)」意指「各式各樣的顏色」。我將在日本交換期間拍下的九百多張照片以「顏色」為主題串聯為互動網頁。',
+		description: '「色々な色 (iroironairo)」意指「各式各樣的顏色」，以「顏色」為主題呈現在日本交換期間拍下的九百多張照片。',
 		coverImage: 'macbook_mockup_zhwgnz',
 	},
 	{
@@ -37,7 +37,7 @@ const PROJECTS = [
 		year: '2026',
 		type: 'project',
 		description: 'A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.',
-		coverImage: '/images/shyline-cover.jpg',
+		coverImage: '/imgs/shyline-cover.jpg',
 	},
 	{
 		id: 'shyline',
@@ -47,7 +47,7 @@ const PROJECTS = [
 		year: '2026',
 		type: 'project',
 		description: 'A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.',
-		coverImage: '/images/shyline-cover.jpg',
+		coverImage: '/imgs/shyline-cover.jpg',
 	},
 	{
 		id: 'shyline',
@@ -57,7 +57,7 @@ const PROJECTS = [
 		year: '2026',
 		type: 'project',
 		description: 'A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.',
-		coverImage: '/images/shyline-cover.jpg',
+		coverImage: '/imgs/shyline-cover.jpg',
 	},
 	{
 		id: 'shyline',
@@ -67,7 +67,7 @@ const PROJECTS = [
 		year: '2026',
 		type: 'project',
 		description: 'A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.',
-		coverImage: '/images/shyline-cover.jpg',
+		coverImage: '/imgs/shyline-cover.jpg',
 	},
 ]
 

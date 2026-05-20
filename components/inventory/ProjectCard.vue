@@ -12,7 +12,6 @@
 		@mouseleave="onMouseLeave"
 		@click="clickable ? onClick() : null"
 	>
-		<!-- Card Header -->
 		<div class="card-header">
 			<div class="card-meta">
 				<span class="meta-label">{{ t('name') }}</span>
@@ -27,25 +26,21 @@
 				<span class="meta-value">{{ project.medium }}</span>
 			</div>
 		</div>
-
-		<!-- Card Body -->
 		<div class="card-body">
-			<!-- Profile 型：純文字 -->
 			<div
 				v-if="project.type === 'profile'"
 				class="card-body--profile"
 			>
 				<p class="profile-text">{{ project.description }}</p>
 			</div>
-
-			<!-- Project 型：封面圖 + hover overlay -->
 			<div
 				v-else
 				class="card-body--project"
 			>
-				<img
+				<NuxtImg
 					v-if="project.coverImage"
 					:src="project.coverImage"
+					:provider="project.coverImage.startsWith('/imgs') ? null : 'cloudinary'"
 					:alt="project.name"
 					class="cover-image"
 					:class="{ 'is-hidden': isHovered }"
@@ -131,7 +126,6 @@ function onMouseLeave() {
 	max-width: var(--card-max-width);
 	height: 460px;
 	transform: scale(0.8);
-	// 預設：滑鼠離開時慢速歸零
 	transition:
 		transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
 		box-shadow var(--transition-base);
@@ -141,7 +135,6 @@ function onMouseLeave() {
 		touch-action: none;
 	}
 
-	// hover 中：快速跟隨游標
 	&.is-hovering {
 		transition:
 			transform 0.08s linear,
@@ -150,7 +143,6 @@ function onMouseLeave() {
 	}
 }
 
-// ─── Card Header ──────────────────────────────────────
 .card-header {
 	display: flex;
 	padding: var(--spacing-sm) var(--spacing-md);
@@ -184,7 +176,6 @@ function onMouseLeave() {
 	color: var(--color-text-primary);
 }
 
-// ─── Card Body ────────────────────────────────────────
 .card-body {
 	position: relative;
 }
@@ -224,9 +215,9 @@ function onMouseLeave() {
 .hover-overlay {
 	position: absolute;
 	inset: 0;
-	background: #e84c2b;
+	background: var(--color-surface);
 	display: flex;
-	align-items: flex-end;
+	align-items: flex-start;
 	padding: var(--spacing-lg) var(--spacing-md);
 	opacity: 0;
 
@@ -236,9 +227,9 @@ function onMouseLeave() {
 }
 
 .hover-description {
-	font-size: 20px;
-	line-height: 1.6;
-	color: #fff;
+	font-size: 28px;
+	line-height: 40px;
+	color: var(--color-text-primary);
 	font-family: var(--font-mono);
 }
 </style>

@@ -12,6 +12,7 @@
 		<div class="d-flex flex-column flex-md-row gap-space-lg content">
 			<NuxtImg
 				:src="cover"
+				:provider="cover?.startsWith('/') ? 'ipx' : 'cloudinary'"
 				class="next-cover"
 				loading="lazy"
 				placeholder
