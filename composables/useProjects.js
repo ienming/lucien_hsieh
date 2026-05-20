@@ -1,22 +1,13 @@
 const PROJECTS = [
 	{
 		id: 'shyline',
-		no: '001',
+		no: '002',
 		name: 'Shyline',
 		medium: 'Web',
 		year: '2026',
 		type: 'project',
-		tagline: 'Seen, but never exposed.',
-		taglineSub: 'let them look, let them wonder',
 		description: 'Sunset glasses project',
 		coverImage: '/imgs/shyline-cover.jpg',
-		link: 'https://jenning.github.io/iroironairo/#/',
-		images: [
-			{
-				src: '/imgs/shyline-cover.jpg',
-				caption: 'Saturated(original) and de-saturated picture.',
-			},
-		],
 	},
 	{
 		id: 'profile',
@@ -25,31 +16,18 @@ const PROJECTS = [
 		medium: 'Person',
 		year: '',
 		type: 'profile',
-		tagline: '',
-		taglineSub: '',
 		description: 'Lucien Hsieh is a digital narrator who focuses on telling story from paper to web. Based in Taipei, Taiwan, looking for opportunities to do storytelling or creative data visualization.',
 		coverImage: '',
-		link: '',
-		images: [],
 	},
 	{
-		id: 'shyline',
-		no: '002',
-		name: 'Shyline',
+		id: 'iroironairo',
+		no: '001',
+		name: '色々な色 iroironairo',
 		medium: 'Web',
-		year: '2026',
+		year: '2024',
 		type: 'project',
-		tagline: 'Seen, but never exposed.',
-		taglineSub: 'let them look, let them wonder',
-		description: 'A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.',
-		coverImage: '/images/shyline-cover.jpg',
-		link: 'https://jenning.github.io/iroironairo/#/',
-		images: [
-			{
-				src: '/images/shyline-fig1.jpg',
-				caption: 'Saturated(original) and de-saturated picture.',
-			},
-		],
+		description: '「色々な色 (iroironairo)」意指「各式各樣的顏色」。我將在日本交換期間拍下的九百多張照片以「顏色」為主題串聯為互動網頁。',
+		coverImage: 'macbook_mockup_zhwgnz',
 	},
 	{
 		id: 'shyline',
@@ -58,17 +36,8 @@ const PROJECTS = [
 		medium: 'Web',
 		year: '2026',
 		type: 'project',
-		tagline: 'Seen, but never exposed.',
-		taglineSub: 'let them look, let them wonder',
 		description: 'A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.',
 		coverImage: '/images/shyline-cover.jpg',
-		link: 'https://jenning.github.io/iroironairo/#/',
-		images: [
-			{
-				src: '/images/shyline-fig1.jpg',
-				caption: 'Saturated(original) and de-saturated picture.',
-			},
-		],
 	},
 	{
 		id: 'shyline',
@@ -77,17 +46,8 @@ const PROJECTS = [
 		medium: 'Web',
 		year: '2026',
 		type: 'project',
-		tagline: 'Seen, but never exposed.',
-		taglineSub: 'let them look, let them wonder',
 		description: 'A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.',
 		coverImage: '/images/shyline-cover.jpg',
-		link: 'https://jenning.github.io/iroironairo/#/',
-		images: [
-			{
-				src: '/images/shyline-fig1.jpg',
-				caption: 'Saturated(original) and de-saturated picture.',
-			},
-		],
 	},
 	{
 		id: 'shyline',
@@ -96,17 +56,8 @@ const PROJECTS = [
 		medium: 'Web',
 		year: '2026',
 		type: 'project',
-		tagline: 'Seen, but never exposed.',
-		taglineSub: 'let them look, let them wonder',
 		description: 'A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.',
 		coverImage: '/images/shyline-cover.jpg',
-		link: 'https://jenning.github.io/iroironairo/#/',
-		images: [
-			{
-				src: '/images/shyline-fig1.jpg',
-				caption: 'Saturated(original) and de-saturated picture.',
-			},
-		],
 	},
 	{
 		id: 'shyline',
@@ -115,17 +66,8 @@ const PROJECTS = [
 		medium: 'Web',
 		year: '2026',
 		type: 'project',
-		tagline: 'Seen, but never exposed.',
-		taglineSub: 'let them look, let them wonder',
 		description: 'A data visualization project collecting colors I saw in Japan as an exchange student. The project let viewer explore memories through colors in daily life.',
 		coverImage: '/images/shyline-cover.jpg',
-		link: 'https://jenning.github.io/iroironairo/#/',
-		images: [
-			{
-				src: '/images/shyline-fig1.jpg',
-				caption: 'Saturated(original) and de-saturated picture.',
-			},
-		],
 	},
 ]
 

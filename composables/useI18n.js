@@ -11,7 +11,6 @@ const LANG_KEY_MAP = {
 		year: 'Year',
 		no: 'No',
 		medium: 'Medium',
-		viewProject: 'View Project →',
 	},
 	ZH: {
 		fileExplorer: '所有專案',
@@ -23,7 +22,6 @@ const LANG_KEY_MAP = {
 		no: 'no',
 		year: 'Year',
 		medium: 'medium',
-		viewProject: '查看作品 →',
 	},
 }
 

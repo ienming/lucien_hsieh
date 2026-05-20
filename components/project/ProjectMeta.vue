@@ -36,17 +36,12 @@ defineProps({
 <style lang="scss" scoped>
 .project-meta {
 	font-family: var(--font-mono);
-	border-left: 1px solid var(--color-border);
-	border-right: 1px solid var(--color-border);
+	margin-bottom: var(--spacing-xl);
 }
 
 .meta-row {
-	padding: var(--spacing-lg) var(--spacing-md);
-	border-bottom: 1px solid var(--color-border);
-
-	&:last-child {
-		border: none;
-	}
+	padding: var(--spacing-md);
+	padding-bottom: var(--spacing-sm);
 }
 
 .meta-label {

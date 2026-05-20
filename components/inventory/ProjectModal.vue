@@ -155,6 +155,7 @@ function onDragEnd() {
 	position: fixed;
 	inset: 0;
 	background: rgba(0, 0, 0, 0.45);
+	backdrop-filter: blur(4px);
 	z-index: 1000;
 }
 
@@ -261,8 +262,7 @@ function onDragEnd() {
 }
 
 .modal-content-area {
-	max-width: 760px;
-	margin: 0 auto;
+	padding: var(--spacing-xl);
 }
 
 .modal-fade-enter-active,
