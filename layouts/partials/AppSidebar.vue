@@ -1,9 +1,13 @@
 <template>
 	<aside class="app-sidebar">
 		<nav class="app-nav">
+			<div class="view">
+				<button class="nav-link">CARD</button>
+				/
+				<button class="nav-link">LIST</button>
+			</div>
 			<button class="nav-link">{{ t('fileExplorer') }}</button>
 		</nav>
-		<!-- Environment 觸發 + Panel -->
 		<div class="env-section">
 			<button
 				class="nav-link env-trigger"
@@ -21,8 +25,6 @@
 				@toggle-theme="toggleTheme"
 			/>
 		</div>
-
-		<!-- 點狀進度清單 -->
 		<section class="progress-hint">
 			<ul class="dot-list">
 				<li
@@ -116,12 +118,10 @@ const visibleDots = computed(() => {
 	}
 }
 
-// ─── Environment 觸發 ──────────────────────────────────
 .env-section {
-	position: relative; // EnvironmentPanel 的 absolute 錨點
+	position: relative;
 }
 
-// ─── 點狀清單 ──────────────────────────────────────────
 .progress-hint {
 	margin-top: 20px;
 }
@@ -192,7 +192,6 @@ const visibleDots = computed(() => {
 	}
 }
 
-// ─── 進度數字 ──────────────────────────────────────────
 .progress-label {
 	order: 1;
 	font-size: 28px;

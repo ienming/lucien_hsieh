@@ -245,7 +245,7 @@ function onDragEnd() {
 	}
 
 	&.meta-medium {
-		max-width: 120px;
+		max-width: 180px;
 	}
 }
 
