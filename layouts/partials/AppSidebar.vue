@@ -37,11 +37,18 @@
 						'is-far': Math.abs(project.index - currentIndex) >= 2,
 					}"
 					@click="goTo(project.index)"
+					@mouseenter="hoveredIndex = project.index"
+					@mouseleave="hoveredIndex = null"
 				>
 					<span class="dot" />
 					<span
-						v-if="project.index === currentIndex"
 						class="dot-label desktop-only"
+						:class="{
+							'is-visible':
+								project.index === currentIndex || project.index === hoveredIndex,
+							'is-hovered':
+								project.index === hoveredIndex && project.index !== currentIndex,
+						}"
 					>
 						{{ project.name }}
 					</span>
@@ -58,6 +65,7 @@
 import EnvironmentPanel from './EnvironmentPanel.vue';
 
 const { projects, currentIndex, progressLabel, goTo } = useProjects();
+const hoveredIndex = ref(null);
 const { isEnvOpen, language, isDark, togglePanel, closePanel, toggleLanguage, toggleTheme } =
 	useEnvironment();
 const { t } = useI18n();
@@ -129,7 +137,7 @@ const visibleDots = computed(() => {
 .dot-list {
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
+	gap: 16px;
 
 	@media (max-width: 767px) {
 		flex-direction: row;
@@ -144,6 +152,7 @@ const visibleDots = computed(() => {
 	align-items: center;
 	gap: var(--spacing-sm);
 	cursor: pointer;
+	position: relative;
 
 	&.is-active .dot {
 		width: 8px;
@@ -178,12 +187,26 @@ const visibleDots = computed(() => {
 }
 
 .dot-label {
+	position: absolute;
+	left: calc(8px + var(--spacing-sm));
+	top: 50%;
+	transform: translateY(-50%);
 	font-size: 12px;
 	font-family: 'Courier Prime';
 	color: var(--color-text-primary);
 	letter-spacing: 0.04em;
 	white-space: nowrap;
-	animation: fadeIn 0.2s ease;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.2s ease;
+
+	&.is-visible {
+		opacity: 1;
+	}
+
+	&.is-hovered {
+		color: var(--color-text-muted);
+	}
 }
 
 .desktop-only {

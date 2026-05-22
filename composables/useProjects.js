@@ -56,6 +56,8 @@ const PROJECTS = [
 	},
 ]
 
+const _scrollToCard = shallowRef(null)
+
 export function useProjects() {
 	const projects = useState('projects:list', () => PROJECTS)
 	const currentIndex = useState('projects:currentIndex', () => 0)
@@ -70,7 +72,13 @@ export function useProjects() {
 
 	function goTo(index) {
 		const len = total.value
-		currentIndex.value = ((index % len) + len) % len
+		const newIndex = ((index % len) + len) % len
+		currentIndex.value = newIndex
+		_scrollToCard.value?.(newIndex)
+	}
+
+	function registerScrollToCard(fn) {
+		_scrollToCard.value = fn
 	}
 
 	return {
@@ -80,5 +88,6 @@ export function useProjects() {
 		total,
 		progressLabel,
 		goTo,
+		registerScrollToCard,
 	}
 }

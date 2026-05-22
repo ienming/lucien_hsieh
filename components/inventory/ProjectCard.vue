@@ -118,17 +118,23 @@ function onMouseLeave() {
 
 <style lang="scss" scoped>
 .project-card {
+	display: flex;
+	flex-direction: column;
 	background: var(--color-surface);
 	border-radius: var(--card-radius);
 	overflow: hidden;
 	box-shadow: 0 2px 16px var(--color-card-shadow);
 	width: 100%;
 	max-width: var(--card-max-width);
-	height: 460px;
+	height: 70vh;
 	transform: scale(0.8);
 	transition:
 		transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
 		box-shadow var(--transition-base);
+
+	@media screen and (min-width: 768px) {
+		max-height: 540px;
+	}
 
 	&.disabled {
 		pointer-events: none;
@@ -145,8 +151,16 @@ function onMouseLeave() {
 
 .card-header {
 	display: flex;
-	padding: var(--spacing-sm) var(--spacing-md);
+	flex-wrap: wrap;
+	gap: var(--spacing-md);
+	padding: var(--spacing-md);
 	border-bottom: 1px solid var(--color-border);
+
+	@media screen and (min-width: 768px) {
+		padding: var(--spacing-sm) var(--spacing-md);
+		flex-wrap: nowrap;
+		gap: 0;
+	}
 }
 
 .card-meta {
@@ -156,7 +170,12 @@ function onMouseLeave() {
 	width: 100%;
 
 	&.meta-no {
-		max-width: 90px;
+		flex: 1;
+
+		@media screen and (min-width: 768px) {
+			flex: unset;
+			max-width: 90px;
+		}
 	}
 
 	&.meta-medium {
@@ -178,6 +197,7 @@ function onMouseLeave() {
 
 .card-body {
 	position: relative;
+	flex: 1;
 }
 
 // Profile 型
@@ -196,9 +216,9 @@ function onMouseLeave() {
 // Project 型
 .card-body--project {
 	position: relative;
-	aspect-ratio: 16 / 9;
 	overflow: hidden;
 	background: var(--color-border);
+	height: 100%;
 }
 
 .cover-image {

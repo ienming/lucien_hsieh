@@ -27,10 +27,11 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProjectCard from './ProjectCard.vue';
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const { projects, currentIndex } = useProjects();
+const { projects, currentIndex, registerScrollToCard } = useProjects();
 
 const GAP = 65;
 const SCALE_STEP = 0.09;
@@ -38,6 +39,7 @@ const SCALE_STEP = 0.09;
 const scrollerEl = ref(null);
 const sectionEl = ref(null);
 const cardRefs = ref([]);
+const breakpoints = useBreakpoints(breakpointsTailwind);
 
 function setCardRef(el, i) {
 	if (el) cardRefs.value[i] = el.$el ?? el;
@@ -74,9 +76,10 @@ onMounted(async () => {
 
 	// Peel from top: card[i] exits upward, remaining cards slide into peek positions
 	const tl = gsap.timeline();
+	const flyawayOffset = breakpoints.greaterOrEqual('md') ? 80 : 160;
 	for (let i = 0; i < cards.length - 1; i++) {
 		tl.to(cards[i], {
-			y: -heights[i] - 80,
+			y: -heights[i] - flyawayOffset,
 			scale: 1,
 			ease: 'none',
 		});
@@ -106,10 +109,24 @@ onMounted(async () => {
 		scrub: true,
 		animation: tl,
 	});
+
+	const n = projects.value.length;
+	registerScrollToCard((index) => {
+		if (n <= 1 || !trigger) return;
+		const progress = index / (n - 1);
+		const targetScroll = trigger.start + progress * (trigger.end - trigger.start);
+		gsap.to(scrollerEl.value, {
+			scrollTop: targetScroll,
+			duration: 0,
+			ease: 'power2.inOut',
+			overwrite: true,
+		});
+	});
 });
 
 onUnmounted(() => {
 	trigger?.kill();
+	registerScrollToCard(null);
 });
 </script>
 
@@ -117,11 +134,10 @@ onUnmounted(() => {
 .card-scroller {
 	height: 100vh;
 	overflow-y: auto;
-	padding: var(--spacing-xl);
+	padding: 0 var(--spacing-xl);
 
 	@media (max-width: 767px) {
-		padding: var(--spacing-md);
-		padding-bottom: 48px;
+		padding: 0 var(--spacing-md);
 	}
 }
 
@@ -141,14 +157,10 @@ onUnmounted(() => {
 
 .stacked-zone {
 	position: sticky;
-	top: var(--spacing-xl);
 	width: 100%;
 	overflow: hidden;
-	height: 80vh;
-
-	@media (max-width: 767px) {
-		top: var(--spacing-md);
-	}
+	height: 100vh;
+	top: 0;
 
 	&::after {
 		display: block;
