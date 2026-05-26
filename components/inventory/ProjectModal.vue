@@ -77,14 +77,12 @@ const { isOpen, project, closeModal } = useModal();
 const { t } = useI18n();
 
 const contentRegistry = {
-	// shyline: defineAsyncComponent(() => import('~/components/projects/ShylineContent.vue')),
-	iroironairo: defineAsyncComponent(() => import('~/components/projects/IroironairoContent.vue')),
+	// shyline: resolveComponent('LazyProjectsShylineContent'),
+	iroironairo: resolveComponent('LazyProjectsIroironairoContent'),
 };
 const DRAG_THRESHOLD = 120;
 
-const defaultContent = defineAsyncComponent(
-	() => import('~/components/projects/DefaultContent.vue'),
-);
+const defaultContent = resolveComponent('LazyProjectsDefaultContent');
 
 const panelEl = ref(null);
 const dragY = ref(0);
