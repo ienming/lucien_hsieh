@@ -1,12 +1,16 @@
 .project-paragraph {
 	font-size: 20px;
-	line-height: 1.6;
+	line-height: 1.7;
 	margin: var(--spacing-lg) 0;
 	text-align: justify;
 	font-family: var(--font-sans);
 
 	@media screen and (min-width: 768px) {
 		max-width: 75%;
+	}
+
+	&.en {
+		line-height: 1.4;
 	}
 }
 

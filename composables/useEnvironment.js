@@ -1,5 +1,10 @@
+const ONE_YEAR = 60 * 60 * 24 * 365;
+
 export function useEnvironment() {
-	const language = useState('env:language', () => 'EN')
+	const language = useCookie('env:language', {
+		default: () => 'EN',
+		maxAge: ONE_YEAR,
+	});
 	const isDark = useState('env:isDark', () => false)
 	const isEnvOpen = useState('env:isOpen', () => false)
 	const isEn = computed(() => language.value === 'EN');
@@ -11,6 +16,7 @@ export function useEnvironment() {
 
 	function toggleTheme() {
 		isDark.value = !isDark.value
+		localStorage.setItem('dark-theme', isDark.value);
 	}
 
 	function syncTheme() {
@@ -21,7 +27,15 @@ export function useEnvironment() {
 	}
 
 	function initTheme() {
-		const prefersDark = window?.matchMedia('(prefers-color-scheme: dark)').matches
+		let prefersDark;
+
+		if (localStorage.getItem('dark-theme')) {
+			const savedThemePrefer = JSON.parse(localStorage.getItem('dark-theme'));
+			prefersDark = savedThemePrefer;
+		} else {
+			prefersDark = window?.matchMedia('(prefers-color-scheme: dark)').matches
+		}
+
 		isDark.value = prefersDark
 		syncTheme()
 

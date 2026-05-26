@@ -17,7 +17,7 @@
 			</p>
 		</div>
 		<div v-else-if="isEn">
-			<p class="project-paragraph">
+			<p class="project-paragraph en">
 				"What colors have I seen over the past six months?" Fueled by this curiosity, I
 				gathered over 900 photos taken during my half-year exchange program in
 				Japan—snapshots from wandering around campus, grocery shopping at supermarkets, and
@@ -37,7 +37,7 @@
 				location of the shots, exploring the intersection of different times, spaces,
 				colors, and the subjects that caught my eye.
 			</p>
-			<p class="project-paragraph">
+			<p class="project-paragraph en">
 				"Iroironairo" means "various colors." Through this project, I hope to convey that
 				the things we take for granted in our busy, exhausting daily lives might reveal
 				something fascinating if we simply look at them from a different angle.
