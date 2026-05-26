@@ -5,6 +5,7 @@
 		:class="[
 			`type-${project.type}`,
 			{ 'is-hovering': isHovered },
+			{ clickable: project.isOpen },
 			{ disabled: currentProject.no !== project.no },
 		]"
 		@mouseenter="onMouseEnter"
@@ -88,10 +89,6 @@ watch(isModalOpen, (open) => {
 	}
 });
 
-const cardStyle = computed(() => ({
-	transform: `perspective(900px) rotateX(${tiltX.value}deg) rotateY(${tiltY.value}deg)`,
-}));
-
 function onClick() {
 	openModal(props.project);
 }
@@ -134,6 +131,10 @@ function onMouseLeave() {
 
 	@media screen and (min-width: 768px) {
 		max-height: 540px;
+	}
+
+	&.clickable {
+		cursor: pointer;
 	}
 
 	&.disabled {

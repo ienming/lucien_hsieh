@@ -1,3 +1,6 @@
+/*
+@isOpen: Determine whether the project is open or draft
+*/
 const PROJECTS = [
 	{
 		id: 'shyline',
@@ -6,8 +9,8 @@ const PROJECTS = [
 		medium: 'Web',
 		year: '2026',
 		type: 'project',
-		isOpen: true,
-		description: 'Sunset glasses project',
+		isOpen: false,
+		description: 'Sunset glasses project...coming soon',
 		coverImage: '/imgs/shyline-cover.jpg',
 	},
 	{
@@ -29,31 +32,46 @@ const PROJECTS = [
 		year: '2024',
 		type: 'project',
 		isOpen: true,
+		link: 'https://ienming.github.io/iroironairo/#/',
 		description: '「色々な色 (iroironairo)」意思是「各式各樣的顏色」，以「顏色」為主題呈現在日本交換期間拍下的九百多張照片。',
 		coverImage: 'macbook_mockup_zhwgnz',
+		credits: [
+			{
+				cate: 'Photos',
+				to: 'Lucien Hsieh',
+			},
+			{
+				cate: 'Design',
+				to: 'Lucien Hsieh',
+			},
+			{
+				cate: 'Develop',
+				to: 'Lucien Hsieh',
+			}
+		]
 	},
-	{
-		id: 'modern_love',
-		no: '003',
-		name: 'Modern Love',
-		medium: 'Web/Poster',
-		year: '2021',
-		type: 'project',
-		isOpen: true,
-		description: 'Modern love represents public culture that...',
-		coverImage: 'modern_love_macbook_mockup_r0m1jt',
-	},
-	{
-		id: '29',
-		no: '004',
-		name: '29',
-		medium: 'Zine',
-		year: '2026',
-		type: 'project',
-		isOpen: false,
-		description: 'coming soon...',
-		coverImage: '/imgs/29-cover.jpg',
-	},
+	// {
+	// 	id: 'modern_love',
+	// 	no: '003',
+	// 	name: 'Modern Love',
+	// 	medium: 'Web/Poster',
+	// 	year: '2021',
+	// 	type: 'project',
+	// 	isOpen: false,
+	// 	description: 'Modern love represents public culture that...',
+	// 	coverImage: 'modern_love_macbook_mockup_r0m1jt',
+	// },
+	// {
+	// 	id: '29',
+	// 	no: '004',
+	// 	name: '29',
+	// 	medium: 'Zine',
+	// 	year: '2026',
+	// 	type: 'project',
+	// 	isOpen: false,
+	// 	description: 'coming soon...',
+	// 	coverImage: '/imgs/29-cover.jpg',
+	// },
 ]
 
 const _scrollToCard = shallowRef(null)

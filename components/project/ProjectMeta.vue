@@ -60,13 +60,13 @@ defineProps({
 .meta-link {
 	font-size: 16px;
 	font-weight: 600;
-	color: var(--color-text-primary);
 	text-decoration: underline;
 	text-underline-offset: 3px;
 	word-break: break-all;
+	color: var(--color-text-muted);
 
 	&:hover {
-		color: var(--color-text-muted);
+		color: var(--color-text-primary);
 	}
 }
 </style>

@@ -1,12 +1,13 @@
 <template>
 	<aside class="app-sidebar">
 		<nav class="app-nav">
-			<div class="view">
+			<!-- TODO -->
+			<!-- <div class="view">
 				<button class="nav-link">CARD</button>
 				/
 				<button class="nav-link">LIST</button>
 			</div>
-			<button class="nav-link">{{ t('fileExplorer') }}</button>
+			<button class="nav-link">{{ t('fileExplorer') }}</button> -->
 		</nav>
 		<div class="env-section">
 			<button

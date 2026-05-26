@@ -66,7 +66,7 @@ const { credits } = props;
 		}
 
 		&:not(:last-child) {
-			border-bottom: 1px solid var(--color-neutral-900);
+			border-bottom: 1px solid var(--color-border);
 		}
 	}
 }

@@ -62,7 +62,7 @@
 					</div>
 
 					<div class="credit-container">
-						<project-credit />
+						<project-credit :credits="project.credits" />
 					</div>
 				</div>
 			</div>
