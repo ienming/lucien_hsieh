@@ -32,7 +32,7 @@
 				v-if="project.type === 'profile'"
 				class="card-body--profile"
 			>
-				<p class="profile-text">{{ project.description }}</p>
+				<p class="profile-text">{{ projectDesc }}</p>
 			</div>
 			<div
 				v-else
@@ -50,7 +50,7 @@
 					class="hover-overlay"
 					:class="{ 'is-visible': isHovered }"
 				>
-					<p class="hover-description">{{ project.description }}</p>
+					<p class="hover-description">{{ projectDesc }}</p>
 				</div>
 			</div>
 		</div>
@@ -72,6 +72,7 @@ const props = defineProps({
 const { currentProject } = useProjects();
 const { openModal, isOpen: isModalOpen } = useModal();
 const { t } = useI18n();
+const { language } = useEnvironment();
 
 const cardEl = ref(null);
 const isHovered = ref(false);
@@ -79,6 +80,8 @@ const tiltX = ref(0);
 const tiltY = ref(0);
 
 const MAX_TILT = 10;
+
+const projectDesc = computed(() => props.project.description?.[language.value.toLowerCase()]);
 
 // Modal 開啟時重置 hover 狀態，避免卡片 frozen 在橘色 overlay
 watch(isModalOpen, (open) => {
@@ -251,6 +254,6 @@ function onMouseLeave() {
 	font-size: 28px;
 	line-height: 40px;
 	color: var(--color-text-primary);
-	font-family: var(--font-mono);
+	font-family: var(--font-sans);
 }
 </style>

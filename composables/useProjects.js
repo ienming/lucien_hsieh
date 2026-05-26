@@ -10,7 +10,10 @@ const PROJECTS = [
 		year: '2026',
 		type: 'project',
 		isOpen: false,
-		description: 'Sunset glasses project...coming soon',
+		description: {
+			zh: 'Sunset glasses project...coming soon',
+			en: 'Sunset glasses project...coming soon',
+		},
 		coverImage: '/imgs/shyline-cover.jpg',
 	},
 	{
@@ -21,7 +24,10 @@ const PROJECTS = [
 		year: '',
 		type: 'profile',
 		isOpen: false,
-		description: 'Lucien Hsieh is a digital narrator who focuses on telling story from paper to web. Based in Taipei, Taiwan, looking for opportunities to do storytelling or creative data visualization.',
+		description: {
+			zh: 'Lucien Hsieh is a digital narrator who focuses on telling story from paper to web. Based in Taipei, Taiwan, looking for opportunities to do storytelling or creative data visualization.',
+			en: 'Lucien Hsieh is a digital narrator who focuses on telling story from paper to web. Based in Taipei, Taiwan, looking for opportunities to do storytelling or creative data visualization.',
+		},
 		coverImage: '',
 	},
 	{
@@ -33,7 +39,10 @@ const PROJECTS = [
 		type: 'project',
 		isOpen: true,
 		link: 'https://ienming.github.io/iroironairo/#/',
-		description: '「色々な色 (iroironairo)」意思是「各式各樣的顏色」，以「顏色」為主題呈現在日本交換期間拍下的九百多張照片。',
+		description: {
+			zh: '「色々な色 (iroironairo)」意思是「各式各樣的顏色」，以「顏色」為主題呈現在日本交換期間拍下的九百多張照片。',
+			en: '「色々な色 (iroironairo)」means "various color", the project telling the stories over 900 photos taken in Japan as an exchange student.',
+		},
 		coverImage: 'macbook_mockup_zhwgnz',
 		credits: [
 			{

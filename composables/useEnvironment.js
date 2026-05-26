@@ -2,9 +2,11 @@ export function useEnvironment() {
 	const language = useState('env:language', () => 'EN')
 	const isDark = useState('env:isDark', () => false)
 	const isEnvOpen = useState('env:isOpen', () => false)
+	const isEn = computed(() => language.value === 'EN');
+	const isZh = computed(() => language.value === 'ZH');
 
 	function toggleLanguage() {
-		language.value = language.value === 'EN' ? 'ZH' : 'EN'
+		language.value = isEn.value ? 'ZH' : 'EN';
 	}
 
 	function toggleTheme() {
@@ -47,5 +49,7 @@ export function useEnvironment() {
 		isEnvOpen,
 		togglePanel,
 		closePanel,
+		isEn,
+		isZh,
 	}
 }

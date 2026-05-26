@@ -18,10 +18,10 @@ const LANG_KEY_MAP = {
 		environment: '設定',
 		translation: '語言',
 		light: '外觀',
-		name: 'name',
-		no: 'no',
-		year: 'Year',
-		medium: 'medium',
+		name: '專案名稱',
+		no: '編號',
+		year: '年份',
+		medium: '媒介',
 	},
 }
 
