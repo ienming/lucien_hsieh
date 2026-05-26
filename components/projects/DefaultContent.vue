@@ -17,28 +17,6 @@
 			>
 				{{ project.description }}
 			</p>
-			<div
-				v-if="project.images?.length"
-				class="modal-images"
-			>
-				<figure
-					v-for="(img, i) in project.images"
-					:key="i"
-					class="modal-image-figure"
-				>
-					<img
-						:src="img.src"
-						:alt="img.caption"
-						class="modal-image"
-					/>
-					<figcaption
-						v-if="img.caption"
-						class="modal-caption"
-					>
-						{{ img.caption }}
-					</figcaption>
-				</figure>
-			</div>
 		</div>
 	</div>
 </template>
@@ -80,46 +58,5 @@ defineProps({
 	line-height: 1.7;
 	color: var(--color-text-primary);
 	font-family: var(--font-mono);
-}
-
-.modal-link {
-	display: inline-block;
-	font-size: 12px;
-	color: var(--color-text-muted);
-	letter-spacing: 0.04em;
-	border-bottom: 1px solid var(--color-border);
-	padding-bottom: 2px;
-	width: fit-content;
-	transition:
-		color var(--transition-fast),
-		border-color var(--transition-fast);
-
-	&:hover {
-		color: var(--color-text-primary);
-		border-color: var(--color-text-primary);
-	}
-}
-
-.modal-images {
-	display: flex;
-	flex-direction: column;
-	gap: var(--spacing-md);
-}
-
-.modal-image-figure {
-	display: flex;
-	flex-direction: column;
-	gap: var(--spacing-xs);
-}
-
-.modal-image {
-	width: 100%;
-	border-radius: 4px;
-}
-
-.modal-caption {
-	font-size: 10px;
-	color: var(--color-text-muted);
-	letter-spacing: 0.04em;
 }
 </style>

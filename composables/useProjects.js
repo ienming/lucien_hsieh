@@ -44,9 +44,9 @@ const PROJECTS = [
 		coverImage: 'modern_love_macbook_mockup_r0m1jt',
 	},
 	{
-		id: '29_mind',
+		id: '29',
 		no: '004',
-		name: 'What\'s in 29\'s mind',
+		name: '29',
 		medium: 'Zine',
 		year: '2026',
 		type: 'project',

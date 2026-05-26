@@ -1,0 +1,37 @@
+.project-paragraph {
+	font-size: 20px;
+	line-height: 1.6;
+	margin: var(--spacing-lg) 0;
+	text-align: justify;
+
+	@media screen and (min-width: 768px) {
+		max-width: 75%;
+	}
+}
+
+.meta-container {
+	max-width: 75%;
+}
+
+.modal-images {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-md);
+}
+
+.modal-image-figure {
+	display: flex;
+	flex-direction: column;
+	gap: var(--spacing-xs);
+}
+
+.modal-image {
+	width: 100%;
+	border-radius: 4px;
+}
+
+.modal-caption {
+	font-size: 10px;
+	color: var(--color-text-muted);
+	letter-spacing: 0.04em;
+}

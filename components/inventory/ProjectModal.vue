@@ -60,6 +60,10 @@
 							:project="project"
 						/>
 					</div>
+
+					<div class="credit-container">
+						<project-credit />
+					</div>
 				</div>
 			</div>
 		</Transition>
@@ -67,11 +71,14 @@
 </template>
 
 <script setup>
+import ProjectCredit from '../project/ProjectCredit.vue';
+
 const { isOpen, project, closeModal } = useModal();
 const { t } = useI18n();
 
 const contentRegistry = {
 	// shyline: defineAsyncComponent(() => import('~/components/projects/ShylineContent.vue')),
+	iroironairo: defineAsyncComponent(() => import('~/components/projects/IroironairoContent.vue')),
 };
 const DRAG_THRESHOLD = 120;
 
@@ -263,6 +270,11 @@ function onDragEnd() {
 
 .modal-content-area {
 	padding: var(--spacing-xl);
+}
+
+.credit-container {
+	padding: var(--spacing-xl);
+	margin-top: 80px;
 }
 
 .modal-fade-enter-active,

@@ -16,34 +16,44 @@
 	</div>
 </template>
 
-<script setup>
-defineProps({
-	credits: {
-		type: Array,
-		default: () => [],
+<script setup lang="ts">
+interface Credit {
+	cate: string;
+	to: string;
+}
+
+const props = withDefaults(
+	defineProps<{
+		credits?: Credit[];
+	}>(),
+	{
+		credits: () => [
+			{
+				cate: 'Category',
+				to: 'Lucien',
+			},
+		],
 	},
-});
+);
+const { credits } = props;
 </script>
 
 <style lang="scss" scoped>
 .project-credit {
 	width: 90vw;
 	max-width: 695px;
+	padding: var(--spacing-md);
 
 	@include response(md) {
 		width: 30vw;
 		min-width: 360px;
 	}
 
-	.header, .content {
-		background-color: var(--color-white);
-		padding: $space-base $space-sm;
-		border-radius: $radius-base;
-	}
-
 	.header {
-		font-size: $font-size-lg;
-		border: 1px solid var(--color-neutral-900);
+		display: block;
+		font-size: 12px;
+		color: var(--color-text-muted);
+		margin-bottom: var(--spacing-sm);
 	}
 
 	.credit-item {
@@ -52,7 +62,7 @@ defineProps({
 		font-size: $font-size-base;
 
 		.credit-cate {
-			color: var(--text-secondary;
+			color: var(--color-text-primary);
 		}
 
 		&:not(:last-child) {
