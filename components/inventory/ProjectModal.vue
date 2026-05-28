@@ -281,6 +281,8 @@ function onDragEnd() {
 .credit-container {
 	padding: var(--spacing-xl);
 	margin-top: 80px;
+	display: flex;
+	justify-content: center;
 }
 
 .modal-fade-enter-active,

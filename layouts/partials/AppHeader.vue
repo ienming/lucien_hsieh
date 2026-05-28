@@ -11,10 +11,6 @@
 	display: flex;
 	flex-direction: column;
 	gap: var(--spacing-xs);
-
-	@media (max-width: 767px) {
-		display: none;
-	}
 }
 
 .site-title {

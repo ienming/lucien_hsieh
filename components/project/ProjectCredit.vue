@@ -54,6 +54,7 @@ const { credits } = props;
 		font-size: 12px;
 		color: var(--color-text-muted);
 		margin-bottom: var(--spacing-sm);
+		text-align: center;
 	}
 
 	.credit-item {
@@ -63,6 +64,10 @@ const { credits } = props;
 
 		.credit-cate {
 			color: var(--color-text-primary);
+		}
+
+		.credit-to {
+			text-align: right;
 		}
 
 		&:not(:last-child) {

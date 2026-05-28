@@ -48,18 +48,15 @@ onMounted(() => {
 
 	@media (max-width: 767px) {
 		position: fixed;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		width: auto;
+		top: 0;
+		width: 100%;
 		height: 48px;
 		flex-direction: row;
 		align-items: center;
 		padding: var(--spacing-sm) var(--spacing-md);
-		background: var(--color-surface);
-		border-right: none;
-		border-top: 1px solid var(--color-border);
-		z-index: 100;
+		background-color: var(--color-bg);
+		border: none;
+		z-index: 1;
 	}
 }
 

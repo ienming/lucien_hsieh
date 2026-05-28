@@ -19,7 +19,7 @@
 					/>
 				</div>
 			</div>
-			<div class="nothing-more">( ˶°ㅁ°) !! This is the end</div>
+			<div class="nothing-more">(╥_╥) nothing more...</div>
 		</div>
 	</div>
 </template>
@@ -34,13 +34,15 @@ gsap.registerPlugin(ScrollTrigger);
 
 const { projects, currentIndex, registerScrollToCard } = useProjects();
 
-const GAP = 65;
-const SCALE_STEP = 0.09;
-
 const scrollerEl = ref(null);
 const sectionEl = ref(null);
 const cardRefs = ref([]);
 const breakpoints = useBreakpoints(breakpointsTailwind);
+
+const GAP = breakpoints.greaterOrEqual('md').value ? 65 : 85;
+const SCALE_STEP = 0.09;
+const INITIAL_TOP_OFFSET = breakpoints.greaterOrEqual('md').value ? 80 : 20;
+const FLYAWAY_OFFSET = 80;
 
 function setCardRef(el, i) {
 	if (el) cardRefs.value[i] = el.$el ?? el;
@@ -66,7 +68,7 @@ onMounted(async () => {
 	cards.forEach((el, i) => {
 		gsap.set(el, {
 			position: 'absolute',
-			top: 80,
+			top: INITIAL_TOP_OFFSET,
 			left: 0,
 			right: 0,
 			y: i * GAP,
@@ -77,10 +79,9 @@ onMounted(async () => {
 
 	// Peel from top: card[i] exits upward, remaining cards slide into peek positions
 	const tl = gsap.timeline();
-	const flyawayOffset = breakpoints.greaterOrEqual('md') ? 80 : 160;
 	for (let i = 0; i < cards.length - 1; i++) {
 		tl.to(cards[i], {
-			y: -heights[i] - flyawayOffset,
+			y: -heights[i] - FLYAWAY_OFFSET,
 			scale: 1,
 			ease: 'none',
 		});
@@ -139,6 +140,7 @@ onUnmounted(() => {
 
 	@media (max-width: 767px) {
 		padding: 0 var(--spacing-md);
+		padding-top: 48px;
 	}
 }
 
@@ -160,15 +162,14 @@ onUnmounted(() => {
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
-	padding-top: var(--spacing-xl);
-	height: 50vh;
+	height: 30vh;
 	color: var(--color-text-faint);
-	font-size: 12px;
+	font-size: 28px;
 	font-family: var(--font-mono);
-	letter-spacing: 0.12em;
 }
 
 .stacked-zone {
+	--top-offset: 20px;
 	position: sticky;
 	width: 100%;
 	overflow: hidden;
@@ -182,10 +183,14 @@ onUnmounted(() => {
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: 80px;
+		height: var(--top-offset);
 		background: linear-gradient(0deg, rgba(232, 232, 232, 0) 0%, rgba(232, 232, 232, 1) 100%);
 		background: linear-gradient(0deg, transparent 0%, var(--color-bg) 100%);
 		z-index: 1001;
+	}
+
+	@media screen and (min-width: 768px) {
+		--top-offset: 80px;
 	}
 }
 </style>

@@ -94,15 +94,18 @@ const visibleDots = computed(() => {
 <style lang="scss" scoped>
 .app-sidebar {
 	height: 100%;
+	width: 100%;
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-end;
 	gap: var(--spacing-sm);
 
-	@media (max-width: 767px) {
-		flex-direction: row;
-		align-items: center;
+	@media (min-width: 768px) {
+		align-items: start;
+		flex-direction: column;
 		justify-content: space-between;
-		width: 100%;
+		gap: var(--spacing-sm);
 	}
 }
 
@@ -132,19 +135,18 @@ const visibleDots = computed(() => {
 }
 
 .progress-hint {
-	margin-top: 20px;
+	@media (min-width: 768px) {
+		margin-top: 20px;
+	}
 }
 
 .dot-list {
-	display: flex;
-	flex-direction: column;
-	gap: 16px;
+	display: none;
 
-	@media (max-width: 767px) {
-		flex-direction: row;
-		flex: 1;
-		justify-content: center;
-		gap: 12px;
+	@media (min-width: 768px) {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
 	}
 }
 
@@ -217,12 +219,11 @@ const visibleDots = computed(() => {
 }
 
 .progress-label {
-	order: 1;
-	font-size: 28px;
-	margin-block-start: 16px;
+	font-size: 20px;
 
-	@media (max-width: 767px) {
-		order: 3;
+	@media (min-width: 768px) {
+		font-size: 28px;
+		margin-block-start: 16px;
 	}
 }
 
