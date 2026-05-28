@@ -19,6 +19,7 @@
 					/>
 				</div>
 			</div>
+			<div class="nothing-more">( ˶°ㅁ°) !! This is the end</div>
 		</div>
 	</div>
 </template>
@@ -153,6 +154,18 @@ onUnmounted(() => {
 .stacked-section {
 	position: relative;
 	width: 100%;
+}
+
+.nothing-more {
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	padding-top: var(--spacing-xl);
+	height: 50vh;
+	color: var(--color-text-faint);
+	font-size: 12px;
+	font-family: var(--font-mono);
+	letter-spacing: 0.12em;
 }
 
 .stacked-zone {
