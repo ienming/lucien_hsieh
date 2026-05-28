@@ -241,7 +241,11 @@ function onDragEnd() {
 
 	&:first-child {
 		border-left: none;
-		padding-left: var(--spacing-xl);
+		padding-left: var(--spacing-md);
+
+		@media screen and (min-width: 768px) {
+			padding-left: var(--spacing-xl);
+		}
 	}
 
 	&.meta-no,
@@ -267,7 +271,11 @@ function onDragEnd() {
 }
 
 .modal-content-area {
-	padding: var(--spacing-xl);
+	padding: var(--spacing-md);
+
+	@media screen and (min-width: 768px) {
+		padding: var(--spacing-xl);
+	}
 }
 
 .credit-container {

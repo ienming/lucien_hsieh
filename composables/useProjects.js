@@ -41,7 +41,7 @@ const PROJECTS = [
 		link: 'https://ienming.github.io/iroironairo/#/',
 		description: {
 			zh: '「色々な色 (iroironairo)」意思是「各式各樣的顏色」，以「顏色」為主題呈現在日本交換期間拍下的九百多張照片。',
-			en: '「色々な色 (iroironairo)」means "various color", the project telling the stories over 900 photos taken in Japan as an exchange student.',
+			en: '「色々な色 (iroironairo)」means "various color", the project telling the stories over 900 photos taken in Japan.',
 		},
 		coverImage: 'macbook_mockup_zhwgnz',
 		credits: [

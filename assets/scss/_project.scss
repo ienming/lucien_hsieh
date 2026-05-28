@@ -1,3 +1,11 @@
+.project-paragraph-container {
+	margin: 0 auto;
+
+	@media screen and (min-width: 768px) {
+		max-width: 75%;
+	}
+}
+
 .project-paragraph {
 	font-size: 20px;
 	line-height: 1.7;
@@ -5,18 +13,19 @@
 	text-align: justify;
 	font-family: var(--font-sans);
 
-	@media screen and (min-width: 768px) {
-		max-width: 75%;
-	}
-
 	&.en {
 		line-height: 1.4;
 	}
 }
 
 .meta-container {
-	max-width: 75%;
 	margin-bottom: var(--spacing-2xl);
+	margin-left: auto;
+	margin-right: auto;
+
+	@media screen and (min-width: 768px) {
+		max-width: 75%;
+	}
 }
 
 .modal-images {

@@ -126,7 +126,7 @@ function onMouseLeave() {
 	box-shadow: 0 2px 16px var(--color-card-shadow);
 	width: 100%;
 	max-width: var(--card-max-width);
-	height: 70vh;
+	height: 85vh;
 	transform: scale(0.8);
 	transition:
 		transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
@@ -156,7 +156,7 @@ function onMouseLeave() {
 .card-header {
 	display: flex;
 	flex-wrap: wrap;
-	gap: var(--spacing-md);
+	gap: var(--spacing-sm);
 	padding: var(--spacing-md);
 	border-bottom: 1px solid var(--color-border);
 
@@ -211,10 +211,14 @@ function onMouseLeave() {
 }
 
 .profile-text {
-	font-size: 28px;
-	line-height: 40px;
+	font-size: 20px;
+	line-height: 1.5;
 	color: var(--color-text-primary);
 	font-family: var(--font-sans);
+
+	@media screen and (min-width: 768px) {
+		font-size: 28px;
+	}
 }
 
 // Project 型
@@ -251,9 +255,13 @@ function onMouseLeave() {
 }
 
 .hover-description {
-	font-size: 28px;
-	line-height: 40px;
+	font-size: 20px;
+	line-height: 1.5;
 	color: var(--color-text-primary);
 	font-family: var(--font-sans);
+
+	@media screen and (min-width: 768px) {
+		font-size: 28px;
+	}
 }
 </style>
