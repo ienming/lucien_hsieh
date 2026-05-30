@@ -1,5 +1,10 @@
 import { useEnvironment } from "./useEnvironment"
 
+export const LANG_KEY = {
+	en: 'EN',
+	zh: 'ZH',
+};
+
 const LANG_KEY_MAP = {
 	EN: {
 		fileExplorer: 'FILE EXPLORER',

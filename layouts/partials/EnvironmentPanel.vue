@@ -28,9 +28,9 @@
 							class="row-toggle"
 							@click="toggleLanguage"
 						>
-							<span :class="{ 'is-active': language === 'EN' }">EN</span>
+							<span :class="{ 'is-active': language === LANG_KEY.zh }">ZH</span>
 							<span class="separator">/</span>
-							<span :class="{ 'is-active': language === 'ZH' }">ZH</span>
+							<span :class="{ 'is-active': language === LANG_KEY.en }">EN</span>
 						</button>
 					</div>
 
@@ -54,6 +54,8 @@
 <script setup>
 import { useFloating } from '@floating-ui/vue';
 import { offset } from '@floating-ui/dom';
+import { onClickOutside } from '@vueuse/core';
+import { LANG_KEY } from '@/composables/useI18n';
 
 defineProps({
 	isOpen: { type: Boolean, required: true },
@@ -65,12 +67,13 @@ const { togglePanel, closePanel, toggleTheme, toggleLanguage } = useEnvironment(
 const { t } = useI18n();
 const FLOADING_MARGIN = 10;
 
-const reference = ref(null);
-const floating = ref(null);
+const reference = useTemplateRef('reference');
+const floating = useTemplateRef('floating');
 const { floatingStyles } = useFloating(reference, floating, {
 	placement: 'left-start',
 	middleware: [offset(FLOADING_MARGIN)],
 });
+onClickOutside(floating, (_) => closePanel());
 </script>
 
 <style lang="scss" scoped>
@@ -154,14 +157,11 @@ const { floatingStyles } = useFloating(reference, floating, {
 
 .panel-enter-active,
 .panel-leave-active {
-	transition:
-		opacity var(--transition-base),
-		transform var(--transition-base);
+	transition: opacity var(--transition-base);
 }
 
 .panel-enter-from,
 .panel-leave-to {
 	opacity: 0;
-	transform: translateX(-8px);
 }
 </style>

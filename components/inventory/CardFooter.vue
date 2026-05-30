@@ -6,7 +6,7 @@
 			href="mailto:hsieh.alan.0726@gmail.com"
 			class="contact-link"
 		>
-			GET IN TOUCH
+			GETinTOUCH
 		</a>
 	</div>
 </template>

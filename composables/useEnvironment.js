@@ -1,17 +1,19 @@
+import { LANG_KEY } from "./useI18n";
+
 const ONE_YEAR = 60 * 60 * 24 * 365;
 
 export function useEnvironment() {
 	const language = useCookie('env:language', {
-		default: () => 'EN',
+		default: () => LANG_KEY.zh,
 		maxAge: ONE_YEAR,
 	});
 	const isDark = useState('env:isDark', () => false)
 	const isEnvOpen = useState('env:isOpen', () => false)
-	const isEn = computed(() => language.value === 'EN');
-	const isZh = computed(() => language.value === 'ZH');
+	const isEn = computed(() => language.value === LANG_KEY.en);
+	const isZh = computed(() => language.value === LANG_KEY.zh);
 
 	function toggleLanguage() {
-		language.value = isEn.value ? 'ZH' : 'EN';
+		language.value = isEn.value ? LANG_KEY.zh : LANG_KEY.en;
 	}
 
 	function toggleTheme() {
