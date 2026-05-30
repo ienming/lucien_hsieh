@@ -2,6 +2,7 @@
 	<div
 		ref="scrollerEl"
 		class="card-scroller"
+		:class="{ scrollable: isScrollable }"
 	>
 		<div class="card-stack">
 			<div
@@ -39,6 +40,7 @@ const scrollerEl = ref(null);
 const sectionEl = ref(null);
 const cardRefs = ref([]);
 const breakpoints = useBreakpoints(breakpointsTailwind);
+const isScrollable = ref(false);
 
 const GAP = breakpoints.greaterOrEqual('md').value ? 65 : 85;
 const SCALE_STEP = 0.09;
@@ -85,6 +87,7 @@ function enterProjectCardsStackingAnimation(cards) {
 			ease: 'power2.out',
 			onComplete: () => {
 				initCardStacksScrollTrigger(cards);
+				isScrollable.value = true;
 			},
 		},
 	);
@@ -155,9 +158,14 @@ function initCardStacksScrollTrigger(cards) {
 	height: 100vh;
 	overflow-y: auto;
 	padding: 0 var(--spacing-xl);
+	pointer-events: none;
 
 	@media (max-width: 767px) {
 		padding: 0 var(--spacing-md);
+	}
+
+	&.scrollable {
+		pointer-events: auto;
 	}
 }
 
@@ -193,7 +201,7 @@ function initCardStacksScrollTrigger(cards) {
 		height: var(--top-offset);
 		background: linear-gradient(0deg, rgba(232, 232, 232, 0) 0%, rgba(232, 232, 232, 1) 100%);
 		background: linear-gradient(0deg, transparent 0%, var(--color-bg) 100%);
-		z-index: 1;
+		z-index: var(--z-index-common-fixed);
 	}
 
 	@media screen and (min-width: 768px) {
