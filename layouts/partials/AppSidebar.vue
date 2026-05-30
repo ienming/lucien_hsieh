@@ -1,75 +1,9 @@
-<template>
-	<aside class="app-sidebar">
-		<nav class="app-nav">
-			<!-- TODO -->
-			<!-- <div class="view">
-				<button class="nav-link">CARD</button>
-				/
-				<button class="nav-link">LIST</button>
-			</div>
-			<button class="nav-link">{{ t('fileExplorer') }}</button> -->
-		</nav>
-		<div class="env-section">
-			<button
-				class="nav-link env-trigger"
-				@click="togglePanel"
-			>
-				{{ t('environment') }}
-			</button>
-
-			<EnvironmentPanel
-				:is-open="isEnvOpen"
-				:language="language"
-				:is-dark="isDark"
-				@close="closePanel"
-				@toggle-language="toggleLanguage"
-				@toggle-theme="toggleTheme"
-			/>
-		</div>
-		<section class="progress-hint">
-			<ul class="dot-list">
-				<li
-					v-for="project in visibleDots"
-					:key="project.id"
-					class="dot-item"
-					:class="{
-						'is-active': project.index === currentIndex,
-						'is-near': Math.abs(project.index - currentIndex) === 1,
-						'is-far': Math.abs(project.index - currentIndex) >= 2,
-					}"
-					@click="goTo(project.index)"
-					@mouseenter="hoveredIndex = project.index"
-					@mouseleave="hoveredIndex = null"
-				>
-					<span class="dot" />
-					<span
-						class="dot-label desktop-only"
-						:class="{
-							'is-visible':
-								project.index === currentIndex || project.index === hoveredIndex,
-							'is-hovered':
-								project.index === hoveredIndex && project.index !== currentIndex,
-						}"
-					>
-						{{ project.name }}
-					</span>
-				</li>
-			</ul>
-
-			<!-- 進度數字 -->
-			<div class="progress-label">{{ progressLabel }}</div>
-		</section>
-	</aside>
-</template>
-
 <script setup>
 import EnvironmentPanel from './EnvironmentPanel.vue';
 
 const { projects, currentIndex, progressLabel, goTo } = useProjects();
 const hoveredIndex = ref(null);
-const { isEnvOpen, language, isDark, togglePanel, closePanel, toggleLanguage, toggleTheme } =
-	useEnvironment();
-const { t } = useI18n();
+const { isEnvOpen, language, isDark } = useEnvironment();
 
 const visibleDots = computed(() => {
 	const total = projects.value.length;
@@ -91,10 +25,58 @@ const visibleDots = computed(() => {
 });
 </script>
 
+<template>
+	<aside class="app-sidebar">
+		<!-- TODO -->
+		<!-- Card vs List view -->
+		<EnvironmentPanel
+			:is-open="isEnvOpen"
+			:language="language"
+			:is-dark="isDark"
+		/>
+		<section class="progress-hint">
+			<ul class="dot-list">
+				<li
+					v-for="project in visibleDots"
+					:key="project.id"
+					class="dot-item"
+					:class="{
+						'is-active': project.index === currentIndex,
+						'is-near': Math.abs(project.index - currentIndex) === 1,
+						'is-far': Math.abs(project.index - currentIndex) >= 2,
+					}"
+					@click="goTo(project.index)"
+					@mouseenter="hoveredIndex = project.index"
+					@mouseleave="hoveredIndex = null"
+				>
+					<span
+						class="dot-label desktop-only"
+						:class="{
+							'is-visible':
+								project.index === currentIndex || project.index === hoveredIndex,
+							'is-hovered':
+								project.index === hoveredIndex && project.index !== currentIndex,
+						}"
+					>
+						{{ project.name }}
+					</span>
+					<span class="dot" />
+				</li>
+			</ul>
+
+			<!-- 進度數字 -->
+			<div class="progress-label">{{ progressLabel }}</div>
+		</section>
+	</aside>
+</template>
+
 <style lang="scss" scoped>
 .app-sidebar {
-	height: 100%;
-	width: 100%;
+	position: fixed;
+	right: var(--spacing-sm);
+	top: 50%;
+	transform: translateY(-50%);
+	padding: var(--spacing-md);
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -102,36 +84,11 @@ const visibleDots = computed(() => {
 	gap: var(--spacing-sm);
 
 	@media (min-width: 768px) {
-		align-items: start;
 		flex-direction: column;
 		justify-content: space-between;
+		align-items: flex-end;
 		gap: var(--spacing-sm);
 	}
-}
-
-.app-nav {
-	display: flex;
-	flex-direction: column;
-	margin-top: 20px;
-	gap: 8px;
-	height: 100%;
-}
-
-.nav-link {
-	font-size: 12px;
-	font-family: var(--font-mono);
-	font-weight: 500;
-	color: var(--color-text-muted);
-	text-align: left;
-	transition: color var(--transition-fast);
-
-	&:hover {
-		color: var(--color-text-primary);
-	}
-}
-
-.env-section {
-	position: relative;
 }
 
 .progress-hint {
@@ -153,9 +110,9 @@ const visibleDots = computed(() => {
 .dot-item {
 	display: flex;
 	align-items: center;
+	justify-content: flex-end;
 	gap: var(--spacing-sm);
 	cursor: pointer;
-	position: relative;
 
 	&.is-active .dot {
 		width: 8px;
@@ -190,10 +147,6 @@ const visibleDots = computed(() => {
 }
 
 .dot-label {
-	position: absolute;
-	left: calc(8px + var(--spacing-sm));
-	top: 50%;
-	transform: translateY(-50%);
 	font-size: 12px;
 	font-family: 'Courier Prime';
 	color: var(--color-text-primary);
@@ -219,6 +172,7 @@ const visibleDots = computed(() => {
 }
 
 .progress-label {
+	text-align: right;
 	font-size: 20px;
 
 	@media (min-width: 768px) {

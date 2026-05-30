@@ -1,71 +1,97 @@
 <template>
-	<Transition name="panel">
-		<div
-			v-if="isOpen"
-			class="env-panel"
+	<div>
+		<button
+			ref="reference"
+			class="nav-link env-trigger"
+			@click="togglePanel"
 		>
-			<button
-				class="panel-close"
-				@click="$emit('close')"
+			{{ t('environment') }}
+		</button>
+		<Transition name="panel">
+			<div
+				v-if="isOpen"
+				ref="floating"
+				class="env-panel"
+				:style="floatingStyles"
 			>
-				[-]
-			</button>
+				<button
+					class="panel-close"
+					@click="closePanel"
+				>
+					[-]
+				</button>
 
-			<div class="panel-rows">
-				<div class="panel-row">
-					<span class="row-label">{{ t('translation') }}</span>
-					<button
-						class="row-toggle"
-						@click="$emit('toggle-language')"
-					>
-						<span :class="{ 'is-active': language === 'EN' }">EN</span>
-						<span class="separator">/</span>
-						<span :class="{ 'is-active': language === 'ZH' }">ZH</span>
-					</button>
-				</div>
+				<div class="panel-rows">
+					<div class="panel-row">
+						<span class="row-label">{{ t('translation') }}</span>
+						<button
+							class="row-toggle"
+							@click="toggleLanguage"
+						>
+							<span :class="{ 'is-active': language === 'EN' }">EN</span>
+							<span class="separator">/</span>
+							<span :class="{ 'is-active': language === 'ZH' }">ZH</span>
+						</button>
+					</div>
 
-				<div class="panel-row">
-					<span class="row-label">{{ t('light') }}</span>
-					<button
-						class="row-toggle"
-						@click="$emit('toggle-theme')"
-					>
-						<span :class="{ 'is-active': !isDark }">ON</span>
-						<span class="separator">/</span>
-						<span :class="{ 'is-active': isDark }">OFF</span>
-					</button>
+					<div class="panel-row">
+						<span class="row-label">{{ t('light') }}</span>
+						<button
+							class="row-toggle"
+							@click="toggleTheme"
+						>
+							<span :class="{ 'is-active': !isDark }">ON</span>
+							<span class="separator">/</span>
+							<span :class="{ 'is-active': isDark }">OFF</span>
+						</button>
+					</div>
 				</div>
 			</div>
-		</div>
-	</Transition>
+		</Transition>
+	</div>
 </template>
 
 <script setup>
+import { useFloating } from '@floating-ui/vue';
+import { offset } from '@floating-ui/dom';
+
 defineProps({
 	isOpen: { type: Boolean, required: true },
 	language: { type: String, required: true },
 	isDark: { type: Boolean, required: true },
 });
 
-defineEmits(['close', 'toggle-language', 'toggle-theme']);
-
+const { togglePanel, closePanel, toggleTheme, toggleLanguage } = useEnvironment();
 const { t } = useI18n();
+const FLOADING_MARGIN = 10;
+
+const reference = ref(null);
+const floating = ref(null);
+const { floatingStyles } = useFloating(reference, floating, {
+	placement: 'left-start',
+	middleware: [offset(FLOADING_MARGIN)],
+});
 </script>
 
 <style lang="scss" scoped>
+.nav-link {
+	font-size: 12px;
+	font-family: var(--font-mono);
+	font-weight: 500;
+	color: var(--color-text-muted);
+	text-align: left;
+	transition: color var(--transition-fast);
+
+	&:hover {
+		color: var(--color-text-primary);
+	}
+}
+
 .env-panel {
-	position: absolute;
-	bottom: 0;
-	left: calc(100% + var(--spacing-sm));
 	z-index: 200;
 	background: var(--color-surface);
 	min-width: 150px;
 	box-shadow: 0 4px 20px var(--color-card-shadow);
-
-	@media (max-width: 767px) {
-		bottom: calc(100% + var(--spacing-sm));
-		left: 0;
-	}
 }
 
 .panel-close {

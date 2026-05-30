@@ -8,9 +8,14 @@
 
 <style lang="scss" scoped>
 .app-header {
+	width: 100%;
 	display: flex;
-	flex-direction: column;
-	gap: var(--spacing-xs);
+	justify-content: center;
+	padding: var(--spacing-sm);
+
+	@media screen and (min-width: 768px) {
+		padding: var(--spacing-md);
+	}
 }
 
 .site-title {

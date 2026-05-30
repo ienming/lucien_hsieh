@@ -19,7 +19,7 @@
 					/>
 				</div>
 			</div>
-			<div class="nothing-more">(╥_╥) nothing more...</div>
+			<div class="nothing-more">nothing more...</div>
 		</div>
 	</div>
 </template>
@@ -140,7 +140,6 @@ onUnmounted(() => {
 
 	@media (max-width: 767px) {
 		padding: 0 var(--spacing-md);
-		padding-top: 48px;
 	}
 }
 
