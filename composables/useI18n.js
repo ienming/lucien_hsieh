@@ -22,7 +22,7 @@ const LANG_KEY_MAP = {
 		viewInList: '在清單閱讀',
 		environment: '設定',
 		translation: '語言',
-		light: '外觀',
+		light: '燈光',
 		name: '專案名稱',
 		no: '編號',
 		year: '年份',

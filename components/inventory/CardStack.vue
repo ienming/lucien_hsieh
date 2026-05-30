@@ -42,7 +42,7 @@ const cardRefs = ref([]);
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const isScrollable = ref(false);
 
-const GAP = breakpoints.greaterOrEqual('md').value ? 65 : 85;
+const GAP = breakpoints.greaterOrEqual('md').value ? 75 : 85;
 const SCALE_STEP = 0.09;
 const INITIAL_TOP_OFFSET = breakpoints.greaterOrEqual('md').value ? 80 : 20;
 const FLYAWAY_OFFSET = 80;

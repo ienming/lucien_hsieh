@@ -26,7 +26,7 @@
 						<span class="row-label">{{ t('translation') }}</span>
 						<button
 							class="row-toggle"
-							@click="toggleLanguage"
+							@click.stop="toggleLanguage"
 						>
 							<span :class="{ 'is-active': language === LANG_KEY.zh }">ZH</span>
 							<span class="separator">/</span>
@@ -38,7 +38,7 @@
 						<span class="row-label">{{ t('light') }}</span>
 						<button
 							class="row-toggle"
-							@click="toggleTheme"
+							@click.stop="toggleTheme"
 						>
 							<span :class="{ 'is-active': !isDark }">ON</span>
 							<span class="separator">/</span>
