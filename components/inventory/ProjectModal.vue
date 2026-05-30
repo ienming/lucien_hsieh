@@ -161,13 +161,13 @@ function onDragEnd() {
 	inset: 0;
 	background: rgba(0, 0, 0, 0.45);
 	backdrop-filter: blur(4px);
-	z-index: 1000;
+	z-index: var(--z-index-common-modal);
 }
 
 .modal-scroll {
 	position: fixed;
 	inset: 0;
-	z-index: 1001;
+	z-index: calc(var(--z-index-common-modal) + 1);
 	overflow-y: auto;
 	-webkit-overflow-scrolling: touch;
 }
@@ -210,7 +210,7 @@ function onDragEnd() {
 .modal-header {
 	position: sticky;
 	top: 0;
-	z-index: 2;
+	z-index: 1;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

@@ -88,7 +88,6 @@ const { floatingStyles } = useFloating(reference, floating, {
 }
 
 .env-panel {
-	z-index: 200;
 	background: var(--color-surface);
 	min-width: 150px;
 	box-shadow: 0 4px 20px var(--color-card-shadow);

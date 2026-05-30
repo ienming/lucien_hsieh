@@ -75,6 +75,7 @@ const visibleDots = computed(() => {
 	position: fixed;
 	right: var(--spacing-sm);
 	top: 50%;
+	z-index: var(--z-index-common-fixed);
 	transform: translateY(-50%);
 	padding: var(--spacing-md);
 	display: flex;

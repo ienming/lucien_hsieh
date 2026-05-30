@@ -14,7 +14,7 @@
 		@click="clickable ? onClick() : null"
 	>
 		<div class="card-header">
-			<div class="card-meta">
+			<div class="card-meta meta-title">
 				<span class="meta-label">{{ t('name') }}</span>
 				<span class="meta-value">{{ project.name }}</span>
 			</div>
@@ -118,6 +118,9 @@ function onMouseLeave() {
 
 <style lang="scss" scoped>
 .project-card {
+	position: absolute;
+	left: 0;
+	right: 0;
 	display: flex;
 	flex-direction: column;
 	background: var(--color-surface);
@@ -127,7 +130,9 @@ function onMouseLeave() {
 	width: 100%;
 	max-width: var(--card-max-width);
 	height: 85vh;
-	transform: scale(0.8);
+	opacity: 0;
+	transform-origin: top center;
+	transform: translateY(200px);
 	transition:
 		transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
 		box-shadow var(--transition-base);
@@ -155,14 +160,12 @@ function onMouseLeave() {
 
 .card-header {
 	display: flex;
-	flex-wrap: wrap;
 	gap: var(--spacing-sm);
 	padding: var(--spacing-md);
 	border-bottom: 1px solid var(--color-border);
 
 	@media screen and (min-width: 768px) {
 		padding: var(--spacing-sm) var(--spacing-md);
-		flex-wrap: nowrap;
 		gap: 0;
 	}
 }
@@ -173,16 +176,19 @@ function onMouseLeave() {
 	gap: 2px;
 	width: 100%;
 
+	&.meta-title {
+		flex: 3;
+	}
+
 	&.meta-no {
 		flex: 1;
-
 		@media screen and (min-width: 768px) {
-			flex: unset;
 			max-width: 90px;
 		}
 	}
 
 	&.meta-medium {
+		flex: 1;
 		max-width: 120px;
 	}
 }

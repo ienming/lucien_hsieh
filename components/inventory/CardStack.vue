@@ -19,7 +19,7 @@
 					/>
 				</div>
 			</div>
-			<div class="nothing-more">nothing more...</div>
+			<card-footer />
 		</div>
 	</div>
 </template>
@@ -28,6 +28,7 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProjectCard from './ProjectCard.vue';
+import CardFooter from './CardFooter.vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -50,12 +51,47 @@ function setCardRef(el, i) {
 
 let trigger = null;
 
-onMounted(async () => {
-	await nextTick();
-
+onMounted(() => {
 	const cards = cardRefs.value.filter(Boolean);
 	if (cards.length === 0) return;
 
+	enterProjectCardsStackingAnimation(cards);
+});
+
+onUnmounted(() => {
+	trigger?.kill();
+	registerScrollToCard(null);
+});
+
+function enterProjectCardsStackingAnimation(cards) {
+	const tl = gsap.timeline({
+		delay: 0.2,
+	});
+	const tween = gsap.fromTo(
+		cards,
+		{
+			top: INITIAL_TOP_OFFSET,
+			y: (i) => i * GAP + 200,
+			scale: (i) => 1 - i * SCALE_STEP,
+			autoAlpha: 0,
+		},
+		{
+			top: INITIAL_TOP_OFFSET,
+			y: (i) => i * GAP,
+			scale: (i) => 1 - i * SCALE_STEP,
+			autoAlpha: 1,
+			stagger: 0.3,
+			duration: 0.5,
+			ease: 'power2.out',
+			onComplete: () => {
+				initCardStacksScrollTrigger(cards);
+			},
+		},
+	);
+	tl.add(tween);
+}
+
+function initCardStacksScrollTrigger(cards) {
 	const heights = cards.map((el) => el.getBoundingClientRect().height + 120);
 	const paddingTop = parseFloat(getComputedStyle(scrollerEl.value).paddingTop);
 	const scrollerHeight = scrollerEl.value.clientHeight;
@@ -63,19 +99,6 @@ onMounted(async () => {
 	// Section must be tall enough so user can scroll through the full animation
 	const ANIM_SCROLL = (cards.length - 1) * 350;
 	gsap.set(sectionEl.value, { height: ANIM_SCROLL + scrollerHeight });
-
-	// Initial: top card at y=0, each subsequent card peeks by GAP
-	cards.forEach((el, i) => {
-		gsap.set(el, {
-			position: 'absolute',
-			top: INITIAL_TOP_OFFSET,
-			left: 0,
-			right: 0,
-			y: i * GAP,
-			scale: 1 - i * SCALE_STEP,
-			transformOrigin: 'top center',
-		});
-	});
 
 	// Peel from top: card[i] exits upward, remaining cards slide into peek positions
 	const tl = gsap.timeline();
@@ -124,12 +147,7 @@ onMounted(async () => {
 			overwrite: true,
 		});
 	});
-});
-
-onUnmounted(() => {
-	trigger?.kill();
-	registerScrollToCard(null);
-});
+}
 </script>
 
 <style lang="scss" scoped>
@@ -157,16 +175,6 @@ onUnmounted(() => {
 	width: 100%;
 }
 
-.nothing-more {
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
-	height: 30vh;
-	color: var(--color-text-faint);
-	font-size: 28px;
-	font-family: var(--font-mono);
-}
-
 .stacked-zone {
 	--top-offset: 20px;
 	position: sticky;
@@ -185,7 +193,7 @@ onUnmounted(() => {
 		height: var(--top-offset);
 		background: linear-gradient(0deg, rgba(232, 232, 232, 0) 0%, rgba(232, 232, 232, 1) 100%);
 		background: linear-gradient(0deg, transparent 0%, var(--color-bg) 100%);
-		z-index: 1001;
+		z-index: 1;
 	}
 
 	@media screen and (min-width: 768px) {
