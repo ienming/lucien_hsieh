@@ -11,8 +11,8 @@ const PROJECTS = [
 		type: 'project',
 		isOpen: false,
 		description: {
-			zh: 'Sunset glasses project...coming soon',
-			en: 'Sunset glasses project...coming soon',
+			zh: 'Shyline 是一個假想太陽眼鏡品牌，以「落日後的視線」為出發點，打造一系列品牌視覺設計.....',
+			en: 'Shyline is a hypothetic sunglasses brand which build a series of visual design based on the \'vision after sunset\'...coming soon',
 		},
 		coverImage: '/imgs/shyline-cover.jpg',
 	},
@@ -25,8 +25,8 @@ const PROJECTS = [
 		type: 'profile',
 		isOpen: false,
 		description: {
-			zh: 'Lucien Hsieh is a digital narrator who focuses on telling story from paper to web. Based in Taipei, Taiwan, looking for opportunities to do storytelling or creative data visualization.',
-			en: 'Lucien Hsieh is a digital narrator who focuses on telling story from paper to web. Based in Taipei, Taiwan, looking for opportunities to do storytelling or creative data visualization.',
+			zh: '我是一位數位策展人與資訊轉譯者，透過網頁、紙本媒材創造敘事，擅長從不同面向切入資訊，創造獨特的觀點與體驗，致力於創意資料視覺化、文化與數位敘事。',
+			en: 'Lucien Hsieh is a digital narrator and information translator who crafts narratives through web and print. Dedicated to creative data visualization, culture, and digital storytelling.',
 		},
 		coverImage: '',
 	},
@@ -40,7 +40,7 @@ const PROJECTS = [
 		isOpen: true,
 		link: 'https://ienming.github.io/iroironairo/#/',
 		description: {
-			zh: '「色々な色 (iroironairo)」意思是「各式各樣的顏色」，以「顏色」為主題呈現在日本交換期間拍下的九百多張照片。',
+			zh: '「色々な色 (iroironairo)」意思是「各式各樣的顏色」，以「顏色」為主題呈現在日本生活期間拍下的九百多張照片。',
 			en: '「色々な色 (iroironairo)」means "various color", the project telling the stories over 900 photos taken in Japan.',
 		},
 		coverImage: 'macbook_mockup_zhwgnz',
@@ -59,17 +59,20 @@ const PROJECTS = [
 			}
 		]
 	},
-	// {
-	// 	id: 'modern_love',
-	// 	no: '003',
-	// 	name: 'Modern Love',
-	// 	medium: 'Web/Poster',
-	// 	year: '2021',
-	// 	type: 'project',
-	// 	isOpen: false,
-	// 	description: 'Modern love represents public culture that...',
-	// 	coverImage: 'modern_love_macbook_mockup_r0m1jt',
-	// },
+	{
+		id: 'modern_love',
+		no: '003',
+		name: 'Modern Love',
+		medium: 'Web/Poster',
+		year: '2021',
+		type: 'project',
+		isOpen: false,
+		description: {
+			zh: '2010~2020 年間 KKbox 排行第一名的歌曲中描述愛情的歌詞資料視覺化。',
+			en: 'Modern Love visualizes lyrics in romantic songs from the first ranking song on KKbox from 2010 to 2020',
+		},
+		coverImage: 'modern_love_macbook_mockup_r0m1jt',
+	},
 	// {
 	// 	id: '29',
 	// 	no: '004',

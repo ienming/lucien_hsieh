@@ -1,5 +1,6 @@
 <script setup>
 import EnvironmentPanel from './EnvironmentPanel.vue';
+import CoordinateModal from '~/components/inventory/CoordinateModal.vue';
 
 const { projects, currentIndex, progressLabel, goTo } = useProjects();
 const hoveredIndex = ref(null);
@@ -29,6 +30,7 @@ const visibleDots = computed(() => {
 	<aside class="app-sidebar">
 		<!-- TODO -->
 		<!-- Card vs List view -->
+		<CoordinateModal />
 		<EnvironmentPanel
 			:is-open="isEnvOpen"
 			:language="language"
@@ -104,7 +106,7 @@ const visibleDots = computed(() => {
 	@media (min-width: 768px) {
 		display: flex;
 		flex-direction: column;
-		gap: 16px;
+		gap: 12px;
 	}
 }
 
