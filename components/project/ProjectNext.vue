@@ -33,8 +33,6 @@
 </template>
 
 <script setup>
-import { showSplitTextOnHover } from '~/libs/animate';
-
 const { meta } = defineProps({
 	meta: {
 		type: Object,
@@ -43,18 +41,6 @@ const { meta } = defineProps({
 });
 
 const { title, subtitle, path, cover } = meta;
-const nextProjectTitle = ref(null);
-let cleanUp;
-
-onMounted(async () => {
-	if (nextProjectTitle.value) {
-		cleanUp = showSplitTextOnHover(nextProjectTitle.value, {}, '.project-next');
-	}
-});
-
-onUnmounted(() => {
-	cleanUp();
-});
 </script>
 
 <style scoped lang="scss">
