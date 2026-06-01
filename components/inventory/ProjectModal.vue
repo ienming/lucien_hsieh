@@ -1,7 +1,7 @@
 <template>
 	<!-- TODO: refactor with ModalOverlay -->
 	<Teleport to="body">
-		<Transition name="modal-fade">
+		<Transition name="fade">
 			<div
 				v-if="isOpen"
 				class="modal-backdrop"
@@ -92,7 +92,9 @@ const isSnappingBack = ref(false);
 const isClosingFromDrag = ref(false);
 const skipScrollTransition = ref(false);
 
-const scrollTransitionName = computed(() => (skipScrollTransition.value ? '' : 'modal-slide'));
+const scrollTransitionName = computed(() =>
+	skipScrollTransition.value ? '' : 'slide-from-bottom',
+);
 const scrollStyle = computed(() => {
 	if (isClosingFromDrag.value) {
 		return { transform: 'translateY(110vh)', transition: 'transform 0.3s ease-in' };
@@ -284,28 +286,5 @@ function onDragEnd() {
 	margin-top: 80px;
 	display: flex;
 	justify-content: center;
-}
-
-.modal-fade-enter-active,
-.modal-fade-leave-active {
-	transition: opacity 0.3s ease;
-}
-
-.modal-fade-enter-from,
-.modal-fade-leave-to {
-	opacity: 0;
-}
-
-.modal-slide-enter-active {
-	transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.modal-slide-leave-active {
-	transition: transform 0.3s cubic-bezier(0.55, 0, 1, 0.45);
-}
-
-.modal-slide-enter-from,
-.modal-slide-leave-to {
-	transform: translateY(100vh);
 }
 </style>

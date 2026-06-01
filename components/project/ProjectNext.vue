@@ -27,14 +27,6 @@
 					</div>
 					<div class="subtitle">{{ subtitle }}</div>
 				</div>
-				<div class="d-flex gap-space-sm tags">
-					<WorkTypeChip
-						v-for="tag of tags"
-						:key="tag"
-						:type="tag"
-						:clickable="false"
-					/>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -50,7 +42,7 @@ const { meta } = defineProps({
 	},
 });
 
-const { title, subtitle, path, tags, cover } = meta;
+const { title, subtitle, path, cover } = meta;
 const nextProjectTitle = ref(null);
 let cleanUp;
 
