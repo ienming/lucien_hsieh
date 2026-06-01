@@ -2,7 +2,7 @@
 import ProjectMeta from '@/components/project/ProjectMeta.vue';
 
 useHead({
-	title: '色々な色 iroironairo',
+	title: '色々な色 iroironairo | Lucien Hsieh',
 });
 
 const props = defineProps({
