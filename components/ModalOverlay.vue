@@ -5,10 +5,12 @@
 				v-if="isOverlayOpen"
 				class="overlay"
 				:class="[attrs.class]"
-				@click.self="overlayClosable ? $emit('update:open', false) : null">
+				@click.self="overlayClosable ? $emit('update:open', false) : null"
+			>
 				<Transition
 					:name="transition"
-					mode="out-in">
+					mode="out-in"
+				>
 					<slot v-if="isModalOpen" />
 				</Transition>
 			</div>
@@ -18,9 +20,9 @@
 
 <script setup>
 defineOptions({
-	inheritAttrs: false
+	inheritAttrs: false,
 });
-const {open} = defineProps({
+const { open } = defineProps({
 	open: {
 		type: Boolean,
 		default: false,
@@ -42,21 +44,24 @@ const isOverlayOpen = ref(false);
 const isModalOpen = ref(false);
 const delayTime = 350;
 
-watch(() => open, newVal => {
-	if (newVal){
-		freezeBody();
-		isOverlayOpen.value = true;
-		setTimeout(() => {
-			isModalOpen.value = true;
-		}, delayTime)
-	} else {
-		unfreezeBody();
-		isModalOpen.value = false;
-		setTimeout(() => {
-			isOverlayOpen.value = false;
-		}, delayTime)
-	}
-});
+watch(
+	() => open,
+	(newVal) => {
+		if (newVal) {
+			freezeBody();
+			isOverlayOpen.value = true;
+			setTimeout(() => {
+				isModalOpen.value = true;
+			}, delayTime);
+		} else {
+			unfreezeBody();
+			isModalOpen.value = false;
+			setTimeout(() => {
+				isOverlayOpen.value = false;
+			}, delayTime);
+		}
+	},
+);
 
 function freezeBody() {
 	document.body.style.overflow = 'hidden';
@@ -81,11 +86,11 @@ onUnmounted(() => {
 	position: fixed;
 	top: 0;
 	left: 0;
-	z-index: $z-index-common-modal;
+	z-index: var(--z-index-common-modal);
 	overflow: auto;
 	width: 100vw;
 	height: 100vh;
-	background-color: rgba(0, 0, 0, .5);
+	background-color: rgba(0, 0, 0, 0.5);
 	backdrop-filter: blur(4px);
 	display: flex;
 	flex-direction: column;

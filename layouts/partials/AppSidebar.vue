@@ -1,10 +1,10 @@
 <script setup>
 import EnvironmentPanel from './EnvironmentPanel.vue';
-import CoordinateModal from '~/components/inventory/CoordinateModal.vue';
 
 const { projects, currentIndex, progressLabel, goTo } = useProjects();
-const hoveredIndex = ref(null);
 const { isEnvOpen, language, isDark } = useEnvironment();
+const { isCoordinateModalOpen } = useCoordinate();
+const hoveredIndex = ref(null);
 
 const visibleDots = computed(() => {
 	const total = projects.value.length;
@@ -30,7 +30,7 @@ const visibleDots = computed(() => {
 	<aside class="app-sidebar">
 		<!-- TODO -->
 		<!-- Card vs List view -->
-		<CoordinateModal />
+		<span @click="isCoordinateModalOpen = true">作品分類</span>
 		<EnvironmentPanel
 			:is-open="isEnvOpen"
 			:language="language"

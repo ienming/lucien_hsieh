@@ -6,6 +6,7 @@
 			<InventoryView />
 		</main>
 		<ProjectModal />
+		<CoordinateModal />
 	</div>
 </template>
 
@@ -13,6 +14,7 @@
 import AppHeader from '~/layouts/partials/AppHeader.vue';
 import AppSidebar from '~/layouts/partials/AppSidebar.vue';
 import ProjectModal from '~/components/inventory/ProjectModal.vue';
+import CoordinateModal from '~/components/inventory/CoordinateModal.vue';
 import InventoryView from '~/components/inventory/InventoryView.vue';
 
 const { initTheme } = useEnvironment();

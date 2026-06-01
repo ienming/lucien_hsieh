@@ -1,19 +1,15 @@
 <script lang="ts" setup>
-const isCoordinatesModalOpen = ref(false);
+import ModalOverlay from '../ModalOverlay.vue';
+const { isCoordinateModalOpen } = useCoordinate();
 </script>
 
 <template>
-	<div class="works-coordinate">
-		<span @click="isCoordinatesModalOpen = true">作品分類</span>
-		<Transition>
-			<div
-				v-if="isCoordinatesModalOpen"
-				class="coordinate-modal"
-			>
-				Coordinates
-			</div>
-		</Transition>
-	</div>
+	<ModalOverlay :open="isCoordinateModalOpen">
+		<div class="coordinate-modal">
+			Coordinates
+			<button @click="isCoordinateModalOpen = false">Close</button>
+		</div>
+	</ModalOverlay>
 </template>
 
 <style lang="scss" scoped></style>

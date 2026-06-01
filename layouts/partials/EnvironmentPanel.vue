@@ -78,7 +78,7 @@ onClickOutside(floating, (_) => closePanel());
 
 <style lang="scss" scoped>
 .nav-link {
-	font-size: 12px;
+	font-size: 14px;
 	font-family: var(--font-mono);
 	font-weight: 500;
 	color: var(--color-text-muted);

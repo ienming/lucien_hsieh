@@ -1,4 +1,5 @@
 <template>
+	<!-- TODO: refactor with ModalOverlay -->
 	<Teleport to="body">
 		<Transition name="modal-fade">
 			<div
