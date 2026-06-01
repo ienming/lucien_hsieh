@@ -17,7 +17,7 @@ const isScrollable = ref(false);
 
 const GAP = breakpoints.greaterOrEqual('md').value ? 75 : 85;
 const SCALE_STEP = 0.09;
-const INITIAL_TOP_OFFSET = breakpoints.greaterOrEqual('md').value ? 80 : 20;
+const INITIAL_TOP_OFFSET = breakpoints.greaterOrEqual('md').value ? 60 : 20;
 const FLYAWAY_OFFSET = 80;
 
 function setCardRef(el, i) {
@@ -205,7 +205,7 @@ function initCardStacksScrollTrigger(cards) {
 	}
 
 	@media screen and (min-width: 768px) {
-		--top-offset: 80px;
+		--top-offset: 60px;
 	}
 }
 </style>
