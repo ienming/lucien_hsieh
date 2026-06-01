@@ -1,3 +1,13 @@
+<script setup>
+defineProps({
+	type: {
+		type: String,
+		default: 'text',
+		validator: (value) => ['text', 'image', 'imageProfile'].includes(value),
+	},
+});
+</script>
+
 <template>
 	<div
 		v-if="type === 'text'"
@@ -14,19 +24,14 @@
 	/>
 </template>
 
-<script setup>
-defineProps({
-	type: {
-		type: String,
-		default: 'text',
-		validator: (value) => ['text', 'image', 'imageProfile'].includes(value),
-	},
-});
-</script>
-
 <style lang="scss" scoped>
 .skeleton {
-	background: linear-gradient(90deg, var(--color-neutral-800), var(--color-neutral-900), var(--color-neutral-800));
+	background: linear-gradient(
+		90deg,
+		var(--color-neutral-800),
+		var(--color-neutral-900),
+		var(--color-neutral-800)
+	);
 	animation: loading 6s infinite;
 }
 

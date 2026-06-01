@@ -1,3 +1,14 @@
+<script setup>
+const { meta } = defineProps({
+	meta: {
+		type: Object,
+		default: () => ({}),
+	},
+});
+
+const { title, subtitle, path, cover } = meta;
+</script>
+
 <template>
 	<div
 		class="project-next"
@@ -31,17 +42,6 @@
 		</div>
 	</div>
 </template>
-
-<script setup>
-const { meta } = defineProps({
-	meta: {
-		type: Object,
-		default: () => ({}),
-	},
-});
-
-const { title, subtitle, path, cover } = meta;
-</script>
 
 <style scoped lang="scss">
 .project-next {

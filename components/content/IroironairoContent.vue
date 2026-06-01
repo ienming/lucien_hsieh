@@ -1,3 +1,33 @@
+<script setup>
+import ProjectMeta from '@/components/project/ProjectMeta.vue';
+
+useHead({
+	title: '色々な色 iroironairo',
+});
+
+const props = defineProps({
+	project: {
+		type: Object,
+		required: true,
+	},
+});
+
+const { language, isEn, isZh } = useEnvironment();
+const projectDesc = computed(() => props.project.description?.[language.value.toLowerCase()]);
+
+const assets = ref([
+	{
+		src: 'find_colors_p5_riwcxa',
+	},
+	{
+		src: 'color_search_cj4vpq',
+	},
+	{
+		src: 'colors_fuji_i4ecqq',
+	},
+]);
+</script>
+
 <template>
 	<div class="project-content">
 		<div class="meta-container">
@@ -88,32 +118,6 @@
 		</div>
 	</div>
 </template>
-
-<script setup>
-import ProjectMeta from '../project/ProjectMeta.vue';
-
-const props = defineProps({
-	project: {
-		type: Object,
-		required: true,
-	},
-});
-
-const { language, isEn, isZh } = useEnvironment();
-const projectDesc = computed(() => props.project.description?.[language.value.toLowerCase()]);
-
-const assets = ref([
-	{
-		src: 'find_colors_p5_riwcxa',
-	},
-	{
-		src: 'color_search_cj4vpq',
-	},
-	{
-		src: 'colors_fuji_i4ecqq',
-	},
-]);
-</script>
 
 <style scoped lang="scss">
 @use '@/assets/scss/project';

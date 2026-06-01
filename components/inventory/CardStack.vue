@@ -1,34 +1,7 @@
-<template>
-	<div
-		ref="scrollerEl"
-		class="card-scroller"
-		:class="{ scrollable: isScrollable }"
-	>
-		<div class="card-stack">
-			<div
-				ref="sectionEl"
-				class="stacked-section"
-			>
-				<div class="stacked-zone">
-					<ProjectCard
-						v-for="(project, i) in projects"
-						:key="project.id + '-' + i"
-						:ref="(el) => setCardRef(el, i)"
-						:project="project"
-						:clickable="project.isOpen"
-						:style="{ zIndex: projects.length - i }"
-					/>
-				</div>
-			</div>
-			<card-footer />
-		</div>
-	</div>
-</template>
-
 <script setup>
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ProjectCard from './ProjectCard.vue';
+import ProjectCard from '../project/ProjectCard.vue';
 import CardFooter from './CardFooter.vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
@@ -152,6 +125,33 @@ function initCardStacksScrollTrigger(cards) {
 	});
 }
 </script>
+
+<template>
+	<div
+		ref="scrollerEl"
+		class="card-scroller"
+		:class="{ scrollable: isScrollable }"
+	>
+		<div class="card-stack">
+			<div
+				ref="sectionEl"
+				class="stacked-section"
+			>
+				<div class="stacked-zone">
+					<ProjectCard
+						v-for="(project, i) in projects"
+						:key="project.id + '-' + i"
+						:ref="(el) => setCardRef(el, i)"
+						:project="project"
+						:clickable="project.isOpen"
+						:style="{ zIndex: projects.length - i }"
+					/>
+				</div>
+			</div>
+			<card-footer />
+		</div>
+	</div>
+</template>
 
 <style lang="scss" scoped>
 .card-scroller {

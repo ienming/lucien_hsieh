@@ -1,62 +1,3 @@
-<template>
-	<div
-		ref="cardEl"
-		class="project-card"
-		:class="[
-			`type-${project.type}`,
-			{ 'is-hovering': isHovered },
-			{ clickable: project.isOpen },
-			{ disabled: currentProject.no !== project.no },
-		]"
-		@mouseenter="onMouseEnter"
-		@mousemove="onMouseMove"
-		@mouseleave="onMouseLeave"
-		@click="clickable ? onClick() : null"
-	>
-		<div class="card-header">
-			<div class="card-meta meta-title">
-				<span class="meta-label">{{ t('name') }}</span>
-				<span class="meta-value">{{ project.name }}</span>
-			</div>
-			<div class="card-meta meta-no">
-				<span class="meta-label">{{ t('no') }}</span>
-				<span class="meta-value">{{ project.no }}</span>
-			</div>
-			<div class="card-meta meta-medium">
-				<span class="meta-label">{{ t('medium') }}</span>
-				<span class="meta-value">{{ project.medium }}</span>
-			</div>
-		</div>
-		<div class="card-body">
-			<div
-				v-if="project.type === 'profile'"
-				class="card-body--profile"
-			>
-				<p class="profile-text">{{ projectDesc }}</p>
-			</div>
-			<div
-				v-else
-				class="card-body--project"
-			>
-				<NuxtImg
-					v-if="project.coverImage"
-					:src="project.coverImage"
-					:provider="project.coverImage.startsWith('/imgs') ? null : 'cloudinary'"
-					:alt="project.name"
-					class="cover-image"
-					:class="{ 'is-hidden': isHovered }"
-				/>
-				<div
-					class="hover-overlay"
-					:class="{ 'is-visible': isHovered }"
-				>
-					<p class="hover-description">{{ projectDesc }}</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</template>
-
 <script setup>
 const props = defineProps({
 	project: {
@@ -115,6 +56,65 @@ function onMouseLeave() {
 	tiltY.value = 0;
 }
 </script>
+
+<template>
+	<div
+		ref="cardEl"
+		class="project-card"
+		:class="[
+			`type-${project.type}`,
+			{ 'is-hovering': isHovered },
+			{ clickable: project.isOpen },
+			{ disabled: currentProject.no !== project.no },
+		]"
+		@mouseenter="onMouseEnter"
+		@mousemove="onMouseMove"
+		@mouseleave="onMouseLeave"
+		@click="clickable ? onClick() : null"
+	>
+		<div class="card-header">
+			<div class="card-meta meta-title">
+				<span class="meta-label">{{ t('name') }}</span>
+				<span class="meta-value">{{ project.name }}</span>
+			</div>
+			<div class="card-meta meta-no">
+				<span class="meta-label">{{ t('no') }}</span>
+				<span class="meta-value">{{ project.no }}</span>
+			</div>
+			<div class="card-meta meta-medium">
+				<span class="meta-label">{{ t('medium') }}</span>
+				<span class="meta-value">{{ project.medium }}</span>
+			</div>
+		</div>
+		<div class="card-body">
+			<div
+				v-if="project.type === 'profile'"
+				class="card-body--profile"
+			>
+				<p class="profile-text">{{ projectDesc }}</p>
+			</div>
+			<div
+				v-else
+				class="card-body--project"
+			>
+				<NuxtImg
+					v-if="project.coverImage"
+					:src="project.coverImage"
+					:provider="project.coverImage.startsWith('/imgs') ? null : 'cloudinary'"
+					:alt="project.name"
+					class="cover-image"
+					:class="{ 'is-hidden': isHovered }"
+				/>
+				<div
+					class="hover-overlay"
+					:class="{ 'is-visible': isHovered }"
+				>
+					<p class="hover-description">{{ projectDesc }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
 
 <style lang="scss" scoped>
 .project-card {

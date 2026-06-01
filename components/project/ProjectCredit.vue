@@ -1,21 +1,3 @@
-<template>
-	<div class="project-credit">
-		<div class="header">Credit</div>
-		<div class="content">
-			<ul class="d-flex flex-column gap-space-base credits">
-				<li
-					v-for="credit of credits"
-					:key="credit.cate"
-					class="d-grid credit-item"
-				>
-					<span class="credit-cate">{{ credit.cate }}</span>
-					<span class="credit-to">{{ credit.to }}</span>
-				</li>
-			</ul>
-		</div>
-	</div>
-</template>
-
 <script setup lang="ts">
 interface Credit {
 	cate: string;
@@ -37,6 +19,24 @@ const props = withDefaults(
 );
 const { credits } = props;
 </script>
+
+<template>
+	<div class="project-credit">
+		<div class="header">Credit</div>
+		<div class="content">
+			<ul class="d-flex flex-column gap-space-base credits">
+				<li
+					v-for="credit of credits"
+					:key="credit.cate"
+					class="d-grid credit-item"
+				>
+					<span class="credit-cate">{{ credit.cate }}</span>
+					<span class="credit-to">{{ credit.to }}</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+</template>
 
 <style lang="scss" scoped>
 .project-credit {

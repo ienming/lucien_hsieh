@@ -1,70 +1,3 @@
-<template>
-	<ModalOverlay
-		:open="open"
-		@update:open="$emit('update:open', $event)"
-	>
-		<div
-			ref="lightboxRef"
-			class="d-flex justify-contents-center align-items-center w-full h-full lightbox-modal"
-			@click.self="$emit('update:open', false)"
-		>
-			<div
-				class="img-container"
-				@click="isInfoShow = !isInfoShow"
-			>
-				<NuxtImg :src="currentImg.url" />
-			</div>
-			<div
-				v-if="!isMobile && images.length > 1"
-				class="controls-container"
-				:class="{ show: isInfoShow }"
-			>
-				<ClientOnly>
-					<Icon
-						name="iconoir:nav-arrow-left"
-						class="left control-btn"
-						@click="handlePrevious"
-					/>
-				</ClientOnly>
-				<ClientOnly>
-					<Icon
-						name="iconoir:nav-arrow-right"
-						class="right control-btn"
-						@click="handleNext"
-					/>
-				</ClientOnly>
-			</div>
-			<Transition name="fade">
-				<div
-					v-show="isInfoShow"
-					class="d-flex justify-contents-space-between gap-space-4xl info-container"
-				>
-					<div class="d-flex flex-column gap-space-sm info">
-						<div class="title">{{ currentImg.title }}</div>
-						<div class="common-paragraph desc">{{ currentImg.desc }}</div>
-					</div>
-					<ul
-						v-if="images.length > 1"
-						class="d-flex gap-space-md indicators"
-					>
-						<li
-							v-for="(indicator, idx) of images"
-							:key="indicator"
-						>
-							<NuxtImg
-								class="indicator"
-								:src="indicator.url"
-								:class="{ active: currentIdx === idx }"
-								@click="currentIdx = idx"
-							/>
-						</li>
-					</ul>
-				</div>
-			</Transition>
-		</div>
-	</ModalOverlay>
-</template>
-
 <script setup>
 import { GESTURE_DIRECTION } from '~/constants/interaction';
 
@@ -152,6 +85,73 @@ function handleNext() {
 	currentIdx.value += 1;
 }
 </script>
+
+<template>
+	<ModalOverlay
+		:open="open"
+		@update:open="$emit('update:open', $event)"
+	>
+		<div
+			ref="lightboxRef"
+			class="d-flex justify-contents-center align-items-center w-full h-full lightbox-modal"
+			@click.self="$emit('update:open', false)"
+		>
+			<div
+				class="img-container"
+				@click="isInfoShow = !isInfoShow"
+			>
+				<NuxtImg :src="currentImg.url" />
+			</div>
+			<div
+				v-if="!isMobile && images.length > 1"
+				class="controls-container"
+				:class="{ show: isInfoShow }"
+			>
+				<ClientOnly>
+					<Icon
+						name="iconoir:nav-arrow-left"
+						class="left control-btn"
+						@click="handlePrevious"
+					/>
+				</ClientOnly>
+				<ClientOnly>
+					<Icon
+						name="iconoir:nav-arrow-right"
+						class="right control-btn"
+						@click="handleNext"
+					/>
+				</ClientOnly>
+			</div>
+			<Transition name="fade">
+				<div
+					v-show="isInfoShow"
+					class="d-flex justify-contents-space-between gap-space-4xl info-container"
+				>
+					<div class="d-flex flex-column gap-space-sm info">
+						<div class="title">{{ currentImg.title }}</div>
+						<div class="common-paragraph desc">{{ currentImg.desc }}</div>
+					</div>
+					<ul
+						v-if="images.length > 1"
+						class="d-flex gap-space-md indicators"
+					>
+						<li
+							v-for="(indicator, idx) of images"
+							:key="indicator"
+						>
+							<NuxtImg
+								class="indicator"
+								:src="indicator.url"
+								:class="{ active: currentIdx === idx }"
+								@click="currentIdx = idx"
+							/>
+						</li>
+					</ul>
+				</div>
+			</Transition>
+		</div>
+	</ModalOverlay>
+</template>
 
 <style scoped lang="scss">
 .lightbox-modal {

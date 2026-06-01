@@ -1,3 +1,14 @@
+<script setup>
+import ProjectMeta from '~/components/project/ProjectMeta.vue';
+
+defineProps({
+	project: {
+		type: Object,
+		required: true,
+	},
+});
+</script>
+
 <template>
 	<div class="default-content">
 		<ProjectMeta
@@ -20,17 +31,6 @@
 		</div>
 	</div>
 </template>
-
-<script setup>
-import ProjectMeta from '~/components/project/ProjectMeta.vue';
-
-defineProps({
-	project: {
-		type: Object,
-		required: true,
-	},
-});
-</script>
 
 <style lang="scss" scoped>
 .default-content {

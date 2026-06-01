@@ -1,10 +1,10 @@
+<script setup></script>
+
 <template>
 	<header class="app-header">
 		<h1 class="site-title">LÜUÜUÜUÜCIEN</h1>
 	</header>
 </template>
-
-<script setup></script>
 
 <style lang="scss" scoped>
 .app-header {

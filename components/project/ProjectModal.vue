@@ -1,76 +1,3 @@
-<template>
-	<!-- TODO: refactor with ModalOverlay -->
-	<Teleport to="body">
-		<Transition name="fade">
-			<div
-				v-if="isOpen"
-				class="modal-backdrop"
-			/>
-		</Transition>
-		<Transition :name="scrollTransitionName">
-			<div
-				v-if="isOpen"
-				class="modal-scroll"
-				:style="scrollStyle"
-				@click="onScrollClick"
-			>
-				<div
-					ref="panelEl"
-					class="modal-panel"
-					@click.stop
-				>
-					<div
-						class="modal-drag-handle"
-						@touchstart.passive="onDragStart"
-						@touchmove.prevent="onDragMove"
-						@touchend.passive="onDragEnd"
-					>
-						<div class="drag-pill" />
-					</div>
-
-					<div
-						class="modal-header"
-						@touchstart.passive="onDragStart"
-						@touchmove.prevent="onDragMove"
-						@touchend.passive="onDragEnd"
-					>
-						<div class="modal-meta">
-							<div class="meta-group">
-								<span class="meta-label">{{ t('name') }}</span>
-								<span class="meta-value">{{ project?.name }}</span>
-							</div>
-							<div class="meta-group meta-no">
-								<span class="meta-label">{{ t('no') }}</span>
-								<span class="meta-value">{{ project?.no }}</span>
-							</div>
-							<div class="meta-group meta-year">
-								<span class="meta-label">{{ t('year') }}</span>
-								<span class="meta-value">{{ project?.year }}</span>
-							</div>
-							<div class="meta-group meta-medium">
-								<span class="meta-label">{{ t('medium') }}</span>
-								<span class="meta-value">{{ project?.medium }}</span>
-							</div>
-						</div>
-					</div>
-
-					<div class="modal-content-area">
-						<component
-							:is="contentComponent"
-							v-if="contentComponent && project"
-							:project="project"
-						/>
-					</div>
-
-					<div class="credit-container">
-						<project-credit :credits="project.credits" />
-					</div>
-				</div>
-			</div>
-		</Transition>
-	</Teleport>
-</template>
-
 <script setup>
 import ProjectCredit from '../project/ProjectCredit.vue';
 
@@ -78,12 +5,12 @@ const { isOpen, project, closeModal } = useModal();
 const { t } = useI18n();
 
 const contentRegistry = {
-	// shyline: resolveComponent('LazyProjectsShylineContent'),
-	iroironairo: resolveComponent('LazyProjectsIroironairoContent'),
+	// shyline: resolveComponent('LazyContentShylineContent'),
+	iroironairo: resolveComponent('LazyContentIroironairoContent'),
 };
 const DRAG_THRESHOLD = 120;
 
-const defaultContent = resolveComponent('LazyProjectsDefaultContent');
+const defaultContent = resolveComponent('LazyContentDefaultContent');
 
 const panelEl = ref(null);
 const dragY = ref(0);
@@ -157,6 +84,79 @@ function onDragEnd() {
 	}
 }
 </script>
+
+<template>
+	<!-- TODO: refactor with ModalOverlay -->
+	<Teleport to="body">
+		<Transition name="fade">
+			<div
+				v-if="isOpen"
+				class="modal-backdrop"
+			/>
+		</Transition>
+		<Transition :name="scrollTransitionName">
+			<div
+				v-if="isOpen"
+				class="modal-scroll"
+				:style="scrollStyle"
+				@click="onScrollClick"
+			>
+				<div
+					ref="panelEl"
+					class="modal-panel"
+					@click.stop
+				>
+					<div
+						class="modal-drag-handle"
+						@touchstart.passive="onDragStart"
+						@touchmove.prevent="onDragMove"
+						@touchend.passive="onDragEnd"
+					>
+						<div class="drag-pill" />
+					</div>
+
+					<div
+						class="modal-header"
+						@touchstart.passive="onDragStart"
+						@touchmove.prevent="onDragMove"
+						@touchend.passive="onDragEnd"
+					>
+						<div class="modal-meta">
+							<div class="meta-group">
+								<span class="meta-label">{{ t('name') }}</span>
+								<span class="meta-value">{{ project?.name }}</span>
+							</div>
+							<div class="meta-group meta-no">
+								<span class="meta-label">{{ t('no') }}</span>
+								<span class="meta-value">{{ project?.no }}</span>
+							</div>
+							<div class="meta-group meta-year">
+								<span class="meta-label">{{ t('year') }}</span>
+								<span class="meta-value">{{ project?.year }}</span>
+							</div>
+							<div class="meta-group meta-medium">
+								<span class="meta-label">{{ t('medium') }}</span>
+								<span class="meta-value">{{ project?.medium }}</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal-content-area">
+						<component
+							:is="contentComponent"
+							v-if="contentComponent && project"
+							:project="project"
+						/>
+					</div>
+
+					<div class="credit-container">
+						<project-credit :credits="project.credits" />
+					</div>
+				</div>
+			</div>
+		</Transition>
+	</Teleport>
+</template>
 
 <style lang="scss" scoped>
 .modal-backdrop {

@@ -1,19 +1,7 @@
-<template>
-	<div class="layout">
-		<AppHeader />
-		<AppSidebar />
-		<main class="layout-main">
-			<InventoryView />
-		</main>
-		<ProjectModal />
-		<CoordinateModal />
-	</div>
-</template>
-
 <script setup>
 import AppHeader from '~/layouts/partials/AppHeader.vue';
 import AppSidebar from '~/layouts/partials/AppSidebar.vue';
-import ProjectModal from '~/components/inventory/ProjectModal.vue';
+import ProjectModal from '~/components/project/ProjectModal.vue';
 import CoordinateModal from '~/components/inventory/CoordinateModal.vue';
 import InventoryView from '~/components/inventory/InventoryView.vue';
 
@@ -28,6 +16,18 @@ onMounted(() => {
 	initTheme();
 });
 </script>
+
+<template>
+	<div class="layout">
+		<AppHeader />
+		<AppSidebar />
+		<main class="layout-main">
+			<InventoryView />
+		</main>
+		<ProjectModal />
+		<CoordinateModal />
+	</div>
+</template>
 
 <style lang="scss" scoped>
 .layout {

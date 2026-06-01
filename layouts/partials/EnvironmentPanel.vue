@@ -1,3 +1,28 @@
+<script setup>
+import { useFloating } from '@floating-ui/vue';
+import { offset } from '@floating-ui/dom';
+import { onClickOutside } from '@vueuse/core';
+import { LANG_KEY } from '@/composables/useI18n';
+
+defineProps({
+	isOpen: { type: Boolean, required: true },
+	language: { type: String, required: true },
+	isDark: { type: Boolean, required: true },
+});
+
+const { togglePanel, closePanel, toggleTheme, toggleLanguage } = useEnvironment();
+const { t } = useI18n();
+const FLOADING_MARGIN = 10;
+
+const reference = useTemplateRef('reference');
+const floating = useTemplateRef('floating');
+const { floatingStyles } = useFloating(reference, floating, {
+	placement: 'left-start',
+	middleware: [offset(FLOADING_MARGIN)],
+});
+onClickOutside(floating, (_) => closePanel());
+</script>
+
 <template>
 	<div>
 		<button
@@ -50,31 +75,6 @@
 		</Transition>
 	</div>
 </template>
-
-<script setup>
-import { useFloating } from '@floating-ui/vue';
-import { offset } from '@floating-ui/dom';
-import { onClickOutside } from '@vueuse/core';
-import { LANG_KEY } from '@/composables/useI18n';
-
-defineProps({
-	isOpen: { type: Boolean, required: true },
-	language: { type: String, required: true },
-	isDark: { type: Boolean, required: true },
-});
-
-const { togglePanel, closePanel, toggleTheme, toggleLanguage } = useEnvironment();
-const { t } = useI18n();
-const FLOADING_MARGIN = 10;
-
-const reference = useTemplateRef('reference');
-const floating = useTemplateRef('floating');
-const { floatingStyles } = useFloating(reference, floating, {
-	placement: 'left-start',
-	middleware: [offset(FLOADING_MARGIN)],
-});
-onClickOutside(floating, (_) => closePanel());
-</script>
 
 <style lang="scss" scoped>
 .nav-link {

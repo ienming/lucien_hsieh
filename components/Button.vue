@@ -1,16 +1,3 @@
-<template>
-	<!-- TODO: 優化 hover interaction design 樣式 -->
-	<component
-		:is="renderAs"
-		:to="to"
-		:target="target"
-		:class="classes"
-		class="luc-button"
-	>
-		<slot />
-	</component>
-</template>
-
 <script setup>
 import { NuxtLink } from '#components';
 
@@ -48,6 +35,19 @@ const classes = computed(() => {
 	return results;
 });
 </script>
+
+<template>
+	<!-- TODO: 優化 hover interaction design 樣式 -->
+	<component
+		:is="renderAs"
+		:to="to"
+		:target="target"
+		:class="classes"
+		class="luc-button"
+	>
+		<slot />
+	</component>
+</template>
 
 <style scoped lang="scss">
 .luc-button {

@@ -1,3 +1,16 @@
+<script setup>
+defineProps({
+	description: {
+		type: String,
+		default: 'This is description',
+	},
+	link: {
+		type: String,
+		default: 'https://test.test.com/test',
+	},
+});
+</script>
+
 <template>
 	<div class="project-meta">
 		<div class="meta-row">
@@ -19,19 +32,6 @@
 		</div>
 	</div>
 </template>
-
-<script setup>
-defineProps({
-	description: {
-		type: String,
-		default: 'This is description',
-	},
-	link: {
-		type: String,
-		default: 'https://test.test.com/test',
-	},
-});
-</script>
 
 <style lang="scss" scoped>
 .project-meta {

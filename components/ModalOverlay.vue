@@ -1,23 +1,3 @@
-<template>
-	<Teleport to="body">
-		<Transition name="fade">
-			<div
-				v-if="isOverlayOpen"
-				class="overlay"
-				:class="[attrs.class]"
-				@click.self="overlayClosable ? $emit('update:open', false) : null"
-			>
-				<Transition
-					:name="transition"
-					mode="out-in"
-				>
-					<slot v-if="isModalOpen" />
-				</Transition>
-			</div>
-		</Transition>
-	</Teleport>
-</template>
-
 <script setup>
 defineOptions({
 	inheritAttrs: false,
@@ -80,6 +60,26 @@ onUnmounted(() => {
 	closeAfterNavigation();
 });
 </script>
+
+<template>
+	<Teleport to="body">
+		<Transition name="fade">
+			<div
+				v-if="isOverlayOpen"
+				class="overlay"
+				:class="[attrs.class]"
+				@click.self="overlayClosable ? $emit('update:open', false) : null"
+			>
+				<Transition
+					:name="transition"
+					mode="out-in"
+				>
+					<slot v-if="isModalOpen" />
+				</Transition>
+			</div>
+		</Transition>
+	</Teleport>
+</template>
 
 <style lang="scss" scoped>
 .overlay {
