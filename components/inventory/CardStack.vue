@@ -4,44 +4,64 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ProjectCard from '../project/ProjectCard.vue';
 import CardFooter from './CardFooter.vue';
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
+import { useSwipe } from '~/composables/useSwipe';
+import { GESTURE_DIRECTION } from '~/constants/interaction';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const { projects, currentIndex, registerScrollToCard, goTo } = useProjects();
+const breakpoints = useBreakpoints(breakpointsTailwind);
+const { swipeDirection, bindEvents, unbindEvents } = useSwipe();
 
 const scrollerEl = ref(null);
 const sectionEl = ref(null);
 const cardRefs = ref([]);
-const breakpoints = useBreakpoints(breakpointsTailwind);
 const isScrollable = ref(false);
 
-const GAP = breakpoints.greaterOrEqual('md').value ? 75 : 85;
+const isMobile = !breakpoints.greaterOrEqual('md').value;
+const GAP = isMobile ? 85 : 75;
 const SCALE_STEP = 0.09;
-const INITIAL_TOP_OFFSET = breakpoints.greaterOrEqual('md').value ? 60 : 20;
+const INITIAL_TOP_OFFSET = isMobile ? 20 : 60;
 const FLYAWAY_OFFSET = 80;
+
+let trigger = null;
+let swipeCleanup = null;
+let mobileCards = null;
+let mobileHeights = null;
+let mobileActiveIndex = 0;
+let mobileAnimating = false;
+
+watch(swipeDirection, onSwipeDirectionChange);
 
 function setCardRef(el, i) {
 	if (el) cardRefs.value[i] = el.$el ?? el;
 }
 
-let trigger = null;
-
 onMounted(() => {
 	const cards = cardRefs.value.filter(Boolean);
 	if (cards.length === 0) return;
-
 	enterProjectCardsStackingAnimation(cards);
 });
 
 onUnmounted(() => {
 	trigger?.kill();
+	swipeCleanup?.();
 	registerScrollToCard(null);
 });
 
+function onEntryAnimationComplete() {
+	const cards = cardRefs.value.filter(Boolean);
+	if (isMobile) {
+		initMobileSwipe(cards);
+	} else {
+		initCardStacksScrollTrigger(cards);
+		initGoToCard();
+	}
+	isScrollable.value = true;
+}
+
 function enterProjectCardsStackingAnimation(cards) {
-	const tl = gsap.timeline({
-		delay: 0.2,
-	});
+	const tl = gsap.timeline({ delay: 0.2 });
 	const tween = gsap.fromTo(
 		cards,
 		{
@@ -58,11 +78,7 @@ function enterProjectCardsStackingAnimation(cards) {
 			stagger: 0.3,
 			duration: 0.5,
 			ease: 'power2.out',
-			onComplete: () => {
-				initCardStacksScrollTrigger(cards);
-				initGoToCard();
-				isScrollable.value = true;
-			},
+			onComplete: onEntryAnimationComplete,
 		},
 	);
 	tl.add(tween);
@@ -113,19 +129,74 @@ function initCardStacksScrollTrigger(cards) {
 	});
 }
 
-function initGoToCard() {
+function scrollToCard(index) {
 	const n = projects.value.length;
-	registerScrollToCard((index) => {
-		if (n <= 1 || !trigger) return;
-		const progress = index / (n - 1);
-		const targetScroll = trigger.start + progress * (trigger.end - trigger.start);
-		gsap.to(scrollerEl.value, {
-			scrollTop: targetScroll,
-			duration: 0,
-			ease: 'power2.inOut',
-			overwrite: true,
-		});
+	if (n <= 1 || !trigger) return;
+	const progress = index / (n - 1);
+	const targetScroll = trigger.start + progress * (trigger.end - trigger.start);
+	gsap.to(scrollerEl.value, {
+		scrollTop: targetScroll,
+		duration: 0,
+		ease: 'power2.inOut',
+		overwrite: true,
 	});
+}
+
+function initGoToCard() {
+	registerScrollToCard(scrollToCard);
+}
+
+function onMobileAnimationComplete() {
+	mobileAnimating = false;
+}
+
+function animateToIndex(targetIndex) {
+	if (!mobileCards || targetIndex < 0 || targetIndex >= mobileCards.length || mobileAnimating) {
+		return;
+	}
+
+	mobileAnimating = true;
+
+	mobileCards.forEach((card, i) => {
+		if (i < targetIndex) {
+			gsap.to(card, {
+				y: -mobileHeights[i] - FLYAWAY_OFFSET,
+				scale: 1,
+				duration: 0.4,
+				ease: 'power2.inOut',
+				overwrite: true,
+			});
+		} else {
+			const j = i - targetIndex;
+			gsap.to(card, {
+				y: j * GAP,
+				scale: 1 - j * SCALE_STEP,
+				duration: 0.4,
+				ease: 'power2.inOut',
+				overwrite: true,
+				onComplete: j === 0 ? onMobileAnimationComplete : undefined,
+			});
+		}
+	});
+
+	mobileActiveIndex = targetIndex;
+	currentIndex.value = targetIndex;
+}
+
+function onSwipeDirectionChange(direction) {
+	if (direction === GESTURE_DIRECTION.UP) animateToIndex(mobileActiveIndex + 1);
+	else if (direction === GESTURE_DIRECTION.DOWN) animateToIndex(mobileActiveIndex - 1);
+}
+
+function initMobileSwipe(cards) {
+	const el = scrollerEl.value;
+	mobileCards = cards;
+	mobileHeights = cards.map((card) => card.getBoundingClientRect().height + 120);
+	mobileActiveIndex = 0;
+	mobileAnimating = false;
+	bindEvents(el);
+	registerScrollToCard(animateToIndex);
+	swipeCleanup = () => unbindEvents(el);
 }
 </script>
 
@@ -166,6 +237,7 @@ function initGoToCard() {
 
 	@media (max-width: 767px) {
 		padding: 0 var(--spacing-md);
+		overflow-y: hidden;
 	}
 
 	&.scrollable {
