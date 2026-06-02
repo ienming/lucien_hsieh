@@ -7,7 +7,7 @@ import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const { projects, currentIndex, registerScrollToCard } = useProjects();
+const { projects, currentIndex, registerScrollToCard, goTo } = useProjects();
 
 const scrollerEl = ref(null);
 const sectionEl = ref(null);
@@ -60,6 +60,7 @@ function enterProjectCardsStackingAnimation(cards) {
 			ease: 'power2.out',
 			onComplete: () => {
 				initCardStacksScrollTrigger(cards);
+				initGoToCard();
 				isScrollable.value = true;
 			},
 		},
@@ -110,7 +111,9 @@ function initCardStacksScrollTrigger(cards) {
 		scrub: true,
 		animation: tl,
 	});
+}
 
+function initGoToCard() {
 	const n = projects.value.length;
 	registerScrollToCard((index) => {
 		if (n <= 1 || !trigger) return;
@@ -145,6 +148,7 @@ function initCardStacksScrollTrigger(cards) {
 						:project="project"
 						:clickable="project.isOpen"
 						:style="{ zIndex: projects.length - i }"
+						@go-to-project="goTo(i)"
 					/>
 				</div>
 			</div>

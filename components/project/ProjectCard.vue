@@ -9,6 +9,7 @@ const props = defineProps({
 		default: true,
 	},
 });
+const emits = defineEmits(['goToProject']);
 
 const { currentProject } = useProjects();
 const { openModal, isOpen: isModalOpen } = useModal();
@@ -34,6 +35,17 @@ watch(isModalOpen, (open) => {
 });
 
 function onClick() {
+	const { project, clickable } = props;
+
+	if (project.no !== currentProject.value.no) {
+		emits('goToProject');
+		return;
+	}
+
+	if (!clickable) {
+		return;
+	}
+
 	openModal(props.project);
 }
 
@@ -65,12 +77,11 @@ function onMouseLeave() {
 			`type-${project.type}`,
 			{ 'is-hovering': isHovered },
 			{ clickable: project.isOpen },
-			{ disabled: currentProject.no !== project.no },
 		]"
 		@mouseenter="onMouseEnter"
 		@mousemove="onMouseMove"
 		@mouseleave="onMouseLeave"
-		@click="clickable ? onClick() : null"
+		@click="onClick"
 	>
 		<div class="card-header">
 			<div class="card-meta meta-title">
@@ -143,11 +154,6 @@ function onMouseLeave() {
 
 	&.clickable {
 		cursor: pointer;
-	}
-
-	&.disabled {
-		pointer-events: none;
-		touch-action: none;
 	}
 
 	&.is-hovering {
