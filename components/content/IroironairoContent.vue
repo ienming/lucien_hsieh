@@ -25,6 +25,9 @@ const assets = ref([
 	{
 		src: 'colors_fuji_i4ecqq',
 	},
+	{
+		src: 'macbook_mockup_zhwgnz',
+	},
 ]);
 </script>
 
