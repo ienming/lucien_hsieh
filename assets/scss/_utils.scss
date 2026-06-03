@@ -8,6 +8,10 @@
 	padding: $space-base;
 }
 
+.text-muted {
+	color: var(--color-text-muted);
+}
+
 .common-paragraph {
 	font-size: $font-size-base;
 	line-height: 24px;

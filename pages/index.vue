@@ -4,8 +4,11 @@ import AppSidebar from '~/layouts/partials/AppSidebar.vue';
 import ProjectModal from '~/components/project/ProjectModal.vue';
 import CoordinateModal from '~/components/inventory/CoordinateModal.vue';
 import InventoryView from '~/components/inventory/InventoryView.vue';
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core';
 
 const { initTheme } = useEnvironment();
+const breakpoints = useBreakpoints(breakpointsTailwind);
+const isLargeScreen = breakpoints.greaterOrEqual('md').value;
 
 useHead({
 	title: 'Lucien Hsieh',
@@ -20,7 +23,7 @@ onMounted(() => {
 <template>
 	<div class="layout">
 		<AppHeader />
-		<AppSidebar />
+		<AppSidebar v-if="isLargeScreen" />
 		<main class="layout-main">
 			<InventoryView />
 		</main>

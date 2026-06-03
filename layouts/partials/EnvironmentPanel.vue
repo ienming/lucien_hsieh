@@ -94,6 +94,7 @@ onClickOutside(floating, (_) => closePanel());
 	background: var(--color-surface);
 	min-width: 150px;
 	box-shadow: 0 4px 20px var(--color-card-shadow);
+	z-index: var(--z-index-common-fixed);
 }
 
 .panel-close {

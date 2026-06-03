@@ -30,7 +30,7 @@ const visibleDots = computed(() => {
 	<aside class="app-sidebar">
 		<!-- TODO -->
 		<!-- Card vs List view -->
-		<span @click="isCoordinateModalOpen = true">作品分類</span>
+		<!-- <span @click="isCoordinateModalOpen = true">作品分類</span> -->
 		<EnvironmentPanel
 			:is-open="isEnvOpen"
 			:language="language"
@@ -74,12 +74,6 @@ const visibleDots = computed(() => {
 
 <style lang="scss" scoped>
 .app-sidebar {
-	position: fixed;
-	right: var(--spacing-sm);
-	top: 50%;
-	z-index: var(--z-index-common-fixed);
-	transform: translateY(-50%);
-	padding: var(--spacing-md);
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -87,10 +81,16 @@ const visibleDots = computed(() => {
 	gap: var(--spacing-sm);
 
 	@media (min-width: 768px) {
+		position: fixed;
+		right: var(--spacing-sm);
+		top: 50%;
+		z-index: var(--z-index-common-fixed);
+		transform: translateY(-50%);
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: flex-end;
 		gap: var(--spacing-sm);
+		padding: var(--spacing-md);
 	}
 }
 
