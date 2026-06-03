@@ -28,7 +28,7 @@ const LANG_KEY_MAP = {
 		no: '編號',
 		year: '年份',
 		medium: '媒介',
-		get_in_touch_greeting: '隨時歡迎在數位敘事、文化內容設計中的有趣想法 Ü',
+		get_in_touch_greeting: '隨時歡迎來自數位敘事、文化內容設計中的有趣想法 Ü',
 	},
 }
 
