@@ -1,11 +1,10 @@
 <script setup>
-import ProjectCredit from '../project/ProjectCredit.vue';
-
 const { isOpen, project, closeModal } = useModal();
 const { t } = useI18n();
 
 const contentRegistry = {
 	// shyline: resolveComponent('LazyContentShylineContent'),
+	profile: resolveComponent('LazyContentProfileContent'),
 	iroironairo: resolveComponent('LazyContentIroironairoContent'),
 };
 const DRAG_THRESHOLD = 120;
@@ -148,10 +147,6 @@ function onDragEnd() {
 							:project="project"
 						/>
 					</div>
-
-					<div class="credit-container">
-						<project-credit :credits="project.credits" />
-					</div>
 				</div>
 			</div>
 		</Transition>
@@ -279,12 +274,5 @@ function onDragEnd() {
 	@media screen and (min-width: 768px) {
 		padding: var(--spacing-xl);
 	}
-}
-
-.credit-container {
-	padding: var(--spacing-xl);
-	margin-top: 80px;
-	display: flex;
-	justify-content: center;
 }
 </style>

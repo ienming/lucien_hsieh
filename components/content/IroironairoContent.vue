@@ -1,5 +1,6 @@
 <script setup>
 import ProjectMeta from '@/components/project/ProjectMeta.vue';
+import ProjectCredit from '../project/ProjectCredit.vue';
 
 useHead({
 	title: '色々な色 iroironairo | Lucien Hsieh',
@@ -118,6 +119,9 @@ const assets = ref([
 				provider="cloudinary"
 				class="modal-image"
 			></NuxtImg>
+		</div>
+		<div class="credit-container">
+			<ProjectCredit :credits="project.credits" />
 		</div>
 	</div>
 </template>

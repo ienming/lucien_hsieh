@@ -1,5 +1,6 @@
 <script setup>
 import ProjectMeta from '~/components/project/ProjectMeta.vue';
+import ProjectCredit from '../project/ProjectCredit.vue';
 
 defineProps({
 	project: {
@@ -7,13 +8,15 @@ defineProps({
 		required: true,
 	},
 });
+
+const { language } = useEnvironment();
 </script>
 
 <template>
 	<div class="default-content">
 		<ProjectMeta
-			:description="project.description"
-			:link="project.link"
+			:description="project.description[language.toLocaleLowerCase()]"
+			:link="project.link ?? null"
 		/>
 		<div class="modal-content">
 			<img
@@ -26,13 +29,21 @@ defineProps({
 				v-if="project.description"
 				class="modal-description"
 			>
-				{{ project.description }}
+				{{ project.description[language.toLocaleLowerCase()] }}
 			</p>
+		</div>
+		<div
+			v-if="project.credits?.length"
+			class="credit-container"
+		>
+			<ProjectCredit :credits="project.credits" />
 		</div>
 	</div>
 </template>
 
 <style lang="scss" scoped>
+@use '@/assets/scss/project';
+
 .default-content {
 	display: flex;
 	flex-direction: column;
