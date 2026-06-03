@@ -23,7 +23,9 @@ onMounted(() => {
 <template>
 	<div class="layout">
 		<AppHeader />
-		<AppSidebar v-if="isLargeScreen" />
+		<ClientOnly>
+			<AppSidebar v-if="isLargeScreen" />
+		</ClientOnly>
 		<main class="layout-main">
 			<InventoryView />
 		</main>

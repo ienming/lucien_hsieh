@@ -9,7 +9,9 @@ const isMobile = breakpoints.smaller('md').value;
 <template>
 	<header class="app-header">
 		<h1 class="site-title">LÜCIEN</h1>
-		<app-sidebar v-if="isMobile" />
+		<ClientOnly>
+			<AppSidebar v-if="isMobile" />
+		</ClientOnly>
 	</header>
 </template>
 
