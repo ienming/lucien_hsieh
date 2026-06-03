@@ -25,8 +25,8 @@ const PROJECTS = [
 		type: 'profile',
 		isOpen: false,
 		description: {
-			zh: '我是一位創意技術人員與資訊轉譯者，透過網頁與紙本創造故事。致力於創意資料視覺化、文化內容與敘事互動體驗。',
-			en: 'Lucien Hsieh is a creative technologist and narrative developer who crafts narratives through web and print. Dedicated to creative data visualization, culture, and digital storytelling.',
+			zh: '我是謝明倫，是一名數位敘事設計師，透過網頁開發、紙本獨立出版創造故事。致力於創意資料視覺化、文化內容與敘事互動體驗。',
+			en: 'Lucien Hsieh is a digital narrative designer/developer who crafts narratives through web and print. Dedicated to creative data visualization, culture, and digital storytelling.',
 		},
 		coverImage: '',
 	},

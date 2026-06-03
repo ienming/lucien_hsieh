@@ -16,17 +16,19 @@ const LANG_KEY_MAP = {
 		year: 'Year',
 		no: 'No',
 		medium: 'Medium',
+		get_in_touch_greeting: 'Always open to intriguing ideas in digital storytelling and cultural content design Ü',
 	},
 	ZH: {
 		fileExplorer: '所有專案',
 		viewInList: '在清單閱讀',
-		environment: '設定',
-		translation: '語言',
+		environment: '閱讀環境',
+		translation: '翻譯',
 		light: '燈光',
 		name: '專案名稱',
 		no: '編號',
 		year: '年份',
 		medium: '媒介',
+		get_in_touch_greeting: '隨時歡迎在數位敘事、文化內容設計中的有趣想法 Ü',
 	},
 }
 
