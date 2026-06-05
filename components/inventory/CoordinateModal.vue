@@ -59,13 +59,13 @@ function goToProject(project) {
 									@focus="selectedWorkNumber = work.no"
 									@blur="selectedWorkNumber = null"
 									@keydown.enter="selectedWorkNumber ? goToProject(work) : null"
+									@click="selectedWorkNumber ? goToProject(work) : null"
 								>
 									<div class="word-label">[{{ work.no }}]</div>
 									<div class="work-dot"></div>
 									<div
 										class="work-panel"
 										:class="{ show: selectedWorkNumber === work.no }"
-										@click="goToProject(work)"
 									>
 										<span class="work-panel-name">{{ work.name }}</span>
 										<NuxtImg
