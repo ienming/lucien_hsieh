@@ -77,19 +77,6 @@ onClickOutside(floating, (_) => closePanel());
 </template>
 
 <style lang="scss" scoped>
-.nav-link {
-	font-size: 14px;
-	font-family: var(--font-mono);
-	font-weight: 500;
-	color: var(--color-text-muted);
-	text-align: left;
-	transition: color var(--transition-fast);
-
-	&:hover {
-		color: var(--color-text-primary);
-	}
-}
-
 .env-panel {
 	background: var(--color-surface);
 	min-width: 150px;

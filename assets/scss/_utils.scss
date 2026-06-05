@@ -16,3 +16,17 @@
 	font-size: $font-size-base;
 	line-height: 24px;
 }
+
+.nav-link {
+	font-size: 14px;
+	font-family: var(--font-mono);
+	font-weight: 500;
+	color: var(--color-text-muted);
+	text-align: left;
+	transition: color var(--transition-fast);
+	cursor: pointer;
+
+	&:hover {
+		color: var(--color-text-primary);
+	}
+}

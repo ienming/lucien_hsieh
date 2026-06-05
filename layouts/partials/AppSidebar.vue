@@ -28,7 +28,11 @@ const visibleDots = computed(() => {
 
 <template>
 	<aside class="app-sidebar">
-		<span @click="isCoordinateModalOpen = true">作品分類</span>
+		<span
+			class="nav-link"
+			@click="isCoordinateModalOpen = true"
+			>作品分類</span
+		>
 		<EnvironmentPanel
 			:is-open="isEnvOpen"
 			:language="language"
