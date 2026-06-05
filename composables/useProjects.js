@@ -9,6 +9,7 @@ const PROJECTS = [
 		medium: 'Web',
 		year: '2026',
 		type: 'project',
+		digitization: 100,
 		isOpen: false,
 		description: {
 			zh: 'Shyline 是一個假想太陽眼鏡品牌，以「落日後的視線」為出發點，打造一系列品牌視覺設計.....',
@@ -23,9 +24,9 @@ const PROJECTS = [
 		medium: 'Cell',
 		year: '1996',
 		type: 'profile',
-		isOpen: true,
+		isOpen: false,
 		description: {
-			zh: '我是謝明倫，是一名數位敘事設計師，透過網頁開發、紙本獨立出版創造故事。致力於創意資料視覺化、文化內容與敘事互動體驗。',
+			zh: '我是謝明倫，是一名數位敘事設計師，透過網頁開發、獨立出版創造故事。致力於創意資料視覺化、文化內容與敘事互動體驗。',
 			en: 'Lucien Hsieh is a digital narrative designer/developer who crafts narratives through web and print. Dedicated to creative data visualization, culture, and digital storytelling.',
 		},
 		coverImage: '',
@@ -35,8 +36,9 @@ const PROJECTS = [
 		no: '001',
 		name: '色々な色 iroironairo',
 		medium: 'Web',
-		year: '2024',
+		year: '2023',
 		type: 'project',
+		digitization: 70,
 		isOpen: true,
 		link: 'https://ienming.github.io/iroironairo/#/',
 		description: {
@@ -66,6 +68,7 @@ const PROJECTS = [
 		medium: 'Web/Poster',
 		year: '2021',
 		type: 'project',
+		digitization: 50,
 		isOpen: false,
 		description: {
 			zh: '2010~2020 年間 KKbox 排行第一名的歌曲中描述愛情的歌詞資料視覺化。',
