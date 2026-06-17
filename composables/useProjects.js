@@ -26,8 +26,8 @@ const PROJECTS = [
 		type: 'profile',
 		isOpen: false,
 		description: {
-			zh: '我是謝明倫，是一名數位敘事設計師，透過網頁開發、獨立出版創造故事。致力於創意資料視覺化、文化內容與敘事互動體驗。',
-			en: 'Lucien Hsieh is a digital narrative designer/developer who crafts narratives through web and print. Dedicated to creative data visualization, culture, and digital storytelling.',
+			zh: '我是一名跨領域設計師，關注並設計訊息如何被理解，透過網頁開發與獨立出版，將內容轉化為網頁敘事、創意資料視覺化與文化內容設計。',
+			en: 'Lucien Hsieh is a multidisciplinary designer and developer who crafts narratives through web development and independent publishing, designing how message is understood and transforming it into interactive digital narratives. Focused on web storytelling, creative data visualization, and cultural content',
 		},
 		coverImage: '',
 	},

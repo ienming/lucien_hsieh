@@ -3,6 +3,7 @@ import ModalOverlay from '../ModalOverlay.vue';
 const { isCoordinateModalOpen } = useCoordinate();
 
 const { projects } = useProjects();
+const { t } = useI18n();
 const { openModal } = useModal();
 const selectedWorkNumber = ref(null);
 
@@ -34,12 +35,20 @@ function goToProject(project) {
 	>
 		<div class="coordinate-modal">
 			<div class="coordinate-panel">
-				<p class="coordinate-chart-title">Chart 0-0. Works Coordinates</p>
+				<p>
+					This map explores how my practice shifts across media and time. My work operates
+					across three layers of understanding: interface systems that shape action,
+					narrative systems that structure experience over time, and meaning systems that
+					define how information is organized and interpreted.
+				</p>
+				<p class="coordinate-chart-title">
+					{{ t('chart') }} 0-0. {{ t('works_coordinate') }}
+				</p>
 				<div class="coordinate-chart">
 					<div class="chart-body">
 						<div class="axis-label y-axis">
-							<span>Digital</span>
-							<span>Analogue</span>
+							<span>{{ t('digital') }}</span>
+							<span>{{ t('physical') }}</span>
 						</div>
 						<div class="body-panel">
 							<div
@@ -82,8 +91,12 @@ function goToProject(project) {
 							</div>
 						</div>
 					</div>
-					<div class="axis-label x-axis">Year</div>
+					<div class="axis-label x-axis">{{ t('year') }}</div>
 				</div>
+				<ul>
+					<li>digital = interface-based thinking</li>
+					<li>physical = material / tactile thinking</li>
+				</ul>
 			</div>
 		</div>
 	</ModalOverlay>
@@ -110,10 +123,10 @@ function goToProject(project) {
 }
 
 .coordinate-chart-title {
-	font-size: 12px;
+	font-size: 14px;
 	font-weight: bold;
 	text-align: center;
-	margin-block-end: var(--spacing-sm);
+	margin-block-end: var(--spacing-md);
 }
 
 .coordinate-chart {
@@ -159,7 +172,7 @@ function goToProject(project) {
 	}
 
 	.axis-label {
-		font-size: 10px;
+		font-size: 12px;
 		color: var(--color-text-muted);
 	}
 }
