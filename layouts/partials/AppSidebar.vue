@@ -2,8 +2,8 @@
 import EnvironmentPanel from './EnvironmentPanel.vue';
 
 const { projects, currentIndex, progressLabel, goTo } = useProjects();
-const { isEnvOpen, language, isDark } = useEnvironment();
 const { isCoordinateModalOpen } = useCoordinate();
+const { t } = useI18n();
 const hoveredIndex = ref(null);
 
 const visibleDots = computed(() => {
@@ -31,13 +31,9 @@ const visibleDots = computed(() => {
 		<span
 			class="nav-link"
 			@click="isCoordinateModalOpen = true"
-			>作品分類</span
+			>{{ t('work_category') }}</span
 		>
-		<EnvironmentPanel
-			:is-open="isEnvOpen"
-			:language="language"
-			:is-dark="isDark"
-		/>
+		<EnvironmentPanel />
 		<section class="progress-hint">
 			<ul class="dot-list">
 				<li

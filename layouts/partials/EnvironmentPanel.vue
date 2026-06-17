@@ -4,13 +4,8 @@ import { offset } from '@floating-ui/dom';
 import { onClickOutside } from '@vueuse/core';
 import { LANG_KEY } from '@/composables/useI18n';
 
-defineProps({
-	isOpen: { type: Boolean, required: true },
-	language: { type: String, required: true },
-	isDark: { type: Boolean, required: true },
-});
-
-const { togglePanel, closePanel, toggleTheme, toggleLanguage } = useEnvironment();
+const { isEnvOpen, isDark, isEn, isZh, togglePanel, closePanel, toggleTheme, setLanguage } =
+	useEnvironment();
 const { t } = useI18n();
 const FLOADING_MARGIN = 10;
 
@@ -34,7 +29,7 @@ onClickOutside(floating, (_) => closePanel());
 		</button>
 		<Transition name="panel">
 			<div
-				v-if="isOpen"
+				v-if="isEnvOpen"
 				ref="floating"
 				class="env-panel"
 				:style="floatingStyles"
@@ -51,23 +46,44 @@ onClickOutside(floating, (_) => closePanel());
 						<span class="row-label">{{ t('translation') }}</span>
 						<button
 							class="row-toggle"
-							@click.stop="toggleLanguage"
+							@click.stop="setLanguage(LANG_KEY.zh)"
 						>
-							<span :class="{ 'is-active': language === LANG_KEY.zh }">ZH</span>
-							<span class="separator">/</span>
-							<span :class="{ 'is-active': language === LANG_KEY.en }">EN</span>
+							[
+							<span v-show="isZh">⦿</span>
+							<span v-show="!isZh">&nbsp;</span>
+							]
+							{{ LANG_KEY.zh }}
+						</button>
+						<button
+							class="row-toggle"
+							@click.stop="setLanguage(LANG_KEY.en)"
+						>
+							[
+							<span v-show="isEn">⦿</span>
+							<span v-show="!isEn">&nbsp;</span>
+							]
+							{{ LANG_KEY.en }}
 						</button>
 					</div>
-
 					<div class="panel-row">
 						<span class="row-label">{{ t('light') }}</span>
 						<button
 							class="row-toggle"
 							@click.stop="toggleTheme"
 						>
-							<span :class="{ 'is-active': !isDark }">ON</span>
-							<span class="separator">/</span>
-							<span :class="{ 'is-active': isDark }">OFF</span>
+							[
+							<span v-show="!isDark">⦿</span>
+							<span v-show="isDark">&nbsp;</span>
+							] ON
+						</button>
+						<button
+							class="row-toggle"
+							@click.stop="toggleTheme"
+						>
+							[
+							<span v-show="isDark">⦿</span>
+							<span v-show="!isDark">&nbsp;</span>
+							] OFF
 						</button>
 					</div>
 				</div>
@@ -110,7 +126,7 @@ onClickOutside(floating, (_) => closePanel());
 .panel-row {
 	display: flex;
 	flex-direction: column;
-	gap: var(--spacing-lg);
+	gap: var(--spacing-xs);
 	padding: var(--spacing-sm);
 	border-bottom: 1px solid var(--color-border);
 }
@@ -118,6 +134,7 @@ onClickOutside(floating, (_) => closePanel());
 .row-label {
 	font-size: 12px;
 	color: var(--color-text-faint);
+	margin-bottom: var(--spacing-md);
 }
 
 .row-toggle {
@@ -131,15 +148,6 @@ onClickOutside(floating, (_) => closePanel());
 
 	&:hover {
 		color: var(--color-text-primary);
-	}
-
-	.is-active {
-		color: var(--color-text-primary);
-		font-weight: 500;
-	}
-
-	.separator {
-		color: var(--color-text-faint);
 	}
 }
 

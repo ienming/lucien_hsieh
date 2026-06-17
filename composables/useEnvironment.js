@@ -12,8 +12,12 @@ export function useEnvironment() {
 	const isEn = computed(() => language.value === LANG_KEY.en);
 	const isZh = computed(() => language.value === LANG_KEY.zh);
 
-	function toggleLanguage() {
-		language.value = isEn.value ? LANG_KEY.zh : LANG_KEY.en;
+	function setLanguage(lang) {
+		if (lang !== LANG_KEY.zh && lang !== LANG_KEY.en) {
+			return;
+		}
+
+		language.value = lang;
 	}
 
 	function toggleTheme() {
@@ -57,7 +61,7 @@ export function useEnvironment() {
 
 	return {
 		language,
-		toggleLanguage,
+		setLanguage,
 		isDark,
 		toggleTheme,
 		initTheme,
