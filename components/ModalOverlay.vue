@@ -1,8 +1,12 @@
 <script setup>
+import { watch, useAttrs, onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
+
 defineOptions({
 	inheritAttrs: false,
 });
-const { open } = defineProps({
+
+const props = defineProps({
 	open: {
 		type: Boolean,
 		default: false,
@@ -16,29 +20,18 @@ const { open } = defineProps({
 		default: 'fade',
 	},
 });
+
 const emits = defineEmits(['update:open']);
 const attrs = useAttrs();
 const router = useRouter();
 
-const isOverlayOpen = ref(false);
-const isModalOpen = ref(false);
-const delayTime = 350;
-
 watch(
-	() => open,
+	() => props.open,
 	(newVal) => {
 		if (newVal) {
 			freezeBody();
-			isOverlayOpen.value = true;
-			setTimeout(() => {
-				isModalOpen.value = true;
-			}, delayTime);
 		} else {
 			unfreezeBody();
-			isModalOpen.value = false;
-			setTimeout(() => {
-				isOverlayOpen.value = false;
-			}, delayTime);
 		}
 	},
 );
@@ -63,34 +56,54 @@ onUnmounted(() => {
 
 <template>
 	<Teleport to="body">
-		<Transition name="fade">
+		<Transition
+			name="fade"
+			appear
+		>
 			<div
-				v-if="isOverlayOpen"
-				class="overlay"
+				v-if="props.open"
+				class="modal-backdrop"
+				@click="props.overlayClosable ? $emit('update:open', false) : null"
+			/>
+		</Transition>
+		<Transition
+			:name="props.transition"
+			appear
+		>
+			<div
+				v-if="props.open"
+				class="modal-content-wrapper"
 				:class="[attrs.class]"
-				@click.self="overlayClosable ? $emit('update:open', false) : null"
+				@click.self="props.overlayClosable ? $emit('update:open', false) : null"
 			>
-				<Transition
-					:name="transition"
-					mode="out-in"
-				>
-					<slot v-if="isModalOpen" />
-				</Transition>
+				<slot />
 			</div>
 		</Transition>
 	</Teleport>
 </template>
 
 <style lang="scss" scoped>
-.overlay {
+.modal-backdrop {
 	position: fixed;
 	top: 0;
 	left: 0;
 	z-index: var(--z-index-common-modal);
-	overflow: auto;
 	width: 100vw;
 	height: 100vh;
 	background-color: rgba(0, 0, 0, 0.5);
 	backdrop-filter: blur(4px);
+}
+
+.modal-content-wrapper {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: calc(var(--z-index-common-modal) + 1);
+	width: 100vw;
+	height: 100vh;
+	overflow: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 </style>

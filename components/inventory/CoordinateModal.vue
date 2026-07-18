@@ -104,18 +104,10 @@ function goToProject(project) {
 
 <style lang="scss" scoped>
 .coordinate-modal {
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 100%;
 	max-width: var(--card-max-width);
 	background: var(--color-surface);
 	border-radius: 16px;
 	padding: var(--spacing-lg);
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .coordinate-panel {

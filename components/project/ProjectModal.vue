@@ -176,10 +176,10 @@ function onDragEnd() {
 	border-radius: 16px 16px 0 0;
 	box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.15);
 	min-height: 85vh;
+	max-width: 94vw;
 
 	@media (min-width: 768px) {
 		margin: 8vh auto;
-		width: min(1200px, 90vw);
 		border-radius: 16px;
 		min-height: auto;
 		box-shadow: 0 8px 48px rgba(0, 0, 0, 0.2);
